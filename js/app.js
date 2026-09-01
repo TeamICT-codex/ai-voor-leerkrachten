@@ -15,7 +15,6 @@ import {
   modulesVanWorkshop,
   blokkenVanType,
   metKloktijden,
-  naarKlok,
 } from './cursus.js';
 import { GIDS_SECTIES, FAQ_GROEPEN } from './gids.js';
 
@@ -127,7 +126,6 @@ function navigeer() {
     hoofd.innerHTML = toonHome();
   }
 
-  document.body.dataset.weergave = r.naam;
   tekenKop();
   window.scrollTo(0, 0);
 }

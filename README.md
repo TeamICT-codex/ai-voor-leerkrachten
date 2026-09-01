@@ -34,6 +34,21 @@ Spoor B is inhoudelijk geïnspireerd op
 hertaald naar Vlaamse context (leerplandoelen en eindtermen, GDPR via de DPO
 van de scholengroep, Smartschool, KlasCement, terminologie lager/secundair).
 
+## Pagina's
+
+| Route | Wat | Voor wie |
+|---|---|---|
+| `#/` | Overzicht van beide sporen en alle workshops | iedereen |
+| `#/module/<id>` | De inhoud: uitleg, prompts, opdrachten, quizvragen, casussen | deelnemer |
+| `#/workshop/<id>` | Het draaiboek met kloktijden | begeleider |
+| `#/bundel/<id>` | Afdrukbare deelnemersbundel per workshop | deelnemer |
+| `#/prompts` | Promptkaart — alle promptvoorbeelden op één plek | iedereen |
+| `#/gids` | Begeleidersgids: voorbereiding, de zaal lezen, lastige vragen | begeleider |
+
+De begeleidersgids is enkel toegankelijk met begeleidersmodus aan. De casussen
+in module *Casussen: mag dit?* houden hun oordeel verborgen tot je erop klikt —
+anders leest de groep gewoon het antwoord en valt het gesprek weg.
+
 ## Draaiboeken
 
 Elk draaiboek bevat enkel duurtijden; de app rekent de kloktijden zelf uit
@@ -44,7 +59,9 @@ In begeleidersmodus krijg je bovendien:
 
 - **Start sessie** — markeert live welk blok bezig is en hoeveel minuten er nog
   resten.
-- **Afdrukken** — een papieren versie van het draaiboek, tips inbegrepen.
+- **Draaiboek afdrukken** — een papieren versie, begeleiderstips inbegrepen.
+- **Deelnemersbundel** — een aparte afdrukbare hand-out met de doelen, de
+  vuistregels, alle prompts en opdrachten van de sessie, en notitieruimte.
 - **Vooraf klaarzetten** — wat je vóór de sessie geregeld moet hebben.
 - **Valkuilen** — wat er in de praktijk misloopt bij deze sessie.
 
@@ -67,7 +84,8 @@ css/style.css         alle styling, mobiel-eerst, met afdrukblok onderaan
 js/inhoud.js          spoor A — inhoud (ChatGPT én Claude)
 js/inhoud-vibe.js     spoor B — inhoud (vibe coden, Claude)
 js/workshops.js       de zes draaiboeken + de sporen
-js/cursus.js          voegt de sporen samen, kloktijdberekening
+js/gids.js            begeleidersgids: begeleidingsadvies en de lastige vragen
+js/cursus.js          voegt de sporen samen, kloktijden, blokken verzamelen
 js/app.js             router, weergave, sessietimer, voortgang
 assets/favicon.svg
 ```
@@ -86,6 +104,7 @@ les bestaat uit blokken; de renderer kent deze types:
 | `vergelijk` | Zwakke versus sterke prompt naast elkaar. |
 | `opdracht` | Doe-opdracht met genummerde stappen. |
 | `quiz` | Meerkeuzevraag met feedback per antwoord. |
+| `casus` | Situatie om in groep te beoordelen. Het oordeel blijft verborgen tot de lezer klikt; de gespreksvraag verschijnt enkel in begeleidersmodus. |
 
 Een blok toevoegen vraagt dus geen code — enkel een object in de juiste les.
 Wil je een nieuw blok-*type*, dan voeg je een `case` toe in

@@ -602,7 +602,8 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
               padding-bottom: 1.1rem; border-bottom: 2px solid var(--inkt); margin-bottom: 1.4rem; }
 .bundel-kop h1 { font-size: 1.6rem; margin: .5rem 0 .2rem; }
 .bundel-kop > div > p { color: var(--inkt-zacht); margin: 0; font-size: .93rem; }
-.code.vibe { background: var(--vibe-licht); color: var(--vibe-donker); }
+.bundel .code { background: var(--ai-licht); color: var(--ai-donker); }
+.bundel .code.vibe { background: var(--vibe-licht); color: var(--vibe-donker); }
 .bundel-invul { display: flex; flex-direction: column; gap: .7rem; flex-shrink: 0; min-width: 190px; }
 .bundel-invul span { font-size: .78rem; color: var(--inkt-flauw); display: flex; align-items: baseline; gap: .4rem; }
 .bundel-invul i { flex: 1; border-bottom: 1px solid var(--lijn-sterk); height: 1.1em; }
