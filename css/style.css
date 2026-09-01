@@ -543,6 +543,114 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .verder { margin-top: 2rem; }
 .kaart.leeg { text-align: center; padding: 3rem 1.5rem; }
 
+
+/* ───────────────────────── snelkoppelingen ───────────────────────── */
+
+.snelkoppelingen { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.2rem; }
+.snel {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .7rem 1rem;
+  background: var(--wit); border: 1px solid var(--lijn);
+  border-radius: var(--straal); text-decoration: none; color: inherit;
+  box-shadow: var(--schaduw); transition: .15s;
+}
+.snel:hover { transform: translateY(-2px); border-color: var(--lijn-sterk); }
+.snel-icoon { font-size: 1.3rem; }
+.snel span span, .snel > span:last-child { display: flex; flex-direction: column; line-height: 1.3; }
+.snel strong { font-size: .92rem; }
+.snel small { font-size: .76rem; color: var(--inkt-flauw); }
+
+/* ───────────────────────────── casussen ───────────────────────────── */
+
+.casus {
+  border: 1px solid var(--lijn-sterk);
+  border-radius: var(--straal-klein);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  background: var(--wit);
+}
+.casus h4 { margin-bottom: .35rem; }
+.casus-situatie { font-size: .92rem; margin-bottom: .8rem; }
+.casus-knop { border-style: dashed; }
+.casus-antwoord { display: none; }
+.casus.open .casus-antwoord { display: block; }
+.casus.open { border-color: var(--inkt-flauw); }
+
+.oordeel {
+  display: inline-block; margin-bottom: .5rem;
+  font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  padding: .25rem .6rem; border-radius: 99px;
+}
+.oordeel-mag { background: var(--groen-licht); color: var(--groen); }
+.oordeel-mag-niet { background: var(--rood-licht); color: var(--rood); }
+.oordeel-hangt-ervan-af { background: #fff6e5; color: #8a6508; }
+.casus-antwoord p { font-size: .9rem; margin-bottom: .6rem; }
+.casus-discussie {
+  background: var(--paars-licht); border-radius: var(--straal-klein);
+  padding: .6rem .8rem; margin: 0 !important; font-size: .87rem !important;
+}
+.casus-discussie span {
+  display: block; font-size: .66rem; text-transform: uppercase; letter-spacing: .07em;
+  font-weight: 700; color: var(--paars); margin-bottom: .2rem;
+}
+
+/* ───────────────────────── deelnemersbundel ───────────────────────── */
+
+.bundel { background: var(--wit); border: 1px solid var(--lijn); border-radius: var(--straal);
+          padding: 1.8rem; box-shadow: var(--schaduw); }
+.bundel-kop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem;
+              padding-bottom: 1.1rem; border-bottom: 2px solid var(--inkt); margin-bottom: 1.4rem; }
+.bundel-kop h1 { font-size: 1.6rem; margin: .5rem 0 .2rem; }
+.bundel-kop > div > p { color: var(--inkt-zacht); margin: 0; font-size: .93rem; }
+.code.vibe { background: var(--vibe-licht); color: var(--vibe-donker); }
+.bundel-invul { display: flex; flex-direction: column; gap: .7rem; flex-shrink: 0; min-width: 190px; }
+.bundel-invul span { font-size: .78rem; color: var(--inkt-flauw); display: flex; align-items: baseline; gap: .4rem; }
+.bundel-invul i { flex: 1; border-bottom: 1px solid var(--lijn-sterk); height: 1.1em; }
+
+.bundel-blok { margin-bottom: 1.8rem; }
+.bundel-blok h2 { font-size: 1.05rem; padding-bottom: .35rem; border-bottom: 1px solid var(--lijn); margin-bottom: .8rem; }
+.bundel-hint { font-size: .82rem; color: var(--inkt-flauw); font-style: italic; }
+.vuistregel { font-size: .92rem; background: var(--papier); border-left: 3px solid var(--inkt-flauw);
+              padding: .7rem .9rem; border-radius: var(--straal-klein); }
+.bundel-prompt figcaption { flex-wrap: wrap; }
+.herkomst { font-size: .74rem; font-weight: 500; opacity: .75; }
+.bundel-modules { list-style: none; padding: 0; margin: 0; }
+.bundel-modules li { font-size: .89rem; margin-bottom: .4rem; padding-left: .2rem; }
+.bundel-modules a { font-weight: 600; text-decoration: none; }
+.bundel-modules a:hover { text-decoration: underline; }
+.notities .lijnen { display: flex; flex-direction: column; gap: 1.35rem; margin: .9rem 0 1.6rem; }
+.notities .lijnen i { display: block; border-bottom: 1px solid var(--lijn); }
+
+/* ───────────────────────── begeleidersgids ───────────────────────── */
+
+.gids-kop { border-top: 3px solid var(--paars); }
+.gids-sectie { margin-bottom: 1.2rem; }
+.gids-sectie h2 { font-size: 1.1rem; }
+.gids-inleiding { font-size: .9rem; color: var(--inkt-zacht); max-width: 68ch; }
+.gids-sectie dl { margin: 0; }
+.gids-sectie dt { font-weight: 650; font-size: .93rem; margin-top: .9rem; }
+.gids-sectie dd { margin: .2rem 0 0; font-size: .89rem; color: var(--inkt-zacht); max-width: 70ch; }
+
+.gids-faq { margin-top: 2.2rem; }
+.gids-faq > h2 { font-size: 1.2rem; }
+.faq-groep { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em;
+             color: var(--inkt-flauw); margin: 1.6rem 0 .6rem; }
+.faq { background: var(--wit); border: 1px solid var(--lijn); border-radius: var(--straal-klein);
+       margin-bottom: .5rem; }
+.faq summary { cursor: pointer; padding: .8rem 1rem; font-weight: 600; font-size: .93rem; list-style-position: inside; }
+.faq summary:hover { background: var(--papier); }
+.faq[open] summary { border-bottom: 1px solid var(--lijn); }
+.faq-lijf { padding: .9rem 1rem; }
+.faq-lijf p { font-size: .9rem; margin-bottom: .7rem; }
+.faq-tip { background: var(--paars-licht); border-radius: var(--straal-klein);
+           padding: .6rem .8rem; margin: 0 !important; font-size: .87rem !important; }
+.faq-tip span { display: block; font-size: .66rem; text-transform: uppercase; letter-spacing: .07em;
+                font-weight: 700; color: var(--paars); margin-bottom: .2rem; }
+
+.kaart-acties { display: flex; align-items: center; gap: .6rem; }
+.herkomst-link { font-size: .74rem; font-weight: 500; color: #b9c4d4; text-decoration: none; }
+.herkomst-link:hover { color: #fff; text-decoration: underline; }
+
 /* ───────────────────────────── smal scherm ───────────────────────────── */
 
 @media (max-width: 720px) {
@@ -560,6 +668,11 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   .blok { flex-direction: column; gap: .4rem; padding: .8rem .9rem; }
   .blok-tijd { flex-direction: row; align-items: baseline; gap: .5rem; width: auto; }
   .onthaal-cijfers { gap: 1.4rem; }
+  .bundel { padding: 1.1rem; }
+  .bundel-kop { flex-direction: column; gap: .9rem; }
+  .bundel-invul { min-width: 0; width: 100%; }
+  .snelkoppelingen { flex-direction: column; }
+  .snel { width: 100%; }
 }
 
 /* ───────────────────────────── afdrukken ─────────────────────────────
@@ -567,7 +680,16 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 */
 
 @media print {
-  #kop, #voet, .besturing, .kruimels, .modulelijst, .verder, .vink { display: none !important; }
+  #kop, #voet, .besturing, .kruimels, .modulelijst, .verder, .vink,
+  .schermonly, .casus-knop, .snelkoppelingen { display: none !important; }
+
+  /* Verborgen inhoud hoort op papier gewoon zichtbaar te zijn. */
+  .casus-antwoord, .faq-lijf { display: block !important; }
+  .faq summary { font-weight: 700; }
+  .bundel { border: none; padding: 0; }
+  .bundel-blok { break-inside: avoid; }
+  .notities { break-before: page; }
+  .gids-sectie { break-inside: avoid; }
   body { background: #fff; font-size: 11pt; }
   #hoofd { max-width: none; padding: 0; }
   .kaart, .blok, .les, .titelblok { box-shadow: none; break-inside: avoid; }

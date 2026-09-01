@@ -58,3 +58,32 @@ export function naarKlok(totaalMinuten) {
   const m = ((totaalMinuten % 1440) + 1440) % 1440;
   return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 }
+
+// Welke inhoudsmodules komen in deze workshop aan bod, in volgorde van het
+// draaiboek en zonder dubbels.
+export function modulesVanWorkshop(workshop) {
+  const gezien = new Set();
+  const uit = [];
+  for (const blok of workshop.draaiboek) {
+    if (!blok.module || gezien.has(blok.module)) continue;
+    const m = vindModule(blok.module);
+    if (!m) continue;
+    gezien.add(blok.module);
+    uit.push(m);
+  }
+  return uit;
+}
+
+// Alle blokken van een bepaald type uit een reeks modules, met vermelding van
+// waar ze vandaan komen. Gebruikt voor de promptkaart en de deelnemersbundel.
+export function blokkenVanType(modules, type) {
+  const uit = [];
+  for (const m of modules) {
+    for (const les of m.lessen) {
+      for (const blok of les.blokken) {
+        if (blok.type === type) uit.push({ blok, module: m, les });
+      }
+    }
+  }
+  return uit;
+}

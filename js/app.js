@@ -12,9 +12,12 @@ import {
   modulesVanSpoor,
   workshopsVanSpoor,
   workshopsVoorModule,
+  modulesVanWorkshop,
+  blokkenVanType,
   metKloktijden,
   naarKlok,
 } from './cursus.js';
+import { GIDS_SECTIES, FAQ_GROEPEN } from './gids.js';
 
 // ───────────────────────────── opslag ─────────────────────────────
 // Alles in een try/catch: in een privévenster of met geblokkeerde cookies
@@ -95,6 +98,9 @@ function route() {
   const delen = hash.split('/').filter(Boolean);
   if (delen[0] === 'workshop' && delen[1]) return { naam: 'workshop', id: delen[1] };
   if (delen[0] === 'module' && delen[1]) return { naam: 'module', id: delen[1] };
+  if (delen[0] === 'bundel' && delen[1]) return { naam: 'bundel', id: delen[1] };
+  if (delen[0] === 'gids') return { naam: 'gids' };
+  if (delen[0] === 'prompts') return { naam: 'prompts' };
   return { naam: 'home' };
 }
 
@@ -110,10 +116,18 @@ function navigeer() {
   } else if (r.naam === 'module') {
     const m = vindModule(r.id);
     hoofd.innerHTML = m ? toonModule(m) : toonNietGevonden();
+  } else if (r.naam === 'bundel') {
+    const w = vindWorkshop(r.id);
+    hoofd.innerHTML = w ? toonBundel(w) : toonNietGevonden();
+  } else if (r.naam === 'gids') {
+    hoofd.innerHTML = toonGids();
+  } else if (r.naam === 'prompts') {
+    hoofd.innerHTML = toonPromptkaart();
   } else {
     hoofd.innerHTML = toonHome();
   }
 
+  document.body.dataset.weergave = r.naam;
   tekenKop();
   window.scrollTo(0, 0);
 }
@@ -183,6 +197,20 @@ function toonHome() {
                voor draaiboeken met timing, tips en valkuilen.
              </div>`
       }
+      <div class="snelkoppelingen">
+        <a class="snel" href="#/prompts">
+          <span class="snel-icoon">📇</span>
+          <span><strong>Promptkaart</strong><small>Alle prompts op één plek</small></span>
+        </a>
+        ${
+          staat.begeleider
+            ? `<a class="snel" href="#/gids">
+                 <span class="snel-icoon">🧭</span>
+                 <span><strong>Begeleidersgids</strong><small>Voorbereiding, zaal lezen, lastige vragen</small></span>
+               </a>`
+            : ''
+        }
+      </div>
     </section>
 
     ${SPOREN.map(toonSpoor).join('')}
@@ -309,9 +337,10 @@ function toonWorkshop(w) {
               ? `<button class="knop ${staat.sessieStart ? 'stop' : 'primair'}" data-actie="sessie">
                    ${staat.sessieStart ? 'Sessie stoppen' : 'Start sessie'}
                  </button>
-                 <button class="knop stil" data-actie="print">Afdrukken</button>`
+                 <button class="knop stil" data-actie="print">Draaiboek afdrukken</button>`
               : ''
           }
+          <a class="knop stil" href="#/bundel/${w.id}">Deelnemersbundel</a>
         </div>
       </div>
 
@@ -527,6 +556,27 @@ function toonInhoudsblok(blok) {
           <ol>${blok.stappen.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
         </section>`;
 
+    case 'casus': {
+      // Het oordeel blijft verborgen tot de groep zelf beslist heeft — anders
+      // leest iedereen gewoon het antwoord en valt het gesprek weg.
+      const label = { mag: 'Mag', 'mag-niet': 'Mag niet', 'hangt-ervan-af': 'Hangt ervan af' };
+      return `
+        <section class="casus" data-casus>
+          <h4>${esc(blok.titel)}</h4>
+          <p class="casus-situatie">${esc(blok.situatie)}</p>
+          <button class="knop mini casus-knop" data-actie="casus">Toon het oordeel</button>
+          <div class="casus-antwoord">
+            <span class="oordeel oordeel-${esc(blok.oordeel)}">${label[blok.oordeel] || esc(blok.oordeel)}</span>
+            <p>${esc(blok.toelichting)}</p>
+            ${
+              staat.begeleider && blok.discussie
+                ? `<p class="casus-discussie"><span>Gooi dit in de groep</span> ${esc(blok.discussie)}</p>`
+                : ''
+            }
+          </div>
+        </section>`;
+    }
+
     case 'quiz':
       return `
         <section class="quiz" data-quiz>
@@ -547,6 +597,257 @@ function toonInhoudsblok(blok) {
     default:
       return '';
   }
+}
+
+// ─────────────────────── deelnemersbundel ───────────────────────
+// Afdrukbaar hand-out per workshop: wat je meeneemt, alle prompts en
+// opdrachten van de behandelde modules, en ruimte om te noteren.
+
+function toonBundel(w) {
+  const spoor = vindSpoor(w.spoor);
+  const modules = modulesVanWorkshop(w);
+  const prompts = blokkenVanType(modules, 'prompt');
+  const opdrachten = blokkenVanType(modules, 'opdracht');
+
+  return `
+    <nav class="kruimels schermonly">
+      <a href="#/">Overzicht</a> <span>›</span>
+      <a href="#/workshop/${w.id}">${esc(w.code)}</a> <span>›</span> Deelnemersbundel
+    </nav>
+
+    <div class="bundel">
+      <header class="bundel-kop">
+        <div>
+          <span class="code ${spoor.kleur === 'spoor-vibe' ? 'vibe' : ''}">${esc(w.code)}</span>
+          <h1>${esc(w.titel)}</h1>
+          <p>${esc(w.ondertitel)}</p>
+        </div>
+        <div class="bundel-invul">
+          <span>Naam <i></i></span>
+          <span>Datum <i></i></span>
+        </div>
+      </header>
+
+      <div class="besturing schermonly">
+        <button class="knop primair" data-actie="print">Bundel afdrukken</button>
+        <a class="knop stil" href="#/workshop/${w.id}">Terug naar het draaiboek</a>
+      </div>
+
+      <section class="bundel-blok">
+        <h2>Wat je vandaag meeneemt</h2>
+        <ul class="vinkjes">${w.doelen.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
+      </section>
+
+      <section class="bundel-blok">
+        <h2>De vuistregel</h2>
+        <p class="vuistregel">
+          Zet er niets in dat je niet op het prikbord in de leraarskamer zou hangen.
+          Geen namen van leerlingen, geen zorg- of CLB-gegevens, geen thuissituaties.
+          Vervang namen door <code>[LEERLING]</code> — het antwoord wordt er niet minder van.
+        </p>
+        <p class="vuistregel">
+          Het eerste antwoord is een <strong>ontwerp</strong>, geen eindproduct.
+          Stuur drie keer bij voor je oordeelt.
+          Feiten, cijfers, jaartallen en citaten check je altijd zelf na.
+        </p>
+      </section>
+
+      ${
+        prompts.length
+          ? `
+      <section class="bundel-blok">
+        <h2>Prompts uit deze sessie</h2>
+        <p class="bundel-hint schermonly">Deze staan ook online, met een kopieerknop.</p>
+        ${prompts
+          .map(
+            ({ blok, module }) => `
+          <figure class="promptblok bundel-prompt">
+            <figcaption>
+              <span>${esc(blok.titel)}</span>
+              <span class="herkomst">${module.icoon} ${esc(module.titel)}</span>
+            </figcaption>
+            <pre><code>${esc(blok.tekst)}</code></pre>
+            ${blok.uitleg ? `<p class="promptuitleg">${blok.uitleg}</p>` : ''}
+          </figure>`
+          )
+          .join('')}
+      </section>`
+          : ''
+      }
+
+      ${
+        opdrachten.length
+          ? `
+      <section class="bundel-blok">
+        <h2>Opdrachten</h2>
+        ${opdrachten
+          .map(
+            ({ blok }) => `
+          <section class="opdracht">
+            <h4>${esc(blok.titel)}</h4>
+            <p>${blok.inhoud}</p>
+            <ol>${blok.stappen.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
+          </section>`
+          )
+          .join('')}
+      </section>`
+          : ''
+      }
+
+      <section class="bundel-blok">
+        <h2>Verder lezen</h2>
+        <ul class="bundel-modules">
+          ${modules
+            .map(
+              (m) => `<li><a href="#/module/${m.id}">${m.icoon} ${esc(m.titel)}</a>
+                       — ${esc(m.ondertitel)}</li>`
+            )
+            .join('')}
+        </ul>
+      </section>
+
+      <section class="bundel-blok notities">
+        <h2>Eén ding dat ik volgende week doe</h2>
+        <div class="lijnen">${'<i></i>'.repeat(3)}</div>
+        <h2>Notities</h2>
+        <div class="lijnen">${'<i></i>'.repeat(10)}</div>
+      </section>
+    </div>`;
+}
+
+// ─────────────────────── begeleidersgids ───────────────────────
+
+function toonGids() {
+  if (!staat.begeleider) {
+    return `<div class="kaart leeg">
+      <h2>Begeleidersgids</h2>
+      <p>Deze gids is bedoeld voor wie de workshops geeft. Zet
+         <strong>begeleidersmodus</strong> aan rechtsboven om ze te bekijken.</p>
+      <p><a href="#/">Terug naar het overzicht</a></p>
+    </div>`;
+  }
+
+  const totaalVragen = FAQ_GROEPEN.reduce((s, g) => s + g.vragen.length, 0);
+
+  return `
+    <nav class="kruimels schermonly"><a href="#/">Overzicht</a> <span>›</span> Begeleidersgids</nav>
+
+    <header class="titelblok gids-kop">
+      <span class="code groot icoongroot">🧭</span>
+      <div>
+        <h1>Begeleidersgids</h1>
+        <p>Alles wat je nodig hebt om deze workshops te geven, los van één draaiboek.</p>
+        <div class="etiketten">
+          <span class="etiket-klein">${GIDS_SECTIES.length} onderdelen</span>
+          <span class="etiket-klein">${totaalVragen} lastige vragen</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="besturing schermonly">
+      <button class="knop stil" data-actie="print">Gids afdrukken</button>
+    </div>
+
+    ${GIDS_SECTIES.map(
+      (s) => `
+      <section class="kaart gids-sectie">
+        <h2>${s.icoon} ${esc(s.titel)}</h2>
+        <p class="gids-inleiding">${esc(s.inleiding)}</p>
+        <dl>
+          ${s.punten
+            .map((p) => `<dt>${esc(p.kop)}</dt><dd>${esc(p.tekst)}</dd>`)
+            .join('')}
+        </dl>
+      </section>`
+    ).join('')}
+
+    ${
+      totaalVragen
+        ? `
+      <section class="gids-faq">
+        <h2>Lastige vragen, en wat je erop antwoordt</h2>
+        <p class="gids-inleiding">
+          Deze vragen komen. Wuif ze niet weg — sommige bezwaren zijn terecht, en de
+          zaal kijkt hoe je ermee omgaat.
+        </p>
+        ${FAQ_GROEPEN.map(
+          (g) => `
+          <h3 class="faq-groep">${esc(g.titel)}</h3>
+          ${g.vragen
+            .map(
+              (v) => `
+            <details class="faq">
+              <summary>${esc(v.vraag)}</summary>
+              <div class="faq-lijf">
+                <p>${esc(v.antwoord)}</p>
+                <p class="faq-tip"><span>Regie</span> ${esc(v.tip)}</p>
+              </div>
+            </details>`
+            )
+            .join('')}`
+        ).join('')}
+      </section>`
+        : ''
+    }
+
+    <nav class="verder schermonly"><a class="knop stil" href="#/">← Terug naar het overzicht</a></nav>`;
+}
+
+// ─────────────────────── promptkaart ───────────────────────
+
+function toonPromptkaart() {
+  const perSpoor = SPOREN.map((spoor) => {
+    const modules = modulesVanSpoor(spoor.id);
+    return { spoor, prompts: blokkenVanType(modules, 'prompt') };
+  }).filter((g) => g.prompts.length);
+
+  const totaal = perSpoor.reduce((s, g) => s + g.prompts.length, 0);
+
+  return `
+    <nav class="kruimels schermonly"><a href="#/">Overzicht</a> <span>›</span> Promptkaart</nav>
+
+    <header class="titelblok">
+      <span class="code groot icoongroot">📇</span>
+      <div>
+        <h1>Promptkaart</h1>
+        <p>Alle promptvoorbeelden uit de cursus op één plek, om te kopiëren of af te drukken.</p>
+        <div class="etiketten"><span class="etiket-klein">${totaal} prompts</span></div>
+      </div>
+    </header>
+
+    <div class="besturing schermonly">
+      <button class="knop stil" data-actie="print">Promptkaart afdrukken</button>
+    </div>
+
+    ${perSpoor
+      .map(
+        (g) => `
+      <section class="spoor ${g.spoor.kleur}">
+        <div class="spoor-kop">
+          <div><h2>${esc(g.spoor.naam)}</h2></div>
+          <span class="tool-vlag">${esc(g.spoor.tools)}</span>
+        </div>
+        ${g.prompts
+          .map(
+            ({ blok, module }) => `
+          <figure class="promptblok">
+            <figcaption>
+              <span>${esc(blok.titel)}</span>
+              <span class="kaart-acties">
+                <a class="herkomst-link schermonly" href="#/module/${module.id}">${module.icoon} ${esc(module.titel)}</a>
+                <button class="knop mini schermonly" data-actie="kopieer">Kopieer</button>
+              </span>
+            </figcaption>
+            <pre><code>${esc(blok.tekst)}</code></pre>
+            ${blok.uitleg ? `<p class="promptuitleg">${blok.uitleg}</p>` : ''}
+          </figure>`
+          )
+          .join('')}
+      </section>`
+      )
+      .join('')}
+
+    <nav class="verder schermonly"><a class="knop stil" href="#/">← Terug naar het overzicht</a></nav>`;
 }
 
 // ───────────────────────────── interactie ─────────────────────────────
@@ -593,6 +894,12 @@ document.addEventListener('click', (e) => {
       },
       () => (knop.textContent = 'Lukt niet — selecteer zelf')
     );
+    return;
+  }
+
+  if (actie === 'casus') {
+    knop.closest('[data-casus]').classList.add('open');
+    knop.remove();
     return;
   }
 
