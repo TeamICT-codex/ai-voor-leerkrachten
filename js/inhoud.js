@@ -259,9 +259,9 @@ export const MODULES_AI = [
           },
                   {
             type: "prompt",
-            titel: "Het sjabloon met vier knoppen",
-            tekst: "ROL: Ik geef [VAK] in het [LEERJAAR] van het [lager / secundair] onderwijs.\n\nCONTEXT: [wat moet de assistent weten over deze klas of dit moment? bv. 24 leerlingen, groot niveauverschil, laatste lesuur van de dag, vorige les ging over ...]\n\nOPDRACHT: Maak [wat je precies wil: een uitleg / 8 oefeningen / een instapactiviteit / een werkblad] over [ONDERWERP].\n\nVORM: [hoe het eruit moet zien: maximaal 200 woorden / een tabel met 3 kolommen / een genummerde lijst met de antwoorden apart onderaan].\n\nVOORBEELD: hieronder een stuk materiaal van mezelf. Volg deze toon, opmaak en moeilijkheidsgraad:\n[PLAK EEN STUK VAN JE EIGEN MATERIAAL]",
-            uitleg: "Door de vier woorden er letterlijk bij te zetten, zie je in één oogopslag welke knop je nog niet hebt ingedrukt. Bewaar dit sjabloon één keer: voor een volgende les vervang je enkel de blokhaken, en het werkt voor eender welk vak.",
+            titel: "Het sjabloon om te bewaren",
+            tekst: "ROL: Ik geef [VAK] in het [LEERJAAR — bv. het vierde leerjaar of het derde middelbaar].\n\nCONTEXT: [wat moet de assistent weten over deze klas of dit moment? bv. 24 leerlingen, groot niveauverschil, laatste lesuur van de dag, vorige les ging over ...]\n\nOPDRACHT: Maak [wat je precies wil: een uitleg / 8 oefeningen / een instapactiviteit / een werkblad] over [ONDERWERP].\n\nVORM: [hoe het eruit moet zien: maximaal 200 woorden / een tabel met 3 kolommen / een genummerde lijst met de antwoorden apart onderaan].\n\nVOORBEELD (laat dit blok weg als je niets bij de hand hebt): hieronder een stuk materiaal van mezelf. Volg deze toon, opmaak en moeilijkheidsgraad:\n[PLAK EEN STUK VAN JE EIGEN MATERIAAL]",
+            uitleg: "Rond je eigenlijke opdracht staan de vier knoppen — rol, context, vorm en voorbeeld — er letterlijk bij, zodat je in één oogopslag ziet welke je nog niet hebt ingedrukt. Bewaar dit sjabloon één keer in je notities: voor een volgende les vervang je enkel de blokhaken, en het werkt voor eender welk vak.",
           },
         ],
       },
@@ -462,12 +462,12 @@ export const MODULES_AI = [
                   {
             type: "opdracht",
             titel: "Kraak je eigen toets",
-            inhoud: "Iedereen heeft wel een toets liggen die \"goed genoeg\" is. Haal die boven en laat ze doorlichten vóór je ze een volgende keer opnieuw gebruikt.",
+            inhoud: "Iedereen heeft wel een toets liggen die \"goed genoeg\" is. Haal die boven — digitaal, zodat je ze kan plakken — en laat ze doorlichten vóór je ze een volgende keer opnieuw gebruikt.",
             stappen: [
-              "Plak een toets die je al eens afgenomen hebt in een nieuw gesprek, met het leerjaar en het vak erbij.",
-              "Vraag een overzicht per vraag: welk denkniveau ze meet en hoeveel punten erop staan. Kijk zelf waar de verdeling scheefzit.",
-              "Stel daarna de controlevraag uit de tip hierboven en laat enkel de twee zwakste vragen herschrijven.",
-              "Vraag een verbetersleutel bij die nieuwe vragen en lees ze na: schrap alles wat niet klopt met hoe jij verbetert.",
+              "Plak een toets die je al eens afgenomen hebt in een nieuw gesprek. Zet erbij welk vak, welk leerjaar en hoeveel punten de toets in totaal telt.",
+              "Vraag een overzicht per vraag: meet ze weten, begrijpen of toepassen, en hoeveel punten staan er nu op? Laat geen nieuwe punten toekennen — het gaat enkel om de verdeling die er al is. Tel daarna zelf hoeveel vragen op weetniveau blijven steken.",
+              "Vraag vervolgens letterlijk: \"Welke vragen zijn dubbelzinnig, te sturend of te makkelijk te gokken?\" Laat enkel de twee zwakste vragen herschrijven.",
+              "Vraag een verbetersleutel bij die twee nieuwe vragen en lees hem na: schrap alles wat niet klopt met hoe jij verbetert.",
               "Bewaar de bijgewerkte toets meteen bij je lesmateriaal — dit is de versie die je volgende keer bovenhaalt.",
             ],
           },
@@ -541,6 +541,27 @@ export const MODULES_AI = [
               'Vraag om structuur, met "verzin niets bij".',
               'Lees na en corrigeer wat niet klopt.',
               'Klaar. Merk hoeveel korter dat duurde dan anders.',
+            ],
+          },
+                  {
+            type: "quiz",
+            vraag: "Je laat een verslag maken van je ruwe vergaderingsnotities en zet erbij: \"Verzin niets bij.\" Waarom is die ene zin zo nuttig?",
+            opties: [
+              {
+                tekst: "Zonder die zin vult de assistent de gaten in je notities op met tekst die aannemelijk klinkt maar nooit gezegd is.",
+                juist: true,
+                feedback: "Juist. Een assistent maakt van losse flarden graag een vloeiend geheel, en dan sluipt er inhoud binnen die niemand op die vergadering uitgesproken heeft. In een verslag dat collega's later als afspraak lezen, is dat een echt probleem.",
+              },
+              {
+                tekst: "Zonder die zin wordt het verslag veel te lang.",
+                juist: false,
+                feedback: "Lengte stuur je met een andere instructie — \"maximaal één bladzijde\" of \"hou het bij de afspraken\". \"Verzin niets bij\" gaat niet over hoeveel er staat, maar over of het klopt.",
+              },
+              {
+                tekst: "Zonder die zin mag je geen persoonsgegevens in het gesprek zetten.",
+                juist: false,
+                feedback: "Dat zijn twee losse regels. Namen en gegevens laat je sowieso weg, met of zonder deze zin. \"Verzin niets bij\" beschermt de juistheid van je verslag, niet de privacy van je collega's.",
+              },
             ],
           },
         ],

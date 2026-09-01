@@ -267,13 +267,13 @@ export const MODULES_VIBE = [
                   {
             type: "opdracht",
             titel: "Test als drie leerlingen",
-            inhoud: "Rondklikken tot het lijkt te werken is geen test. Je doorloopt je eigen app nu drie keer na elkaar, telkens in het hoofd van een andere leerling, en je verzamelt alles wat misloopt vóór je iets laat aanpassen.",
+            inhoud: "Rondklikken tot het lijkt te werken is geen test. Je doorloopt een app vier keer — drie keer in het hoofd van een andere leerling, één keer op het toestel waarop hij écht gebruikt wordt — en je verzamelt alles wat misloopt vóór je iets laat aanpassen.",
             stappen: [
-              "Doorloop je app drie keer volledig: één ronde als de slimste leerling, één als de traagste, één als de lastigste.",
-              "Noteer per ronde wat er misloopt. Nog niet bijsturen — eerst alles verzamelen.",
-              "Schrijf elke fout als één zin: wat je deed, wat je zag, en wat er had moeten gebeuren.",
-              "Zet die zinnen onder elkaar in één bericht aan Claude en vraag om ze allemaal op te lossen zonder de rest te veranderen.",
-              "Doe de drie rondes opnieuw en bewaar de versie die alle drie doorstaat onder een nieuw versienummer.",
+              "Ruil met je buur: jij test zijn app, hij de jouwe. Werk je alleen, test dan je eigen app, maar wees streng.",
+              "Ronde 1 — de vlotte leerling: vul alles juist in en kijk of de app daar juist op reageert. Ronde 2 — de leerling die het niet meteen snapt: lees enkel wat op het scherm staat en kijk of je zonder uitleg verder raakt.",
+              "Ronde 3 — de leerling die alles uitprobeert: lege velden, dubbelklikken, rare invoer, drie keer na elkaar op verzenden. Ronde 4: open dezelfde pagina op een gsm of op het smartboard en kijk wat daar anders loopt.",
+              "Noteer elke fout als één zin: wat je deed, wat je zag, en wat er had moeten gebeuren. Nog niets bijsturen — eerst alles verzamelen.",
+              "Zet die zinnen onder elkaar in één bericht aan Claude met de vraag ze allemaal op te lossen zonder de rest te veranderen, bewaar de nieuwe versie onder een volgend nummer en hertest enkel wat op je lijstje stond.",
             ],
           },
         ],
@@ -366,7 +366,7 @@ export const MODULES_VIBE = [
           },
                   {
             type: "quiz",
-            vraag: "Je oefenpagina staat online via een gratis dienst. De link is lang en kryptisch, en je deelde hem enkel in Smartschool. Wat mag er dan op die pagina staan?",
+            vraag: "Je oefenpagina staat online via een gratis dienst. De link is lang en cryptisch, en je deelde hem enkel in Smartschool. Wat mag er op die pagina staan?",
             opties: [
               {
                 tekst: "Gerust ook gevoelige dingen: op zo'n link botst niemand toevallig.",
@@ -376,7 +376,7 @@ export const MODULES_VIBE = [
               {
                 tekst: "Enkel wat openbaar mag zijn. Een link is geen slot.",
                 juist: true,
-                feedback: "Juist. Zolang er geen wachtwoord op staat, behandel je alles op die pagina als openbaar — ook de tekst die enkel in de code zit, zoals de juiste antwoorden.",
+                feedback: "Juist. Wie de link heeft, ziet alles op die pagina — ook de tekst die enkel in de code zit, zoals de juiste antwoorden. Moet iets afgeschermd blijven, dan hoort het niet op zo'n pagina.",
               },
               {
                 tekst: "Alles, zolang je er geen eigen domeinnaam aan koppelt.",
@@ -520,13 +520,13 @@ export const MODULES_VIBE = [
                   {
             type: "opdracht",
             titel: "Beslis wat je app onthoudt",
-            inhoud: "Neem je eigen project erbij en maak die keuze bewust in plaats van per ongeluk. Je eindigt met een app die niets méér bijhoudt dan nodig, plus een half blaadje dat je zo aan je DPO kan voorleggen.",
+            inhoud: "Neem je eigen project erbij en maak die keuze bewust in plaats van per ongeluk — ook als de uitkomst is dat je niets bewaart. Je eindigt met een app die niet meer bijhoudt dan nodig, en met vijf regels op papier die zeggen wat er wél bewaard wordt.",
             stappen: [
-              "Schrijf de drie dingen op die jouw app zou moeten onthouden nadat de leerling het tabblad sluit — en schrap er dan twee.",
-              "Duid bij wat overblijft aan waar het thuishoort: nergens, in de browser van de leerling, of in een echte database.",
-              "Vervang alles wat naar een leerling verwijst door een klasnummer of een zelfgekozen bijnaam.",
-              "Vraag Claude om je app zo aan te passen, met een knop waarmee de leerling zijn eigen gegevens wist.",
-              "Vat in vijf regels samen wat je bewaart, waar het staat en hoe het verdwijnt. Dat blaadje neem je mee naar je DPO.",
+              "Schrijf op wat jouw app zou moeten onthouden nadat de leerling het tabblad sluit. Schrap daarna alles waar je les even goed zonder kan — vaak blijft er niets over, en dat is een prima uitkomst.",
+              "Duid bij wat overblijft aan waar het thuishoort: nergens, in de browser van de leerling, of in een echte database. Kom je bij een echte database uit, hou dat dan voor na de workshop: dat is een sessie werk apart.",
+              "Blijft er iets over? Vervang elke verwijzing naar een leerling door een klasnummer of een zelfgekozen bijnaam. Blijft er niets over? Vraag Claude te bevestigen dat je pagina echt nergens iets wegschrijft, en waar je dat in je bestand ziet.",
+              "Bewaar je iets, vraag Claude dan om je app zo aan te passen, met een knop waarmee de leerling zijn eigen gegevens wist — en klik die knop meteen zelf aan. Bewaar in beide gevallen het resultaat onder een nieuw versienummer, zodat je terug kan als er iets stukgaat.",
+              "Vat in vijf regels samen wat je bewaart, waar het staat en hoe het verdwijnt. Staat er iets in dat naar een leerling verwijst, dan is dat blaadje je vertrekpunt voor een gesprek van tien minuten met de DPO van je scholengroep.",
             ],
           },
         ],
@@ -660,13 +660,13 @@ export const MODULES_VIBE = [
                   {
             type: "opdracht",
             titel: "Veiligheidscheck vóór je deelt",
-            inhoud: "Vóór je link bij leerlingen belandt, loop je de drie punten na die je écht geld kunnen kosten. Je doet dit op je eigen project en houdt er een checklist aan over die je bij elke volgende versie hergebruikt.",
+            inhoud: "Vóór je link bij leerlingen belandt, loop je de drie punten na die je écht geld kunnen kosten: je sleutel, je uitgavenlimiet en de lengte van de antwoorden. Heb je zelf nog geen AI-functie draaien, doe de check dan mee op het project van een collega die er wel een heeft — de checklist die je overhoudt, gebruik je bij elke volgende versie.",
             stappen: [
-              "Vraag Claude waar je sleutel in dit project staat en of iemand die kan uitlezen; laat hem verhuizen naar een serverfunctie als dat nog niet zo is.",
-              "Open je pagina zelf, laat de broncode zien — de tekst achter de pagina — en zoek daarin de eerste tekens van je sleutel. Vind je hem: trek hem meteen in en maak een nieuwe aan.",
+              "Vraag Claude om je hele project na te kijken, ook de bestanden die apart worden ingeladen: staat je sleutel ergens in wat de leerling binnenkrijgt? Laat hem antwoorden met ja of nee, en met de plaats waar hij hem vond.",
+              "Kijk zelf mee: rechtermuisklik op je pagina, vraag de broncode op — de tekst achter de pagina — en zoek daarin de eerste vier tekens van je sleutel. Vind je hem, of vond Claude hem: trek hem meteen in bij je AI-dienst en maak een nieuwe aan.",
               "Zet bij je AI-dienst een uitgavenlimiet op een bedrag dat je zonder pijn kan missen.",
-              "Typ als 'leerling' een veel te lang, warrig antwoord in en kijk of het AI-antwoord kort blijft. Zo niet: vraag een harde maximumlengte.",
-              "Noteer de drie punten met de datum in je projectbestand, als checklist voor je volgende versie.",
+              "Typ als leerling een veel te lang, warrig antwoord in en kijk of het AI-antwoord kort blijft. Blijft het lang, vraag Claude dan om een harde maximumlengte in te bouwen.",
+              "Noteer je drie punten — sleutel, uitgavenlimiet, antwoordlengte — met de datum op een blad dat je bij je project bewaart. Stond je sleutel in de pagina, dan is je volgende werksessie duidelijk: hem met Claude naar een serverfunctie verhuizen, met de prompt hierboven.",
             ],
           },
         ],
