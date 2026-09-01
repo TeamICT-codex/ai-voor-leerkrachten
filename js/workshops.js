@@ -317,10 +317,11 @@ export const WORKSHOPS = [
         soort: 'doen',
         minuten: 25,
         titel: 'Casussen: mag dit?',
-        wat: 'In groepjes van drie: tien situaties beoordelen op mag / mag niet / hangt ervan af.',
+        wat: 'In groepjes van drie: veertien situaties beoordelen op mag / mag niet / hangt ervan af.',
+        module: 'casussen',
         tips: [
           'De "hangt ervan af"-gevallen leveren het beste gesprek op. Zet er bewust enkele in.',
-          'Neem casussen op die op jullie scholen echt gebeuren.',
+          'De casussen staan klaar in de gekoppelde module. Vul ze aan met één geval dat op jullie eigen school speelde — dat landt het hardst.',
           'Laat elk groepje één casus plenair verdedigen.',
         ],
       },

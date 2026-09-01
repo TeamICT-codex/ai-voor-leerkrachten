@@ -264,6 +264,18 @@ export const MODULES_VIBE = [
             inhoud:
               'Vraag standaard om voldoende contrast, een leesbaar lettertype en feedback die niet enkel op kleur steunt. Kost je één regel in je prompt en maakt je materiaal bruikbaar voor élke leerling in je klas.',
           },
+                  {
+            type: "opdracht",
+            titel: "Test als drie leerlingen",
+            inhoud: "Rondklikken tot het lijkt te werken is geen test. Je doorloopt je eigen app nu drie keer na elkaar, telkens in het hoofd van een andere leerling, en je verzamelt alles wat misloopt vóór je iets laat aanpassen.",
+            stappen: [
+              "Doorloop je app drie keer volledig: één ronde als de slimste leerling, één als de traagste, één als de lastigste.",
+              "Noteer per ronde wat er misloopt. Nog niet bijsturen — eerst alles verzamelen.",
+              "Schrijf elke fout als één zin: wat je deed, wat je zag, en wat er had moeten gebeuren.",
+              "Zet die zinnen onder elkaar in één bericht aan Claude en vraag om ze allemaal op te lossen zonder de rest te veranderen.",
+              "Doe de drie rondes opnieuw en bewaar de versie die alle drie doorstaat onder een nieuw versienummer.",
+            ],
+          },
         ],
       },
     ],
@@ -351,6 +363,33 @@ export const MODULES_VIBE = [
               'Maak een QR-code van de link.',
               'Stuur de link naar één collega en vraag om het één keer uit te proberen zonder jouw uitleg erbij.',
             ],
+          },
+                  {
+            type: "quiz",
+            vraag: "Je oefenpagina staat online via een gratis dienst. De link is lang en kryptisch, en je deelde hem enkel in Smartschool. Wat mag er dan op die pagina staan?",
+            opties: [
+              {
+                tekst: "Gerust ook gevoelige dingen: op zo'n link botst niemand toevallig.",
+                juist: false,
+                feedback: "Toevallig niet, dat klopt. Maar één keer doorgestuurd of even op een scherm getoond, en de link leeft verder — onvindbaar is niet hetzelfde als afgeschermd.",
+              },
+              {
+                tekst: "Enkel wat openbaar mag zijn. Een link is geen slot.",
+                juist: true,
+                feedback: "Juist. Zolang er geen wachtwoord op staat, behandel je alles op die pagina als openbaar — ook de tekst die enkel in de code zit, zoals de juiste antwoorden.",
+              },
+              {
+                tekst: "Alles, zolang je er geen eigen domeinnaam aan koppelt.",
+                juist: false,
+                feedback: "Begrijpelijk gedacht, maar een domeinnaam is enkel een kortere naam voor dezelfde pagina. Of ze publiek staat, verandert er niet door.",
+              },
+            ],
+          },
+                  {
+            type: "prompt",
+            titel: "Handleiding voor je collega's",
+            tekst: "Ik wil deze pagina delen met collega's, onder andere op KlasCement.\n\nSchrijf er een korte gebruiksaanwijzing bij voor een leerkracht die mij niet kan vragen hoe het werkt.\n\nGeef me:\n- Een titel en twee zinnen die zeggen wat het is.\n- Voor wie het bedoeld is: [LEERJAAR EN VAK], en bij welk leerplandoel het past: [LEERPLANDOEL].\n- Wat de leerling doet, in 3 stappen.\n- Hoeveel lestijd het ongeveer kost: [AANTAL MINUTEN].\n- Wat je nodig hebt: toestellen, internet, of niets van dat alles.\n- Eén zin over wat een collega zelf makkelijk kan aanpassen.\n\nBaseer je op het bestand zelf, niet op mijn beschrijving. Gewone taal, geen technische termen, maximaal een half A4.",
+            uitleg: "De truc zit in \"baseer je op het bestand zelf\": zo krijg je een beschrijving van wat je pagina écht doet, en merk je meteen als er iets anders in zit dan je dacht. \"Voor een leerkracht die mij niet kan vragen hoe het werkt\" haalt er alle vanzelfsprekendheden uit die enkel voor jou vanzelfsprekend zijn.",
           },
         ],
       },
@@ -478,6 +517,18 @@ export const MODULES_VIBE = [
             uitleg:
               '"Zeg bij elke stap wat ik zie op het scherm" is de zin die technische uitleg bruikbaar maakt voor niet-technische mensen. Gebruik hem overal.',
           },
+                  {
+            type: "opdracht",
+            titel: "Beslis wat je app onthoudt",
+            inhoud: "Neem je eigen project erbij en maak die keuze bewust in plaats van per ongeluk. Je eindigt met een app die niets méér bijhoudt dan nodig, plus een half blaadje dat je zo aan je DPO kan voorleggen.",
+            stappen: [
+              "Schrijf de drie dingen op die jouw app zou moeten onthouden nadat de leerling het tabblad sluit — en schrap er dan twee.",
+              "Duid bij wat overblijft aan waar het thuishoort: nergens, in de browser van de leerling, of in een echte database.",
+              "Vervang alles wat naar een leerling verwijst door een klasnummer of een zelfgekozen bijnaam.",
+              "Vraag Claude om je app zo aan te passen, met een knop waarmee de leerling zijn eigen gegevens wist.",
+              "Vat in vijf regels samen wat je bewaart, waar het staat en hoe het verdwijnt. Dat blaadje neem je mee naar je DPO.",
+            ],
+          },
         ],
       },
     ],
@@ -604,6 +655,18 @@ export const MODULES_VIBE = [
                 feedback:
                   'Zeker nakijken, maar een gelekte sleutel is dringender — die loopt door terwijl jij lesgeeft.',
               },
+            ],
+          },
+                  {
+            type: "opdracht",
+            titel: "Veiligheidscheck vóór je deelt",
+            inhoud: "Vóór je link bij leerlingen belandt, loop je de drie punten na die je écht geld kunnen kosten. Je doet dit op je eigen project en houdt er een checklist aan over die je bij elke volgende versie hergebruikt.",
+            stappen: [
+              "Vraag Claude waar je sleutel in dit project staat en of iemand die kan uitlezen; laat hem verhuizen naar een serverfunctie als dat nog niet zo is.",
+              "Open je pagina zelf, laat de broncode zien — de tekst achter de pagina — en zoek daarin de eerste tekens van je sleutel. Vind je hem: trek hem meteen in en maak een nieuwe aan.",
+              "Zet bij je AI-dienst een uitgavenlimiet op een bedrag dat je zonder pijn kan missen.",
+              "Typ als 'leerling' een veel te lang, warrig antwoord in en kijk of het AI-antwoord kort blijft. Zo niet: vraag een harde maximumlengte.",
+              "Noteer de drie punten met de datum in je projectbestand, als checklist voor je volgende versie.",
             ],
           },
         ],

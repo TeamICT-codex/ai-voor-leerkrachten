@@ -110,7 +110,15 @@ python3 -m http.server 8000
 ## Stand van zaken
 
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
-- 11 modules, 26 lessen. Deelnemersinhoud en begeleiderslaag werken.
-- **Nog te doen:** de tien casussen voor A3 zijn nog niet uitgeschreven (staan
-  nu enkel als opdracht in het draaiboek), en een afdrukbare deelnemersbundel
-  ontbreekt.
+- 12 modules, 28 lessen, 130 inhoudsblokken.
+- Pagina's: overzicht, module, draaiboek, deelnemersbundel, promptkaart,
+  begeleidersgids. Zie README voor de routes.
+- 14 casussen voor het groepswerk in A3, gespreid over mag / mag niet /
+  hangt ervan af.
+- Begeleidersgids met 22 lastige vragen, principieel en praktisch.
+- Elke module heeft nu minstens één prompt, één opdracht en één quizvraag,
+  behalve waar dat didactisch niet past. Controleer dat bij het toevoegen van
+  een module — de deelnemersbundel trekt precies die blokken op.
+
+**Nog te doen:** nog geen deployment (Vercel of Netlify koppelen aan de repo
+volstaat; statische site zonder build-stap).

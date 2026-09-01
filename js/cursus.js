@@ -2,13 +2,14 @@
 // mee werkt. De inhoudsbestanden blijven zo pure data.
 
 import { MODULES_AI } from './inhoud.js';
+import { MODULE_CASUSSEN } from './casussen.js';
 import { MODULES_VIBE } from './inhoud-vibe.js';
 import { WORKSHOPS, SPOREN } from './workshops.js';
 
 // Elke module krijgt zijn spoor mee, zodat de app niet hoeft te weten uit
 // welk bestand ze komt.
 export const MODULES = [
-  ...MODULES_AI.map((m) => ({ ...m, spoor: 'ai' })),
+  ...[...MODULES_AI, MODULE_CASUSSEN].map((m) => ({ ...m, spoor: 'ai' })),
   ...MODULES_VIBE.map((m) => ({ ...m, spoor: 'vibe' })),
 ];
 
