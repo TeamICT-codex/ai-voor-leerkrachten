@@ -1,0 +1,9 @@
+# Niets te bouwen, dus weinig te negeren — maar dit sluipt er anders in.
+.DS_Store
+Thumbs.db
+node_modules/
+*.log
+
+# Lokale bewerkingsomgeving
+.vscode/
+.idea/

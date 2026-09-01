@@ -1,0 +1,105 @@
+# AI voor leerkrachten
+
+Digitale leeromgeving én workshopmateriaal om leerkrachten lager en secundair
+onderwijs te leren werken met AI. Gemaakt voor deelnemers die nog nooit met
+ChatGPT of Claude werkten.
+
+De omgeving dient twee doelen tegelijk:
+
+- **Voor de deelnemer** — de inhoud om tijdens en na de workshop door te nemen,
+  met kopieerbare prompts, doe-opdrachten en quizvragen.
+- **Voor de begeleider** — draaiboeken met timing, begeleiderstips, valkuilen
+  en een sessietimer. Zet **begeleidersmodus** aan (rechtsboven).
+
+## Opzet
+
+Zes workshops van elk **drie uur inclusief pauze**, verdeeld over twee sporen.
+
+| Spoor | Workshop | Inhoud | Tool |
+|---|---|---|---|
+| A — AI in de klas | **A1** AI leren kennen | Eerste gesprek + goede opdrachten geven | ChatGPT of Claude |
+| | **A2** Lesmateriaal maken | Lesopbouw, differentiatie, toetsen, feedback | ChatGPT of Claude |
+| | **A3** Veilig, ethisch en met leerlingen | Privacy, betrouwbaarheid, AI-geletterdheid | ChatGPT of Claude |
+| B — Vibe coden | **B1** Basis | Van onderwijsprobleem naar werkende webapp | Claude |
+| | **B2** Verdieping | Gegevens, leerlingdata, versiebeheer, publiceren | Claude |
+| | **B3** AI in je eigen tool | AI-functies, modelkeuze, kosten, veiligheid | Claude |
+
+Spoor A is bewust **tool-neutraal**: onze scholen gebruiken zowel ChatGPT als
+Claude, en de vaardigheden zijn identiek. Waar het echt verschilt, staat een
+blauw *tool*-kader. Spoor B werkt wél met Claude, omdat dat wat het bouwt
+meteen als werkende pagina toont — dat scheelt in een zaal vol beginners.
+
+Spoor B is inhoudelijk geïnspireerd op
+[vibecodenvoordocenten.vercel.app](https://vibecodenvoordocenten.vercel.app/),
+hertaald naar Vlaamse context (leerplandoelen en eindtermen, GDPR via de DPO
+van de scholengroep, Smartschool, KlasCement, terminologie lager/secundair).
+
+## Draaiboeken
+
+Elk draaiboek bevat enkel duurtijden; de app rekent de kloktijden zelf uit
+vanaf het startuur dat je bovenaan instelt. Hetzelfde draaiboek werkt dus voor
+een pedagogische studiedag om 9u en voor een namiddagsessie om 13u30.
+
+In begeleidersmodus krijg je bovendien:
+
+- **Start sessie** — markeert live welk blok bezig is en hoeveel minuten er nog
+  resten.
+- **Afdrukken** — een papieren versie van het draaiboek, tips inbegrepen.
+- **Vooraf klaarzetten** — wat je vóór de sessie geregeld moet hebben.
+- **Valkuilen** — wat er in de praktijk misloopt bij deze sessie.
+
+## Lokaal draaien
+
+Geen build-stap en geen afhankelijkheden, maar de app gebruikt ES-modules —
+die laden niet via `file://`. Start dus een kleine server:
+
+```bash
+python3 -m http.server 8000
+```
+
+Daarna surf je naar <http://localhost:8000>.
+
+## Structuur
+
+```
+index.html            de volledige pagina-omhulling
+css/style.css         alle styling, mobiel-eerst, met afdrukblok onderaan
+js/inhoud.js          spoor A — inhoud (ChatGPT én Claude)
+js/inhoud-vibe.js     spoor B — inhoud (vibe coden, Claude)
+js/workshops.js       de zes draaiboeken + de sporen
+js/cursus.js          voegt de sporen samen, kloktijdberekening
+js/app.js             router, weergave, sessietimer, voortgang
+assets/favicon.svg
+```
+
+## Inhoud aanpassen of uitbreiden
+
+Alle tekst zit in `js/inhoud.js` en `js/inhoud-vibe.js` als gewone data. Een
+les bestaat uit blokken; de renderer kent deze types:
+
+| Type | Waarvoor |
+|---|---|
+| `tekst` | Een paragraaf. Mag `<strong>`, `<em>` en `<code>` bevatten. |
+| `lijst` | Opsomming; `geordend: true` maakt er een genummerde lijst van. |
+| `kader` | Uitgelicht kadertje. Varianten: `tip`, `letop`, `privacy`, `weetje`, `tool`. |
+| `prompt` | Kopieerbaar promptvoorbeeld met uitleg eronder. |
+| `vergelijk` | Zwakke versus sterke prompt naast elkaar. |
+| `opdracht` | Doe-opdracht met genummerde stappen. |
+| `quiz` | Meerkeuzevraag met feedback per antwoord. |
+
+Een blok toevoegen vraagt dus geen code — enkel een object in de juiste les.
+Wil je een nieuw blok-*type*, dan voeg je een `case` toe in
+`toonInhoudsblok()` in `js/app.js` plus de bijbehorende styling.
+
+Een workshopblok verwijst via `module: '<module-id>'` naar de inhoud, zodat de
+deelnemer vanuit het draaiboek kan doorklikken.
+
+Let op bij het bijwerken van een draaiboek: de som van de blokken moet 180
+minuten blijven.
+
+## Voortgang
+
+Afgevinkte lessen en je instellingen blijven in de browser van de gebruiker
+bewaard (`localStorage`). Er wordt niets verstuurd en er is geen server nodig.
+In een privévenster of met geblokkeerde cookies werkt de app gewoon door,
+alleen wordt er dan niets onthouden.
