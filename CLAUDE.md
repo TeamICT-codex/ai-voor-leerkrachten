@@ -120,5 +120,22 @@ python3 -m http.server 8000
   behalve waar dat didactisch niet past. Controleer dat bij het toevoegen van
   een module — de deelnemersbundel trekt precies die blokken op.
 
+### Verificatiestatus van de inhoud
+
+Niet alles is even grondig nagekeken. Hou dit bij als je verder schrijft:
+
+- **Nagekeken en gecorrigeerd:** de acht ontbrekende blokken (drie lenzen), en
+  casussen 1 tot 10 (juridisch, didactisch, Vlaamse herkenbaarheid).
+- **NIET nagekeken:** de laatste vier casussen (spreekbeurt, vervangles, verslag
+  voor het CLB, spelling bij dyslexie), de volledige begeleiders-FAQ (22 vragen)
+  en de quizvraag van de module administratie. Die verificatie liep vast op een
+  sessielimiet. Lees ze extra kritisch, of laat ze alsnog nakijken.
+
+Wat die nakijkronde opleverde is leerzaam voor wie hier verder schrijft: de
+terugkerende fouten waren Nederlands-Nederlandse termen (docent, werkstuk,
+cijfer voor punt), verouderde studierichtingen, secundair-terminologie in een
+lager-onderwijscasus (klassenraad in plaats van MDO/zorgoverleg), en adviezen
+die het sterkste tegenargument wegwuiven in plaats van beantwoorden.
+
 **Nog te doen:** nog geen deployment (Vercel of Netlify koppelen aan de repo
 volstaat; statische site zonder build-stap).
