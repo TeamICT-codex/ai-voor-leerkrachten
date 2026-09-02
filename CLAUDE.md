@@ -48,6 +48,7 @@ schrijfkeuze:
 
 ```
 js/inhoud.js        spoor A — inhoud
+js/casussen.js      spoor A — casussenmodule (groepswerk A3)
 js/inhoud-vibe.js   spoor B — inhoud
 js/workshops.js     draaiboeken + sporen
 js/cursus.js        voegt sporen samen, kloktijden
@@ -82,7 +83,8 @@ node --input-type=module -e "
 import { WORKSHOPS } from './js/workshops.js';
 import { MODULES_AI } from './js/inhoud.js';
 import { MODULES_VIBE } from './js/inhoud-vibe.js';
-const ids = new Set([...MODULES_AI, ...MODULES_VIBE].map(m => m.id));
+import { MODULE_CASUSSEN } from './js/casussen.js';
+const ids = new Set([...MODULES_AI, MODULE_CASUSSEN, ...MODULES_VIBE].map(m => m.id));
 let fout = 0;
 for (const w of WORKSHOPS) {
   const som = w.draaiboek.reduce((s,b) => s + b.minuten, 0);
