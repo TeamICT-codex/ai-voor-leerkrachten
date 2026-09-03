@@ -7,7 +7,7 @@
 :root {
   --inkt: #16202e;
   --inkt-zacht: #4a5769;
-  --inkt-flauw: #78859a;
+  --inkt-flauw: #5f6b7d;
   --papier: #f7f8fa;
   --wit: #ffffff;
   --lijn: #e2e6ec;
@@ -40,7 +40,7 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--inkt);
   background: var(--papier);
@@ -287,8 +287,8 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .spoor-vibe a.etiket-klein.link { color: var(--vibe-donker); border-color: var(--vibe-licht); background: var(--vibe-licht); }
 
 .tweeluik { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-bottom: 1.3rem; }
-.kaart.info h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--inkt-flauw); margin-top: 1rem; }
-.kaart.info h3:first-child { margin-top: 0; }
+.kaart.info h2 { font-size: .8rem; margin-bottom: .3rem; text-transform: uppercase; letter-spacing: .06em; color: var(--inkt-flauw); margin-top: 1rem; }
+.kaart.info h2:first-child { margin-top: 0; }
 .kaart.info p { font-size: .9rem; margin-bottom: 0; }
 
 .vinkjes { list-style: none; padding: 0; margin: 0; }
@@ -296,12 +296,12 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .vinkjes li::before { content: '✓'; position: absolute; left: 0; color: var(--groen); font-weight: 700; }
 
 .kaart.benodigd { margin-bottom: 1.3rem; background: var(--paars-licht); border-color: #d9cbee; }
-.kaart.benodigd h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--paars); }
+.kaart.benodigd h2 { font-size: .8rem; margin-bottom: .3rem; text-transform: uppercase; letter-spacing: .06em; color: var(--paars); }
 .kaart.benodigd ul { margin: 0; padding-left: 1.2rem; font-size: .9rem; }
 .kaart.benodigd li { margin-bottom: .35rem; }
 
 .kaart.doelen { margin-bottom: 1.8rem; }
-.kaart.doelen h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--inkt-flauw); }
+.kaart.doelen h2 { font-size: .8rem; margin-bottom: .3rem; text-transform: uppercase; letter-spacing: .06em; color: var(--inkt-flauw); }
 
 /* ───────────────────────────── draaiboek ───────────────────────────── */
 
@@ -340,6 +340,14 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .knop.stil { color: var(--inkt-zacht); }
 .knop.mini { font-size: .74rem; padding: .25rem .6rem; }
 
+/* Eigen focusring: de standaard van de browser verschilt te sterk en
+   valt weg op de donkere promptbalk. */
+:focus-visible {
+  outline: 3px solid var(--ai);
+  outline-offset: 2px;
+}
+.promptblok figcaption :focus-visible { outline-color: #fff; }
+
 .blokken { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .55rem; }
 
 .blok {
@@ -351,7 +359,7 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   padding: .9rem 1.1rem;
   transition: .2s;
 }
-.blok-tijd { flex-shrink: 0; width: 52px; display: flex; flex-direction: column; align-items: flex-start; }
+.blok-tijd { flex-shrink: 0; width: 3.4rem; display: flex; flex-direction: column; align-items: flex-start; }
 .blok-tijd strong { font-size: .95rem; font-variant-numeric: tabular-nums; }
 .blok-tijd span { font-size: .74rem; color: var(--inkt-flauw); }
 .blok-lijf { flex: 1; min-width: 0; }
@@ -374,7 +382,8 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .soort-pauze { background: var(--papier); border-style: dashed; border-left-color: var(--lijn-sterk); opacity: .8; }
 
 .blok.nu { border-color: var(--vibe); border-left-color: var(--vibe); box-shadow: 0 0 0 3px var(--vibe-licht); }
-.blok.voorbij { opacity: .5; }
+.blok.voorbij { opacity: .85; }
+.blok.voorbij .blok-tijd strong { text-decoration: line-through; }
 .nu-vlag {
   font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
   background: var(--vibe); color: #fff; padding: .15rem .5rem; border-radius: 4px;
@@ -447,25 +456,31 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   border-radius: var(--straal-klein);
   padding: .9rem 1.1rem;
   margin: 0 0 1.2rem;
-  border-left: 3px solid;
+  /* Terugval voor een variant die hier nog geen styling heeft: dan ziet
+     het kader er nog altijd als een kader uit, niet als gewone tekst. */
+  background: var(--papier);
+  border-left: 3px solid var(--lijn-sterk);
 }
-.kader h4 { margin: 0 0 .3rem; font-size: .93rem; }
+.kader h3 { margin: 0 0 .3rem; font-size: .93rem; }
 .kader p { margin: 0; font-size: .9rem; }
 .kader.tip { background: var(--groen-licht); border-color: var(--groen); }
-.kader.tip h4 { color: var(--groen); }
+.kader.tip h3 { color: var(--groen); }
 .kader.letop { background: var(--rood-licht); border-color: var(--rood); }
-.kader.letop h4 { color: var(--rood); }
+.kader.letop h3 { color: var(--rood); }
 .kader.privacy { background: #fff6e5; border-color: #b8860b; }
-.kader.privacy h4 { color: #8a6508; }
+.kader.privacy h3 { color: #8a6508; }
 .kader.weetje { background: var(--papier); border-color: var(--lijn-sterk); }
-.kader.weetje h4 { color: var(--inkt-zacht); }
+.kader.weetje h3 { color: var(--inkt-zacht); }
 .kader.tool { background: var(--ai-licht); border-color: var(--ai); }
-.kader.tool h4 { color: var(--ai-donker); }
+.kader.tool h3 { color: var(--ai-donker); }
 
 /* promptblok */
 .promptblok { margin: 0 0 1.3rem; }
 .promptblok figcaption {
+  /* Op de promptkaart staat naast de titel ook de herkomst met de workshopcodes;
+     zonder wrap loopt die rij op een gsm buiten het kader. */
   display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  flex-wrap: wrap;
   background: #2b3648; color: #dfe5ee;
   padding: .5rem .8rem;
   border-radius: var(--straal-klein) var(--straal-klein) 0 0;
@@ -503,8 +518,8 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   margin-bottom: 1.3rem;
   background: var(--papier);
 }
-.opdracht h4 { color: var(--ai-donker); }
-.opdracht h4::before { content: '✎ '; }
+.opdracht h3 { color: var(--ai-donker); font-size: 1rem; }
+.opdracht h3::before { content: '✎ '; }
 .opdracht p { font-size: .9rem; }
 .opdracht ol { margin: 0; padding-left: 1.3rem; }
 .opdracht li { font-size: .89rem; margin-bottom: .35rem; }
@@ -517,8 +532,8 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   margin-bottom: 1.3rem;
   background: var(--papier);
 }
-.quiz h4 { margin-bottom: .8rem; }
-.quiz h4::before { content: '? '; color: var(--paars); font-weight: 800; }
+.quiz h3 { margin-bottom: .8rem; font-size: 1rem; }
+.quiz h3::before { content: '? '; color: var(--paars); font-weight: 800; }
 .opties { display: flex; flex-direction: column; gap: .5rem; }
 .optie {
   font: inherit; text-align: left;
@@ -539,9 +554,23 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .quiz.beantwoord .optie.gekozen .optie-feedback { display: block; color: var(--inkt-zacht); }
 .quiz.beantwoord .optie.gekozen { border-width: 2px; }
 .quiz.beantwoord .optie.gekozen.is-fout { background: var(--rood-licht); border-color: var(--rood); opacity: 1; }
+/* Staat leeg tot er geantwoord is; geen display:none, want dan leest een
+   schermlezer de uitslag niet voor. Vandaar de marge pas als er tekst in staat. */
+.quiz-uitslag { font-size: .85rem; font-weight: 650; margin: 0; }
+.quiz-uitslag:not(:empty) { margin: .8rem 0 0; }
 
-.verder { margin-top: 2rem; }
+/* Vorige en volgende module staan naast elkaar, en breken netjes op gsm. */
+.verder {
+  margin-top: 2rem;
+  display: flex; flex-wrap: wrap; gap: .6rem;
+  justify-content: space-between; align-items: center;
+}
 .kaart.leeg { text-align: center; padding: 3rem 1.5rem; }
+/* De terugvalboodschap in index.html hoort alleen te verschijnen als de app
+   niet start. Bij een normale start overschrijft app.js #hoofd meteen, dus
+   een seconde vertraging houdt het scherm rustig. */
+.kaart.leeg.opstart { opacity: 0; animation: opstart-tonen .3s ease 1s forwards; }
+@keyframes opstart-tonen { to { opacity: 1; } }
 
 
 /* ───────────────────────── snelkoppelingen ───────────────────────── */
@@ -569,7 +598,7 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   margin-bottom: 1rem;
   background: var(--wit);
 }
-.casus h4 { margin-bottom: .35rem; }
+.casus h3 { margin-bottom: .35rem; font-size: 1rem; }
 .casus-situatie { font-size: .92rem; margin-bottom: .8rem; }
 .casus-knop { border-style: dashed; }
 .casus-antwoord { display: none; }
@@ -674,6 +703,58 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   .bundel-invul { min-width: 0; width: 100%; }
   .snelkoppelingen { flex-direction: column; }
   .snel { width: 100%; }
+
+  /* Vingervriendelijke raakvlakken op gsm: minstens 44px hoog. */
+  .knop, .vink, .schakelaar,
+  .besturing input[type=time], a.etiket-klein.link { min-height: 44px; }
+  .knop, .vink, .schakelaar, a.etiket-klein.link {
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .knop.mini { padding: .45rem .8rem; }
+  /* Zonder dit rekken de gewone etiketten mee tot 44px en staat hun
+     tekst bovenaan een lege pil. */
+  .etiketten { align-items: center; }
+  /* Kruimel en uitklapper krijgen hun hoogte uit padding, zodat het
+     driehoekje van summary en de baseline van de kruimel intact blijven. */
+  .kruimels a { display: inline-block; padding: .75rem 0; }
+  .modulelijst summary { padding: .7rem 0; }
+}
+
+/* ─────────────────────────── minder beweging ───────────────────────────
+   Wie in Windows of iOS "animaties beperken" aanzet, krijgt hier geen
+   smooth-scroll bij een paginawissel en geen zwevende kaarten meer.
+   Dit blok moet ACHTER de regels staan die het overschrijft: een media
+   query telt niet mee voor de specificiteit, enkel de volgorde beslist.
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Enkel de sier-transforms uitzetten. Het bolletje van de
+     begeleidersschakelaar gebruikt transform om zijn stand te tonen en
+     moet dus blijven staan. */
+  a.kaart:hover, .snel:hover { transform: none; }
+}
+
+/* ────────────────────────── breed scherm en beamer ──────────────────────
+   Alles staat in rem, dus één stap op de root vergroot ook de kleine
+   labels (.soort, .niveau, .tips-kop). Percentages, zodat een deelnemer
+   die zijn browserlettergrootte aanpaste dat behoudt.
+*/
+
+@media (min-width: 1200px) {
+  :root { font-size: 106.25%; }   /* 17px bij standaardinstelling */
+}
+
+@media (min-width: 1500px) {
+  :root { font-size: 115%; --breedte: 1080px; }   /* ~18.4px */
 }
 
 /* ───────────────────────────── afdrukken ─────────────────────────────
@@ -684,19 +765,59 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   #kop, #voet, .besturing, .kruimels, .modulelijst, .verder, .vink,
   .schermonly, .casus-knop, .snelkoppelingen { display: none !important; }
 
-  /* Verborgen inhoud hoort op papier gewoon zichtbaar te zijn. */
-  .casus-antwoord, .faq-lijf { display: block !important; }
+  /* Verborgen inhoud hoort op papier zichtbaar te zijn — behalve het oordeel
+     bij een casus. De deelnemers krijgen de situatie en een vakje om zelf te
+     kiezen; met begeleidersmodus aan gaan de oordelen mee op papier. */
+  .faq-lijf { display: block !important; }
+  body.begeleidersmodus .casus-antwoord { display: block !important; }
+
+  /* Zonder begeleidersmodus wordt het uitgedeelde blad meteen een werkblad.
+     Niet bij een casus die al openstaat: in de deelnemersbundel staat het
+     oordeel er dan net boven, en dan valt er niets meer te kiezen. */
+  body:not(.begeleidersmodus) .casus:not(.open)::after {
+    content: "Ons oordeel:   \25A1  mag     \25A1  mag niet     \25A1  hangt ervan af";
+    display: block; white-space: pre-wrap;
+    margin-top: .6rem; font-size: 10pt; color: #000;
+  }
+
+  /* Eén zin zodat de begeleider ziet wat hij in handen heeft. Niet op de
+     deelnemersbundel: die staat los van begeleidersmodus en bevat geen tips. */
+  body.begeleidersmodus:not([data-pagina="bundel"]) #hoofd::before {
+    content: "Afgedrukt in begeleidersmodus: de begeleiderstips en de oordelen bij de casussen staan mee. Zet begeleidersmodus uit voor de bladen die je uitdeelt.";
+    display: block; margin-bottom: 1rem; padding: .5rem .7rem;
+    border: 1px solid #666; font-size: 9pt;
+  }
+
   .faq summary { font-weight: 700; }
   .bundel { border: none; padding: 0; }
   .bundel-blok { break-inside: avoid; }
+  /* Veertien casussen passen nooit op één blad: die sectie mag breken,
+     de losse casussen erin niet. */
+  .bundel-casussen { break-inside: auto; }
+  .bundel-casussen .casus { break-inside: avoid; }
   .notities { break-before: page; }
   .gids-sectie { break-inside: avoid; }
+  /* De rem-waarden volgen anders de root uit de min-width-query, en dan
+     drukt een breed venster groter af dan bedoeld. */
+  :root { font-size: 100%; }
   body { background: #fff; font-size: 11pt; }
   #hoofd { max-width: none; padding: 0; }
-  .kaart, .blok, .les, .titelblok { box-shadow: none; break-inside: avoid; }
+  .kaart, .blok, .titelblok, .kader, .promptblok, .opdracht, .quiz,
+  .casus, .vergelijk, .tips, .faq { box-shadow: none; break-inside: avoid; }
+  /* Een les is vaak hoger dan één blad; die mag breken, de blokken erin niet. */
+  .les { box-shadow: none; break-inside: auto; }
+  h1, h2, h3, h4, .les-kop { break-after: avoid; }
   .blok { border: 1px solid #ccc; border-left: 3px solid #666; }
+  .blok.voorbij { opacity: 1; }
   .tips { background: #f2f2f2; border: 1px solid #ddd; }
   .promptblok pre { background: #f5f5f5; color: #000; border: 1px solid #ccc; }
   .promptblok figcaption { background: #e5e5e5; color: #000; }
+
+  /* Schrijflijnen moeten op papier zichtbaar zijn: de schermkleuren
+     (--lijn, --lijn-sterk) zijn te licht voor een schoolprinter. */
+  .notities .lijnen i,
+  .bundel-invul i { border-bottom: 1px solid #666; }
+  .notities .lijnen { gap: 2rem; }
+
   a { text-decoration: none; color: #000; }
 }

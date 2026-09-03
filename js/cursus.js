@@ -17,12 +17,16 @@ export { WORKSHOPS, SPOREN };
 
 export const TOTAAL_LESSEN = MODULES.reduce((som, m) => som + m.lessen.length, 0);
 
+// Hoofdletterongevoelig opzoeken: op het scherm staat "A1", in de URL "a1".
+// Wie #/workshop/A1 intikt of dicteert, mag niet op "Niet gevonden" botsen.
 export function vindModule(id) {
-  return MODULES.find((m) => m.id === id) || null;
+  const sleutel = String(id).toLowerCase();
+  return MODULES.find((m) => m.id.toLowerCase() === sleutel) || null;
 }
 
 export function vindWorkshop(id) {
-  return WORKSHOPS.find((w) => w.id === id) || null;
+  const sleutel = String(id).toLowerCase();
+  return WORKSHOPS.find((w) => w.id.toLowerCase() === sleutel) || null;
 }
 
 export function vindSpoor(id) {

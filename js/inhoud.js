@@ -35,7 +35,7 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              '<strong>ChatGPT</strong> en <strong>Claude</strong> zijn AI-assistenten die met taal werken. Je typt iets in gewone mensentaal — een vraag, een opdracht, een tekst om na te kijken — en je krijgt een geschreven antwoord terug. Geen menu\'s, geen knoppen om te leren: je <em>praat</em> gewoon.',
+              '<strong>ChatGPT</strong> en <strong>Claude</strong> zijn AI-assistenten die met taal werken. Je typt iets in gewone mensentaal — een vraag, een opdracht, een tekst om na te kijken — en je krijgt een geschreven antwoord terug. Alles wat jij daar intypt, heet een <strong>prompt</strong>. Dat woord kom je in deze hele cursus tegen, en de volgende module gaat helemaal over het scherper maken ervan. Geen menu\'s, geen knoppen om te leren: je <em>praat</em> gewoon.',
           },
           {
             type: 'tekst',
@@ -47,7 +47,7 @@ export const MODULES_AI = [
             variant: 'tool',
             titel: 'ChatGPT of Claude — maakt het uit?',
             inhoud:
-              'Voor zowat alles in dit spoor: <strong>nee</strong>. Beide zijn chatvensters waar je in gewone taal opdrachten geeft, en alles wat je hier leert werkt in allebei. Gebruik dus wat je school of scholengroep aanbiedt. Wie beide heeft: Claude staat bekend om vlot en genuanceerd schrijfwerk, ChatGPT om zijn brede waaier extra\'s zoals beeldgeneratie en spraak. Merk je verschil op een bepaalde taak, leg dezelfde prompt dan eens naast elkaar — dat is meteen een sterke oefening.',
+              'Voor zowat alles in dit spoor: <strong>nee</strong>. Beide zijn chatvensters waar je in gewone taal opdrachten geeft, en alles wat je hier leert werkt in allebei. Gebruik dus wat je school of scholengroep aanbiedt — daar horen doorgaans ook afspraken over je gegevens bij, en dat is een betere reden om te kiezen dan welke functie er deze maand bij zit. Wie beide heeft, merkt vooral verschil in toon en lengte van de antwoorden, en in de extra\'s die eromheen zitten; wát die extra\'s precies zijn, verandert voortdurend, dus baseer je keuze er niet op. Leg dezelfde prompt eens naast elkaar op een taak die je vaak doet en kies wat jou het beste ligt — dat is meteen een sterke oefening.',
           },
           {
             type: 'lijst',
@@ -66,7 +66,7 @@ export const MODULES_AI = [
           },
           {
             type: 'quiz',
-            vraag: 'Je wil de exacte data van de Guldensporenslag in een tijdlijn. Wat doe je?',
+            vraag: 'Je wil een tijdlijn van de gebeurtenissen rond de Guldensporenslag: de Brugse Metten, de slag zelf, en wat er nadien volgde. Wat doe je?',
             opties: [
               {
                 tekst: 'De AI de tijdlijn laten maken en die meteen kopiëren naar je werkblad.',
@@ -97,7 +97,7 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'Een gesprek met een AI-assistent heet een <strong>chat</strong>. Je typt onderaan, het antwoord verschijnt erboven. Belangrijk: binnen één chat <em>onthoudt</em> de assistent wat er eerder gezegd is. Je hoeft jezelf dus niet te herhalen — je kan gewoon verder bouwen.',
+              'Een gesprek met een AI-assistent heet een <strong>chat</strong>. Je typt onderaan, het antwoord verschijnt erboven. Belangrijk: binnen één chat <em>onthoudt</em> de assistent wat er eerder gezegd is. Je hoeft jezelf dus niet te herhalen — je kan gewoon verder bouwen. Dat onthouden kan trouwens ook <em>tussen</em> gesprekken door gaan: bij veel assistenten is dat een instelling. Reken er dus niet op dat een gesprek verdwijnt zodra je het sluit — wat je wel en niet in een gesprek typt, komt terug in de module over veilig en ethisch werken.',
           },
           {
             type: 'lijst',
@@ -130,7 +130,8 @@ export const MODULES_AI = [
             inhoud:
               'Neem één ding dat volgende week op je planning staat en probeer het uit. Vijf minuten, meer niet.',
             stappen: [
-              'Open een nieuw gesprek in ChatGPT of Claude.',
+              'Ga naar de AI-assistent die jullie school voorziet. Weet je niet of er iets voorzien is, vraag het aan je ICT-coördinator of directie; is er niets, gebruik dan ChatGPT of Claude.',
+              'Meld je aan en start een nieuw gesprek. Lukt het aanmelden nu niet, kijk dan even mee op het scherm van een collega — deze oefening werkt prima met twee aan een scherm.',
               'Kopieer de prompt hierboven, maar vervang het vak en de leeftijd door die van jou.',
               'Vraag daarna: "Maak het een niveau makkelijker."',
               'Vraag ten slotte: "Geef me nu 3 oefeningen bij die uitleg."',
@@ -166,8 +167,8 @@ export const MODULES_AI = [
           {
             type: 'lijst',
             items: [
-              '<strong>Rol</strong> — voor wie is het en wie ben jij? <em>"Ik geef Nederlands in het derde middelbaar, richting techniek."</em>',
-              '<strong>Context</strong> — wat moet de assistent weten over jouw situatie? <em>"De klas heeft moeite met lange teksten; 4 leerlingen hebben dyslexie."</em>',
+              '<strong>Rol</strong> — voor wie is het en wie ben jij? <em>"Ik geef Nederlands in het derde middelbaar, dubbele finaliteit, studiedomein STEM."</em>',
+              '<strong>Context</strong> — wat moet de assistent weten over jouw situatie? <em>"De klas heeft moeite met lange teksten; 4 leerlingen hebben dyslexie en 6 spreken thuis geen Nederlands."</em> Zet er meteen bij wat dat voor de tekst betekent — <em>"korte zinnen, moeilijke woorden meteen uitgelegd"</em> — anders gokt de assistent ernaar.',
               '<strong>Vorm</strong> — wat wil je precies terugkrijgen? <em>"Een tabel met 3 kolommen"</em>, <em>"maximaal 150 woorden"</em>, <em>"5 meerkeuzevragen met antwoordsleutel"</em>.',
               '<strong>Voorbeeld</strong> — toon hoe het eruit moet zien. Plak een oefening die je vorig jaar maakte en zeg: <em>"maak er nog 5 in deze stijl."</em>',
             ],
@@ -183,7 +184,7 @@ export const MODULES_AI = [
             type: 'vergelijk',
             zwak: 'Maak een les over de waterkringloop.',
             sterk:
-              'Ik geef wetenschappen in het vierde leerjaar. Maak een lesopbouw van 50 minuten over de waterkringloop: 5 min instap, 15 min uitleg, 20 min groepswerk, 10 min afronding. Taal voor 9-10-jarigen. Geef bij het groepswerk exact wat de leerlingen moeten doen en welk materiaal ik nodig heb.',
+              'Ik geef wereldoriëntatie in het vierde leerjaar. Maak een lesopbouw van 50 minuten over de waterkringloop: 5 min instap, 15 min uitleg, 20 min groepswerk, 10 min afronding. Taal voor 9- tot 10-jarigen. Geef bij het groepswerk exact wat de leerlingen moeten doen en welk materiaal ik nodig heb.',
             uitleg:
               'De tweede versie levert iets op dat je maandag kan gebruiken. De eerste levert een encyclopedie-artikel op.',
           },
@@ -196,12 +197,12 @@ export const MODULES_AI = [
           },
           {
             type: 'quiz',
-            vraag: 'Welke knop ontbreekt in deze prompt: "Ik geef Frans in het eerste middelbaar. Maak oefeningen op de werkwoorden."',
+            vraag: 'Deze prompt heeft al een rol, context en een voorbeeld. Welke knop ontbreekt nog? "Ik geef Frans in het eerste middelbaar. Mijn klas struikelt vooral over de vervoeging van avoir en être. Maak oefeningen op de werkwoorden, in de stijl van het invulblad dat ik hieronder plak."',
             opties: [
               {
                 tekst: 'Rol',
                 juist: false,
-                feedback: 'Die zit erin: "leerkracht Frans, eerste middelbaar".',
+                feedback: 'Die zit erin: "leerkracht Frans, eerste middelbaar". De context over avoir en être staat er ook al bij.',
               },
               {
                 tekst: 'Vorm',
@@ -257,11 +258,11 @@ export const MODULES_AI = [
               'Vergelijk het eindresultaat met wat je na ronde 1 had. Dat verschil is de hele cursus in één oefening.',
             ],
           },
-                  {
-            type: "prompt",
-            titel: "Het sjabloon om te bewaren",
-            tekst: "ROL: Ik geef [VAK] in het [LEERJAAR — bv. het vierde leerjaar of het derde middelbaar].\n\nCONTEXT: [wat moet de assistent weten over deze klas of dit moment? bv. 24 leerlingen, groot niveauverschil, laatste lesuur van de dag, vorige les ging over ...]\n\nOPDRACHT: Maak [wat je precies wil: een uitleg / 8 oefeningen / een instapactiviteit / een werkblad] over [ONDERWERP].\n\nVORM: [hoe het eruit moet zien: maximaal 200 woorden / een tabel met 3 kolommen / een genummerde lijst met de antwoorden apart onderaan].\n\nVOORBEELD (laat dit blok weg als je niets bij de hand hebt): hieronder een stuk materiaal van mezelf. Volg deze toon, opmaak en moeilijkheidsgraad:\n[PLAK EEN STUK VAN JE EIGEN MATERIAAL]",
-            uitleg: "Rond je eigenlijke opdracht staan de vier knoppen — rol, context, vorm en voorbeeld — er letterlijk bij, zodat je in één oogopslag ziet welke je nog niet hebt ingedrukt. Bewaar dit sjabloon één keer in je notities: voor een volgende les vervang je enkel de blokhaken, en het werkt voor eender welk vak.",
+          {
+            type: 'prompt',
+            titel: 'Het sjabloon om te bewaren',
+            tekst: 'ROL: Ik geef [VAK] in het [LEERJAAR — bv. het vierde leerjaar of het derde middelbaar].\n\nCONTEXT: [wat moet de assistent weten over deze klas of dit moment? bv. 24 leerlingen, groot niveauverschil, laatste lesuur van de dag, vorige les ging over ...]\n\nOPDRACHT: Maak [wat je precies wil: een uitleg / 8 oefeningen / een instapactiviteit / een werkblad] over [ONDERWERP].\n\nVORM: [hoe het eruit moet zien: maximaal 200 woorden / een tabel met 3 kolommen / een genummerde lijst met de antwoorden apart onderaan].\n\nVOORBEELD (laat dit blok weg als je niets bij de hand hebt): hieronder een stuk materiaal van mezelf. Volg deze toon, opmaak en moeilijkheidsgraad:\n[PLAK EEN STUK VAN JE EIGEN MATERIAAL]',
+            uitleg: 'Rond je eigenlijke opdracht staan de vier knoppen — rol, context, vorm en voorbeeld — er letterlijk bij, zodat je in één oogopslag ziet welke je nog niet hebt ingedrukt. Bewaar dit sjabloon één keer in je notities: voor een volgende les vervang je enkel de blokhaken, en het werkt voor eender welk vak.',
           },
         ],
       },
@@ -271,7 +272,7 @@ export const MODULES_AI = [
   {
     id: 'lesvoorbereiding',
     icoon: '📚',
-    titel: 'Lesvoorbereiding & differentiatie',
+    titel: 'Lesvoorbereiding en differentiatie',
     ondertitel: 'Van leerplandoel naar een lesopbouw en drie niveaus, in de tijd van een koffiepauze.',
     duur: '45 min',
     niveau: 'Verdieping',
@@ -303,7 +304,7 @@ export const MODULES_AI = [
             variant: 'tip',
             titel: 'Begin bij je leerplandoel',
             inhoud:
-              'Plak het leerplandoel of de eindterm letterlijk in het gesprek en zeg: "Deze les moet naar dit doel toewerken." Je krijgt meteen iets dat je kan verantwoorden in je vakwerkgroep of bij de pedagogisch begeleider.',
+              'Plak het leerplandoel of de eindterm letterlijk in het gesprek en zeg: "Deze les moet naar dit doel toewerken." Je krijgt meteen iets dat je kan verantwoorden op de vakwerkgroep of het teamoverleg, of bij de pedagogisch begeleider.',
           },
         ],
       },
@@ -314,22 +315,22 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'Differentiatie is waar AI het meest concrete tijdswinst oplevert: je maakt één versie, en laat de andere twee afleiden. Belangrijk is dat je <strong>zelf zegt waarin de niveaus verschillen</strong> — anders krijg je gewoon "korter" en "langer".',
+              'Differentiatie is waar AI de meest concrete tijdswinst oplevert: je maakt één versie, en laat de andere twee afleiden. Belangrijk is dat je <strong>zelf zegt waarin de niveaus verschillen</strong> — anders krijg je gewoon "korter" en "langer".',
           },
           {
             type: 'prompt',
             titel: 'Drie niveaus uit één oefening',
             tekst:
-              'Hier is een oefening die ik gebruik:\n\n[PLAK JE OEFENING]\n\nMaak hiervan drie versies:\n1. BASIS — kortere zinnen, meer sturing, eventueel een voorbeeld vooraf.\n2. STANDAARD — zoals hierboven.\n3. UITDAGING — zelfde onderwerp, maar de leerling moet meer zelf uitzoeken of toepassen.\n\nHou de opmaak en de vraagvorm gelijk, zodat het in de klas niet opvalt wie welke versie heeft.',
+              'Hier is een oefening die ik gebruik:\n\n[PLAK JE OEFENING]\n\nMaak hiervan drie versies:\n1. BASIS — kortere zinnen, meer sturing, eventueel een voorbeeld vooraf.\n2. STANDAARD — zoals hierboven.\n3. UITDAGING — zelfde onderwerp, maar de leerling moet meer zelf uitzoeken of toepassen.\n\nGeef bij elke versie ook een kort lijstje van woorden waarover een leerling die thuis geen Nederlands spreekt kan struikelen, met telkens een eenvoudiger alternatief erbij. Zet dat lijstje apart onder de oefening; de oefening zelf laat je ongewijzigd. Vaktermen die bij het leerplandoel horen, vervang je niet — die leg je uit in één zin.\n\nHou de opmaak en de vraagvorm gelijk, zodat het in de klas niet opvalt wie welke versie heeft.',
             uitleg:
-              'Die laatste zin is er eentje die leerkrachten zelf zelden bedenken, maar die in de praktijk enorm veel uitmaakt.',
+              'Die laatste zin is er eentje die leerkrachten zelf zelden bedenken, maar die in de praktijk enorm veel uitmaakt. Het woordenlijstje kost je niets extra: je houdt dezelfde oefening, maar je weet op voorhand welke woorden je bij de start best even uitlegt. Loop het wel zelf na — het is een <em>gok</em> van de assistent, en jij weet wie in jouw klas over welk woord valt.',
           },
           {
             type: 'kader',
             variant: 'letop',
             titel: 'Blijf zelf de didacticus',
             inhoud:
-              'De assistent weet niet dat Yassine altijd afhaakt bij lange teksten of dat Fien net extra uitdaging nodig heeft. Het levert bruikbare bouwstenen; de match met je échte leerlingen maak jij.',
+              'De assistent weet niet dat Fien altijd afhaakt bij lange teksten of dat Yassine net extra uitdaging nodig heeft. Het levert bruikbare bouwstenen; de match met je échte leerlingen maak jij.',
           },
           {
             type: 'quiz',
@@ -355,16 +356,16 @@ export const MODULES_AI = [
               },
             ],
           },
-                  {
-            type: "opdracht",
-            titel: "Jouw eigen les, drie niveaus",
-            inhoud: "Neem de les of oefening die je meebracht en maak er in twintig minuten iets van dat maandag effectief de deur uit kan. Werk met echt materiaal, niet met een verzonnen voorbeeld.",
+          {
+            type: 'opdracht',
+            titel: 'Jouw eigen les, drie niveaus',
+            inhoud: 'Neem de les of oefening die je meebracht en maak er in twintig minuten iets van dat maandag effectief de deur uit kan. Werk met echt materiaal, niet met een verzonnen voorbeeld.',
             stappen: [
-              "Plak je oefening of werkblad in een nieuw gesprek, met erbij het leerjaar, het vak en het leerplandoel waar ze op mikt.",
-              "Vraag de drie versies en zeg zélf waarin BASIS en UITDAGING verschillen — meer sturing, minder stappen, zelf laten opzoeken — en niet enkel korter of langer.",
-              "Lees de BASIS-versie na met één echte leerling uit je klas in gedachten: krijgt die er houvast bij, of staat er gewoon minder? Stuur één keer bij op wat wringt.",
-              "Vraag hoe je die drie versies binnen één lesuur naast elkaar laat lopen: wie start waarmee, en wat doet wie vroeg klaar is.",
-              "Zet de drie versies onder elkaar in één document en noteer erbij wie welke krijgt. Dat document neem je mee naar de klas.",
+              'Plak je oefening of werkblad in een nieuw gesprek, met erbij het leerjaar, het vak en het leerplandoel waar ze op mikt.',
+              'Vraag de drie versies en zeg zélf waarin BASIS en UITDAGING verschillen — meer sturing, minder stappen, zelf laten opzoeken — en niet enkel korter of langer.',
+              'Lees de BASIS-versie na met één echte leerling uit je klas in gedachten: krijgt die er houvast bij, of staat er gewoon minder? Stuur één keer bij op wat wringt.',
+              'Vraag hoe je die drie versies binnen één lesuur naast elkaar laat lopen: wie start waarmee, en wat doet wie vroeg klaar is.',
+              'Zet de drie versies onder elkaar in één document en noteer erbij wie welke krijgt. Dat document neem je mee naar de klas.',
             ],
           },
         ],
@@ -375,7 +376,7 @@ export const MODULES_AI = [
   {
     id: 'toetsen-feedback',
     icoon: '✍️',
-    titel: 'Toetsen, oefeningen & feedback',
+    titel: 'Toetsen, oefeningen en feedback',
     ondertitel: 'Vragen maken, verbetersleutels opstellen en feedback formuleren die leerlingen echt lezen.',
     duur: '45 min',
     niveau: 'Verdieping',
@@ -426,14 +427,14 @@ export const MODULES_AI = [
             tekst:
               'Ik heb het werk van een leerling nagekeken. Mijn ruwe notities:\n\n- structuur ontbreekt, alles is één blok\n- goede woordenschat\n- besluit ontbreekt\n- veel dt-fouten\n\nSchrijf hier feedback van maximaal 6 zinnen van. Toon: bemoedigend maar duidelijk, gericht aan een leerling van het [LEERJAAR]. Begin met wat goed is, geef daarna maximaal 2 concrete werkpunten met een tip om ze aan te pakken.',
             uitleg:
-              'Jij beoordeelt, de assistent verwoordt. Merk op dat er géén naam of persoonsgegeven in de prompt staat — daarover meer in de laatste module.',
+              'Jij beoordeelt, de assistent verwoordt. Merk op dat er géén naam of persoonsgegeven in de prompt staat — daarover meer in de module <em>Veilig, ethisch en met leerlingen</em>.',
           },
           {
             type: 'kader',
             variant: 'letop',
             titel: 'Nooit punten laten geven',
             inhoud:
-              'Laat AI geen cijfers of eindbeoordelingen bepalen. Het kent je beoordelingskader niet, is niet consistent over 25 leerlingen heen, en jij bent degene die het moet verdedigen op de klassenraad.',
+              'Laat AI geen punten of eindbeoordelingen bepalen. Het kent je beoordelingskader niet, is niet consistent over 25 leerlingen heen, en jij bent degene die dat punt moet verdedigen — aan een ouder of op de klassenraad.',
           },
           {
             type: 'quiz',
@@ -443,7 +444,7 @@ export const MODULES_AI = [
                 tekst: 'Het herformuleren van jouw notities tot vlotte feedbackzinnen.',
                 juist: false,
                 feedback:
-                  'Dat is net een ideale taak: jij bepaalt de inhoud, de assistent doet het typwerk.',
+                  'Dat is net een ideale taak: jij bepaalt de inhoud, de assistent doet het typewerk.',
               },
               {
                 tekst: 'Beslissen welk punt de leerling krijgt.',
@@ -459,16 +460,16 @@ export const MODULES_AI = [
               },
             ],
           },
-                  {
-            type: "opdracht",
-            titel: "Kraak je eigen toets",
-            inhoud: "Iedereen heeft wel een toets liggen die \"goed genoeg\" is. Haal die boven — digitaal, zodat je ze kan plakken — en laat ze doorlichten vóór je ze een volgende keer opnieuw gebruikt.",
+          {
+            type: 'opdracht',
+            titel: 'Kraak je eigen toets',
+            inhoud: 'Iedereen heeft wel een toets liggen die "goed genoeg" is. Haal die boven — digitaal, zodat je ze kan plakken — en laat ze doorlichten vóór je ze een volgende keer opnieuw gebruikt.',
             stappen: [
-              "Plak een toets die je al eens afgenomen hebt in een nieuw gesprek. Zet erbij welk vak, welk leerjaar en hoeveel punten de toets in totaal telt.",
-              "Vraag een overzicht per vraag: meet ze weten, begrijpen of toepassen, en hoeveel punten staan er nu op? Laat geen nieuwe punten toekennen — het gaat enkel om de verdeling die er al is. Tel daarna zelf hoeveel vragen op weetniveau blijven steken.",
-              "Vraag vervolgens letterlijk: \"Welke vragen zijn dubbelzinnig, te sturend of te makkelijk te gokken?\" Laat enkel de twee zwakste vragen herschrijven.",
-              "Vraag een verbetersleutel bij die twee nieuwe vragen en lees hem na: schrap alles wat niet klopt met hoe jij verbetert.",
-              "Bewaar de bijgewerkte toets meteen bij je lesmateriaal — dit is de versie die je volgende keer bovenhaalt.",
+              'Plak een toets die je al eens afgenomen hebt in een nieuw gesprek. Zet erbij welk vak, welk leerjaar en hoeveel punten de toets in totaal telt.',
+              'Vraag een overzicht per vraag: meet ze weten, begrijpen of toepassen, en hoeveel punten staan er nu op? Laat geen nieuwe punten toekennen — het gaat enkel om de verdeling die er al is. Tel daarna zelf hoeveel vragen op weetniveau blijven steken.',
+              'Vraag vervolgens letterlijk: "Welke vragen zijn dubbelzinnig, te sturend of te makkelijk te gokken?" Laat enkel de twee zwakste vragen herschrijven.',
+              'Vraag een verbetersleutel bij die twee nieuwe vragen en lees hem na: schrap alles wat niet klopt met hoe jij verbetert.',
+              'Bewaar de bijgewerkte toets meteen bij je lesmateriaal — dit is de versie die je volgende keer bovenhaalt.',
             ],
           },
         ],
@@ -479,7 +480,7 @@ export const MODULES_AI = [
   {
     id: 'administratie',
     icoon: '📮',
-    titel: 'Administratie & communicatie',
+    titel: 'Administratie en communicatie',
     ondertitel: 'Oudermails, verslagen en planningen — het werk dat je avonden opeet.',
     duur: '35 min',
     niveau: 'Verdieping',
@@ -500,18 +501,18 @@ export const MODULES_AI = [
           },
           {
             type: 'prompt',
-            titel: 'Een gevoelige mail, drie tonen',
+            titel: 'Een gevoelige mail, vier versies',
             tekst:
-              'Ik moet ouders melden dat hun kind de laatste weken structureel het huiswerk niet maakt en daardoor achterop raakt.\n\nSchrijf een mail van maximaal 200 woorden. Ik wil samenwerken, niet beschuldigen, en ik wil een gesprek voorstellen.\n\nGeef me drie versies: (1) zakelijk, (2) warm, (3) kort en direct.\n\nGebruik geen namen — zet [LEERLING] waar de naam moet komen.',
+              'Ik moet ouders melden dat hun kind de laatste weken structureel het huiswerk niet maakt en daardoor achterop raakt.\n\nSchrijf een mail van maximaal 200 woorden. Ik wil samenwerken, niet beschuldigen, en ik wil een gesprek voorstellen.\n\nGeef me vier versies: (1) zakelijk, (2) warm, (3) kort en direct, (4) in eenvoudig Nederlands — korte zinnen, geen schooljargon, voor ouders die het Nederlands niet vlot lezen.\n\nGebruik geen namen — zet [LEERLING] waar de naam moet komen.',
             uitleg:
-              'Die laatste regel is belangrijk: zo hou je persoonsgegevens uit het gesprek en vul je ze pas in bij het versturen in Smartschool.',
+              'Die laatste regel is belangrijk: zo hou je persoonsgegevens uit het gesprek en vul je ze pas in bij het versturen in Smartschool. En die vierde versie is vaak net de versie die wél gelezen wordt. Wil je ze ook in de thuistaal van het gezin, hou dan een regel in gedachten: in een taal die jij zelf niet leest, kan jij niet nakijken wat er staat. Laat ze dan nalezen door een collega, de brugfiguur of een tolk voor ze vertrekt.',
           },
           {
             type: 'kader',
             variant: 'privacy',
             titel: 'Namen en gegevens: laat ze eruit',
             inhoud:
-              'Gebruik <code>[LEERLING]</code>, <code>[OUDER]</code> of "een leerling van 13". Je krijgt exact dezelfde kwaliteit terug, en je hebt geen enkel privacyprobleem. Maak hier meteen een gewoonte van — de laatste module gaat er dieper op in.',
+              'Gebruik <code>[LEERLING]</code>, <code>[OUDER]</code> of "een leerling van 13". Je krijgt exact dezelfde kwaliteit terug, en je hebt geen enkel privacyprobleem. Maak hier meteen een gewoonte van — de module <em>Veilig, ethisch en met leerlingen</em> gaat er dieper op in.',
           },
         ],
       },
@@ -522,45 +523,45 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'Notities van een vergadering, een klassenraad of een oudercontact zijn meestal een reeks losse flarden. Precies het soort input waar AI sterk in is: structuur aanbrengen zonder inhoud te verzinnen.',
+              'Notities van een vergadering, een zorgoverleg, een klassenraad of een oudercontact zijn meestal een reeks losse flarden. Precies het soort input waar AI sterk in is: structuur aanbrengen zonder inhoud te verzinnen — zolang je de namen en de zorggegevens eruit laat.',
           },
           {
             type: 'prompt',
             titel: 'Van kladnotities naar verslag',
             tekst:
-              'Hieronder mijn ruwe notities van een vergadering. Maak er een helder verslag van met kopjes, en zet de afspraken apart in een lijstje met "wie doet wat tegen wanneer".\n\nVerzin niets bij: staat iets niet in mijn notities, laat het weg of zet er [ONDUIDELIJK] bij.\n\nNotities:\n[PLAK JE NOTITIES]',
+              'Hieronder mijn ruwe notities van een vergadering. Maak er een helder verslag van met kopjes, en zet de afspraken apart in een lijstje met "wie doet wat tegen wanneer".\n\nVerzin niets bij: staat iets niet in mijn notities, laat het weg of zet er [ONDUIDELIJK] bij.\n\nDe namen in mijn notities heb ik vervangen door [LEERLING 1], [LEERLING 2] en [COLLEGA]. Neem die aanduidingen letterlijk zo over in je verslag.\n\nNotities:\n[PLAK JE NOTITIES]',
             uitleg:
-              '"Verzin niets bij" is een van de nuttigste zinnen uit deze hele cursus. Gebruik ze overal waar accuraatheid telt.',
+              '"Verzin niets bij" is een van de nuttigste zinnen uit deze hele cursus. Gebruik ze overal waar accuraatheid telt. Gaat het om een klassenraad, een zorgoverleg (MDO) of een oudercontact, haal er dan eerst de namen uit: zoeken en vervangen door [LEERLING 1] en [LEERLING 2] is zo gebeurd, en de echte namen zet je pas achteraf terug in je eigen verslag. Wat over zorg, gezondheid of de thuissituatie van een gezin gaat, laat je sowieso uit het gesprek.',
           },
           {
             type: 'opdracht',
             titel: 'Ruim één taak op',
             inhoud: 'Neem één administratieve klus die al te lang blijft liggen.',
             stappen: [
-              'Typ je notities of losse gedachten in — slordig mag.',
+              'Typ je notities of losse gedachten in — slordig mag, maar haal er eerst de namen uit.',
               'Vraag om structuur, met "verzin niets bij".',
               'Lees na en corrigeer wat niet klopt.',
               'Klaar. Merk hoeveel korter dat duurde dan anders.',
             ],
           },
-                  {
-            type: "quiz",
-            vraag: "Je laat een verslag maken van je ruwe vergaderingsnotities en zet erbij: \"Verzin niets bij.\" Waarom is die ene zin zo nuttig?",
+          {
+            type: 'quiz',
+            vraag: 'Je laat een verslag maken van je ruwe vergaderingsnotities en zet erbij: "Verzin niets bij." Waarom is die ene zin zo nuttig?',
             opties: [
               {
-                tekst: "Zonder die zin vult de assistent de gaten in je notities op met tekst die aannemelijk klinkt maar nooit gezegd is.",
+                tekst: 'Zonder die zin vult de assistent de gaten in je notities op met tekst die aannemelijk klinkt maar nooit gezegd is.',
                 juist: true,
-                feedback: "Juist. Een assistent maakt van losse flarden graag een vloeiend geheel, en dan sluipt er inhoud binnen die niemand op die vergadering uitgesproken heeft. In een verslag dat collega's later als afspraak lezen, is dat een echt probleem.",
+                feedback: 'Juist. Een assistent maakt van losse flarden graag een vloeiend geheel, en dan sluipt er inhoud binnen die niemand op die vergadering uitgesproken heeft. In een verslag dat collega\'s later als afspraak lezen, is dat een echt probleem.',
               },
               {
-                tekst: "Zonder die zin wordt het verslag veel te lang.",
+                tekst: 'Zonder die zin wordt het verslag veel te lang.',
                 juist: false,
-                feedback: "Lengte stuur je met een andere instructie — \"maximaal één bladzijde\" of \"hou het bij de afspraken\". \"Verzin niets bij\" gaat niet over hoeveel er staat, maar over of het klopt.",
+                feedback: 'Lengte stuur je met een andere instructie — "maximaal één bladzijde" of "hou het bij de afspraken". "Verzin niets bij" gaat niet over hoeveel er staat, maar over of het klopt.',
               },
               {
-                tekst: "Zonder die zin mag je geen persoonsgegevens in het gesprek zetten.",
+                tekst: 'Zonder die zin mag je geen persoonsgegevens in het gesprek zetten.',
                 juist: false,
-                feedback: "Dat zijn twee losse regels. Namen en gegevens laat je sowieso weg, met of zonder deze zin. \"Verzin niets bij\" beschermt de juistheid van je verslag, niet de privacy van je collega's.",
+                feedback: 'Dat zijn twee losse regels. Namen en gegevens laat je sowieso weg, met of zonder deze zin. "Verzin niets bij" beschermt de juistheid van je verslag, niet de privacy van je collega\'s.',
               },
             ],
           },
@@ -572,7 +573,7 @@ export const MODULES_AI = [
   {
     id: 'veilig-en-ethisch',
     icoon: '🛡️',
-    titel: 'Veilig, ethisch & met leerlingen',
+    titel: 'Veilig, ethisch en met leerlingen',
     ondertitel: 'Privacy, betrouwbaarheid, en wat je doet als leerlingen zelf met AI werken.',
     duur: '50 min',
     niveau: 'Essentieel',
@@ -597,21 +598,22 @@ export const MODULES_AI = [
               '<strong>Nooit:</strong> namen van leerlingen, geboortedata, adressen, rijksregisternummers, medische of zorggegevens, verslagen van het CLB, foto\'s van leerlingen.',
               '<strong>Nooit:</strong> gevoelige informatie over collega\'s of over de thuissituatie van een gezin.',
               '<strong>Wél veilig:</strong> geanonimiseerde omschrijvingen ("een leerling van 13 met concentratieproblemen"), je eigen lesmateriaal, algemene vragen.',
+              '<strong>Ging het toch mis?</strong> Plakte je per ongeluk een naam, een klaslijst of een verslag in een gesprek: noteer kort wat er precies in stond en wanneer, meld het diezelfde dag bij je directie en de DPO van de scholengroep, en verwijder daarna het gesprek. Zij beoordelen of dit officieel gemeld moet worden — daar heeft de school maar 72 uur voor, en die inschatting maak jij niet alleen. Melden is precies wat er van je verwacht wordt; stilhouden maakt het alleen erger.',
             ],
           },
           {
             type: 'kader',
             variant: 'privacy',
-            titel: 'Anonimiseren kost je vijf seconden',
+            titel: 'Namen wegknippen is de eerste stap, niet de laatste',
             inhoud:
-              'Vervang namen door <code>[LEERLING]</code> voor je iets plakt. De kwaliteit van het antwoord blijft identiek, en je hoeft nooit meer na te denken over wat wel en niet mag.',
+              'Vervang namen door <code>[LEERLING]</code> voor je iets plakt — de kwaliteit van het antwoord blijft identiek. Maar kijk daarna één keer naar wat er overblijft. "Een leerling van het derde leerjaar met ernstige leesproblemen en een broer in het zesde" wijst binnen jouw school nog altijd naar één kind, ook zonder naam. De vraag is dus niet "staat er een naam in?" maar "kan een collega raden over wie dit gaat?". Is het antwoord ja, haal er dan nog iets uit of hou het bij een algemene omschrijving. En bij zorg- of CLB-gegevens is wegknippen geen oplossing: die horen er sowieso niet in, ook niet zonder naam.',
           },
           {
             type: 'kader',
             variant: 'tool',
             titel: 'Check de instellingen van jullie accounts',
             inhoud:
-              'Zowel ChatGPT als Claude hebben instellingen en abonnementsvormen die bepalen wat er met je gesprekken gebeurt. Bij school- en zakelijke accounts gelden doorgaans strengere afspraken dan bij een gratis privéaccount. <strong>Ga na wat jullie school gebruikt</strong> en welke afspraken de scholengroep maakte — en gebruik voor schoolwerk het schoolaccount, niet je privéaccount. Bij twijfel: de DPO van je scholengroep weet dit.',
+              'Zowel ChatGPT als Claude hebben instellingen en abonnementsvormen die bepalen wat er met je gesprekken gebeurt. Bij school- en zakelijke accounts gelden doorgaans strengere afspraken dan bij een gratis privéaccount. Waar dat verschil vandaan komt: bij een schoolaccount hoort een <strong>verwerkersovereenkomst</strong> — een contract tussen je school of scholengroep en de leverancier over wat er met de gegevens mag gebeuren, hoelang ze bewaard blijven en waar ze staan. Die komt er niet vanzelf: de school moet ze afsluiten. Vraag dus gerust aan je ICT-coördinator of aan de DPO of ze er is — daar zijn ze net voor. <strong>Ga na wat jullie school gebruikt</strong> en welke afspraken de scholengroep maakte — en gebruik het schoolaccount voor alles waar leerlingen in voorkomen. Voor lesmateriaal zonder leerlinggegevens is je privéaccount doorgaans geen probleem, tenzij het AI-beleid of het ICT-reglement van jullie school iets anders afspreekt.',
           },
         ],
       },
@@ -622,7 +624,7 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'AI-assistenten kunnen dingen <strong>verzinnen</strong> — een jaartal, een bron, een citaat, een boek dat niet bestaat — en dat gebeurt in dezelfde vlotte, zelfverzekerde toon als de rest. Er verschijnt geen waarschuwing. Dat maakt het net riskant, en het geldt voor ChatGPT en Claude allebei.',
+              'AI-assistenten kunnen dingen <strong>verzinnen</strong> — een jaartal, een bron, een citaat, een boek dat niet bestaat — en dat gebeurt in dezelfde vlotte, zelfverzekerde toon als de rest. Er verschijnt geen waarschuwing. Dat maakt het net riskant, en het geldt voor ChatGPT en Claude allebei. Veel assistenten zoeken ook mee op het web en zetten er links bij. Dat helpt, maar het verplaatst je controle in plaats van ze over te nemen: klik de bron open en kijk of ze bestaat én of ze echt zegt wat de assistent beweert. Een link die er geloofwaardig uitziet, is nog geen gelezen bron.',
           },
           {
             type: 'lijst',
@@ -638,7 +640,7 @@ export const MODULES_AI = [
             tekst:
               'Beantwoord de vraag hieronder, en zet expliciet bij elk onderdeel waar je niet zeker van bent: [ONZEKER — NACHECKEN]. Verzin geen bronnen: ken je de exacte bron niet, zeg dat dan.\n\nVraag: [JOUW VRAAG]',
             uitleg:
-              'Geen garantie, maar het maakt de twijfelachtige stukken wel zichtbaar — en dat scheelt in je nakijkwerk.',
+              'Geen garantie, en let op één ding: <strong>wat er níét gemarkeerd staat, is daarom nog niet juist.</strong> Zo\'n label toont je waar je zeker moet nakijken — het zegt nooit wat je mag overslaan.',
           },
           {
             type: 'quiz',
@@ -660,7 +662,7 @@ export const MODULES_AI = [
                 tekst: 'Aan de assistent vragen of het citaat echt is.',
                 juist: false,
                 feedback:
-                  'Onbetrouwbaar: dezelfde bron kan de verzinning gewoon bevestigen. Check buiten het gesprek.',
+                  'Vraag je enkel "klopt dat?", dan kan dezelfde bron haar verzinsel gewoon bevestigen. Laat je de bron erbij zoeken, dan helpt dat wel — maar pas als jij die link opent en het citaat er echt ziet staan.',
               },
             ],
           },
@@ -673,16 +675,18 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'Je leerlingen gebruiken AI al — of ze het zeggen of niet. De vraag is niet <em>of</em> je het toelaat, maar of ze leren het <strong>goed</strong> te gebruiken. Verbieden zonder uitleg verplaatst het gewoon naar buiten je zicht.',
+              'Je leerlingen gebruiken AI al — of ze het zeggen of niet. Eén bezwaar blijft daarbij overeind, en het klopt: bij een opstel of een denkopdracht is het zelf zoeken, vastlopen en herbeginnen <strong>precies het leerdoel</strong>, en een leerling die dat laat schrijven, leert niet schrijven. Daar bestaat geen slimme prompt voor. Alleen lost een algemeen verbod dat evenmin op — het verplaatst het gewoon naar buiten je zicht. Wat wél werkt: per opdracht zeggen wat mag en wat niet. En bij de opdrachten waar het schrijven of het denken zelf het doel is, zeg je gerust dat AI er <em>niet</em> in hoort.',
           },
           {
             type: 'lijst',
             items: [
               '<strong>Wees expliciet per opdracht.</strong> "AI mag hier voor het zoeken naar ideeën, niet voor het schrijven" is duidelijker dan een algemeen verbod.',
+              '<strong>Spreek af vóór je sanctioneert.</strong> Merk je achteraf AI-gebruik terwijl je vooraf niets afsprak, voer dan een gesprek: vraag hoe de leerling het aanpakte en welke stukken van hem zijn. Wat als onregelmatigheid geldt en wie erover beslist, staat in het school- en evaluatiereglement — lees dat na vóór je punten aftrekt of een taak ongeldig verklaart, en leg een zwaar geval altijd eerst bij je directie. Staat er nog niets over AI in, breng het dan aan bij je directie of op de vakwerkgroep: dat is een schoolafspraak, geen beslissing van één leerkracht.',
               '<strong>Laat het proces zien.</strong> Vraag naar tussenstappen, een kladversie of een korte mondelinge toelichting. Dat maakt overschrijven vanzelf zinloos.',
               '<strong>Leer ze nakijken.</strong> Geef bewust een antwoord met een fout erin en laat ze die zoeken. Dat blijft veel beter hangen dan een waarschuwing.',
               '<strong>Laat ze bronvermelden.</strong> "Ik gebruikte AI voor X" hoort er gewoon bij, net als elke andere bron.',
-              '<strong>Let op de leeftijdsgrenzen.</strong> De meeste AI-diensten hanteren een minimumleeftijd. In het lager onderwijs werk je dus klassikaal via jouw account, niet met individuele leerlingaccounts.',
+              '<strong>Let op de leeftijdsgrenzen.</strong> Die verschillen per dienst: bij de ene mag je pas een eigen account als je volwassen bent, bij de andere vanaf dertien mits de ouders akkoord gaan. Kijk het na vóór je iets voorstelt — voor schoolaccounts gelden soms andere afspraken. In het lager onderwijs werk je dus klassikaal via jouw account, niet met leerlingaccounts. En ook in het secundair, waar de leeftijd vaak wél klopt, beslist niet de leerkracht alleen dat een klas met eigen accounts werkt: dat gaat langs de directie en de ICT-coördinator.',
+              '<strong>Reken niet op wat er thuis staat.</strong> De ene leerling heeft thuis een eigen toestel, een vlotte verbinding en iemand die meekijkt; de andere deelt één gsm met broers en zussen. Geef dus geen opdracht die eigenlijk een AI-assistent thuis veronderstelt — dan meet je de thuissituatie mee. Hou dat werk in de les: in het lager klassikaal op jouw scherm, in het secundair op de schooltoestellen als je school daar accounts voor voorziet.',
             ],
           },
           {

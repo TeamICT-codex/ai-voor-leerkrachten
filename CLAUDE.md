@@ -50,6 +50,7 @@ schrijfkeuze:
 js/inhoud.js        spoor A — inhoud
 js/casussen.js      spoor A — casussenmodule (groepswerk A3)
 js/inhoud-vibe.js   spoor B — inhoud
+js/gids.js          begeleidersgids + de 22 lastige vragen
 js/workshops.js     draaiboeken + sporen
 js/cursus.js        voegt sporen samen, kloktijden
 js/app.js           router, weergave, sessietimer, voortgang
@@ -76,7 +77,7 @@ nieuw blok-type vraagt wel een `case` in `toonInhoudsblok()` plus styling.
 
 ## Controles vóór een commit
 
-Draaiboektiming en moduleverwijzingen nakijken:
+Draaiboektiming, moduleverwijzingen en kadervarianten nakijken:
 
 ```bash
 node --input-type=module -e "
@@ -84,7 +85,8 @@ import { WORKSHOPS } from './js/workshops.js';
 import { MODULES_AI } from './js/inhoud.js';
 import { MODULES_VIBE } from './js/inhoud-vibe.js';
 import { MODULE_CASUSSEN } from './js/casussen.js';
-const ids = new Set([...MODULES_AI, MODULE_CASUSSEN, ...MODULES_VIBE].map(m => m.id));
+const modules = [...MODULES_AI, MODULE_CASUSSEN, ...MODULES_VIBE];
+const ids = new Set(modules.map(m => m.id));
 let fout = 0;
 for (const w of WORKSHOPS) {
   const som = w.draaiboek.reduce((s,b) => s + b.minuten, 0);
@@ -92,6 +94,15 @@ for (const w of WORKSHOPS) {
   for (const b of w.draaiboek)
     if (b.module && !ids.has(b.module)) { console.log('FOUT', w.code, 'onbekende module', b.module); fout++; }
 }
+// Een kader met een variant zonder styling valt terug op een neutraal kader.
+// Dat ziet er niet kapot uit, dus een tikfout blijft anders onopgemerkt.
+const VARIANTEN = new Set(['tip', 'letop', 'privacy', 'weetje', 'tool']);
+for (const m of modules)
+  for (const l of m.lessen)
+    for (const b of l.blokken)
+      if (b.type === 'kader' && !VARIANTEN.has(b.variant)) {
+        console.log('FOUT', m.id, l.id, 'onbekende kadervariant', b.variant); fout++;
+      }
 console.log(fout ? 'NIET OK' : 'alles OK');
 "
 ```
@@ -112,7 +123,8 @@ python3 -m http.server 8000
 ## Stand van zaken
 
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
-- 12 modules, 28 lessen, 130 inhoudsblokken.
+- 12 modules, 28 lessen, 133 inhoudsblokken (tekst 31, kader 31, lijst 18,
+  prompt 15, casus 14, quiz 11, opdracht 11, vergelijk 2).
 - Pagina's: overzicht, module, draaiboek, deelnemersbundel, promptkaart,
   begeleidersgids. Zie README voor de routes.
 - 14 casussen voor het groepswerk in A3, gespreid over mag / mag niet /
@@ -124,14 +136,17 @@ python3 -m http.server 8000
 
 ### Verificatiestatus van de inhoud
 
-Niet alles is even grondig nagekeken. Hou dit bij als je verder schrijft:
+Hou dit bij als je verder schrijft.
 
-- **Nagekeken en gecorrigeerd:** de acht ontbrekende blokken (drie lenzen), en
-  casussen 1 tot 10 (juridisch, didactisch, Vlaamse herkenbaarheid).
-- **NIET nagekeken:** de laatste vier casussen (spreekbeurt, vervangles, verslag
-  voor het CLB, spelling bij dyslexie), de volledige begeleiders-FAQ (22 vragen)
-  en de quizvraag van de module administratie. Die verificatie liep vast op een
-  sessielimiet. Lees ze extra kritisch, of laat ze alsnog nakijken.
+- **Nagekeken en gecorrigeerd:** alle inhoudsbestanden zijn intussen één keer
+  volledig doorgelicht op juridische houdbaarheid, didactiek, Vlaamse
+  terminologie en tool-neutraliteit — inclusief de veertien casussen, de
+  begeleiders-FAQ (22 vragen) en de quizvraag van de module administratie.
+  Verwijs naar een casus met haar **titel**, nooit met haar nummer: de volgorde
+  is bij die ronde gewijzigd zodat elke reeks vroeg een "mag" toont.
+- **Nog niet nagekeken:** wat je hierna zelf toevoegt. De app zelf (`app.js`,
+  `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
+  schermcontexten; nieuw blok-type of nieuwe kadervariant vraagt die pas opnieuw.
 
 Wat die nakijkronde opleverde is leerzaam voor wie hier verder schrijft: de
 terugkerende fouten waren Nederlands-Nederlandse termen (docent, werkstuk,
@@ -141,3 +156,17 @@ die het sterkste tegenargument wegwuiven in plaats van beantwoorden.
 
 **Nog te doen:** nog geen deployment (Vercel of Netlify koppelen aan de repo
 volstaat; statische site zonder build-stap).
+
+**Voorstellen die eerst een go vragen** (uit de nakijkronde van 3 september
+2026; ze voegen inhoud toe en zijn daarom niet automatisch gebouwd):
+
+- Een kader over de Europese AI-verordening in de module veilig-en-ethisch.
+- Een FAQ-vraag "Hoe weet ik of een leerling zijn taak door AI liet
+  schrijven?" bij de praktische vragen.
+- Een kader "AI als hulpmiddel, niet als voorsprong" in de les over
+  leerlingen die zelf AI gebruiken (dyslexie, anderstalige nieuwkomers).
+- Een vijftiende casus: een brief aan ouders in de thuistaal (oordeel: mag).
+- Drie startblokken in de les eerste-gesprek over account aanmaken en
+  inloggen, voor wie nog nooit een assistent opende.
+- Een opdracht "Reken je kosten uit en leg de afspraak vast" in de les
+  modellen-en-kosten, zodat B3 meer dan één opdracht in de bundel heeft.

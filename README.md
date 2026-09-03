@@ -29,6 +29,14 @@ Claude, en de vaardigheden zijn identiek. Waar het echt verschilt, staat een
 blauw *tool*-kader. Spoor B werkt wél met Claude, omdat dat wat het bouwt
 meteen als werkende pagina toont — dat scheelt in een zaal vol beginners.
 
+De belangrijkste praktische voorwaarde: elke deelnemer heeft vóór de sessie een
+werkend account bij de assistent uit de tabel hierboven, getest op het
+schoolnetwerk. Regel dat samen met de ICT-coördinator — ter plaatse kost het je
+makkelijk een half uur van je sessie. Voorziet de school of scholengroep een
+schoolaccount, gebruik dan dat en niet je privéaccount: het bepaalt mee wat er
+met je gesprekken gebeurt. Voor B2 komt daar een GitHub-account bij, voor B3 een
+account met betaalmogelijkheid — spreek vooraf af wie dat betaalt.
+
 Spoor B is inhoudelijk geïnspireerd op
 [vibecodenvoordocenten.vercel.app](https://vibecodenvoordocenten.vercel.app/),
 hertaald naar Vlaamse context (leerplandoelen en eindtermen, GDPR via de DPO
@@ -60,10 +68,13 @@ In begeleidersmodus krijg je bovendien:
 - **Start sessie** — markeert live welk blok bezig is en hoeveel minuten er nog
   resten.
 - **Draaiboek afdrukken** — een papieren versie, begeleiderstips inbegrepen.
-- **Deelnemersbundel** — een aparte afdrukbare hand-out met de doelen, de
-  vuistregels, alle prompts en opdrachten van de sessie, en notitieruimte.
 - **Vooraf klaarzetten** — wat je vóór de sessie geregeld moet hebben.
 - **Valkuilen** — wat er in de praktijk misloopt bij deze sessie.
+
+De **deelnemersbundel** staat los van de begeleidersmodus: iedereen kan hem
+vanaf het draaiboek openen en afdrukken — een hand-out met de doelen, de
+vuistregels, alle prompts en opdrachten van de sessie, een lijstje om verder te
+lezen en notitieruimte.
 
 ## Lokaal draaien
 
@@ -82,6 +93,7 @@ Daarna surf je naar <http://localhost:8000>.
 index.html            de volledige pagina-omhulling
 css/style.css         alle styling, mobiel-eerst, met afdrukblok onderaan
 js/inhoud.js          spoor A — inhoud (ChatGPT én Claude)
+js/casussen.js        spoor A — de casussenmodule (groepswerk in A3)
 js/inhoud-vibe.js     spoor B — inhoud (vibe coden, Claude)
 js/workshops.js       de zes draaiboeken + de sporen
 js/gids.js            begeleidersgids: begeleidingsadvies en de lastige vragen
@@ -92,7 +104,8 @@ assets/favicon.svg
 
 ## Inhoud aanpassen of uitbreiden
 
-Alle tekst zit in `js/inhoud.js` en `js/inhoud-vibe.js` als gewone data. Een
+Alle tekst zit in `js/inhoud.js`, `js/casussen.js` en `js/inhoud-vibe.js` als
+gewone data; de begeleidersgids en de lastige vragen zitten in `js/gids.js`. Een
 les bestaat uit blokken; de renderer kent deze types:
 
 | Type | Waarvoor |
@@ -104,7 +117,7 @@ les bestaat uit blokken; de renderer kent deze types:
 | `vergelijk` | Zwakke versus sterke prompt naast elkaar. |
 | `opdracht` | Doe-opdracht met genummerde stappen. |
 | `quiz` | Meerkeuzevraag met feedback per antwoord. |
-| `casus` | Situatie om in groep te beoordelen. Het oordeel blijft verborgen tot de lezer klikt; de gespreksvraag verschijnt enkel in begeleidersmodus. |
+| `casus` | Situatie om in groep te beoordelen; deze blokken staan in `js/casussen.js`. Het oordeel blijft verborgen tot de lezer klikt; de gespreksvraag verschijnt enkel in begeleidersmodus. |
 
 Een blok toevoegen vraagt dus geen code — enkel een object in de juiste les.
 Wil je een nieuw blok-*type*, dan voeg je een `case` toe in

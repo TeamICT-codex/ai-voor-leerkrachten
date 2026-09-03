@@ -29,7 +29,7 @@ export const MODULES_VIBE = [
           {
             type: 'tekst',
             inhoud:
-              '<strong>Vibe coden</strong> is: in gewone taal beschrijven wat je wil, en de AI de code laten schrijven. Jij zegt <em>"maak een oefening waarbij leerlingen breuken op een getallenlijn slepen"</em>, en je krijgt een werkende webpagina terug. Je leest die code niet, je <em>test</em> hem — werkt het niet zoals je wil, dan zeg je gewoon wat er anders moet.',
+              '<strong>Vibe coden</strong> is: in gewone taal beschrijven wat je wil, en de AI de code laten schrijven. Jij zegt <em>"maak een oefening waarbij leerlingen de gebeurtenissen van de Eerste Wereldoorlog op een tijdlijn slepen"</em>, en je krijgt een werkende webpagina terug. Je leest die code niet, je <em>test</em> hem — werkt het niet zoals je wil, dan zeg je gewoon wat er anders moet.',
           },
           {
             type: 'tekst',
@@ -41,14 +41,14 @@ export const MODULES_VIBE = [
             variant: 'tool',
             titel: 'Waarom dit spoor met Claude werkt',
             inhoud:
-              'In spoor A kon je vrij kiezen tussen ChatGPT en Claude. <strong>Hier werken we met Claude</strong>, om een praktische reden: Claude toont wat het bouwt meteen als werkende pagina in het gesprek, zodat je onmiddellijk kan klikken en testen zonder iets te installeren. Dat maakt de cyclus bouwen–testen–bijsturen veel vlotter voor wie niet kan programmeren. Met ChatGPT kan je ook code laten schrijven, maar dan werk je vaker met kopiëren, plakken en bestanden bewaren. In een zaal vol beginners houden we het bij één tool — dat scheelt verwarring.',
+              'In spoor A kon je vrij kiezen tussen ChatGPT en Claude. <strong>Hier werken we met Claude</strong>, om een praktische reden: Claude toont wat het bouwt meteen als werkende pagina in het gesprek, zodat je onmiddellijk kan klikken en testen zonder iets te installeren. Dat maakt de cyclus bouwen-testen-bijsturen veel vlotter voor wie niet kan programmeren. Andere assistenten kunnen ook code schrijven, en wat ze daarbij tonen verandert snel — kijk gerust eens wat jouw assistent ondertussen kan. Voor deze workshop houden we het bij één tool: in een zaal vol beginners scheelt dat verwarring, en de vaardigheid die je hier leert — <strong>beschrijven, testen, bijsturen</strong> — verhuist gewoon mee.',
           },
           {
             type: 'kader',
             variant: 'weetje',
             titel: 'Jij bent de onderwijsexpert',
             inhoud:
-              'De AI kan code schrijven, maar weet niet wat werkt bij 24 tweedejaars op een vrijdagnamiddag. Die kennis heb jij — en die is het schaarse deel. Het bouwen was vroeger de drempel; nu is het didactisch ontwerp weer waar het over gaat.',
+              'De AI kan code schrijven, maar weet niet wat werkt bij 24 leerlingen van het tweede jaar op een vrijdagnamiddag. Die kennis heb jij — en die is het schaarse deel. Het bouwen was vroeger de drempel; nu is het didactisch ontwerp weer waar het over gaat.',
           },
           {
             type: 'lijst',
@@ -75,7 +75,7 @@ export const MODULES_VIBE = [
                   'Twee problemen: het is technisch een pak complexer, én je zit meteen met leerlinggegevens. Slechte combinatie om mee te starten.',
               },
               {
-                tekst: 'Een compleet platform voor de hele vakgroep.',
+                tekst: 'Een compleet platform voor de hele vakwerkgroep.',
                 juist: false,
                 feedback:
                   'Te groot. Grote projecten stranden; kleine projecten leren je hoe het werkt.',
@@ -116,7 +116,7 @@ export const MODULES_VIBE = [
             variant: 'tip',
             titel: 'Koppel het aan je leerplandoel',
             inhoud:
-              'Plak het leerplandoel of de eindterm er letterlijk bij. Je bouwsel wordt er scherper van, en je kan het meteen verantwoorden in je vakwerkgroep of bij de pedagogisch begeleider.',
+              'Plak het leerplandoel of de eindterm er letterlijk bij. Je bouwsel wordt er scherper van, en je kan het meteen verantwoorden op de vakwerkgroep of het teamoverleg, of bij de pedagogisch begeleider.',
           },
           {
             type: 'opdracht',
@@ -155,13 +155,13 @@ export const MODULES_VIBE = [
           {
             type: 'tekst',
             inhoud:
-              'Je vraagt de AI om <strong>één bestand</strong>: een HTML-pagina waar alles in zit. Geen installatie, geen mappen, geen technische opzet. Je krijgt iets terug dat je meteen ziet werken, en dat je later gewoon als bestand kan bewaren en delen.',
+              'Je vraagt de AI om <strong>één bestand</strong>: een HTML-pagina waar alles in zit. Geen installatie, geen mappen, geen technische opzet. Je krijgt iets terug dat je meteen ziet werken, en dat je later gewoon als bestand kan bewaren en delen. Even de drie woorden die je straks in de prompt ziet staan: <strong>HTML</strong> is de taal waarin webpagina\'s geschreven zijn, <strong>CSS</strong> bepaalt hoe ze eruitzien en <strong>JavaScript</strong> zorgt voor wat er gebeurt als de leerling op een knop klikt. Je hoeft daar niets van te kennen — je vraagt enkel dat die drie samen in dat ene bestand zitten.',
           },
           {
             type: 'prompt',
             titel: 'De bouwprompt — hergebruik deze telkens',
             tekst:
-              'Bouw een oefenpagina voor mijn leerlingen.\n\nWAT HET DOET:\n[BESCHRIJF IN 3-5 ZINNEN WAT DE LEERLING DOET EN ZIET]\n\nVOOR WIE:\nLeerlingen van [LEEFTIJD], [LEERJAAR], Vlaams onderwijs.\n\nEISEN:\n- Alles in één enkel HTML-bestand (HTML, CSS en JavaScript samen, geen externe bestanden).\n- Werkt zonder internetverbinding.\n- Werkt op een smartboard én op een gsm.\n- Grote, duidelijke knoppen en tekst.\n- Directe feedback: de leerling ziet meteen of het juist is.\n- Geen inloggen, geen opslag van persoonsgegevens.\n- Alle tekst in het Nederlands.\n\nGeef het volledige bestand terug.',
+              'Bouw een oefenpagina voor mijn leerlingen.\n\nWAT HET DOET:\n[BESCHRIJF IN 3-5 ZINNEN WAT DE LEERLING DOET EN ZIET]\n\nVOOR WIE:\nLeerlingen van [LEEFTIJD], [LEERJAAR], Vlaams onderwijs.\n\nEISEN:\n- Alles in één enkel HTML-bestand (HTML, CSS en JavaScript samen, geen externe bestanden).\n- Werkt zonder internetverbinding.\n- Werkt op een smartboard én op een gsm.\n- Grote, duidelijke knoppen en tekst.\n- Voldoende contrast en een leesbaar lettertype, ook van achteraan de klas op het smartboard.\n- Directe feedback: de leerling ziet meteen of het juist is.\n- Die feedback nooit enkel met kleur: zet er ook een woord of symbool bij.\n- Geen inloggen, geen opslag van persoonsgegevens.\n- Alle tekst in het Nederlands, met korte en duidelijke instructies. Vaktermen mag je gewoon gebruiken.\n\nGeef het volledige bestand terug.',
             uitleg:
               'Bewaar deze prompt. Je vervangt enkel het bovenste blok en je hebt telkens een degelijk vertrekpunt. De eis "één bestand" is de belangrijkste — die houdt alles simpel.',
           },
@@ -201,9 +201,9 @@ export const MODULES_VIBE = [
           {
             type: 'lijst',
             items: [
-              '<strong>Test als de slimste leerling:</strong> wat gebeurt er bij het juiste antwoord?',
-              '<strong>Test als de traagste leerling:</strong> is de uitleg duidelijk zonder jouw hulp erbij?',
-              '<strong>Test als de lastigste leerling:</strong> klik alles kapot. Lege velden, dubbelklikken, rare invoer, drie keer na elkaar op verzenden.',
+              '<strong>Test als de vlotte leerling:</strong> vul alles correct in — doet de app dan wat je verwacht?',
+              '<strong>Test als de leerling die het niet meteen snapt:</strong> lees enkel wat op het scherm staat. Raak je verder zonder jouw uitleg erbij?',
+              '<strong>Test als de leerling die alles uitprobeert:</strong> klik alles kapot. Lege velden, dubbelklikken, rare invoer, drie keer na elkaar op verzenden.',
               '<strong>Test op het échte toestel:</strong> smartboard, chromebook of gsm — niet enkel op je eigen laptop.',
             ],
           },
@@ -238,6 +238,19 @@ export const MODULES_VIBE = [
               },
             ],
           },
+          {
+            type: 'opdracht',
+            titel: 'Test als drie leerlingen',
+            inhoud:
+              'Rondklikken tot het lijkt te werken is geen test. Je doorloopt een app vier keer — drie keer in het hoofd van een andere leerling, één keer op het toestel waarop de app écht gebruikt wordt — en je verzamelt alles wat misloopt vóór je iets laat aanpassen.',
+            stappen: [
+              'Ruil met je buur: jij test de app van je buur, je buur test de jouwe. Werk je alleen, test dan je eigen app, maar wees streng.',
+              'Ronde 1 — de vlotte leerling: vul alles correct in en kijk of de app doet wat je verwacht. Ronde 2 — de leerling die het niet meteen snapt: lees enkel wat op het scherm staat en kijk of je zonder uitleg verder raakt.',
+              'Ronde 3 — de leerling die alles uitprobeert: lege velden, dubbelklikken, rare invoer, drie keer na elkaar op verzenden. Ronde 4: open dezelfde pagina op een gsm of op het smartboard en kijk wat daar anders loopt.',
+              'Noteer elke fout als één zin: wat je deed, wat je zag, en wat er had moeten gebeuren. Nog niets bijsturen — eerst alles verzamelen.',
+              'Zet die zinnen onder elkaar in één bericht aan Claude met de vraag ze allemaal op te lossen zonder de rest te veranderen, bewaar de nieuwe versie onder een volgend nummer en hertest enkel wat op je lijstje stond.',
+            ],
+          },
         ],
       },
       {
@@ -262,19 +275,7 @@ export const MODULES_VIBE = [
             variant: 'tip',
             titel: 'Toegankelijkheid is geen extraatje',
             inhoud:
-              'Vraag standaard om voldoende contrast, een leesbaar lettertype en feedback die niet enkel op kleur steunt. Kost je één regel in je prompt en maakt je materiaal bruikbaar voor élke leerling in je klas.',
-          },
-                  {
-            type: "opdracht",
-            titel: "Test als drie leerlingen",
-            inhoud: "Rondklikken tot het lijkt te werken is geen test. Je doorloopt een app vier keer — drie keer in het hoofd van een andere leerling, één keer op het toestel waarop hij écht gebruikt wordt — en je verzamelt alles wat misloopt vóór je iets laat aanpassen.",
-            stappen: [
-              "Ruil met je buur: jij test zijn app, hij de jouwe. Werk je alleen, test dan je eigen app, maar wees streng.",
-              "Ronde 1 — de vlotte leerling: vul alles juist in en kijk of de app daar juist op reageert. Ronde 2 — de leerling die het niet meteen snapt: lees enkel wat op het scherm staat en kijk of je zonder uitleg verder raakt.",
-              "Ronde 3 — de leerling die alles uitprobeert: lege velden, dubbelklikken, rare invoer, drie keer na elkaar op verzenden. Ronde 4: open dezelfde pagina op een gsm of op het smartboard en kijk wat daar anders loopt.",
-              "Noteer elke fout als één zin: wat je deed, wat je zag, en wat er had moeten gebeuren. Nog niets bijsturen — eerst alles verzamelen.",
-              "Zet die zinnen onder elkaar in één bericht aan Claude met de vraag ze allemaal op te lossen zonder de rest te veranderen, bewaar de nieuwe versie onder een volgend nummer en hertest enkel wat op je lijstje stond.",
-            ],
+              'Voldoende contrast, een leesbaar lettertype en feedback die niet enkel op kleur steunt: dat staat daarom al in je bouwprompt. Hou het erin, ook als je de prompt inkort — het maakt je materiaal bruikbaar voor élke leerling in je klas.',
           },
         ],
       },
@@ -308,7 +309,7 @@ export const MODULES_VIBE = [
             geordend: true,
             items: [
               '<strong>Bestand doorsturen of op Smartschool zetten.</strong> Simpelst. Leerlingen downloaden het en openen het. Prima voor eenmalig gebruik.',
-              '<strong>Online zetten met een gratis dienst</strong> (Netlify, Vercel of GitHub Pages). Je krijgt een echte link die je in Smartschool of via een QR-code deelt. Dit is meestal wat je wil.',
+              '<strong>Online zetten met een gratis dienst</strong> (Netlify of Vercel). Je uploadt je bestand en krijgt een echte link die je in Smartschool of via een QR-code deelt. Dit is meestal wat je wil.',
               '<strong>Met eigen domeinnaam en gegevensopslag.</strong> Enkel als je app gegevens moet bijhouden — zie de volgende module.',
             ],
           },
@@ -317,14 +318,14 @@ export const MODULES_VIBE = [
             variant: 'tip',
             titel: 'De snelste weg online',
             inhoud:
-              'Bij Netlify kan je je HTML-bestand letterlijk naar het venster slepen en je krijgt binnen de minuut een werkende link. Geen account nodig om te proberen, geen technische opzet. Vraag gerust aan Claude om je stap voor stap door de dienst van je keuze te loodsen.',
+              'Bij een dienst als Netlify sleep je je HTML-bestand letterlijk naar het venster en heb je binnen enkele minuten een werkende link, zonder technische opzet. Reken wel op een account dat je eerst aanmaakt; hoe dat precies gaat, verschilt per dienst en verandert geregeld. Probeer je dienst daarom zelf één keer uit met een testbestandje, ruim vóór je die link voor je klas nodig hebt. Vraag gerust aan Claude om je stap voor stap door de dienst van je keuze te loodsen.',
           },
           {
             type: 'kader',
             variant: 'letop',
             titel: 'Online = publiek',
             inhoud:
-              'Zo\'n link is voor iedereen bereikbaar die hem heeft. Zet er dus nooit iets in wat niet openbaar mag zijn: geen leerlingnamen, geen toetsen die je nog moet afnemen, geen antwoordsleutels die verborgen moeten blijven.',
+              'Zo\'n link is voor iedereen bereikbaar die hem heeft. Zet er dus nooit iets in wat niet openbaar mag zijn: geen leerlingnamen, geen toetsen die je nog moet afnemen, geen antwoordsleutels die verborgen moeten blijven. Wat wél gewoon mag: een oefenpagina die meteen zegt of het juist is. Daar hóren de antwoorden in — dat is net het punt van de oefening, en wie bij een oefening afkijkt, bedriegt enkel zichzelf. Moet iets echt geheim blijven tot na de toets, dan hoort het niet op zo\'n publieke link: hou dat bestand bij je en deel het pas achteraf.',
           },
         ],
       },
@@ -343,13 +344,13 @@ export const MODULES_VIBE = [
               '<strong>Test op school</strong>, op de toestellen van de leerlingen. Het schoolnetwerk blokkeert soms wat thuis vlot werkt.',
               '<strong>Deel via een QR-code</strong> op het bord. Sneller dan een lange link laten overtypen, zeker in het lager onderwijs.',
               '<strong>Doe het eerst klassikaal voor</strong>, één keer, op het smartboard. Scheelt je twintig identieke vragen.',
-              '<strong>Hou een plan B klaar.</strong> Een papieren versie of een klassikale variant. Netwerk kan altijd uitvallen.',
+              '<strong>Hou een plan B klaar.</strong> Een papieren versie of een klassikale variant — voor als het netwerk uitvalt, én voor wie thuis geen toestel of geen internet heeft. Geef je de link mee naar huis, zorg dan dat dezelfde oefening ook op papier te maken is, zodat het niet afhangt van wat er bij een leerling thuis staat.',
             ],
           },
           {
             type: 'kader',
             variant: 'tip',
-            titel: 'Deel het met je vakgroep',
+            titel: 'Deel het met je vakwerkgroep',
             inhoud:
               'Wat jij bouwt, kan een collega meestal meteen gebruiken. Deel het in je vakwerkgroep, of zet het op KlasCement zodat andere Vlaamse leerkrachten er iets aan hebben. Vraag Claude gerust om er een korte beschrijving en gebruiksaanwijzing bij te schrijven.',
           },
@@ -416,7 +417,7 @@ export const MODULES_VIBE = [
           {
             type: 'tekst',
             inhoud:
-              'Zodra je app iets moet <em>onthouden</em> na het sluiten van het tabblad, wordt alles complexer: je hebt een database nodig, en je krijgt te maken met privacyregels. Stel jezelf dus eerst de vraag of het echt moet.',
+              'Zodra je app iets moet <em>onthouden</em> nadat het tabblad dicht is, wordt het complexer. Hoe complex het wordt, hangt af van wie het achteraf moet kunnen zien: enkel diezelfde leerling op datzelfde toestel, of jij, thuis, voor je hele klas. Pas bij dat tweede komen een database en privacyregels kijken. Stel jezelf dus eerst de vraag of het echt moet, en zo ja: voor wie.',
           },
           {
             type: 'lijst',
@@ -436,7 +437,7 @@ export const MODULES_VIBE = [
           {
             type: 'tekst',
             inhoud:
-              'Heb je tóch een echte database nodig, dan is <strong>Supabase</strong> een gangbare keuze: gratis voor kleine projecten, en de AI kan je er stap voor stap doorheen loodsen. Reken op een extra sessie werk — dit is geen namiddagklusje meer.',
+              'Heb je tóch een echte database nodig, dan is <strong>Supabase</strong> een gangbare keuze: gratis voor kleine projecten, en de AI kan je er stap voor stap doorheen loodsen. Reken op een extra sessie werk — dit is geen namiddagklusje meer. Eén ding zet je bij het aanmaken meteen goed: kies een regio in Europa. Bij zo\'n dienst ligt die keuze doorgaans vast zodra je project bestaat — later verhuizen betekent opnieuw beginnen met een nieuw project en al je gegevens overzetten.',
           },
         ],
       },
@@ -447,12 +448,13 @@ export const MODULES_VIBE = [
           {
             type: 'tekst',
             inhoud:
-              'Zodra je gegevens van leerlingen bijhoudt in iets dat je zelf bouwde, is dat een verwerking van persoonsgegevens onder de <strong>GDPR</strong>. Dat is geen reden om niets te doen, maar wel om het juist aan te pakken — en niet in je eentje.',
+              'Zodra je gegevens van leerlingen bijhoudt in iets dat je zelf bouwde, is dat een verwerking van persoonsgegevens onder de <strong>GDPR</strong>, de Europese privacywetgeving die ook voor scholen geldt. Dat is geen reden om niets te doen, maar wel om het juist aan te pakken — en niet in je eentje.',
           },
           {
             type: 'lijst',
             items: [
               '<strong>Praat met de DPO van je scholengroep</strong> vóór je iets met leerlinggegevens in gebruik neemt. Dat is precies waarvoor die functie bestaat, en het is een gesprek van tien minuten.',
+              '<strong>Kies een server in Europa.</strong> Vraag in je prompt expliciet om een regio binnen de EU, en controleer het achteraf bij de dienst zelf. Buiten Europa kán wettelijk, maar er hangen dan afspraken aan vast die de school maakt en niet jij — nog een reden om het eerst met je DPO te bespreken.',
               '<strong>Check je schoolbeleid.</strong> Veel scholen hebben afspraken over welke tools mogen — die gelden ook voor wat je zelf bouwt.',
               '<strong>Verzamel zo weinig mogelijk.</strong> Heb je een naam nodig, of volstaat een klasnummer of zelfverzonnen bijnaam? Meestal het laatste.',
               '<strong>Zorg dat je kan wissen.</strong> Je moet gegevens kunnen verwijderen als iemand daarom vraagt.',
@@ -464,7 +466,7 @@ export const MODULES_VIBE = [
             variant: 'privacy',
             titel: 'De veilige standaard',
             inhoud:
-              'Bouw anoniem, tenzij het écht niet anders kan. Leerlingen kiezen zelf een bijnaam, of werken met een klasnummer. Je hebt dan alles wat je didactisch nodig hebt, en geen enkel van bovenstaande problemen.',
+              'Bouw zonder echte namen, tenzij het écht niet anders kan. Leerlingen kiezen zelf een bijnaam, of werken met hun klasnummer. Didactisch heb je dan alles wat je nodig hebt, en er staat geen naam meer in je tool — dat scheelt enorm. <strong>Echt anoniem</strong> is het pas als niemand, jij ook niet, de link naar een leerling nog kan leggen. Kan jij dat wel, dan blijven het leerlinggegevens: geen reden om het niet te doen, wel om het één keer voor te leggen aan je DPO in plaats van er zelf over te beslissen.',
           },
           {
             type: 'quiz',
@@ -480,13 +482,13 @@ export const MODULES_VIBE = [
                 tekst: 'Leerlingen een klasnummer of bijnaam laten kiezen.',
                 juist: true,
                 feedback:
-                  'Juist. Jij ziet wie hulp nodig heeft, jij weet wie welk nummer heeft, en de tool bevat geen persoonsgegevens.',
+                  'Juist, dit is de werkbare middenweg. Eén nuance: zolang jij weet wie nummer 12 is, blijven het persoonsgegevens — goed afgeschermd, maar niet anoniem. Wat je wint, is dat er geen naam meer in je tool staat en dat wie toevallig meekijkt er niets aan heeft. Dat gesprek van tien minuten met de DPO van je scholengroep blijft dus staan.',
               },
               {
                 tekst: 'Niets bijhouden en rondlopen in de klas.',
                 juist: false,
                 feedback:
-                  'Perfect verdedigbaar — maar je verliest het overzicht dat je net zocht. De middenweg hierboven geeft je allebei.',
+                  'Perfect verdedigbaar — maar je verliest het overzicht dat je net zocht. De middenweg hierboven combineert de twee: je loopt rond in de klas én je ziet achteraf wie vastliep.',
               },
             ],
           },
@@ -515,7 +517,7 @@ export const MODULES_VIBE = [
             tekst:
               'Ik ben leerkracht, geen programmeur, en ik heb nog nooit met GitHub gewerkt. Ik heb één HTML-bestand dat ik online wil zetten en waarvan ik de versies wil bijhouden.\n\nLeg me stap voor stap uit hoe ik dat doe, in gewone taal, zonder vakjargon. Zeg bij elke stap wat ik precies zie op het scherm en waar ik moet klikken.\n\nGa uit van nul: ik heb nog geen account.',
             uitleg:
-              '"Zeg bij elke stap wat ik zie op het scherm" is de zin die technische uitleg bruikbaar maakt voor niet-technische mensen. Gebruik hem overal.',
+              '"Zeg bij elke stap wat ik zie op het scherm" is de zin die technische uitleg bruikbaar maakt voor niet-technische mensen. Gebruik hem overal. Eén ding hoort erbij: diensten als GitHub wijzigen hun schermen geregeld, dus het kan best dat een knop anders heet dan wat je te horen krijgt. Dat is geen fout van jou. Antwoord dan gewoon met wat je wél ziet — "die knop vind ik niet, ik zie wel dit en dit staan" — of stuur een schermafbeelding mee. Meestal ben je er dan in één ronde uit.',
           },
                   {
             type: "opdracht",
@@ -545,6 +547,7 @@ export const MODULES_VIBE = [
       'Je beoordeelt wanneer een AI-functie zinvol is.',
       'Je begrijpt modelkeuze en kosten op hoofdlijnen.',
       'Je weet waarom een sleutel nooit in je webpagina hoort.',
+      'Je weet wat er met de invoer van je leerlingen gebeurt.',
     ],
     lessen: [
       {
@@ -571,6 +574,13 @@ export const MODULES_VIBE = [
             inhoud:
               'Bouw je een uitlegfunctie in, dan kan die soms iets fout uitleggen — zonder dat jij erbij bent om het recht te zetten. Presenteer het aan leerlingen dus als hulp, niet als waarheid, en zet er expliciet bij dat het om AI-uitleg gaat.',
           },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Wat je leerlingen typen, vertrekt naar buiten',
+            inhoud:
+              'Een AI-functie werkt maar op één manier: alles wat een leerling in jouw app typt, gaat naar de AI-dienst achter jouw sleutel — ook als je app zelf niets bewaart. In een open invulveld typt vroeg of laat iemand een naam of iets persoonlijks. Hou het veld dus zo klein mogelijk, zeg bij de opdracht uitdrukkelijk dat er geen namen of persoonlijke dingen in mogen, en leg zo\'n app één keer voor aan je ICT-coördinator en de DPO van je scholengroep vóór een klas ermee werkt. Een app die niets doorstuurt en niets bewaart, beslis je gerust zelf.',
+          },
         ],
       },
       {
@@ -580,13 +590,13 @@ export const MODULES_VIBE = [
           {
             type: 'tekst',
             inhoud:
-              'Bouw je AI in je app, dan betaal je per gebruik. Niet per maand, maar per verwerkt stukje tekst. De bedragen zijn klein, maar met 120 leerlingen die elk twintig keer klikken, tellen ze aan.',
+              'Eerst even dit: het <strong>model</strong> is de motor achter een AI-assistent. De meeste diensten hebben er meerdere — zwaardere die trager en duurder zijn maar beter in moeilijk werk, lichtere die sneller en goedkoper zijn en ruim volstaan voor eenvoudig werk. In een gewoon gesprek staat er al eentje klaar en denk je daar niet over na; bouw je AI in je eigen app, dan duid jij zelf aan welk model je gebruikt. En daar betaal je per gebruik: niet per maand, maar per verwerkt stukje tekst. De bedragen zijn klein, maar met 120 leerlingen die elk twintig keer klikken, tikt dat aan.',
           },
           {
             type: 'lijst',
             items: [
               '<strong>Kies een klein, snel model</strong> voor eenvoudige taken. Voor "leg dit foute antwoord uit in twee zinnen" heb je het zwaarste model niet nodig.',
-              '<strong>Zet een uitgavenlimiet</strong> vóór je iets uitdeelt aan leerlingen. Elke dienst laat dit toe — doe het meteen, niet later.',
+              '<strong>Zet een uitgavenlimiet of laad vooraf een beperkt tegoed op</strong> vóór je iets uitdeelt aan leerlingen. De meeste diensten voorzien een van de twee, maar niet op dezelfde manier — kijk ook na of de limiet je écht stopt of enkel een mailtje stuurt. Zoek dat uit vóór de eerste leerling de link krijgt, niet erna.',
               '<strong>Beperk de lengte</strong> van wat er heen en weer gaat. Kortere antwoorden zijn goedkoper én didactisch vaak beter.',
               '<strong>Test met een handvol leerlingen</strong> voor je het aan alle klassen geeft, en kijk wat het gekost heeft.',
             ],
@@ -627,6 +637,13 @@ export const MODULES_VIBE = [
             ],
           },
           {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Serverfunctie en omgevingsvariabele, in gewone taal',
+            inhoud:
+              'Een <strong>serverfunctie</strong> is een klein hulpje dat niet op het toestel van de leerling draait, maar bij de dienst waar je pagina staat. De leerling typt zijn vraag in, die gaat naar dat hulpje, het hulpje praat met de AI en stuurt enkel het antwoord terug. Je sleutel blijft daar achter, in een <strong>omgevingsvariabele</strong>: een apart geheim veld bij die dienst dat nooit mee in de pagina terechtkomt. Je bouwt dat niet zelf — dat is precies wat je in de prompt hieronder aan Claude vraagt.',
+          },
+          {
             type: 'prompt',
             titel: 'Veilig een AI-functie inbouwen',
             tekst:
@@ -663,7 +680,7 @@ export const MODULES_VIBE = [
             inhoud: "Vóór je link bij leerlingen belandt, loop je de drie punten na die je écht geld kunnen kosten: je sleutel, je uitgavenlimiet en de lengte van de antwoorden. Heb je zelf nog geen AI-functie draaien, doe de check dan mee op het project van een collega die er wel een heeft — de checklist die je overhoudt, gebruik je bij elke volgende versie.",
             stappen: [
               "Vraag Claude om je hele project na te kijken, ook de bestanden die apart worden ingeladen: staat je sleutel ergens in wat de leerling binnenkrijgt? Laat hem antwoorden met ja of nee, en met de plaats waar hij hem vond.",
-              "Kijk zelf mee: rechtermuisklik op je pagina, vraag de broncode op — de tekst achter de pagina — en zoek daarin de eerste vier tekens van je sleutel. Vind je hem, of vond Claude hem: trek hem meteen in bij je AI-dienst en maak een nieuwe aan.",
+              "Kijk zelf mee: open de broncode van je pagina — de tekst achter de pagina, in de meeste browsers via een rechtermuisklik of via het menu van je browser — en zoek daarin de eerste vier tekens van je sleutel. Vind je hem hier, of vond Claude hem in stap 1: trek de sleutel meteen in bij je AI-dienst en maak een nieuwe aan. Vind je hem hier niet, dan ben je er nog niet zeker van: een sleutel kan even goed in een apart ingeladen bestand zitten, en net daarvoor diende stap 1.",
               "Zet bij je AI-dienst een uitgavenlimiet op een bedrag dat je zonder pijn kan missen.",
               "Typ als leerling een veel te lang, warrig antwoord in en kijk of het AI-antwoord kort blijft. Blijft het lang, vraag Claude dan om een harde maximumlengte in te bouwen.",
               "Noteer je drie punten — sleutel, uitgavenlimiet, antwoordlengte — met de datum op een blad dat je bij je project bewaart. Stond je sleutel in de pagina, dan is je volgende werksessie duidelijk: hem met Claude naar een serverfunctie verhuizen, met de prompt hierboven.",
