@@ -50,7 +50,7 @@ export const GIDS_SECTIES = [
       {
         kop: 'Druk af wat op papier moet',
         tekst:
-          'Voor jezelf: het draaiboek, via de knop "Draaiboek afdrukken" — die staat er zodra begeleidersmodus aan is, en je tips gaan mee op papier. Voor de zaal: open de deelnemersbundel via de knop bij hetzelfde draaiboek en druk ze daar af. Die bundel bevat de doelen, de vuistregels, alle prompts en opdrachten van de sessie en ruimte om te noteren. Geef je A3, druk dan ook de casussen af zoals dat draaiboek vraagt — maar doe dat met begeleidersmodus uit: dan krijgt elke casus een leeg vakje om zelf te kiezen. Staat begeleidersmodus aan, dan gaan de oordelen en je tips mee op papier, en dat blad hou je voor jezelf.',
+          'Voor jezelf: het draaiboek, via de knop "Draaiboek afdrukken" — die staat er zodra begeleidersmodus aan is, en je tips gaan mee op papier. Voor de zaal: open de deelnemersbundel via de knop bij hetzelfde draaiboek en druk ze daar af. Die bundel bevat de doelen, de vuistregels, alle prompts en opdrachten van de sessie, in A3 ook de veertien casussen, en ruimte om te noteren. Geef je A3, druk dan ook de casussen af zoals dat draaiboek vraagt — maar doe dat met begeleidersmodus uit: dan krijgt elke casus een leeg vakje om zelf te kiezen. Staat begeleidersmodus aan, dan gaan de oordelen en je tips mee op papier, en dat blad hou je voor jezelf.',
       },
     ],
   },
@@ -184,7 +184,7 @@ export const GIDS_SECTIES = [
       {
         kop: 'Stuur binnen 48 uur iets door',
         tekst:
-          'Eén mail met de link naar deze leeromgeving, de deelnemersbundel van jouw sessie (die knop staat bij het draaiboek: de doelen, de vuistregels, alle prompts en alle opdrachten van die sessie, plus notitieruimte) en de promptkaart, waar alle prompts van de hele cursus samenstaan. Daarbij wat er in de sessie zelf gemaakt is: de klasafspraken uit A3, de links naar de gebouwde apps uit B1. Hoe langer je wacht, hoe minder er nog opengaat.',
+          'Eén mail met de link naar deze leeromgeving, de deelnemersbundel van jouw sessie (die knop staat bij het draaiboek: de doelen, de vuistregels, alle prompts en alle opdrachten van die sessie, in A3 ook de casussen, plus notitieruimte) en de promptkaart, waar alle prompts van de hele cursus samenstaan. Daarbij wat er in de sessie zelf gemaakt is: de klasafspraken uit A3, de links naar de gebouwde apps uit B1. Hoe langer je wacht, hoe minder er nog opengaat.',
       },
       {
         kop: 'Verzamel wat er gemaakt is',

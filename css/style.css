@@ -430,6 +430,14 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   padding-bottom: .9rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--lijn);
 }
 .les-kop h2 { margin: 0; display: flex; align-items: center; gap: .6rem; }
+/* Een verdiepingsles kwam niet aan bod in de workshop van drie uur: die staat
+   er voor wie na de sessie zelf verder wil. Vandaar het etiket, en vandaar dat
+   ze niet in de deelnemersbundel terechtkomt. */
+.verdieping-vlag {
+  font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+  padding: .16rem .45rem; border-radius: 999px; white-space: nowrap;
+  background: var(--paars-licht); color: var(--paars); border: 1px solid #d9cbee;
+}
 .lesnr {
   flex-shrink: 0;
   width: 26px; height: 26px; display: grid; place-items: center;
@@ -780,13 +788,18 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
     margin-top: .6rem; font-size: 10pt; color: #000;
   }
 
-  /* Eén zin zodat de begeleider ziet wat hij in handen heeft. Niet op de
-     deelnemersbundel: die staat los van begeleidersmodus en bevat geen tips. */
-  body.begeleidersmodus:not([data-pagina="bundel"]) #hoofd::before {
+  /* Eén zin zodat de begeleider ziet wat hij in handen heeft. Ook op de
+     deelnemersbundel, want die toont de oordelen bij de casussen alleen in
+     begeleidersmodus — precies het blad dat je niet mag uitdelen. */
+  body.begeleidersmodus #hoofd::before {
     content: "Afgedrukt in begeleidersmodus: de begeleiderstips en de oordelen bij de casussen staan mee. Zet begeleidersmodus uit voor de bladen die je uitdeelt.";
     display: block; margin-bottom: 1rem; padding: .5rem .7rem;
     border: 1px solid #666; font-size: 9pt;
   }
+  body.begeleidersmodus[data-pagina="bundel"] #hoofd::before {
+    content: "Begeleidersversie: de oordelen bij de casussen staan op dit blad. Zet begeleidersmodus uit vóór je de bundel afdrukt om uit te delen.";
+  }
+
 
   .faq summary { font-weight: 700; }
   .bundel { border: none; padding: 0; }

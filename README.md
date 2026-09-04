@@ -75,8 +75,9 @@ In begeleidersmodus krijg je bovendien:
 
 De **deelnemersbundel** staat los van de begeleidersmodus: iedereen kan hem
 vanaf het draaiboek openen en afdrukken — een hand-out met de doelen, de
-vuistregels, alle prompts en opdrachten van de sessie, een lijstje om verder te
-lezen en notitieruimte.
+vuistregels, alle prompts en opdrachten van de sessie, in A3 ook de casussen,
+een lijstje om verder te lezen en notitieruimte. Verdiepingslessen blijven
+eruit: die kwamen in die drie uur niet aan bod.
 
 ## Lokaal draaien
 
@@ -134,6 +135,18 @@ deelnemer vanuit het draaiboek kan doorklikken.
 
 Let op bij het bijwerken van een draaiboek: de som van de blokken moet 180
 minuten blijven.
+
+## Verdiepingslessen
+
+Een workshop duurt drie uur, en dat is een harde grens. Wat daar niet in past
+maar wel de moeite is, staat als **verdiepingsles** in de leeromgeving: herkenbaar
+aan het etiket bij de lestitel. Spoor B heeft er negen — beeld en downloads,
+grotere projecten, AI als tester, een echte database, een projectgeheugen, je app
+op de telefoon, beeld en spraak, en een volledig uitgewerkt voorbeeldproject.
+
+Ze staan op de promptkaart en je kan ze gewoon doornemen, maar ze komen **niet**
+in de deelnemersbundel: die hand-out hoort te kloppen met wat er die dag gebeurde.
+In de data zet je daarvoor `verdieping: true` op de les.
 
 ## Voortgang
 
