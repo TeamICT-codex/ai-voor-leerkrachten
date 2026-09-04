@@ -117,8 +117,10 @@ python3 -m http.server 8000
 
 - Direct committen en pushen naar `main`; geen branches of PR's.
 - Git-author: `Thomas Aelbrecht <ict@hetleercollectief.be>`.
-- Statische site zonder build-stap: deploybaar via Vercel, Netlify of GitHub
-  Pages, rechtstreeks vanaf de repo-root.
+- De site staat live op <https://teamict-codex.github.io/ai-voor-leerkrachten/>
+  via GitHub Pages, rechtstreeks vanaf de repo-root van `main`. Elke push is
+  binnen de minuut online; er is geen build-stap. `.nojekyll` moet blijven
+  staan, anders laat Jekyll bestanden met een underscore weg.
 
 ## Stand van zaken
 
@@ -154,8 +156,9 @@ cijfer voor punt), verouderde studierichtingen, secundair-terminologie in een
 lager-onderwijscasus (klassenraad in plaats van MDO/zorgoverleg), en adviezen
 die het sterkste tegenargument wegwuiven in plaats van beantwoorden.
 
-**Nog te doen:** nog geen deployment (Vercel of Netlify koppelen aan de repo
-volstaat; statische site zonder build-stap).
+**Gedeployed** sinds 4 september 2026 op GitHub Pages (zie "Git & deploy").
+De deelnemersbundel drukt dat adres nu ook af, want `leeromgevingAdres()` in
+`app.js` leest het af van de pagina zelf.
 
 **Voorstellen die eerst een go vragen** (uit de nakijkronde van 3 september
 2026; ze voegen inhoud toe en zijn daarom niet automatisch gebouwd):

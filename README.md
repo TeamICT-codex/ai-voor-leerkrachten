@@ -4,6 +4,8 @@ Digitale leeromgeving én workshopmateriaal om leerkrachten lager en secundair
 onderwijs te leren werken met AI. Gemaakt voor deelnemers die nog nooit met
 ChatGPT of Claude werkten.
 
+**De leeromgeving staat online: <https://teamict-codex.github.io/ai-voor-leerkrachten/>**
+
 De omgeving dient twee doelen tegelijk:
 
 - **Voor de deelnemer** — de inhoud om tijdens en na de workshop door te nemen,
@@ -86,6 +88,10 @@ python3 -m http.server 8000
 ```
 
 Daarna surf je naar <http://localhost:8000>.
+
+Je hebt dat enkel nodig om aan de inhoud te werken. Wie de omgeving gewoon wil
+gebruiken, surft naar de link hierboven — die volgt automatisch elke wijziging
+die naar `main` gaat.
 
 ## Structuur
 
