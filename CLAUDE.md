@@ -122,6 +122,27 @@ python3 -m http.server 8000
   binnen de minuut online; er is geen build-stap. `.nojekyll` moet blijven
   staan, anders laat Jekyll bestanden met een underscore weg.
 
+### In een ander account verder werken
+
+De repo is publiek, dus lezen en klonen vraagt van niemand toegang.
+
+- **Ander Claude-account, zelfde GitHub-account.** Koppel GitHub in dat account
+  via <https://claude.ai/connect-github> en installeer daar de Claude GitHub App
+  op `TeamICT-codex`. Start daarna een **nieuwe sessie met deze repo al
+  geselecteerd**: een sessie kiest haar repositories bij het starten, je hangt ze
+  er achteraf niet zomaar aan.
+- **Ander GitHub-account dat moet kunnen pushen.** Kies er één: de persoon als
+  collaborator toevoegen (één repo, gedeelde geschiedenis — het beste als jullie
+  samen verder werken), de repo forken (eigen kopie, terugkoppelen via pull
+  requests), of de repo overdragen.
+
+**De regel die daarachter zit: alles wat een volgende sessie nodig heeft, hoort
+in de repo.** De container en de scratchpad worden gewist, en een conversatie of
+wat een account onthield reist niet mee. In september ging zo de tooling verloren
+die `casussen.js` en de FAQ genereerde uit een nagekeken JSON — het resultaat
+staat veilig in de inhoudsbestanden, maar het proces was niet meer te herhalen.
+Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
+
 ## Stand van zaken
 
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.

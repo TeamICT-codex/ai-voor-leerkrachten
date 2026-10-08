@@ -95,6 +95,27 @@ export const MODULES_AI = [
         titel: 'Je eerste gesprek',
         blokken: [
           {
+            type: "tekst",
+            inhoud: "Voor je iets kan uitproberen heb je twee dingen nodig: een toestel met internet en een <strong>account</strong> bij een AI-assistent. Soms kan je zonder account al eens iets typen, maar aangemeld werk je pas echt — je gesprekken blijven staan en je bouwt er later op verder. Voorziet je school of scholengroep er een, gebruik dan die. Is er niets, dan volstaat een eigen account voor je eigen lesmateriaal, zonder iets van een leerling erin. Weet je het niet: start vandaag gewoon, en leg de vraag nadien bij je ICT-coördinator.",
+          },
+          {
+            type: "lijst",
+            geordend: true,
+            items: [
+              "<strong>Ga naar de assistent.</strong> Zit er al een in jullie Microsoft- of Google-omgeving, open die; anders zoek je de officiële site van ChatGPT of van Claude. Let erop dat je bij de maker zelf uitkomt en niet bij een naam die erop lijkt.",
+              "<strong>Zoek waar je je kan aanmelden.</strong> Heb je al een account, dan meld je je aan; anders maak je er een. Hoe die plek precies heet, verandert geregeld — je zoekt dus geen bepaald knopje.",
+              "<strong>Meld je aan.</strong> Kan dat met het school-account waarmee je werkt, doe dat. Let op: een account dat je zelf aanmaakt blijft een gewoon account, ook met je schooladres — de afspraken van de school hangen er niet vanzelf aan.",
+              "<strong>Doorloop de eerste schermen.</strong> Voorwaarden aanvaarden, een bevestiging, soms een controle via een code op je gsm. Hou je telefoon dus bij de hand.",
+              "<strong>En dan sta je er.</strong> Een grotendeels leeg scherm met onderaan een tekstvak dat je uitnodigt om te typen. Daar gaat de rest van deze les over.",
+            ],
+          },
+          {
+            type: "kader",
+            variant: "letop",
+            titel: "Als je er niet in raakt",
+            inhoud: "<strong>Opent de site niet</strong> of krijg je een blokkeerpagina, dan is dat een filter: vraag je ICT-coördinator om ze vrij te geven voor personeel, met de reden erbij. <strong>Opent ze wel maar raak je niet aangemeld</strong>, dan ligt het aan je beheerde laptop of aan de instellingen van je schoolaccount — zelfde persoon, andere vraag, en vrijgeven lost dit niet op. Raak je er vandaag niet in, of maak je liever geen eigen account aan: zeg het in plaats van er stil mee te blijven zitten. Met twee aan één scherm volg je alles perfect.",
+          },
+          {
             type: 'tekst',
             inhoud:
               'Een gesprek met een AI-assistent heet een <strong>chat</strong>. Je typt onderaan, het antwoord verschijnt erboven. Belangrijk: binnen één chat <em>onthoudt</em> de assistent wat er eerder gezegd is. Je hoeft jezelf dus niet te herhalen — je kan gewoon verder bouwen. Dat onthouden kan trouwens ook <em>tussen</em> gesprekken door gaan: bij veel assistenten is dat een instelling. Reken er dus niet op dat een gesprek verdwijnt zodra je het sluit — wat je wel en niet in een gesprek typt, komt terug in de module over veilig en ethisch werken.',

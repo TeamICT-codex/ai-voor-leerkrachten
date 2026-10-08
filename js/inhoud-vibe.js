@@ -608,6 +608,18 @@ export const MODULES_VIBE = [
             inhoud:
               'Diensten zoals <strong>OpenRouter</strong> laten je met één account verschillende AI-modellen aanspreken en je uitgaven op één plek beperken. Handig als je wil vergelijken welk model je taak goed én goedkoop aankan.',
           },
+                  {
+            type: "opdracht",
+            titel: "Reken je kosten uit",
+            inhoud: "Een tarief per stukje tekst zegt je niets; wat jouw klassen op een maand kosten wel. Die som maak je één keer, met je eigen aantallen.",
+            stappen: [
+              "Noteer vier getallen van je eigen school: hoeveel leerlingen je app zullen gebruiken, hoe vaak één leerling per les een antwoord vraagt, hoeveel lessen je dat per maand doet, en hoe lang een vraag met antwoord ongeveer is. Schat dat tweede getal ruim — leerlingen klikken meer dan je denkt.",
+              "Zoek bij je AI-dienst zelf de tarieven van vandaag op. Je vindt er twee: wat je stuurt en wat je terugkrijgt tellen apart. Neem ze over met de datum erbij, want die bedragen schuiven geregeld.",
+              "Reken zelf uit hoeveel antwoorden dat per maand worden, en geef dat aantal met je tarieven aan Claude met de vraag wat het per maand en per schooljaar kost. Laat elke aanname die hij zelf invulde bovenaan zetten, en vraag door als er iets staat dat je niet herkent.",
+              "Laat dezelfde som nog eens maken met alle aantallen verdrievoudigd: je app slaat aan en twee collega's doen mee. Dát bedrag zet je als uitgavenlimiet bij je dienst, niet het eerste.",
+              "Noteer op één blad je twee bedragen met de datum van de tarieven, de limiet die nu staat, en wie dit goedkeurt — directie of schoolbestuur, met je ICT-coördinator erbij. Zonder naam en datum is het geen afspraak maar een voornemen.",
+            ],
+          },
         ],
       },
       {
