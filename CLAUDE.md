@@ -47,9 +47,10 @@ schrijfkeuze:
 ## Structuur
 
 ```
+js/inhoud-beleid.js spoor C — het kader: wet, privacy en schoolbeleid
 js/inhoud.js        spoor A — inhoud
 js/casussen.js      spoor A — casussenmodule (groepswerk A3)
-js/inhoud-vibe.js   spoor B — inhoud
+js/inhoud-vibe.js   spoor B — inhoud (incl. de verdiepingslessen)
 js/gids.js          begeleidersgids + de 22 lastige vragen
 js/workshops.js     draaiboeken + sporen
 js/cursus.js        voegt sporen samen, kloktijden
@@ -85,7 +86,8 @@ import { WORKSHOPS } from './js/workshops.js';
 import { MODULES_AI } from './js/inhoud.js';
 import { MODULES_VIBE } from './js/inhoud-vibe.js';
 import { MODULE_CASUSSEN } from './js/casussen.js';
-const modules = [...MODULES_AI, MODULE_CASUSSEN, ...MODULES_VIBE];
+import { MODULES_BELEID } from './js/inhoud-beleid.js';
+const modules = [...MODULES_BELEID, ...MODULES_AI, MODULE_CASUSSEN, ...MODULES_VIBE];
 const ids = new Set(modules.map(m => m.id));
 let fout = 0;
 for (const w of WORKSHOPS) {
@@ -146,12 +148,25 @@ Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
 ## Stand van zaken
 
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
-- 12 modules, 28 lessen, 133 inhoudsblokken (tekst 31, kader 31, lijst 18,
-  prompt 15, casus 14, quiz 11, opdracht 11, vergelijk 2).
+- Drie sporen: **C Het kader** (wet en schoolbeleid, staat vooraan en is het
+  beginpunt), **A AI in de klas** en **B Vibe coden**.
+- 16 modules, 45 lessen, 272 inhoudsblokken (tekst 80, kader 68, lijst 40,
+  prompt 29, opdracht 22, casus 15, quiz 15, vergelijk 3).
+- Spoor C hangt aan geen enkel draaiboek: het is
+  leesstof voor leerkrachten én directies. De `duur` van die modules is dus
+  leestijd, niet workshoptijd — reken ongeveer honderd woorden per minuut.
+- Een spoor zonder draaiboek toont zijn modules rechtstreeks in plaats van in
+  een uitklapper; `toonSpoor()` in app.js regelt dat.
+- Negen daarvan zijn **verdiepingslessen** (`verdieping: true` op de les): stof
+  die niet in de drie uur past en die je na de sessie zelfstandig doorneemt.
+  Ze staan wél op de promptkaart en in de leeromgeving, maar niet in de
+  deelnemersbundel — die is de hand-out van één sessie. `blokkenVanType` neemt
+  daarvoor de optie `{ zonderVerdieping: true }`. Module `vibe-voorbeeld` bestaat
+  volledig uit verdieping en hangt daarom aan geen enkel draaiboek.
 - Pagina's: overzicht, module, draaiboek, deelnemersbundel, promptkaart,
   begeleidersgids. Zie README voor de routes.
-- 14 casussen voor het groepswerk in A3, gespreid over mag / mag niet /
-  hangt ervan af.
+- 15 casussen: 14 voor het groepswerk in A3, en één in de directiemodule van
+  spoor C. Gespreid over mag / mag niet / hangt ervan af.
 - Begeleidersgids met 22 lastige vragen, principieel en praktisch.
 - Elke module heeft nu minstens één prompt, één opdracht en één quizvraag,
   behalve waar dat didactisch niet past. Controleer dat bij het toevoegen van

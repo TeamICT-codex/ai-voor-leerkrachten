@@ -351,7 +351,7 @@ export const MODULES_AI = [
             variant: 'letop',
             titel: 'Blijf zelf de didacticus',
             inhoud:
-              'De assistent weet niet dat Fien altijd afhaakt bij lange teksten of dat Yassine net extra uitdaging nodig heeft. Het levert bruikbare bouwstenen; de match met je échte leerlingen maak jij.',
+              'De assistent weet niet dat Fien altijd afhaakt bij lange teksten of dat Bilal net extra uitdaging nodig heeft. Het levert bruikbare bouwstenen; de match met je échte leerlingen maak jij.',
           },
           {
             type: 'quiz',

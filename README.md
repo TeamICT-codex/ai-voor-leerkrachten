@@ -15,10 +15,14 @@ De omgeving dient twee doelen tegelijk:
 
 ## Opzet
 
+Drie sporen. **Het kader** komt eerst: het legt uit wat mag en wat niet, en wie
+wat beslist. Daarna de twee praktijksporen.
+
 Zes workshops van elk **drie uur inclusief pauze**, verdeeld over twee sporen.
 
 | Spoor | Workshop | Inhoud | Tool |
 |---|---|---|---|
+| C — Het kader | *geen workshop* | Privacywetgeving, de Europese AI-verordening, auteursrecht, leerlingdata van minderjarigen en personeelsgegevens | leerkracht en directie |
 | A — AI in de klas | **A1** AI leren kennen | Eerste gesprek + goede opdrachten geven | ChatGPT of Claude |
 | | **A2** Lesmateriaal maken | Lesopbouw, differentiatie, toetsen, feedback | ChatGPT of Claude |
 | | **A3** Veilig, ethisch en met leerlingen | Privacy, betrouwbaarheid, AI-geletterdheid | ChatGPT of Claude |
@@ -75,8 +79,9 @@ In begeleidersmodus krijg je bovendien:
 
 De **deelnemersbundel** staat los van de begeleidersmodus: iedereen kan hem
 vanaf het draaiboek openen en afdrukken — een hand-out met de doelen, de
-vuistregels, alle prompts en opdrachten van de sessie, een lijstje om verder te
-lezen en notitieruimte.
+vuistregels, alle prompts en opdrachten van de sessie, in A3 ook de casussen,
+een lijstje om verder te lezen en notitieruimte. Verdiepingslessen blijven
+eruit: die kwamen in die drie uur niet aan bod.
 
 ## Lokaal draaien
 
@@ -98,6 +103,7 @@ die naar `main` gaat.
 ```
 index.html            de volledige pagina-omhulling
 css/style.css         alle styling, mobiel-eerst, met afdrukblok onderaan
+js/inhoud-beleid.js   spoor C — het kader: wet, privacy en schoolbeleid
 js/inhoud.js          spoor A — inhoud (ChatGPT én Claude)
 js/casussen.js        spoor A — de casussenmodule (groepswerk in A3)
 js/inhoud-vibe.js     spoor B — inhoud (vibe coden, Claude)
@@ -134,6 +140,27 @@ deelnemer vanuit het draaiboek kan doorklikken.
 
 Let op bij het bijwerken van een draaiboek: de som van de blokken moet 180
 minuten blijven.
+
+## Het kader
+
+Spoor C staat los van de workshops: het is leesstof voor wie wil weten wat er
+mag, en voor wie afspraken maakt voor de hele school. Drie modules — het kader
+in het kort, de wet in mensentaal, en een module voor directies over leerlingdata
+van minderjarigen, personeelsgegevens en het opbouwen van een afsprakenkader.
+Het is geen juridisch advies: bij echte twijfel gaat het naar de DPO van de
+scholengroep.
+
+## Verdiepingslessen
+
+Een workshop duurt drie uur, en dat is een harde grens. Wat daar niet in past
+maar wel de moeite is, staat als **verdiepingsles** in de leeromgeving: herkenbaar
+aan het etiket bij de lestitel. Spoor B heeft er negen — beeld en downloads,
+grotere projecten, AI als tester, een echte database, een projectgeheugen, je app
+op de telefoon, beeld en spraak, en een volledig uitgewerkt voorbeeldproject.
+
+Ze staan op de promptkaart en je kan ze gewoon doornemen, maar ze komen **niet**
+in de deelnemersbundel: die hand-out hoort te kloppen met wat er die dag gebeurde.
+In de data zet je daarvoor `verdieping: true` op de les.
 
 ## Voortgang
 

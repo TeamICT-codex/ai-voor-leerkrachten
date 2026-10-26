@@ -5,6 +5,10 @@
 */
 
 :root {
+  /* Deze pagina is altijd licht. Zonder deze regel geeft een toestel in donkere
+     modus zijn knoppen en invoervelden een lichte systeemtekstkleur, en dan
+     staat er witte tekst op onze witte knoppen. */
+  color-scheme: light;
   --inkt: #16202e;
   --inkt-zacht: #4a5769;
   --inkt-flauw: #5f6b7d;
@@ -16,6 +20,9 @@
   --ai: #2c5aa0;
   --ai-licht: #eaf1fb;
   --ai-donker: #1f3a68;
+  --beleid: #13665f;
+  --beleid-licht: #e6f2f0;
+  --beleid-donker: #0b453f;
   --vibe: #b45816;
   --vibe-licht: #fdf0e4;
   --vibe-donker: #7d3b0d;
@@ -205,6 +212,7 @@ code {
 .spoor-kop p { color: var(--inkt-zacht); margin: 0; max-width: 60ch; font-size: .93rem; }
 .spoor-ai .spoor-kop { border-bottom-color: var(--ai); }
 .spoor-vibe .spoor-kop { border-bottom-color: var(--vibe); }
+.spoor-beleid .spoor-kop { border-bottom-color: var(--beleid); }
 
 .tool-vlag {
   flex-shrink: 0;
@@ -214,6 +222,7 @@ code {
 }
 .spoor-ai .tool-vlag { background: var(--ai-licht); color: var(--ai-donker); }
 .spoor-vibe .tool-vlag { background: var(--vibe-licht); color: var(--vibe-donker); }
+.spoor-beleid .tool-vlag { background: var(--beleid-licht); color: var(--beleid-donker); }
 
 .rooster { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); }
 .rooster.smal { grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); margin-top: 1rem; }
@@ -245,6 +254,7 @@ a.kaart:hover { transform: translateY(-2px); border-color: var(--lijn-sterk); bo
 }
 .spoor-ai .code { background: var(--ai-licht); color: var(--ai-donker); }
 .spoor-vibe .code { background: var(--vibe-licht); color: var(--vibe-donker); }
+.spoor-beleid .code { background: var(--beleid-licht); color: var(--beleid-donker); }
 .duur { font-size: .76rem; color: var(--inkt-flauw); }
 .icoon { font-size: 1.4rem; }
 .niveau { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--inkt-flauw); font-weight: 650; }
@@ -271,6 +281,7 @@ a.kaart:hover { transform: translateY(-2px); border-color: var(--lijn-sterk); bo
 }
 .titelblok.spoor-ai { border-top: 3px solid var(--ai); }
 .titelblok.spoor-vibe { border-top: 3px solid var(--vibe); }
+.titelblok.spoor-beleid { border-top: 3px solid var(--beleid); }
 .titelblok h1 { font-size: clamp(1.4rem, 3.5vw, 1.9rem); }
 .titelblok > div > p { color: var(--inkt-zacht); margin-bottom: .8rem; }
 
@@ -285,6 +296,7 @@ a.kaart:hover { transform: translateY(-2px); border-color: var(--lijn-sterk); bo
 }
 a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai); border-color: var(--ai-licht); background: var(--ai-licht); }
 .spoor-vibe a.etiket-klein.link { color: var(--vibe-donker); border-color: var(--vibe-licht); background: var(--vibe-licht); }
+.spoor-beleid a.etiket-klein.link { color: var(--beleid-donker); border-color: var(--beleid-licht); background: var(--beleid-licht); }
 
 .tweeluik { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; margin-bottom: 1.3rem; }
 .kaart.info h2 { font-size: .8rem; margin-bottom: .3rem; text-transform: uppercase; letter-spacing: .06em; color: var(--inkt-flauw); margin-top: 1rem; }
@@ -430,6 +442,14 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
   padding-bottom: .9rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--lijn);
 }
 .les-kop h2 { margin: 0; display: flex; align-items: center; gap: .6rem; }
+/* Een verdiepingsles kwam niet aan bod in de workshop van drie uur: die staat
+   er voor wie na de sessie zelf verder wil. Vandaar het etiket, en vandaar dat
+   ze niet in de deelnemersbundel terechtkomt. */
+.verdieping-vlag {
+  font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+  padding: .16rem .45rem; border-radius: 999px; white-space: nowrap;
+  background: var(--paars-licht); color: var(--paars); border: 1px solid #d9cbee;
+}
 .lesnr {
   flex-shrink: 0;
   width: 26px; height: 26px; display: grid; place-items: center;
@@ -537,6 +557,7 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
 .opties { display: flex; flex-direction: column; gap: .5rem; }
 .optie {
   font: inherit; text-align: left;
+  color: var(--inkt); /* een button erft de tekstkleur niet van de pagina */
   padding: .7rem .9rem;
   border: 1px solid var(--lijn-sterk);
   border-radius: var(--straal-klein);
@@ -780,13 +801,18 @@ a.etiket-klein.link { text-decoration: none; font-weight: 650; color: var(--ai);
     margin-top: .6rem; font-size: 10pt; color: #000;
   }
 
-  /* Eén zin zodat de begeleider ziet wat hij in handen heeft. Niet op de
-     deelnemersbundel: die staat los van begeleidersmodus en bevat geen tips. */
-  body.begeleidersmodus:not([data-pagina="bundel"]) #hoofd::before {
+  /* Eén zin zodat de begeleider ziet wat hij in handen heeft. Ook op de
+     deelnemersbundel, want die toont de oordelen bij de casussen alleen in
+     begeleidersmodus — precies het blad dat je niet mag uitdelen. */
+  body.begeleidersmodus #hoofd::before {
     content: "Afgedrukt in begeleidersmodus: de begeleiderstips en de oordelen bij de casussen staan mee. Zet begeleidersmodus uit voor de bladen die je uitdeelt.";
     display: block; margin-bottom: 1rem; padding: .5rem .7rem;
     border: 1px solid #666; font-size: 9pt;
   }
+  body.begeleidersmodus[data-pagina="bundel"] #hoofd::before {
+    content: "Begeleidersversie: de oordelen bij de casussen staan op dit blad. Zet begeleidersmodus uit vóór je de bundel afdrukt om uit te delen.";
+  }
+
 
   .faq summary { font-weight: 700; }
   .bundel { border: none; padding: 0; }

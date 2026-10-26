@@ -1,6 +1,7 @@
-// Voegt de twee inhoudssporen samen en levert de opzoekfuncties waar de app
+// Voegt de drie inhoudssporen samen en levert de opzoekfuncties waar de app
 // mee werkt. De inhoudsbestanden blijven zo pure data.
 
+import { MODULES_BELEID } from './inhoud-beleid.js';
 import { MODULES_AI } from './inhoud.js';
 import { MODULE_CASUSSEN } from './casussen.js';
 import { MODULES_VIBE } from './inhoud-vibe.js';
@@ -9,6 +10,7 @@ import { WORKSHOPS, SPOREN } from './workshops.js';
 // Elke module krijgt zijn spoor mee, zodat de app niet hoeft te weten uit
 // welk bestand ze komt.
 export const MODULES = [
+  ...MODULES_BELEID.map((m) => ({ ...m, spoor: 'beleid' })),
   ...[...MODULES_AI, MODULE_CASUSSEN].map((m) => ({ ...m, spoor: 'ai' })),
   ...MODULES_VIBE.map((m) => ({ ...m, spoor: 'vibe' })),
 ];
@@ -81,10 +83,15 @@ export function modulesVanWorkshop(workshop) {
 
 // Alle blokken van een bepaald type uit een reeks modules, met vermelding van
 // waar ze vandaan komen. Gebruikt voor de promptkaart en de deelnemersbundel.
-export function blokkenVanType(modules, type) {
+//
+// zonderVerdieping laat de verdiepingslessen weg. De deelnemersbundel is de
+// hand-out van één sessie van drie uur: daar hoort niet in wat die sessie niet
+// behandelde. De promptkaart toont ze wél — dat is het overzicht van alles.
+export function blokkenVanType(modules, type, { zonderVerdieping = false } = {}) {
   const uit = [];
   for (const m of modules) {
     for (const les of m.lessen) {
+      if (zonderVerdieping && les.verdieping) continue;
       for (const blok of les.blokken) {
         if (blok.type === type) uit.push({ blok, module: m, les });
       }

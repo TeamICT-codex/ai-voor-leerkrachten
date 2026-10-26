@@ -775,6 +775,14 @@ export const WORKSHOPS = [
 
 export const SPOREN = [
   {
+    id: 'beleid',
+    naam: 'Het kader',
+    kleur: 'spoor-beleid',
+    tools: 'Leerkracht en directie',
+    omschrijving:
+      'Begin hier. Wat mag wel, wat mag niet, en wie beslist wat — de privacywetgeving, de Europese AI-verordening en auteursrecht, vertaald naar de Vlaamse schoolpraktijk. Ook voor wie beleid maakt voor de hele school, met leerlingdata van minderjarigen én met gevoelige personeelsgegevens.',
+  },
+  {
     id: 'ai',
     naam: 'AI in de klas',
     kleur: 'spoor-ai',

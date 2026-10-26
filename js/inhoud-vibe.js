@@ -140,7 +140,7 @@ export const MODULES_VIBE = [
     icoon: '🔨',
     titel: 'Je eerste webapp bouwen',
     ondertitel: 'Van beschrijving naar iets dat werkt — en daarna naar iets dat je durft tonen.',
-    duur: '50 min',
+    duur: '85 min',
     niveau: 'Basis',
     doelen: [
       'Je bouwt een werkende webpagina uit één beschrijving.',
@@ -279,6 +279,198 @@ export const MODULES_VIBE = [
           },
         ],
       },
+      {
+        id: 'afbeeldingen-bestanden',
+        titel: 'Afbeeldingen, bestanden en downloads',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de sessie bouwde je een oefenpagina die het redt met tekst en knoppen. Dat brengt je verder dan je zou denken — tot je een oefening wil maken over de dwarsdoorsnede van een bloem in het eerste jaar secundair, en je merkt dat de halve oefening in de tekening zit. Zodra er beeld bij komt, verandert er iets aan je bestand: je pagina bevát die tekening meestal niet, ze <em>verwijst</em> ernaar. Stuur je enkel het HTML-bestand door, dan ziet de leerling een leeg kader waar de bloem had moeten staan. Deze les gaat over die twee kanten: hoe je beeld erin krijgt zonder dat het losvalt, en hoe je de leerling op het einde iets laat meenemen.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>De assistent tekent het zelf, in je bestand.</strong> Voor een schema, een grafiek, een tijdlijn of een eenvoudige illustratie is dit veruit de stevigste weg: er komt geen apart beeldbestand aan te pas, de tekening zit gewoon in je pagina en gaat dus overal mee. Ze blijft bovendien scherp op een smartboard, hoe groot je ze ook maakt. Kijk wel na of ze klopt vóór je ze toont — een bloem met de meeldraden op de verkeerde plaats is erger dan geen beeld.',
+              '<strong>Je eigen foto naast je bestand.</strong> Je bewaart de foto in dezelfde map als je HTML-bestand. Dit werkt altijd, op elke laptop, maar voortaan moet je die map in haar geheel delen. Eén bestand doorsturen kan niet meer, en dat is net wat je in de praktijk het vaakst doet.',
+              '<strong>Je eigen foto ín je bestand.</strong> Een foto kan ook mee in het bestand geschreven worden, als een lange reeks tekens in plaats van als apart beeldbestand. Dan hou je één bestand over dat overal werkt, ook zonder internet. Of dat met jouw foto lukt, hangt af van wat je assistent met jouw bestanden kan doen: vraag het gewoon, en controleer daarna zelf of het echt gelukt is — hoe, staat onder de prompt hieronder. Hou het bij enkele kleine afbeeldingen en niet bij twintig foto\'s op volle grootte, want je bestand wordt er zwaar van.',
+              '<strong>Een adres van beeld dat al ergens online staat.</strong> De kortste weg, maar je pagina hangt dan af van internet én van een website waar jij niets over te zeggen hebt: verdwijnt de foto daar of verandert de site haar adressen, dan is ze ook bij jou weg. In een lokaal met een wisselvallig netwerk is dit de eerste die je laat vallen.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Gratis gevonden is niet vrij te gebruiken',
+            inhoud: 'Een foto die je via een zoekmachine vindt, is bijna altijd van iemand. Dat je hem in twee klikken kan bewaren, zegt niets over of je hem mag gebruiken — en dat verandert niet naargelang je hem in je bestand zet of er enkel naar verwijst. Drie bronnen waar je wél gerust in bent: <strong>je eigen foto\'s</strong> — vaak ook de herkenbaarste voor je klas, want het is jullie eigen omgeving; <strong>beeldbanken die uitdrukkelijk zeggen dat hun beeld vrij te gebruiken is</strong>; en <strong>materiaal van KlasCement</strong>, waar de maker zelf bij zijn materiaal zet wat je ermee mag. Lees die voorwaarden wel: sommige vragen dat je de maker vermeldt, andere laten niet toe dat je iets aanpast. Voor gebruik in je eigen les bestaat er een uitzondering voor onderwijs, maar die is smaller dan ze klinkt: ze vraagt dat je de bron en de maker vermeldt, en ze rekent erop dat het materiaal binnen de school blijft. Wil je een pagina met beeld van iemand anders delen, hou ze dan achter de afgeschermde omgeving van je school in plaats van op een publieke link. Twijfel je over een concrete afbeelding, leg ze voor aan je ICT-coördinator of aan de pedagogische begeleidingsdienst.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Een foto van je leerlingen? Eerst het beeldbeleid van de school',
+            inhoud: 'Voor beeld van leerlingen gelden de afspraken van je school, ook in iets dat je zelf bouwde. De toestemming die ouders bij de start van het schooljaar tekenen, gaat meestal over de schoolwebsite, de schoolkrant of het jaarboek — over een pagina die jij online zet, staat daar niets in. En zo\'n pagina is bereikbaar voor iedereen die de link heeft. De eenvoudige weg is dus: gebruik geen beeld waarop leerlingen herkenbaar staan. Heb je toch een foto van een activiteit nodig, kies dan het werk in plaats van de gezichten — de proefopstelling, de maquette, handen aan het werk. Kan het echt niet anders, leg het dan één keer voor aan je directie of aan de DPO van je scholengroep, in plaats van er zelf over te beslissen.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Beeld dat overal werkt, ook voor wie niet ziet',
+            tekst: 'Voeg afbeeldingen toe aan mijn oefenpagina.\n\nWELKE:\n[BESCHRIJF PER AFBEELDING WAT EROP STAAT EN WAAR ZE MOET KOMEN]\n\nEISEN:\n- Volstaat een schema, een grafiek of een eenvoudige tekening? Teken die dan zelf rechtstreeks in de pagina in plaats van met een foto te werken.\n- Zet elke andere afbeelding rechtstreeks in het HTML-bestand zelf, zodat het bestand op zichzelf blijft werken: ook zonder internet en als ik het los doorstuur.\n- Krijg je een afbeelding niet in het bestand, zeg dat dan uitdrukkelijk en leg uit wat ik zelf moet doen. Verwijs in dat geval niet stilzwijgend naar een adres op het internet.\n- Hou het bestand licht genoeg om vlot te openen op een chromebook aan een traag schoolnetwerk.\n- Elke afbeelding schaalt mee met het scherm: nooit breder dan het venster, en op een gsm even bruikbaar als op het smartboard.\n- Zet bij elke afbeelding een tekstalternatief dat beschrijft wat er te zien is, voor leerlingen die met voorleessoftware of een schermlezer werken. Beschrijf de inhoud, niet het bestand.\n- De oefening moet ook te maken zijn als de afbeelding niet laadt: zet de informatie die de leerling nodig heeft nooit alleen in het beeld.\n\nVerander niets aan hoe de oefening werkt.',
+            uitleg: 'Een <strong>tekstalternatief</strong> is de zin die voorleessoftware of een schermlezer voorleest in plaats van de afbeelding. Voor een leerling die slecht of niet ziet, is dat álles wat er van je beeld overblijft — en diezelfde zin verschijnt gewoon op het scherm wanneer een afbeelding niet laadt, wat op een haperend schoolnetwerk vaker gebeurt dan je zou willen. Vraag dus om een beschrijving van wat er te zien is ("een dwarsdoorsnede van een bloem met stamper en meeldraden aangeduid") en niet om "afbeelding 3". <strong>Controleer daarna zelf of het beeld er écht in zit</strong>, want aan de pagina zie je dat niet: verplaats het bewaarde bestand naar een andere map, verbreek je verbinding met het internet en open het opnieuw. Staat de afbeelding er nog, dan zit ze in je bestand. Zie je een leeg kader, dan verwees je pagina toch nog naar iets buiten zichzelf — meld dat en laat het bijsturen. Kijk bij die gelegenheid ook even hoe groot je bestand geworden is: met foto\'s erin loopt dat sneller op dan je denkt, en dat merk je pas wanneer twintig leerlingen de pagina tegelijk openen.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'De tweede helft van deze les is de omgekeerde beweging: iets uít je app krijgen. Een leerling van het vijfde leerjaar werkt twintig minuten in je woordenschattrainer Frans, klikt het tabblad weg en houdt niets over. De reflex is dan <em>"ik moet die antwoorden opslaan"</em> — maar opslaan vraagt een plek om te bewaren, en dus een account, een database en een gesprek over leerlinggegevens (zie de module <em>Gegevens, privacy en versiebeheer</em>). Meestal wil je dat helemaal niet. Wat je wél wil, is dat de leerling zijn werk kan <strong>meenemen</strong>: een knop die van zijn antwoorden een blad maakt dat hij downloadt of afdrukt. Dat blad gaat in zijn map of mee naar huis; bij jou blijft er niets achter. Geen account, geen opslag, en dus ook niets dat jij moet bewaren, beveiligen of later kunnen wissen — en je hebt iets in handen dat je de les nadien kan bespreken.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Bouw een knop om het werk mee te nemen',
+            inhoud: 'Neem je eigen project erbij en zet er één knop onder die van het werk van de leerling een blad maakt om mee te nemen: als download of als afdruk. Je eindigt met een geteste versie én met dat blad op papier voor je neus. Wat je hier bewust <em>niet</em> doet, is iets binnenhalen: moet het werk bij jou terechtkomen om nagekeken te worden, gebruik dan de weg die je school daarvoor heeft.',
+            stappen: [
+              'Schrijf in twee zinnen op wat er op dat blad moet staan: de titel van de oefening, de datum, de vragen met de antwoorden van de leerling, en eventueel wat er fout ging. Zet er geen naam op, tenzij de leerling die zelf intikt.',
+              'Vraag Claude om onderaan je oefening een knop toe te voegen die precies dat blad maakt, en die pas verschijnt als de oefening af is. Zeg er uitdrukkelijk bij dat er niets verstuurd of bewaard mag worden: het blad wordt gemaakt op het toestel van de leerling zelf.',
+              'Test drie keer: alles juist ingevuld, de helft fout, en niets ingevuld. Doe die test in het bewaarde bestand zelf en niet enkel in het voorbeeldvenster van je gesprek, want een download gedraagt zich daar soms anders.',
+              'Open dezelfde pagina op een gsm en probeer het blad ook daar te bewaren of af te drukken. Loopt het anders, beschrijf dan wat je ziet gebeuren en laat het bijsturen.',
+              'Druk er één af, of bewaar het als PDF als er geen printer in de buurt staat, en leg het naast je oefening. Is dit een blad dat je een leerling in zijn map laat steken? Zo niet: noteer wat eraan moet veranderen, laat dat aanpassen en bewaar het resultaat onder een volgend versienummer.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Wat je niet doet: leerlingen bestanden laten opladen',
+            inhoud: 'Downloaden gaat één richting uit; opladen gaat de andere kant op, en dat is een heel ander verhaal. Een knop waarmee leerlingen een foto of een document in jouw app zetten, klinkt onschuldig — een taak inleveren, een tekening insturen — maar vanaf dat moment komt er materiaal binnen dat ergens terechtkomt. Formeel is het je school die verantwoordelijk is voor wat er met leerlingmateriaal gebeurt; met een eigen bouwsel zet je daar iets naast waarover geen enkele afspraak bestaat, en dan sta je er alleen mee. Wat erin zit, weet je vooraf trouwens niet: een foto met gezichten, een blad met de naam van een broer of zus, een schermafbeelding van een gesprek. Voor het inleveren van werk heeft je school al een weg die daarvoor gemaakt is — voor de meeste scholen is dat Smartschool — met de afspraken errond. Gebruik die, en hou je eigen bouwsel bij waar het sterk in is: oefenen, tonen en meegeven.',
+          },
+        ],
+      },
+      {
+        id: 'grotere-projecten',
+        titel: 'Als het chatvenster te klein wordt',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de sessie bouwde je één pagina in één gesprek: beschrijven, testen, bijsturen, klaar. Voor bijna elke klastool is dat het hele verhaal. Maar af en toe groeit zo\'n ding. Een leerkracht Frans in het derde jaar secundair begint met een woordenschattrainer voor één hoofdstuk, voegt er een tweede oefenvorm bij, daarna een startscherm waar de leerling kiest welk hoofdstuk hij oefent — en drie weken later is dat gesprek zo lang geworden dat ze haar eigen afspraken niet meer terugvindt en het begint te knarsen. Deze les gaat over dat moment. Ze hoort niet bij de sessie van drie uur: lees ze pas als je dit herkent.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>De assistent vergeet wat je eerder afsprak.</strong> Een gesprek heeft een geheugen met een bovengrens: wordt het te lang, dan schuift het begin eruit. Je afspraak van weken geleden dat de knoppen groot moeten zijn omdat je met een smartboard werkt, staat helemaal bovenaan — en verdwijnt er stilletjes weer uit.',
+              '<strong>Eén wijziging breekt iets anders.</strong> Je vraagt om de teller anders te laten aftellen, en plots werkt de knop om naar de volgende vraag te gaan niet meer. Hoe meer je pagina doet, hoe vaker dat gebeurt.',
+              '<strong>Je bestand komt niet meer in één keer terug.</strong> Het antwoord stopt halverwege, of je krijgt enkel het stuk dat veranderde in plaats van het volledige bestand. Dan begint het gepuzzel met kopiëren en plakken, en verlies je het overzicht over welke versie nu de echte is.',
+            ],
+          },
+          {
+            type: 'prompt',
+            titel: 'Het overdrachtsbriefje',
+            tekst: 'Ik werk in dit gesprek al een tijd aan een webpagina voor mijn lessen, en het gesprek wordt te lang. Ik wil in een nieuw gesprek verder.\n\nSchrijf een overdrachtsbriefje dat ik daar als eerste bericht kan plakken. Zet erin:\n- Wat de pagina doet en voor wie: [LEERJAAR EN VAK].\n- Alle afspraken die we onderweg maakten over uitzicht, taal en werking, ook de kleine.\n- Wat al af is en getest is.\n- Wat er nog moet gebeuren.\n- Waar we onderweg op vastliepen, zodat ik dat niet opnieuw meemaak.\n\nGewone taal, geen code. Baseer je op dit gesprek en niet op wat gebruikelijk is.',
+            uitleg: 'Doe dit zodra je het eerste signaal ziet, niet als je al vastzit. Je plakt het briefje als eerste bericht in een nieuw gesprek en voegt je laatst werkende bestand erbij — het bestand zelf, niet de code die je eruit kopieert. Zo ben je weer vertrokken met een assistent die alles van je project weet en niets meer van de omwegen. Bewaar het briefje ook als tekstbestand naast je pagina: het is meteen de uitleg die je jezelf over drie maanden wil geven. Voor veel projecten is dit de hele oplossing en heb je de rest van deze les niet nodig.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Blijft het knarsen, dan bots je op iets anders: een chatvenster is gemaakt om in te praten, niet om een project in te bewaren. Voor dat soort bouwen bestaat er apart gereedschap, waarbij de assistent <em>in</em> je project zit in plaats van ernaast. Je kopieert niets meer heen en weer: je zegt wat er moet gebeuren en de assistent past je bestanden zelf aan. Zulke <strong>bouwomgevingen</strong> — één venster waarin je project, je gesprek en je pagina samen zitten — bestaan in verschillende smaken: sommige draaien gewoon in je browser, andere installeer je op je laptop. De makers van de assistenten hebben er een, andere partijen ook. Welke dat vandaag precies zijn en wat ze aankunnen, verandert te snel om hier op te schrijven; vraag dat gerust aan je assistent zelf. Let daarbij op wat ze toevoegen, niet op de naam.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Op een schoollaptop mag je vaak niets installeren',
+            inhoud: 'Dat is geen doodlopende straat. Kies dan een bouwomgeving die gewoon in je browser draait — dan hoeft er niets op je toestel — of vraag aan je ICT-coördinator om het voor je klaar te zetten. Vraag dat wel een week op voorhand: een installatie op een schooltoestel loopt meestal via een aanvraag, en dat ontdek je liever niet op de avond dat je verder wil werken.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Meerdere bestanden naast elkaar.</strong> Je project hoeft niet langer in één bestand te passen. De oefenvragen kunnen apart staan van de rest, zodat een collega van je vakwerkgroep er vragen kan bijzetten zonder aan de werking te raken. De assistent ziet die bestanden allemaal tegelijk, zonder dat jij het geheel telkens moet doorsturen.',
+              '<strong>Je hele project meteen zien draaien.</strong> In een gewoon gesprek toont Claude je pagina al meteen — dat blijft zo. Het verschil is dat je hier je <em>volledige</em> project ziet draaien, met al zijn bestanden samen, en dat het zichzelf ververst zodra er iets is aangepast. Testen en bijsturen blijft dus één beweging, ook als je project uit meer dan één bestand bestaat.',
+              '<strong>Terug kunnen naar een vorige versie.</strong> Elke stap wordt bijgehouden, dus je raakt terug naar hoe het gisteren was zonder zelf kopieën met een nummer te bewaren. Dat is precies het versiebeheer uit de module <em>Gegevens, privacy en versiebeheer</em>, alleen zit het hier meestal al ingebouwd.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'De vaardigheid verhuist gewoon mee',
+            inhoud: 'Het werk zelf verandert niet: beschrijven, testen, bijsturen. Een goed foutrapport — wat je deed, wat je zag, wat er had moeten gebeuren — is in zo\'n omgeving exact even veel waard als in een gewoon gesprek. En het omgekeerde geldt ook: gereedschap dat meer aankan, maakt een vaag idee niet scherper. Hoe groter je project, hoe zwaarder het weegt dat jij precies kan zeggen wat je wil. Dat is wat je in de sessie oefende, en dat neem je mee.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Wat zo\'n omgeving allemaal te zien krijgt',
+            inhoud: 'Meer dan één los gesprek: al je projectbestanden, en bij een omgeving die op je eigen laptop draait soms ook wat er verder in dezelfde map staat — de map op je computer waar je project in zit. Hou die map dus schoon: geen klaslijsten, geen verbeterde toetsen, geen verslagen ernaast. Kijk daarnaast bij de dienst zelf na wat er met je gegevens gebeurt en waar ze bewaard worden. Voorziet je school of scholengroep een schoolaccount, gebruik dan dat en niet je privéaccount. Kom je er niet uit, dan is dat geen reden om af te haken: het is een vraag aan je ICT-coördinator, en zodra er leerlinggegevens in het spel zijn aan de DPO van je scholengroep.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Zoek uit wat het kost vóór je er lesmateriaal mee maakt',
+            inhoud: 'Een gewoon gesprek zit binnen je gewone account en daar denk je verder niet over na. Een assistent die zelfstandig door een hele projectmap werkt, verbruikt merkbaar meer, en bij dit soort gereedschap reken je vaak per gebruik af in plaats van per maand. Zoek dus uit hoe dat bij jouw keuze zit en zet meteen een limiet — dezelfde reflex als in de module <em>AI inbouwen in je eigen tool</em>. Vind je die limiet niet, vraag dan aan je assistent zelf waar ze staat. En gebruik je dit voor school, spreek dan vooraf af wie het betaalt, net zoals bij een account met betaalmogelijkheid voor de laatste workshop.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'En dan het eerlijke slot: de meeste leerkrachten komen hier nooit terecht, en dat is geen gebrek aan ambitie. Eén oefenpagina die in jouw klas doet wat ze moet doen, is een volwaardig eindpunt — meer waard dan een half project dat groter wilde worden. Het moment om over te stappen is bovendien goed herkenbaar: wanneer je meer tijd kwijt bent aan het beheren van je gesprek dan aan het verbeteren van je pagina. Tot dan is een nieuw gesprek met een overdrachtsbriefje bijna altijd het snelste antwoord.',
+          },
+        ],
+      },
+      {
+        id: 'ai-als-tester',
+        titel: 'Laat de AI je app testen',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'Je test je eigen app zoals je je eigen tekst nakijkt: je leest wat er <em>zou moeten</em> staan. Je weet dat het antwoordveld een getal verwacht, dus typ je een getal. Je weet dat je bovenaan eerst een oefening kiest, dus klik je die eerst aan. Je klikt vanzelf de juiste weg, en na tien minuten besluit je dat het werkt. In de sessie testte je daarom als drie verschillende leerlingen — dat helpt, maar ook dan blijf jij degene die weet hoe het bedoeld is. Een klas van vierentwintig weet dat niet, en vindt in twee minuten wat jij in een half uur niet vond.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Die twee minuten kan je vooraf laten gebeuren. Vraag Claude niet <em>of</em> je pagina werkt, maar vraag om een <strong>testlijst</strong>: een lijstje met dingen die een leerling kan doen waar jouw pagina waarschijnlijk niet op gerekend is. Op zo\'n lijst duiken telkens dezelfde verdachten op — stuk voor stuk dingen die jij niet doet, en die een leerling binnen de minuut wél doet.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Niets invullen.</strong> Op verzenden klikken met een leeg veld — verschijnt er dan "Juist!" op het scherm?',
+              '<strong>Twee keer na elkaar op dezelfde knop klikken.</strong> Telt je app dan twee antwoorden, of slaat ze een vraag over?',
+              '<strong>Een hoofdletter of een spatie te veel.</strong> "Parijs" typen waar de pagina "parijs" verwacht, of "24 " met een spatie erachter in je maaltafeloefening voor het vierde leerjaar.',
+              '<strong>Een veel te lang antwoord.</strong> Driehonderd tekens plakken in een veld waar één woord verwacht wordt.',
+              '<strong>Halverwege opnieuw beginnen, of de pagina herladen.</strong> Springt de teller dan op nul, of telt hij vrolijk verder?',
+              '<strong>Teruggaan in de browser</strong> en van daaruit verder klikken.',
+            ],
+          },
+          {
+            type: 'prompt',
+            titel: 'Laat een testlijst maken door de ogen van een leerling',
+            tekst: 'Je bouwde deze pagina voor mij. Ik wil ze stukkrijgen vóór mijn klas dat doet.\n\nWAT DE LEERLING MOET DOEN:\n[BESCHRIJF HET IN 2 OF 3 ZINNEN]\n\nVOOR WIE:\nLeerlingen van [LEEFTIJD], [LEERJAAR].\n\nMaak een testlijst van 15 dingen die een leerling kan doen waar deze pagina waarschijnlijk niet op gerekend is. Denk zeker aan: niets invullen, twee keer na elkaar op dezelfde knop klikken, hoofdletters of een spatie te veel, een heel lang antwoord, een antwoord in een andere vorm dan verwacht, midden in de oefening opnieuw beginnen, de pagina herladen, teruggaan in de browser.\n\nGeef per punt twee dingen: wat ik precies doe, en wat er zou moeten gebeuren. Nummer ze, en zet bovenaan wat de meeste kans maakt om echt mis te lopen.\n\nLos nog niets op en zeg niets over of de pagina goed is. Ik wil enkel de lijst, zodat ik zelf kan testen.',
+            uitleg: 'Drie zinnen doen hier het werk. <strong>"Wat er zou moeten gebeuren"</strong> maakt van elk punt een test die je kan afvinken, in plaats van een vage bedenking. <strong>"Zet bovenaan wat de meeste kans maakt"</strong> zorgt dat de eerste vijf punten meteen de nuttigste zijn — je werkt zo\'n lijst zelden helemaal af. En <strong>"los nog niets op"</strong> houdt je pagina intact: zonder die zin krijg je een nieuwe versie terug die je opnieuw mag testen, terwijl je nog niet eens weet wat er mis was. Plak deze prompt in hetzelfde gesprek waarin je je pagina liet bouwen — daar staat ze al. Begin je een nieuw gesprek, voeg dan eerst je bestand toe, anders weet Claude niet over welke pagina je het hebt. Test daarna zelf: een punt op die lijst is een vermoeden, geen vaststelling.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Er is nog een tweede manier, en die vindt andere dingen. Claude schreef de code van je pagina zelf en kan ze ook opnieuw doorlezen om aan te wijzen waar ze kan stuklopen. Zo komen problemen boven die je met klikken niet snel vindt: een invulveld dat letterlijk alles aanvaardt wat een leerling erin typt, een knop die nog altijd werkt nadat de oefening afgelopen is, een teller die na de laatste vraag gewoon doortelt. Om die te zien moet je toevallig net de verkeerde volgorde uitproberen; in de code springen ze er sneller uit. Alleen: <strong>hoe je het vraagt, bepaalt bijna volledig wat je terugkrijgt.</strong>',
+          },
+          {
+            type: 'vergelijk',
+            zwak: 'Is deze pagina goed zo? Kan ik hem gebruiken in de klas?',
+            sterk: 'Lees de code die je net schreef opnieuw en zoek de vijf zwakste plekken: waar loopt deze pagina stuk als een leerling iets doet dat jij niet voorzag? Beschrijf elke plek apart, zeg wat de leerling dan op het scherm ziet, en los nog niets op.',
+            uitleg: 'Vraag je of iets goed is, dan zit in de vraag zelf al een duwtje richting "ja". Vraag je om vijf zwakke plekken, dan moet er gezocht worden — en dan komt er meestal ook iets boven. <strong>Het tegenargument dat je nu denkt, klopt half:</strong> een assistent die zijn eigen werk nakijkt, is inderdaad geen onafhankelijke controle. Alleen zit er geen trots in de weg zoals bij een mens die zijn werk moet verdedigen; wat je terugkrijgt volgt vooral de vorm van je vraag. Daarom levert "zoek de zwakke plekken" hier meer op dan "beoordeel dit" — en daarom blijf je zelf klikken: wat eruit komt is een tip die jij natrekt, geen conclusie.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Wat een testlijst niet kan zeggen',
+            inhoud: 'Een testlijst zegt of je pagina overeind blijft, niet of je oefening deugt. Of ze past bij je leerplandoel, of het niveau klopt voor jouw klas, of je feedback iets bijbrengt dan wel enkel "fout" op het scherm zet: dat blijft jouw oordeel. Je kán het vragen, en je krijgt een redelijk klinkend antwoord — maar Claude heeft jouw klas nooit gezien. Een tijdlijnoefening kan technisch vlekkeloos zijn en didactisch niets waard, omdat de leerling gewoon kan blijven slepen tot alles groen wordt. Dat merk je niet in een testlijst; dat merk je door twee leerlingen ermee te laten werken terwijl jij ernaast staat, of door je pagina één keer voor te leggen op het teamoverleg of in je vakwerkgroep.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Eén probleem per keer',
+            inhoud: 'Heb je een lijstje met gevonden problemen, los ze dan één voor één op, telkens met de zin: <em>"Los enkel dit op en verander verder niets aan de pagina."</em> Zonder die zin krijg je soms een netjes herschreven versie terug waarin ook dingen veranderd zijn die wél werkten — en dan mag je alles opnieuw testen. Hertest na elke oplossing meteen het punt dat je meldde, en klik ook het vorige nog eens na. In de sessie stuurde je je foutenlijstje in één bericht door: prima voor kleine, losse dingen zoals een tekst die niet klopt. Gaat het over de werking zelf, dan is één voor één trager maar betrouwbaarder.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Krijg je eigen app stuk',
+            inhoud: 'Je bouwde in de sessie een pagina en testte die zelf. Nu laat je er een testlijst op los en werk je de bovenste vijf punten écht af — niet lezen, klikken. Reken op een twintigtal minuten. Je eindigt met een afgevinkte lijst, één opgelost probleem en een lijstje dat je bij je volgende pagina meteen hergebruikt.',
+            stappen: [
+              'Open je pagina en bewaar er eerst een kopie van onder een volgend versienummer, zodat je altijd terug kan naar wat je nu hebt.',
+              'Vraag met de prompt hierboven een testlijst, in hetzelfde gesprek waarin je je pagina bouwde. Neem enkel de vijf bovenste punten en zet ze onder elkaar op papier, met plaats om achter elk punt iets te schrijven. De rest bewaar je voor later.',
+              'Loop die vijf punten zelf af op je scherm, één voor één. Schrijf achter elk punt: werkt, of in één zin wat je deed, wat je zag en wat er had moeten gebeuren.',
+              'Kies het punt dat je leerlingen het meest zou hinderen en vraag Claude om enkel dat op te lossen, met de zin dat de rest van de pagina niet mag veranderen. Test daarna meteen opnieuw wat je meldde, en klik ook de vier andere punten nog eens na.',
+              'Vraag Claude tot slot om de code van je pagina na te lezen en de vijf zwakste plekken aan te wijzen, zonder iets op te lossen. Probeer er één zelf na te bootsen: lukt dat, dan heb je een echt probleem beet en zet je het bij je lijstje; lukt het niet, laat het dan staan met een vraagteken.',
+              'Bewaar het resultaat onder een nieuw versienummer en hou je lijst bij: bij je volgende pagina staat de helft van je tests er al.',
+            ],
+          },
+        ],
+      },
     ],
   },
 
@@ -287,7 +479,7 @@ export const MODULES_VIBE = [
     icoon: '🌐',
     titel: 'Delen met collega\'s en leerlingen',
     ondertitel: 'Van een bestand op jouw laptop naar een link die iedereen kan openen.',
-    duur: '35 min',
+    duur: '45 min',
     niveau: 'Basis',
     doelen: [
       'Je weet welke manier van delen bij welke situatie past.',
@@ -394,6 +586,67 @@ export const MODULES_VIBE = [
           },
         ],
       },
+      {
+        id: 'app-op-telefoon',
+        titel: 'Als app op de telefoon',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de sessie bouwde je een oefenpagina en zette je die online. In de klas begint het dan telkens met hetzelfde kwartiertje: de link op het bord, 24 leerlingen die hem overtypen, drie die een letter missen, en twee die intussen op iets helemaal anders zijn beland. De volgende les mag je dat overdoen. Dat kan anders: je pagina kan als pictogram op het startscherm van een toestel staan, naast de andere apps, en dan is het <strong>één tik</strong>. Je hoeft daarvoor niets uit een app-winkel te halen — het zijn vier handelingen die op de meeste toestellen op ongeveer dezelfde manier verlopen.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Open je pagina in de browser van het toestel zelf.</strong> Met de link van je pagina online, dus — die uit de les <em>Online zetten</em>. Een bestand dat je doorstuurde, werkt hiervoor niet.',
+              '<strong>Open het menu van de browser.</strong> Dat is hetzelfde menu waar ook afdrukken en delen in zitten.',
+              '<strong>Kies de optie die de pagina aan het startscherm toevoegt.</strong> Hoe die precies heet, verschilt per toestel en per browser en verandert geregeld, maar er staat bijna altijd het woord <em>startscherm</em> of <em>installeren</em> in. Vind je niets, probeer het dan in de browser die standaard op het toestel staat — daar lukt het meestal wel. Lukt het ook daar niet, dan staat het op dat toestel waarschijnlijk uitgeschakeld; dat regelt je ICT-coördinator, niet jij.',
+              '<strong>Geef ze een korte naam en sluit de browser.</strong> Die naam komt onder het pictogram te staan, dus een lange wordt afgekapt. Open ze daarna vanaf het startscherm. Liet je je pagina al aanpassen met de prompt hieronder, dan opent ze schermvullend, zonder adresbalk erboven. Deed je dat nog niet, dan opent ze gewoon als webpagina mét adresbalk — het pictogram werkt dan al wel, en dat is dus geen fout van jou.',
+            ],
+            geordend: true,
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Geen app-winkel, geen goedkeuring',
+            inhoud: 'Wat er op het startscherm komt, is in de kern <strong>dezelfde webpagina, met een eigen naam en een eigen pictogram</strong>. Dat is goed nieuws: er passeert geen app-winkel, er is geen versie die iemand moet goedkeuren, en het neemt zo goed als geen plaats in op het toestel. Op gsm, tablet en chromebook lukt dit zo goed als altijd. Op een gewone laptop kan het meestal ook, maar dan komt je pagina bij de andere programma\'s te staan in plaats van op een startscherm, en daar doet niet elke browser mee. Toestellen die de school centraal beheert, kunnen het afgezet hebben — daarvoor bestaat je ICT-coördinator. En wie het niet doet, mist niets: dezelfde link blijft gewoon werken in de browser.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Waar dit bij jullie speelt, hangt af van wat er in de klas ligt. In het lager onderwijs zijn dat meestal de tablets uit de klaskast: zet je maaltafeltrainer één keer op het startscherm van elk toestel en het vierde leerjaar hoeft die link niet meer over te typen. In het secundair is het vaker de chromebook of de gsm van de leerling zelf, en dan doe je het één keer klassikaal voor. Bij de eerste les Frans zet je het samen op het smartboard, zetten de leerlingen die dat willen de woordenschattrainer op hun startscherm, en de rest opent gewoon de link. Twee dingen test je op voorhand op één toestel, vóór je het aan een hele klas vraagt. Blijft de snelkoppeling staan na een herstart? Toestellen die door meerdere klassen gedeeld worden, worden soms automatisch teruggezet. En houdt je pagina iets bij op dat toestel — een score, waar de leerling gebleven was — dan vindt de volgende leerling dat terug. Bij een oefenscore is dat onschuldig, maar hou er rekening mee: een gedeeld toestel vergeet niets uit zichzelf.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Laat het eruitzien als een app',
+            tekst: 'Ik heb een oefenpagina online staan en ik wil dat leerlingen ze op het startscherm van hun toestel kunnen zetten, zodat ze opent als een gewone app.\n\nPas mijn pagina daarvoor aan:\n- Naam onder het pictogram: [KORTE NAAM, HOOGSTENS 12 TEKENS].\n- Een eenvoudig pictogram: [KLEUR] met daarop [EEN LETTER, EEN CIJFER OF EEN EENVOUDIG SYMBOOL]. Het moet herkenbaar zijn op een klein scherm.\n- Ze opent schermvullend, zonder adresbalk.\n- Ze blijft werken zonder netwerk, zolang de leerling ze al een keer met verbinding geopend heeft.\n- Verander niets aan hoe de oefening zelf werkt.\n\nHeb je daarvoor extra bestanden nodig naast mijn HTML-bestand, maak ze dan aan en zeg me welke bestanden samen online moeten staan.\n\nIk ben leerkracht en geen programmeur. Leg me achteraf in gewone taal uit wat ik op mijn eigen gsm doe om ze op het startscherm te krijgen, en wat er gebeurt als ik de pagina later aanpas.',
+            uitleg: 'Twee regels doen hier het meeste werk. <strong>Verander niets aan hoe de oefening zelf werkt</strong> ken je al uit het basisspoor: zonder die zin herschrijft de AI soms ook je geteste oefening. En <strong>zolang de leerling ze al een keer met verbinding geopend heeft</strong> is geen slag om de arm, maar de eerlijke werkelijkheid — zie het kader hieronder. Merk ook waarom er een pictogram van één kleur met een letter of symbool gevraagd wordt: dat maak je zelf en er hangt niemands auteursrecht aan. Het logo van je school vraag je even, en een afbeelding die je ergens vond, zet je er niet zomaar op. Let ten slotte op de vraag naar extra bestanden: tot nu hield je alles in één bestand, en hiervoor kan dat meestal niet meer. Geen probleem, zolang jij wéét welke bestanden samen online moeten staan. Vraag dat dus expliciet, want vergeet je er later één, dan valt je pictogram of het offline openen weg — je pagina zelf blijft gelukkig gewoon werken, maar je zoekt je een halve avond blind naar wat er scheelt.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Zonder netwerk werkt enkel wat er al geladen was',
+            inhoud: 'Het blijft dezelfde webpagina, en dat merk je zodra het netwerk hapert. De eerste keer heeft de leerling altijd verbinding nodig. Daarna werkt wat er al binnengehaald was — de oefening zelf, de tekst, de afbeeldingen — ook zonder netwerk, tenminste als je je pagina daar met de prompt hierboven voor liet aanpassen. Wat níét meer werkt: alles wat je pagina onderweg nog moet ophalen, en dus ook een ingebouwde AI-functie zoals in de module <em>AI inbouwen in je eigen tool</em>. Er hangt één ding aan vast dat je beter vooraf weet: precies omdat de oude versie op het toestel bewaard blijft, zien leerlingen die vaak nog even nadat jij de pagina online aanpaste — óók mét verbinding. Meestal komt de nieuwe pas binnen als ze de app helemaal sluiten en opnieuw openen. Pas je iets aan, zeg dat er dus bij in de klas. En test het geheel één keer zelf: zet je gsm in vliegtuigmodus en open je pictogram. Wat jij daar ziet, is precies wat je leerlingen zien in dat ene lokaal waar het netwerk het nooit doet — en dan weet je vooraf of je plan B nodig hebt.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Naar huis meegeven? Dan ook op papier',
+            inhoud: 'Een pictogram op het startscherm maakt het verleidelijk om te zeggen: <em>zet ze thuis ook maar op je gsm</em>. Hou daar dezelfde afspraak bij als voor elke link die je meegeeft: <strong>je geeft ze pas mee als dezelfde oefening ook op papier bestaat</strong>. Niet elke leerling heeft thuis een toestel of genoeg data, en dat zie je niet aan een klas. Laat punten of een verplichte taak dus nooit van zo\'n link afhangen, en verplicht niemand om iets op een privétoestel te zetten. Wie het wil, doet het; wie de papieren versie neemt, maakt exact dezelfde oefening. Zo blijft het een hulpmiddel en geen voorsprong voor wie thuis toevallig meer heeft staan.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Zet je eigen app op je eigen gsm',
+            inhoud: 'Twintig minuten, en je eigen bouwsel staat als pictogram op je gsm — plus drie regels uitleg die je zo aan je klas kan meegeven. Onderweg test je meteen het eerlijke deel: wat er nog werkt als het netwerk wegvalt.',
+            stappen: [
+              'Neem de link van je pagina online erbij, die uit de les Online zetten. Staat je project nog enkel als bestand op je laptop, zet het dan eerst online: zonder link lukt de rest niet.',
+              'Vraag Claude met de prompt hierboven om een naam en een pictogram, en om je pagina te laten werken als het netwerk wegvalt. Zet de nieuwe versie online — alle bestanden die erbij horen — en open de link op je eigen gsm.',
+              'Voeg de pagina via het menu van je browser toe aan je startscherm, sluit de browser helemaal en open ze vanaf het pictogram. Opent ze schermvullend? Is de naam onder het pictogram nog volledig leesbaar? Is ze afgekapt, vraag dan een kortere naam.',
+              'Zet je gsm in vliegtuigmodus en open ze opnieuw vanaf het startscherm. Noteer wat nog werkt en wat niet: dat is precies wat je leerlingen zien in een lokaal zonder netwerk.',
+              'Zet het netwerk weer aan en schrijf drie regels voor je leerlingen: hoe ze de pagina op hun startscherm zetten, wat er zonder netwerk nog werkt, en wat ze doen als jij de oefening later aanpast — de app helemaal sluiten en opnieuw openen. Zet er één zin bij over de papieren variant, zodat wie thuis geen toestel heeft dezelfde oefening kan maken.',
+            ],
+          },
+        ],
+      },
     ],
   },
 
@@ -402,7 +655,7 @@ export const MODULES_VIBE = [
     icoon: '🗄️',
     titel: 'Gegevens, privacy en versiebeheer',
     ondertitel: 'Wanneer je app iets moet onthouden — en hoe je dat in orde houdt met de regels.',
-    duur: '55 min',
+    duur: '80 min',
     niveau: 'Verdieping',
     doelen: [
       'Je beslist bewust of je app gegevens moet bewaren.',
@@ -533,6 +786,129 @@ export const MODULES_VIBE = [
           },
         ],
       },
+      {
+        id: 'echte-database',
+        titel: 'Een echte database koppelen',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de sessie bouwde je een pagina die niets bijhoudt, en misschien eentje die de voortgang <em>in de browser van de leerling</em> bewaart — op dat ene toestel, en nergens anders. Voor de meeste klastools is dat genoeg. Tot je op zoiets botst: je geeft Frans in het derde jaar en wil na de woordenschatoefening op je <strong>eigen</strong> scherm zien welke woorden je klas structureel mist, maar die gegevens zitten verspreid over vierentwintig laptops en je geraakt er niet bij. Of een leerling van het vijfde leerjaar oefende op de klascomputer en wil thuis verder waar hij gebleven was, en op de tablet thuis staat uiteraard niets. Dan volstaat opslag in de browser niet meer. Dan kom je uit bij een echte database — en dat is precies de stap die deze les eerlijk wil kaderen, want hij is groter dan hij lijkt.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Een <strong>database</strong> is in gewone taal niets anders dan <strong>een tabel die ergens anders bewaard blijft dan op het toestel van de leerling</strong>: bij een dienst op het internet. Denk aan een blad in Excel — één rij per poging, met kolommen voor welk klasnummer, welke oefening, hoeveel juist, en wanneer. Elk toestel schrijft in diezelfde ene tabel, en elk toestel kan ze weer opvragen. Dat is het hele idee. Wat het <em>niet</em> is: een knop die je even aanzet. Reken op een aparte werksessie om het één keer goed te zetten — een namiddag is daarvoor een optimistische schatting, en die tijd gaat niet naar je les. De meeste ideeën uit dit spoor hebben het ook niet nodig — dat is geen zwaktebod, dat is de normale uitkomst.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Moet iemand anders dan de leerling zelf dit kunnen zien?</strong> Is het antwoord nee, dan volstaat opslag in de browser. De leerling vindt zijn score terug, er vertrekt geen enkel gegeven naar buiten, en jij hebt niets te regelen.',
+              '<strong>Moet het terug te vinden zijn op een <em>ander</em> toestel?</strong> Opslag in de browser blijft op het toestel waar ze gemaakt is. Begint een leerling op de klascomputer en werkt hij thuis verder, dan lukt dat niet. Hetzelfde geldt voor een klas met gedeelde chromebooks, waar niemand twee keer na elkaar hetzelfde exemplaar meekrijgt.',
+              '<strong>Werken leerlingen samen aan hetzelfde?</strong> Een bord waar de hele klas woorden op zet, een stemming, een gezamenlijke tijdlijn: dan moet alles wel op één plek samenkomen.',
+              '<strong>Drie keer nee?</strong> Dan heb je geen database nodig, ook al voelt het alsof je iets mist. Bouw verder zonder. Je kan er later altijd nog een aan koppelen, en tegen dan weet je veel preciezer wat je er eigenlijk in wil.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Het lichtere alternatief dat vaak volstaat',
+            inhoud: 'Je wil zien hoe het bij je klas liep, en dat is een terechte wens — dat ís goed lesgeven. Alleen kan overzicht ook zonder database. Laat je pagina op het einde een kort resultaat tonen, bijvoorbeeld <em>8 op 10, fout op vier woorden</em>, en laat de leerling dat overnemen in de opdracht op Smartschool of er een schermafbeelding van indienen. Je hebt dan hetzelfde overzicht voor de prijs van één handeling bij de leerling, en je hoeft niets van deze les te regelen. Eerlijk is eerlijk: bij vier klassen van dertig wordt dat handmatig verzamelen vervelend, en dan verdient een database zijn plaats. Maar probeer eerst dit — het kost je tien minuten in plaats van een werksessie.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Een dienst kiezen.</strong> <strong>Supabase</strong> is bijvoorbeeld een gangbare keuze voor kleine schoolprojecten; er bestaan vergelijkbare diensten, en de aanpak is bij elk grotendeels dezelfde. Claude kent zulke diensten goed genoeg om je stap voor stap door de opzet te loodsen, met één kanttekening: schermen en benamingen wijzigen er geregeld, dus loopt de uitleg niet gelijk met wat je ziet, antwoord dan met wat er wél op je scherm staat. Wat je er gratis mag en waar het betalend wordt, verschuift ook geregeld — kijk dat na op het moment zelf, niet op wat een collega vorig jaar vertelde.',
+              '<strong>Bij het aanmaken kies je een regio.</strong> Neem er een in Europa. Dat is geen voorkeur die je later bijstelt: bij zo\'n dienst ligt die keuze doorgaans vast zodra je project bestaat. Verhuizen betekent dan een nieuw project aanmaken en al je gegevens overzetten. Eén bewuste klik nu, of een halve dag later. Eén nuance die je erbij moet weten: een Europese regio is nodig, maar op zich niet genoeg. Wie er achter de dienst zit en welke afspraken je school met die dienst heeft, tellen even hard — en dat is precies waarover het kader hieronder gaat.',
+              '<strong>Je krijgt twee soorten codes, en maar één ervan mag in je pagina.</strong> Zo\'n dienst geeft je een code die <em>bedoeld</em> is om openbaar te staan: die mag gerust in je pagina, maar hij is enkel veilig zolang de toegangsregels van het volgende punt goed staan. Daarnaast krijg je er een die <em>alles</em> mag — die hoort thuis op een server en nooit in de pagina zelf, net als de sleutel van een AI-functie, en om dezelfde reden: alles in een webpagina is leesbaar voor wie erop staat. Vraag Claude bij elke stap welke van de twee hij gebruikt en waarom. Dat is de vraag waar het bij deze diensten het vaakst misloopt.',
+              '<strong>Vraag expliciet om toegangsregels.</strong> Zonder die regels kan wie de openbare code heeft — en die staat dus in je pagina — de hele tabel uitlezen. Zet in je prompt wat er wél mag: wegschrijven ja, de volledige tabel teruglezen nee, en het overzicht van de klas enkel voor jou. Eerlijk erbij: een echte grendel per leerling, zodat iemand enkel bij zijn eigen rij kan, werkt pas als de dienst weet wélke leerling er typt — en dat vraagt een vorm van aanmelden, een stap groter dan deze les. Zolang je die niet hebt, is <strong>zo weinig mogelijk bewaren</strong> je echte bescherming, niet de regel die je vroeg.',
+              '<strong>Wie kan er allemaal aan?</strong> Jij, iedereen met wie je een wachtwoord of een code deelt, en de dienst zelf. Bedenk er meteen bij wat er gebeurt als jij langdurig ziek wordt of van school verandert. Laat de dienst toe om iemand mee als beheerder te zetten, doe dat dan samen met de ICT-coördinator of een collega. Kan dat niet, schrijf dan minstens op waar het project staat en onder welk account, en zorg dat de ICT-coördinator dat blad heeft.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Vanaf hier beslis je dit niet meer alleen',
+            inhoud: 'Zolang je pagina niets doorstuurt en niets bewaart, beslis je zelf — binnen het ICT-beleid van je school. Van zodra er gegevens van leerlingen in een database buiten de school terechtkomen, niet meer: dan hoort dit besproken met de <strong>DPO van je scholengroep</strong> én de <strong>ICT-coördinator</strong>, vóór er één leerlinggegeven in gaat. Dat is geen formaliteit. Voor zo\'n dienst horen er ook schriftelijke afspraken te zijn over wat die met de gegevens mag doen — een <strong>verwerkersovereenkomst</strong>, een contract tussen de school en de leverancier. Dat sluit de school af, niet jij persoonlijk, en de DPO weet welke er al zijn en welke niet. De ICT-coördinator weet dan weer of het schoolnetwerk zo\'n dienst doorlaat, en wie er nog bij kan als jij er niet bent. Hou daarnaast de vuistregel van deze module overeind: <strong>bouw zonder namen, tenzij het echt niet anders kan.</strong> Een klasnummer of een zelfgekozen bijnaam volstaat didactisch bijna altijd. Kan jij die bijnaam nog aan een leerling koppelen, dan blijven het leerlinggegevens — dat mag, maar het is net dát wat je één keer voorlegt in plaats van er zelf over te oordelen.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Eerst de afweging, dan pas bouwen',
+            tekst: 'Ik ben leerkracht [VAK] in [LEERJAAR] in Vlaanderen en ik ben geen programmeur.\n\nIk heb een oefenpagina gebouwd. Ik overweeg om de resultaten in een echte database te bewaren, omdat: [WAAROM JE HET WIL ZIEN].\n\nDoe drie dingen, in deze volgorde:\n1. Zeg me eerlijk of het ook zonder database kan, en hoe. Kan het zonder, leg dan uit wat ik daarbij inlever.\n2. Kan het niet zonder: geef een stappenplan in gewone taal, met per stap hoeveel tijd het ongeveer kost en wat ik op het scherm zie.\n3. Zeg welke keuzes ik bij het aanmaken meteen goed moet zetten omdat ik er later niet meer op kan terugkomen.\n\nRandvoorwaarden: de gegevens blijven in Europa, geen namen van leerlingen (enkel een klasnummer of een zelfgekozen bijnaam), en ik moet alles kunnen wissen.\n\nZeg me daarbij uitdrukkelijk: welke codes krijg ik van die dienst, welke daarvan mag in mijn pagina staan en welke absoluut niet, en welke toegangsregels zet je zo dat niemand via mijn pagina de hele tabel kan uitlezen.\n\nKan je iets van wat ik vraag niet echt afdwingen met deze opzet, zeg dat dan met zoveel woorden in plaats van het te laten uitschijnen.\n\nStel me eerst de vragen die je nodig hebt voor je begint.',
+            uitleg: 'Punt 1 is het belangrijkste, en meteen het punt dat mensen weglaten. Vraag je het niet, dan bouwt Claude gewoon wat je vroeg — ook als het niet nodig was. De randvoorwaarden laat je in élke prompt hierrond staan: ze kosten je niets en ze houden de fouten tegen die achteraf het duurst zijn. De zin over wat níét afdwingbaar is, staat er om een specifieke reden: vraag je om iets af te schermen, dan krijg je makkelijk een geruststellend antwoord terwijl er enkel een regel bij staat die dat niet waarmaakt. Beter dat je dat nú hoort dan wanneer je klas er al mee werkt. En <em>stel me eerst de vragen die je nodig hebt</em> voorkomt dat je een stappenplan krijgt dat op verkeerde aannames over jouw klas gebouwd is.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Schrijf je gegevensfiche vóór je bouwt',
+            inhoud: 'Deze les bouw je niets — je beslist. Je eindigt met één blad waarop staat wat je zou bewaren, waar het staat en hoe het verdwijnt. Dat blad is precies wat de DPO en de ICT-coördinator nodig hebben, en het is ook prima als de uitkomst is: <em>toch geen database</em>.',
+            stappen: [
+              'Schrijf bovenaan één zin: wat wil je zien dat je vandaag niet ziet, en wat zou je daar in je les concreet mee doen?',
+              'Teken eronder je tabel op papier: één kolom per gegeven dat je zou bewaren. Schrap daarna elke kolom waar je les even goed zonder kan, en vervang elke naam door een klasnummer of een zelfgekozen bijnaam.',
+              'Zet onder de tabel vier regels: bij welke dienst en in welke regio de gegevens staan, hoe lang ze blijven staan, hoe je ze wist, en wie er buiten jou nog aan kan. Weet je iets nog niet, schrijf dan een vraagteken — dat is een vraag voor je gesprek, geen fout.',
+              'Gebruik de prompt hierboven en noteer enkel het antwoord op punt 1: kan het ook zonder database? Volstaat dat alternatief voor wat je in stap 1 opschreef, stop dan hier. Dat is een geslaagde uitkomst en je bent een werksessie rijker.',
+              'Blijft de database nodig: mail je blad naar de ICT-coördinator en vraag een kwartier bij de DPO van je scholengroep. Zet in je agenda wanneer je bouwt — na dat gesprek, niet ervoor.',
+            ],
+          },
+        ],
+      },
+      {
+        id: 'projectgeheugen',
+        titel: 'Geef je project een geheugen',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de sessie bouwde je een oefenpagina — zeg: werkwoordspelling voor je vijfde leerjaar. Drie weken later, op een woensdagnamiddag, wil je er een tweede reeks zinnen bij. Je opent een nieuw gesprek, vraagt die reeks, en krijgt iets terug waarin de feedback enkel met kleur werkt, de knoppen op een gsm half wegvallen en er plots naar de naam van de leerling gevraagd wordt. Er is niets stuk: het is gewoon een <em>nieuw</em> gesprek, en alles wat je de vorige keer afsprak is weg. Dus leg je het opnieuw uit. En de keer daarna nog eens.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'De oplossing is verrassend weinig technisch: <strong>één blad</strong>. Een gewoon tekstbestand naast je app, hooguit een half A4, waarin staat wat je app doet, voor wie, welke afspraken altijd gelden, wat er al werkt en wat er nog moet komen. Begin je een nieuw gesprek, dan plak je dat blad bovenaan vóór je je vraag stelt. Meer is het niet. We noemen het hier je <strong>projectblad</strong>; hoe jij het zelf noemt, maakt niet uit. Hield je bij de opdracht over opslag al vijf regels bij over wat je app bewaart en hoe het verdwijnt, dan hoeft dat geen apart blaadje te blijven: zet het bij de afspraken. Eén blad per project volstaat, en dat is meteen de bedoeling — wat over drie blaadjes verspreid staat, raak je kwijt.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Wat de app doet, en voor wie.</strong> Twee zinnen volstaan: "Oefenpagina werkwoordspelling voor het vijfde leerjaar. De leerling krijgt een zin, vult het werkwoord in en ziet meteen of het juist is." Zet er het leerplandoel bij waar het aan vasthangt.',
+              '<strong>De afspraken die altijd gelden.</strong> Het belangrijkste stuk. Geen namen of andere persoonsgegevens, werkt op een gsm én op het smartboard, feedback nooit enkel met kleur, alles in één bestand. Precies de dingen die je anders elk gesprek opnieuw moet zeggen.',
+              '<strong>Wat er al werkt en getest is.</strong> Kort opgesomd. Zo begint de assistent niet opnieuw te bouwen wat er al staat, en gaat er niet stilletjes iets kapot dat je net goed had.',
+              '<strong>Wat er nog moet komen.</strong> Jouw lijstje, in volgorde van belangrijkheid. Ook voor jezelf handig: je weet meteen weer waar je gebleven was.',
+              '<strong>Welk bestand de laatste versie is, en waar het staat.</strong> Eén regel. Nummer je je versies, dan is die regel zo geschreven.',
+            ],
+          },
+          {
+            type: 'prompt',
+            titel: 'Laat je projectblad opstellen',
+            tekst: 'Ik ben leerkracht en ik bouw samen met jou aan een kleine webapp voor mijn klas. Ik wil één blad waarmee ik een volgend gesprek kan beginnen, zodat ik niet alles opnieuw moet uitleggen.\n\nBaseer je op het bestand zelf en op wat we in dit gesprek afspraken. Is dit een nieuw gesprek waarin ik enkel mijn bestand toevoegde, baseer je dan alleen op het bestand en verzin er geen afspraken bij.\n\nSchrijf maximaal een half A4, in gewone taal, met deze vijf stukken:\n1. Wat de app doet, in twee zinnen, en voor wie: [LEERJAAR EN VAK], bij dit leerplandoel: [LEERPLANDOEL].\n2. De afspraken die altijd gelden. Neem zeker mee: geen namen of andere persoonsgegevens, werkt op een gsm en op het smartboard, feedback nooit enkel met kleur. Vul aan met de afspraken die we verder maakten.\n3. Wat er al werkt en getest is.\n4. Wat er nog moet komen, in volgorde van belangrijkheid.\n5. Welk bestand de laatste versie is.\n\nGebruik geen technische termen die ik niet nodig heb. Geef het als tekst die ik kan kopiëren en bewaren.',
+            uitleg: '"Baseer je op het bestand zelf" is dezelfde truc als bij een gebruiksaanwijzing voor een collega: je krijgt een beschrijving van wat je pagina <em>écht</em> doet, niet van wat jij denkt dat erin zit. Lees je bij het nakijken iets dat je niet verwachtte — een veld dat om een naam vraagt, een stuk dat niemand gebruikt — dan heb je er meteen twee dingen bij: een projectblad én een opkuis.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Laat het bijwerken vóór je afsluit',
+            inhoud: 'Doe dat op het einde van een werksessie, terwijl het gesprek nog alles weet: <em>"Werk mijn projectblad bij met wat we vandaag veranderd hebben en geef het volledig terug."</em> Je plakt het resultaat over je oude blad. Twintig seconden werk, en het is net het moment waarop het vanzelf gaat — volgende week moet je het weer zelf uitzoeken.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Dit blad is ook nuttig als er geen AI bij komt kijken. Bouwde je een grafiekenoefening voor het derde jaar en geef je die door aan je vakwerkgroep wiskunde — of je werkwoordoefening aan het teamoverleg — dan leest een collega in dertig seconden waarvoor het dient, bij welk leerplandoel het past en wat er bewust <em>niet</em> in zit. Zonder dat blad krijgt die collega een bestand plus jouw mondelinge uitleg — en die uitleg ben je over twee maanden zelf ook kwijt. Zo bekeken is het geen administratie erbij: het is de uitleg die je anders drie keer geeft, één keer opgeschreven. In de module <em>Delen met collega\'s en leerlingen</em> staat een prompt die daar een volwaardige gebruiksaanwijzing van maakt; je projectblad is net het materiaal dat die prompt nodig heeft.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Een blad dat niet meer klopt, is lastiger dan geen blad',
+            inhoud: 'De valkuil is voorspelbaar: je maakt het één keer, je werkt drie versies verder, en je blad beschrijft de app van vorige maand. Plak je dat bovenaan, dan bouwt de assistent keurig verder op iets dat niet meer bestaat. Twee dingen houden dat tegen. <strong>Hou het kort</strong> — wat er niet in staat, kan ook niet verouderen; dat ene blad is geen streefdoel maar een grens. En <strong>werk het bij op het einde van een werksessie</strong>, niet tussendoor. Is het toch achterhaald geraakt, dan is dat geen ramp: laat het opnieuw opstellen op basis van het bestand zoals het er nu uitziet, met de prompt hierboven. Dat kost je twee minuten.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Maak het projectblad van je eigen project',
+            inhoud: 'Een kwartier werk, en een volgende keer hoef je niet meer uit te leggen wat je vorige maand al uitlegde. Je eindigt met één tekstbestand in dezelfde map als je app — en met de zekerheid dat het werkt, want je test het meteen in een leeg gesprek.',
+            stappen: [
+              'Open het bestand van je app. Staat het gesprek waarin je eraan werkte nog open, gebruik dat; anders begin je een nieuw gesprek en sleep je je HTML-bestand erin.',
+              'Laat met de prompt hierboven een projectblad opstellen.',
+              'Lees het na en verbeter het: jij bent de enige die weet wat de bedoeling was. Schrap wat niet klopt en vul aan wat ontbreekt, zeker de afspraak die je in gesprekken het vaakst moet herhalen.',
+              'Bewaar het als gewoon tekstbestand in dezelfde map als je HTML-bestand, met een naam die erbij hoort: heet je app oefenapp-v3.html, dan wordt dit oefenapp-projectblad.txt. Zet de datum van vandaag bovenaan. Weet je niet hoe je zo\'n tekstbestand maakt, vraag dat dan gewoon in hetzelfde gesprek.',
+              'Test het meteen: begin een nieuw, leeg gesprek, plak je projectblad bovenaan en vraag één kleine aanpassing. Krijg je iets dat aan je afspraken voldoet zonder dat je die opnieuw uitlegde, dan werkt je blad. Zo niet, dan weet je precies welke zin er ontbreekt — voeg die toe en bewaar opnieuw.',
+            ],
+          },
+        ],
+      },
     ],
   },
 
@@ -541,7 +917,7 @@ export const MODULES_VIBE = [
     icoon: '🤖',
     titel: 'AI inbouwen in je eigen tool',
     ondertitel: 'Je app zelf laten nakijken, uitleggen of genereren — en wat dat kost.',
-    duur: '55 min',
+    duur: '65 min',
     niveau: 'Expert',
     doelen: [
       'Je beoordeelt wanneer een AI-functie zinvol is.',
@@ -696,6 +1072,221 @@ export const MODULES_VIBE = [
               "Zet bij je AI-dienst een uitgavenlimiet op een bedrag dat je zonder pijn kan missen.",
               "Typ als leerling een veel te lang, warrig antwoord in en kijk of het AI-antwoord kort blijft. Blijft het lang, vraag Claude dan om een harde maximumlengte in te bouwen.",
               "Noteer je drie punten — sleutel, uitgavenlimiet, antwoordlengte — met de datum op een blad dat je bij je project bewaart. Stond je sleutel in de pagina, dan is je volgende werksessie duidelijk: hem met Claude naar een serverfunctie verhuizen, met de prompt hierboven.",
+            ],
+          },
+        ],
+      },
+      {
+        id: 'meer-dan-tekst',
+        titel: 'Meer dan tekst: beeld, spraak en geluid',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de sessie bouwde je een app waarin de leerling typt: iets invullen, op een knop klikken, feedback lezen. Voor de meeste leerlingen werkt dat prima. Maar je kent er ook bij wie het net daar strandt: de leerling met dyslexie voor wie één zin op het scherm krijgen meer moeite kost dan die zin bedenken, of de leerling in het derde jaar die pas sinds vorig jaar in het Nederlands schoolloopt, in de klas al vlot meepraat en toch nog nauwelijks iets neergeschreven krijgt. Allebei weten ze het antwoord vaak wél; ze raken er alleen niet mee in jouw app. Veel AI-diensten kunnen intussen meer dan tekst alleen: ze zetten gesproken taal om in tekst, ze lezen voor, en ze kunnen zeggen wat er op een afbeelding staat. Wat jouw dienst precies aankan, verschilt en verandert — en let op één ding dat vaak wordt overgeslagen: wat je in een chatvenster ziet werken, is niet automatisch iets wat je in je eigen app kan inbouwen. Kijk dat dus na op het moment dat je het nodig hebt. Deze les gaat over beeld en geluid die jouw app <em>binnenkomen</em>: wanneer je dat inzet en, minstens even belangrijk, wanneer niet. Beeld of stemmen laten <em>génereren</em> laten we hier links liggen — dat kost meer, en de vragen rond auteursrecht en rond wiens stem je namaakt zijn vandaag nog niet uitgeklaard.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Inspreken in plaats van typen.</strong> De leerling zegt zijn antwoord hardop en het verschijnt als tekst. Een leerling van het zesde leerjaar vertelt in drie zinnen waarom de ijsbeer het moeilijk krijgt bij een warmer klimaat; uitgetypt was hij daar het halve lesuur mee bezig geweest.',
+              '<strong>Laten voorlezen.</strong> De opdracht of de tekst wordt hardop voorgelezen. Waardevol voor wie traag leest — de leestekst van deze week nog eens kunnen beluisteren — en voor oefeningen waarin je net wil dat de leerling <em>hoort</em> hoe iets klinkt, zoals een Franse zin die hij daarna nazegt. Weet wel dat een computerstem geen moedertaalspreker is: klemtoon en intonatie kloppen niet altijd, dus gebruik hem om mee te oefenen en niet als norm.',
+              '<strong>Een afbeelding laten beschrijven.</strong> Je stuurt een foto of een tekening mee en je krijgt in tekst terug wat erop staat. In de les biologie fotografeert de leerling zijn schets van een bloem en leest hij welke onderdelen hij vergat te benoemen.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Wat de computer verstaat, is niet altijd wat de leerling zei',
+            inhoud: 'Spraakherkenning is grotendeels getraind op volwassen stemmen die vlot standaardtaal spreken. Bij kinderstemmen, bij stevig dialect en bij wie het Nederlands nog aan het leren is, gaat er merkbaar meer mis — precies bij de leerlingen voor wie je het wou inzetten. Hetzelfde geldt voor beeld: handgeschreven labels op een schets worden geregeld verkeerd gelezen. Dat is geen reden om het te laten, wel om het zo te bouwen dat een fout <strong>zichtbaar</strong> is: de leerling ziet de omgezette tekst staan en verbetert ze zelf vóór hij verder gaat. En test het één keer met de stem van een leerling uit de groep waarvoor je het bedoelde, niet enkel met de jouwe. Eén ding ligt sowieso vast: een app die uit een stem of een gezicht wil afleiden hoe een leerling zich <em>voelt</em> — gestrest, ongeconcentreerd, gemotiveerd — mag niet in het onderwijs. Dat is Europese wetgeving en geen schoolafspraak, en de reden is dezelfde als hierboven: die inschatting klopt te vaak niet.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Voor je hier iets van inbouwt komt een vraag die niets met techniek te maken heeft: <strong>wat meet je eigenlijk?</strong> Wil je weten of een leerling verzorgd en correct kan schrijven, dan is inspreken geen hulpmiddel maar een omweg rond precies datgene wat je wou oefenen. Wil je weten of hij een historische bron kan beoordelen of een proefopstelling kan uitleggen, dan is het typen enkel ruis: je meet handigheid met een toetsenbord in plaats van wat je wou weten. Het sterkste tegenargument hoor je meteen: <em>als hij alles mag inspreken, leert hij nooit schrijven.</em> Dat is terecht, en het antwoord is niet dat het wel meevalt — het antwoord is dat je het per opdracht beslist en dat ook hardop zegt. Op de momenten waarop je schrijven oefent, wordt er geschreven; op de momenten waarop je iets anders meet, mag de weg naar het antwoord verschillen. Wie dat onderscheid maakt, kan het ook uitleggen aan de klas, aan de ouders en op het zorgoverleg of de klassenraad.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Zelden iets voor je eerste versie',
+            inhoud: 'Een vraag met geluid of beeld erbij kost meestal meer dan dezelfde vraag in tekst, en het duurt doorgaans langer voor er een antwoord terugkomt. Als je alleen aan je keukentafel zit te testen, valt dat niet op; bij vier klassen die er elk een lesuur mee bezig zijn, zie je het op je rekening bij de AI-dienst én in de stilte voor het scherm terwijl de klas staat te wachten. Bouw je eerste versie dus altijd in tekst en zorg dat die goed werkt. Voeg spraak of beeld pas toe als de rest zit én je kan benoemen welke leerling er beter van wordt. En zet je uitgavenlimiet of je vooraf opgeladen tegoed goed vóór je iets uitdeelt — kijk daarbij na of die limiet je écht stopt of enkel een bericht stuurt. Zie de les <em>Modellen en kosten</em> in deze module.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Een stem en een foto zijn persoonsgegevens',
+            inhoud: 'Bij tekst kan je nog afspreken dat er geen namen ingetypt worden. Bij spraak en beeld gaat dat niet: de stem van een kind is zélf een persoonsgegeven, en op een foto uit je klas staat vaak iemand herkenbaar — en ook zonder gezicht in beeld volstaat een blad met een naam erop al. Dat naar een AI-dienst sturen is dus een zwaardere beslissing dan een stukje tekst doorsturen, en je neemt ze niet alleen. Wat wél kan: laat de leerling <strong>inspreken met de dicteerfunctie die al in het toestel of de browser zit</strong>, zodat jouw app zelf geen geluid opneemt of doorstuurt en enkel de omgezette tekst verdergaat. Eén nuance die je moet kennen vóór je ze aan iemand uitlegt: zo\'n dicteerfunctie zet het geluid soms om op het toestel zelf en soms bij de maker van het toestel of de browser. Naar de AI-dienst achter jouw sleutel vertrekt er dan niets, maar <em>nergens naartoe</em> is het daarom niet. Vraag één keer na bij je ICT-coördinator hoe dat zit op de toestellen van jouw school, dan weet je het ineens voor al je klassen. Wil je die vraag omzeilen, doe het dan <strong>klassikaal op jouw scherm met jouw schoolaccount</strong>, zodat jij ziet wat er precies vertrekt. Wil je tóch dat leerlingen zelf beeld of geluid doorsturen, leg dat dan eerst voor aan de DPO van je scholengroep.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Inspreken zonder de stem door te sturen',
+            tekst: 'Ik wil dat leerlingen hun antwoord in mijn webapp kunnen inspreken in plaats van typen.\n\nMijn app doet dit: [BESCHRIJF IN 2-3 ZINNEN WAT DE LEERLING NU DOET].\n\nEISEN:\n- Gebruik de dicteerfunctie die al in het toestel of de browser van de leerling zit.\n- Mijn app neemt zelf geen geluid op, verstuurt zelf geen geluid en bewaart niets; enkel de omgezette tekst wordt gebruikt.\n- De leerling ziet die tekst eerst in een veld staan en kan ze aanpassen voor hij verstuurt.\n- Typen blijft gewoon mogelijk naast inspreken.\n- Werkt het inspreken niet op een toestel, dan blijft de app volledig bruikbaar met het toetsenbord alleen.\n\nIk ben leerkracht en geen programmeur. Leg in gewone taal uit waar de spraak in tekst wordt omgezet — op het toestel zelf of bij een dienst van buitenaf — en op welke toestellen en browsers dit werkt en op welke niet.',
+            uitleg: 'De derde eis is didactisch de belangrijkste: de leerling ziet zijn eigen zin staan en verbetert ze zelf. Zo zit er nog altijd lezen en schrijven in de opdracht, wordt inspreken een hulpmiddel in plaats van een omweg, én vang je meteen op wat de computer verkeerd verstond. De laatste eis is er voor de dag waarop het gewoon niet werkt op de toestellen van de school — dan gaat je les nog altijd door. De slotvraag over <em>waar</em> de omzetting gebeurt, is precies de vraag die je ICT-coördinator of je DPO je zal stellen; je kan er maar beter zelf het antwoord op hebben. Vraag Claude achteraf ook uitdrukkelijk na of er ergens in je pagina toch een opname vertrekt: <em>antwoord met ja of nee, en met de plaats waar je het ziet.</em>',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Beslis of spraak jouw leerdoel dient',
+            inhoud: 'Je beslist voor één concrete opdracht uit je eigen lessen of inspreken of voorlezen daar thuishoort, en je legt die beslissing vast in twee zinnen die je zo aan een collega of een ouder kan voorlezen. Je hebt hier nog geen app met AI voor nodig — enkel je eigen opdracht en een blad papier.',
+            stappen: [
+              'Neem een opdracht die je de komende weken geeft en schrijf in één zin op wat je ermee wil meten: niet wat de leerlingen doen, wel wat je achteraf over hun kennen en kunnen wil kunnen zeggen.',
+              'Zet daaronder wat het typen of schrijven zelf met dat leerdoel te maken heeft. Is het een deel van wat je meet, of enkel de weg naar het antwoord?',
+              'Denk aan één leerling voor wie die weg nu de moeilijkste stap is. Schrijf op wat er voor hem verandert als hij mag inspreken of laten voorlezen, wat er voor de rest van de klas verandert, en wat je doet op de dag dat de computer zijn woorden verkeerd verstaat.',
+              'Kies de eenvoudigste weg die dat oplost: de dicteerfunctie van het toestel zelf, klassikaal werken op jouw scherm, of pas als laatste een AI-functie in je eigen app. Twijfel je, plak dan je drie antwoorden van hierboven in een gesprek met Claude en vraag naar de eenvoudigste oplossing, met de reden erbij.',
+              'Vat je beslissing samen in twee zinnen: wat mag er bij deze opdracht ingesproken worden, en wat blijft geschreven. Lees ze voor aan een collega — struikelt die erover, dan is je onderscheid nog niet scherp genoeg.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'De vuistregel',
+            inhoud: 'Zet spraak of beeld in om een drempel weg te nemen, nooit om het leerdoel zelf te omzeilen. Loop daarvoor drie vragen af, in deze volgorde: <strong>helpt het mijn leerdoel, of omzeilt het net dat?</strong> Dan: <strong>kan het zonder dat de stem of de foto van een leerling bij een dienst van buitenaf terechtkomt?</strong> En pas daarna: <strong>is het de extra kosten en wachttijd waard?</strong> Drie keer ja en je bouwt het. Eén keer nee en je hebt jezelf een hoop werk bespaard — ook dat is een resultaat.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'vibe-voorbeeld',
+    icoon: '🧪',
+    titel: 'Een volledig voorbeeld',
+    ondertitel: 'Eén project van het eerste idee tot in de klas, met alle tussenstappen.',
+    duur: '30 min',
+    niveau: 'Verdieping',
+    doelen: [
+      'Je ziet de hele weg één keer in samenhang, van lesprobleem tot werkende app.',
+      'Je herkent waar het misloopt en hoe je bijstuurt zonder opnieuw te beginnen.',
+      'Je haalt je eigen idee door dezelfde stappen.',
+    ],
+    lessen: [
+      {
+        id: 'voorbeeld',
+        titel: 'Van idee tot werkende versie',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'In de vorige modules bouwde je een eerste versie van je eigen idee. Deze les legt daar één volledig project naast, van a tot z: het idee, de prompts zoals ze echt ingetypt zijn, en wat er onderweg misliep. Het voorbeeld komt uit het secundair, maar de weg is exact dezelfde voor een oefening rond breuken in het vierde leerjaar of rond de topografie van België in het vijfde.',
+          },
+          {
+            type: 'tekst',
+            inhoud: '<strong>Stel: je geeft Frans in het tweede jaar.</strong> Bij elk hoofdstuk hoort een woordenlijst, en elke keer loopt het hetzelfde: de leerlingen leren die lijst de avond voor de toets, kennen ze op woensdag, en zijn ze in november kwijt. De woordjes klassikaal afvragen werkt, maar dan is er één leerling aan het woord en zitten er drieëntwintig te wachten. Op papier laten oefenen kan ook, alleen horen ze pas twee dagen later wat er fout was, en dan is het moment voorbij.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Dit is om drie redenen een goed eerste bouwidee. Het <strong>komt terug</strong>: elk hoofdstuk heeft een nieuwe lijst, dus wat je één keer bouwt gebruik je vijf keer per jaar in drie klassen. Het <strong>past op één scherm</strong>: één woord, één invulveld, één knop — daar kan weinig aan mislopen. En het is <strong>meteen te controleren</strong>: de leerling weet binnen een seconde of het juist was, en dat is net wat op papier niet lukt. Het idee klein houden is trouwens geen bescheidenheid maar techniek: hoe minder je vraagt, hoe groter de kans dat de eerste versie al bruikbaar is. Woordenschat verwerven en inoefenen staat bovendien gewoon in je leerplan, dus je kan op de vakwerkgroep in één zin zeggen bij welk doel het hoort.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Waar je het klein hield',
+            inhoud: 'Vijf dingen gingen er bewust <em>niet</em> in. <strong>Eén hoofdstuk</strong>, niet de woordenlijsten van het hele jaar: één lijst vervangen kost je later tien minuten. <strong>Eén richting</strong>, van het Nederlands naar het Frans: de omgekeerde richting is een andere oefening en dus een ander bestand. <strong>Geen geluid en geen uitspraak</strong>: dat is een project op zich. <strong>Geen inloggen en geen scores die jij achteraf kan bekijken</strong>: daarvoor moeten er gegevens van het toestel van de leerling weg, en dat is een sessie werk apart — zie de module <em>Gegevens, privacy en versiebeheer</em>. Voor deze oefening win je er didactisch bovendien niets mee: de leerling ziet meteen zelf hoe hij ervoor staat. En <strong>geen schermpje om zelf woorden toe te voegen</strong>: de lijst staat gewoon in het bestand, en die vervang je later in één beweging. Dat lijstje van vijf is geen verlies — het is je verlanglijst voor een volgende versie.',
+          },
+          {
+            type: 'prompt',
+            titel: 'De bouwprompt, zoals hij ingetypt is',
+            tekst: 'Bouw een oefenpagina voor mijn leerlingen.\n\nWAT HET DOET:\nDe pagina toont één Nederlands woord. De leerling typt het Franse woord in een invulveld en klikt op Controleer. De pagina zegt meteen of het juist is en toont daarna het volgende woord. Onderaan staat hoeveel woorden er al geweest zijn van het totaal.\n\nVOOR WIE:\nLeerlingen van 13-14 jaar, tweede jaar secundair, Vlaams onderwijs. Woordenschat van het hoofdstuk over de stad en het restaurant.\n\nDE WOORDENLIJST (Nederlands = Frans):\nde rekening = l\'addition\nhet voorgerecht = l\'entrée\nbestellen = commander\nde kelner = le serveur\nhet nagerecht = le dessert\nde menukaart = la carte\nbetalen = payer\nde fooi = le pourboire\n\nEISEN:\n- Alles in één enkel HTML-bestand (HTML, CSS en JavaScript samen, geen externe bestanden).\n- Werkt zonder internetverbinding.\n- Werkt op een smartboard én op een gsm.\n- Grote, duidelijke knoppen en tekst.\n- Voldoende contrast en een leesbaar lettertype, ook van achteraan de klas.\n- Directe feedback: de leerling ziet meteen of het juist is.\n- Die feedback nooit enkel met kleur: zet er ook een woord of symbool bij.\n- Geen inloggen, geen opslag van persoonsgegevens.\n- Alle instructies in het Nederlands, kort en duidelijk.\n- Zet de woordenlijst helemaal bovenaan in het bestand, op één duidelijke plek, zodat ik ze later makkelijk kan vervangen.\n\nGeef het volledige bestand terug.',
+            uitleg: 'Dit is de bouwprompt uit de module <em>Je eerste webapp bouwen</em>, met enkel het bovenste blok ingevuld — de eisen eronder blijven elke keer hetzelfde. Wat HTML, CSS en JavaScript zijn, staat daar ook uitgelegd; je hoeft er niets van te kennen om deze prompt te gebruiken. Twee dingen zijn hier bewust toegevoegd. <strong>De woordenlijst staat in de prompt zelf</strong>, niet in een bijlage: dan kan er niets misgelezen worden. En de <strong>laatste eis</strong> — zet die lijst op één duidelijke plek bovenaan — is de reden dat het volgende hoofdstuk je nog tien minuten kost in plaats van een nieuwe bouwronde. In het echt stonden er 24 woorden in die lijst; hier staan er acht, anders lees je alleen nog woordenschat.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Een paar minuten later staat er een werkende pagina in het gesprek: een woord, een invulveld, een knop, een tellertje onderaan. Je kan er meteen op klikken, en dat is precies wat je doet — vóór je iets laat aanpassen, maak je de oefening één keer helemaal, zoals een leerling ze zou maken. Dan vallen er vier dingen op. Geen ervan gaat over code; alle vier gaan ze over hoe een leerling de oefening echt maakt.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>De woorden komen altijd in dezelfde volgorde.</strong> Na drie beurten kent de leerling de volgorde in plaats van de woorden. Je had het niet gevraagd, en wat je niet vraagt is een gok: soms krijg je het er vanzelf bij, hier niet.',
+              '<strong>Het nakijken is te streng.</strong> <code>addition</code> zonder <code>l\'</code> wordt fout gerekend, <code>commander</code> met een spatie erachter ook, en <code>entree</code> zonder accenten evengoed. Didactisch is dat onzin: die leerling kent zijn woord.',
+              '<strong>Bij een fout antwoord staat het juiste antwoord er niet bij.</strong> Er verschijnt enkel een kruisje. De leerling weet dus wat hij niet moet typen, maar niet wat het wel is — en oefenen zonder te weten wat juist is, is verloren tijd.',
+              '<strong>Enter doet niets.</strong> Wie typt, drukt op Enter; dat is een reflex. Nu moet je bij elk woord met de muis naar de knop. Klein, maar je voelt het bij elk woord opnieuw.',
+            ],
+          },
+          {
+            type: 'prompt',
+            titel: 'Bijsturing 1 — het nakijken menselijker maken',
+            tekst: 'Het nakijken is te streng. Drie voorbeelden van wat er nu misloopt:\n\n- Ik typ "addition" in plaats van "l\'addition" en dat wordt fout gerekend.\n- Ik typ "commander " met een spatie erachter en dat wordt fout gerekend.\n- Ik typ "entree" zonder accenten en dat wordt fout gerekend.\n\nPas het vergelijken van de antwoorden zo aan:\n- Negeer hoofdletters, en negeer spaties vooraan en achteraan.\n- Een antwoord zonder lidwoord reken je juist, maar toon er dan onder: "Juist. Het lidwoord hoort erbij: le serveur."\n- Een antwoord zonder accenten reken je juist, maar toon er dan onder: "Juist. Let op het accent: l\'entrée."\n\nDie twee boodschappen zijn voorbeelden: vul telkens het woord in dat aan de beurt is.\n\nVerander verder niets aan de oefening.',
+            uitleg: '<strong>Drie voorbeelden in plaats van "het is te streng"</strong> — daar zit het hele verschil. Je zegt telkens wat je typte en wat er gebeurde, zodat er niets te raden valt. De zin over die twee boodschappen staat er om dezelfde reden: zonder die zin bestaat de kans dat de pagina straks bij élk woord <em>le serveur</em> toont. Let ook op wat je hier <em>niet</em> vraagt: het lidwoord zomaar negeren. Le of la hoort bij het woord, dus je rekent het niet mee maar je toont het wel elke keer. Dat is een didactische beslissing, geen technische — vraag je het omgekeerd, dan bouwt de AI het omgekeerd, en zij weet niet welke van de twee bij jouw leerplan past. De slotzin <em>verander verder niets aan de oefening</em> staat er evenmin voor niets: zonder die zin krijg je soms een pagina terug waarin ook de opbouw herschreven is, en ben je je geteste versie kwijt.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Bijsturing 2 — drie dingen in één bericht',
+            tekst: 'Drie aanpassingen, en verder verandert er niets aan de pagina.\n\n1. Geef de woorden in willekeurige volgorde. Een woord dat fout was, komt later in dezelfde ronde nog een keer terug.\n2. Bij een fout antwoord: toon meteen het juiste antwoord, met het lidwoord erbij, en laat de leerling het één keer overtypen voor hij naar het volgende woord kan.\n3. Als ik in het invulveld op Enter druk, moet dat hetzelfde doen als klikken op Controleer.\n\nGeef het volledige bestand terug, en zeg er in twee zinnen bij wat je veranderd hebt.',
+            uitleg: 'Drie dingen tegelijk mag hier, want het zijn drie <em>losse</em> dingen die elkaar niet in de weg zitten. Zit je met één probleem dat je niet begrijpt, doe dat dan wél apart — anders weet je achteraf niet wat het opgelost heeft. Punt 2 is trouwens geen technische keuze maar een didactische: wie zijn fout één keer uitschrijft, onthoudt ze beter dan wie meteen op verder klikt. Dat soort beslissingen neemt de AI niet voor jou. En dat laatste zinnetje, <em>zeg er in twee zinnen bij wat je veranderd hebt</em>, geeft je een lijstje om gericht te hertesten in plaats van alles opnieuw te doorlopen. Je staat nu op ongeveer drie kwartier werk en hebt iets dat op jouw scherm doet wat het moet doen. Of het ook een klas overleeft, weet je nog niet — dat is de volgende les.',
+          },
+        ],
+      },
+      {
+        id: 'voorbeeld-in-de-klas',
+        titel: 'Van werkende versie tot in de klas',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'Je pagina doet wat ze moet doen — op jouw laptop, met jou aan het toetsenbord. Dat is iets anders dan een pagina die het uithoudt in een klas van vierentwintig, op het zesde lesuur. Dus test je eerst, en dat doe je niet door wat rond te klikken. Je maakt de oefening drie keer helemaal, telkens in het hoofd van een andere leerling: <strong>de vlotte</strong>, die alles juist heeft; <strong>de leerling die het niet meteen snapt</strong> en enkel leest wat er op het scherm staat; en <strong>de leerling die alles uitprobeert</strong> — lege velden, dubbelklikken, drie keer na elkaar op Enter. En dan nog één keer op het toestel waarop het écht gebruikt wordt. Dat kost je twintig minuten en levert dit op:',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>De vlotte leerling is na vier minuten klaar — en dan?</strong> Het laatste woord is beantwoord, er verschijnt niets, de pagina blijft gewoon staan. Geen overzicht, geen score, geen "wil je de foute woorden opnieuw?".',
+              '<strong>De leerling die het niet snapt, weet niet welke richting uit.</strong> Er staat alleen <em>de rekening</em> en een invulveld. Moet daar nu het Franse of het Nederlandse woord in? Jij weet dat, want jij bouwde het. Op het scherm staat het nergens.',
+              '<strong>Op Controleer klikken met een leeg veld telt als een fout antwoord.</strong> Wie per ongeluk twee keer klikt, verliest zo woorden zonder ze gezien te hebben — en denkt dat hij het slechter doet dan het is.',
+              '<strong>Op de gsm valt het toetsenbord over de knop.</strong> Je typt je antwoord, en Controleer zit onder het toetsenbord. Op je laptop zie je dat nooit; dit is exact waarom je op het echte toestel test.',
+            ],
+          },
+          {
+            type: 'prompt',
+            titel: 'Alles in één bericht, na de testronde',
+            tekst: 'Ik heb de pagina getest en vier dingen lopen mis. Los ze alle vier op en verander verder niets aan de oefening.\n\n1. Als het laatste woord beantwoord is, gebeurt er niets. Toon dan een overzicht: hoeveel juist, hoeveel fout, welke woorden fout waren, en een knop "Oefen enkel de foute woorden opnieuw".\n2. Nergens staat wat de leerling moet doen. Zet boven het invulveld: "Typ het Franse woord."\n3. Als ik op Controleer klik terwijl het veld leeg is, wordt dat als een fout antwoord geteld. Er zou moeten staan "Vul eerst iets in", en hetzelfde woord blijft dan staan.\n4. Op een gsm valt het toetsenbord over de knop Controleer, zodat ik die niet meer zie. Zorg dat het invulveld en de knop zichtbaar blijven als het toetsenbord openstaat.\n\nGeef het volledige bestand terug.',
+            uitleg: 'Vier fouten in één bericht, genummerd, en bij elke fout staat wat je deed, wat er gebeurde en wat er had moeten gebeuren. Dat is niet toevallig dezelfde vorm als de opdracht <em>Test als drie leerlingen</em> uit de module <em>Je eerste webapp bouwen</em>: eerst alles verzamelen, dan pas laten oplossen. Wie na elke fout apart bijstuurt, is een halfuur verder en weet niet meer welke versie de goede was. Bewaar trouwens de versie die je net getest hebt vóór je dit bericht verstuurt — dan kan je altijd terug.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Online zetten is het kortste stuk van het hele project. Je bewaart het bestand met de extensie <code>.html</code>, sleept het naar een gratis dienst om webpagina\'s online te zetten, en krijgt een link terug. De eerste keer ben je daar een halfuur mee bezig omdat je nog een account moet aanmaken; daarna is het vijf minuten. Die link zet je in Smartschool bij het hoofdstuk, en je maakt er een QR-code van voor op het bord — een lange link laten overtypen kost je anders vijf minuten lestijd. Eén ding doe je vóór de les en niet tijdens: open die link één keer op school, op een toestel van de leerlingen en op het schoolnetwerk. Wat thuis vlot werkt, wordt op school soms geblokkeerd. Blijkt dat zo, dan heb je nu nog tijd om je ICT-coördinator te vragen die dienst vrij te geven, en om je plan B klaar te leggen: dezelfde oefening op papier. Daarna geef je hem de laatste tien minuten van je les. En dan zie je vier dingen die je niet had zien aankomen — en die je alle vier iets deden aanpassen.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Ze gingen racen.</strong> De pagina toonde hoe lang ze erover deden — dat had je nooit gevraagd, dat was er vanzelf bij bedacht. Gevolg: gokken in plaats van nadenken, want fout gaat sneller dan denken. Je liet die tijdsmeting weghalen en het racen stopte. Kijk dus ook naar wat er in je pagina zit dat je <em>niet</em> gevraagd hebt: net dat stuurt gedrag.',
+              '<strong>Voor twee leerlingen werd het een spellingtoets.</strong> Ze kenden de woorden, maar typten <code>l\'additon</code> en <code>serveure</code> en kregen vier keer na elkaar "fout". Mondeling hadden ze die woorden gewoon gehad. Accenten had je al opgevangen; gewone tikfouten niet. Je liet inbouwen dat één letter verschil "Bijna juist" geeft, met het juiste woord ernaast.',
+              '<strong>Per twee werkte beter dan alleen.</strong> Drie leerlingen hadden geen toestel bij, dus zette je die samen. Net die duo\'s zeiden de woorden hardop tegen elkaar — en voor Frans is dat meer waard dan stil typen. Sindsdien doe je het altijd per twee, met één toestel.',
+              '<strong>Iemand deed het thuis nog eens.</strong> Niet omdat het moest. <em>"Omdat het niet erg is als het fout is."</em> Dat is het echte verschil met klassikaal afvragen, en het stond in geen enkele prompt.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Wat het kostte, en wat het opleverde',
+            inhoud: 'Eerlijk geteld: <strong>ruim twee uur</strong>, verspreid over twee avonden en een middagpauze. Drie kwartier voor de bouwprompt en de twee bijsturingen, twintig minuten testen, een halfuur online zetten met het aanmaken van een account erbij, een kwartier voor de link in Smartschool, de QR-code en een test op school, en na die eerste les nog een halfuur aanpassen. Het tegenargument ligt voor de hand: <em>voor die tijd had je ook gewoon een oefenblad kunnen maken.</em> Voor één hoofdstuk klopt dat waarschijnlijk. Het verschil zit in twee dingen. Het <strong>hergebruik</strong>: de woordenlijst van het volgende hoofdstuk erin zetten kostte tien minuten, en dat bij elk volgend hoofdstuk, in elk van je klassen. En de <strong>directe feedback</strong>: vierentwintig leerlingen die tegelijk oefenen en binnen een seconde weten of het juist is — dat krijg je op papier niet, hoeveel bladen je ook maakt. Levert jouw idee dat hergebruik niet op, dan is een blad maken gewoon sneller. Dat is geen nederlaag, dat is de rekening kloppend maken.',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Een collega van het vijfde leerjaar bouwde een oefenpagina rond breuken en wil ze morgen aan haar klas geven. Ze heeft alles zelf uitgeprobeerd en bij haar werkt alles. Wat raad je haar aan om eerst te doen?',
+            opties: [
+              {
+                tekst: 'Iemand die het project niet kent, de oefening één keer laten doen op een toestel van de leerlingen, zonder dat zij erbij uitlegt.',
+                juist: true,
+                feedback: 'Ja, en dat zijn twee dingen tegelijk. Een ander stel ogen ziet wat er op het scherm ontbreekt, en een ander toestel toont wat haar laptop verbergt: een toetsenbord dat over de knop valt, of een schoolnetwerk dat de link blokkeert. Kost vijf minuten, bespaart een lesuur.',
+              },
+              {
+                tekst: 'De oefening zelf nog een keer doorlopen, maar trager en aandachtiger.',
+                juist: false,
+                feedback: 'Dat verandert weinig. Zij weet hoe het bedoeld is, en daar zit net het probleem: wie iets gebouwd heeft, leest de uitleg die in zijn hoofd zit en niet die op het scherm staat. Daarvoor heb je iemand anders nodig.',
+              },
+              {
+                tekst: 'De pagina eerst mooier laten maken, zodat de leerlingen ze serieus nemen.',
+                juist: false,
+                feedback: 'Uitstraling telt echt mee in de klas, maar het is niet het eerste. Kijk eerst of het bij haar leerlingen opent en of ze zonder haar uitleg verder raken; mooi maken kan daarna in één bijsturing.',
+              },
+            ],
+          },
+          {
+            type: 'opdracht',
+            titel: 'Haal je eigen idee door dezelfde weg',
+            inhoud: 'Je hebt nu één project van a tot z gezien. Leg die weg naast je eigen idee — niet in je hoofd, maar echt, met je vingers op het toetsenbord. Bouwde je in de module <em>Je eerste webapp bouwen</em> al iets? Neem dat er dan bij en begin gerust bij stap 4. Aan het eind heb je een werkende pagina en een blaadje met wat er bewust nog niet in zit.',
+            stappen: [
+              'Schrijf in twee zinnen op wat er in jouw lessen stroef loopt, en in één zin wat de leerling straks op het scherm ziet. Lukt die ene zin niet, dan is je idee nog te groot.',
+              'Schrap drie dingen, met de reden erbij: geen inloggen, geen scores die jij achteraf bekijkt, één hoofdstuk in plaats van het hele jaar. Dat blaadje is je verlanglijst voor later, geen verlies.',
+              'Typ de bouwprompt uit de module Je eerste webapp bouwen, met jouw beschrijving in het bovenste blok en hoogstens tien woorden, vragen of gegevens erbij — meer heb je vandaag niet nodig. Vraag er uitdrukkelijk bij om dat lijstje op één duidelijke plek bovenaan het bestand te zetten, zodat je het later vervangt zonder opnieuw te bouwen.',
+              'Maak de oefening één keer helemaal zoals een leerling ze zou maken, en noteer elk mankement als één zin: wat je deed, wat je zag, wat er had moeten gebeuren. Nog niets bijsturen.',
+              'Stuur die zinnen in één genummerd bericht, met de zin dat er verder niets mag veranderen, en bewaar het resultaat onder een nieuw versienummer.',
+              'Kijk tot slot wat er in je pagina zit dat je nooit gevraagd hebt — een tijdsmeting, een geluidje, een kleurtje. Beslis per stuk of het blijft; wat je niet kan verantwoorden, laat je weghalen.',
             ],
           },
         ],
