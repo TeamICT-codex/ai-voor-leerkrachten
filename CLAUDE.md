@@ -76,6 +76,21 @@ nieuw blok-type vraagt wel een `case` in `toonInhoudsblok()` plus styling.
   achteraan de zaal. Het afdrukblok onderaan `style.css` maakt het draaiboek
   op papier bruikbaar — vergeet dat niet mee te testen.
 
+## Testsuite
+
+`test/` bevat 154 testgevallen (42 zonder browser, 112 in de pagina) plus de
+scripts die ze draaien, en de twee hulpscripts die inhoud uit JSON naar de
+inhoudsbestanden schrijven. Zie `test/LEESMIJ.md` — daar staat ook waarom het
+harnas met een MessageChannel plant en waarom een lange reeks tests elkaar kan
+besmetten. Draai minstens de nodetests vóór een commit:
+
+```bash
+python test/draai-nodetests.py test/tests.json .
+```
+
+Raak je de inhoud aan, dan verschuiven de tellingen: T115, T118 en T127 dragen
+de aantallen hard in zich en moeten dan mee.
+
 ## Controles vóór een commit
 
 Draaiboektiming, moduleverwijzingen en kadervarianten nakijken:

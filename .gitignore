@@ -7,3 +7,6 @@ node_modules/
 # Lokale bewerkingsomgeving
 .vscode/
 .idea/
+
+# Het testharnas wordt uit test/tests.json gebouwd en hoort niet in een commit.
+_testharnas.js
