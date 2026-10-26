@@ -172,12 +172,15 @@ function navigeer() {
   }
 
   tekenKop();
-  window.scrollTo(0, 0);
+  // Bij een nieuwe pagina springen we meteen naar boven. De vloeiende scroll uit
+  // style.css is bedoeld voor sprongen binnen één pagina; hier zou hij een lange
+  // module seconden lang laten omhoogschuiven.
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 function toonNietGevonden() {
   return `<div class="kaart leeg">
-    <h2>Niet gevonden</h2>
+    <h1>Niet gevonden</h1>
     <p>Dit onderdeel bestaat niet (meer), of de link is niet volledig meegekomen bij het
     kopiëren of doorsturen. Vraag de begeleider gerust de volledige link, of ga verder vanaf
     <a href="#/">het overzicht</a> — daar staan alle workshops en modules.</p>
@@ -350,7 +353,7 @@ function toonWorkshop(w) {
   const eind = blokken[blokken.length - 1].tot;
 
   return `
-    <nav class="kruimels"><a href="#/">Overzicht</a> <span>›</span> ${esc(spoor.naam)}</nav>
+    <nav class="kruimels" aria-label="Kruimelpad"><a href="#/">Overzicht</a> <span>›</span> ${esc(spoor.naam)}</nav>
 
     <header class="titelblok ${spoor.kleur}">
       <span class="code groot">${esc(w.code)}</span>
@@ -556,7 +559,7 @@ function toonModule(m) {
   const volgende = i >= 0 && i < reeks.length - 1 ? reeks[i + 1] : null;
 
   return `
-    <nav class="kruimels"><a href="#/">Overzicht</a> <span>›</span> ${esc(spoor.naam)}</nav>
+    <nav class="kruimels" aria-label="Kruimelpad"><a href="#/">Overzicht</a> <span>›</span> ${esc(spoor.naam)}</nav>
 
     <header class="titelblok ${spoor.kleur}">
       <span class="code groot icoongroot" aria-hidden="true">${m.icoon}</span>
@@ -581,7 +584,7 @@ function toonModule(m) {
 
     ${m.lessen.map((les, i) => toonLes(m, les, i)).join('')}
 
-    <nav class="verder">
+    <nav class="verder" aria-label="Verder in dit spoor">
       ${
         vorige
           ? `<a class="knop stil" href="#/module/${vorige.id}"><span aria-hidden="true">←</span> Vorige: ${esc(vorige.titel)}</a>`
@@ -609,7 +612,8 @@ function toonLes(module, les, index) {
   return `
     <article class="les ${af ? 'af' : ''}" id="les-${les.id}">
       <div class="les-kop">
-        <h2><span class="lesnr">${index + 1}</span> ${esc(les.titel)}</h2>
+        <h2><span class="lesnr">${index + 1}</span> ${esc(les.titel)}
+          ${les.verdieping ? '<span class="verdieping-vlag">Verdieping</span>' : ''}</h2>
         <button class="vink ${af ? 'aan' : ''}" data-actie="vink" data-sleutel="${sleutel}"
                 aria-pressed="${af}">
           ${af ? VINK_AF : VINK_OPEN}
@@ -739,13 +743,13 @@ function toonInhoudsblok(blok) {
 
 function toonBundel(w) {
   const modules = modulesVanWorkshop(w);
-  const prompts = blokkenVanType(modules, 'prompt');
-  const opdrachten = blokkenVanType(modules, 'opdracht');
-  const casussen = blokkenVanType(modules, 'casus');
+  const prompts = blokkenVanType(modules, 'prompt', { zonderVerdieping: true });
+  const opdrachten = blokkenVanType(modules, 'opdracht', { zonderVerdieping: true });
+  const casussen = blokkenVanType(modules, 'casus', { zonderVerdieping: true });
   const adres = leeromgevingAdres();
 
   return `
-    <nav class="kruimels schermonly">
+    <nav class="kruimels schermonly" aria-label="Kruimelpad">
       <a href="#/">Overzicht</a> <span>›</span>
       <a href="#/workshop/${w.id}">${esc(w.code)}</a> <span>›</span> Deelnemersbundel
     </nav>
@@ -910,7 +914,7 @@ function toonBundel(w) {
 function toonGids() {
   if (!staat.begeleider) {
     return `<div class="kaart leeg">
-      <h2>Begeleidersgids</h2>
+      <h1>Begeleidersgids</h1>
       <p>Deze gids is bedoeld voor wie de workshops geeft. Zet
          <strong>begeleidersmodus</strong> aan rechtsboven om ze te bekijken.</p>
       <p><a href="#/">Terug naar het overzicht</a></p>
@@ -920,7 +924,7 @@ function toonGids() {
   const totaalVragen = FAQ_GROEPEN.reduce((s, g) => s + g.vragen.length, 0);
 
   return `
-    <nav class="kruimels schermonly"><a href="#/">Overzicht</a> <span>›</span> Begeleidersgids</nav>
+    <nav class="kruimels schermonly" aria-label="Kruimelpad"><a href="#/">Overzicht</a> <span>›</span> Begeleidersgids</nav>
 
     <header class="titelblok gids-kop">
       <span class="code groot icoongroot" aria-hidden="true">🧭</span>
@@ -980,7 +984,7 @@ function toonGids() {
         : ''
     }
 
-    <nav class="verder schermonly"><a class="knop stil" href="#/"><span aria-hidden="true">←</span> Terug naar het overzicht</a></nav>`;
+    <nav class="verder schermonly" aria-label="Verder"><a class="knop stil" href="#/"><span aria-hidden="true">←</span> Terug naar het overzicht</a></nav>`;
 }
 
 // ─────────────────────── promptkaart ───────────────────────
@@ -994,7 +998,7 @@ function toonPromptkaart() {
   const totaal = perSpoor.reduce((s, g) => s + g.prompts.length, 0);
 
   return `
-    <nav class="kruimels schermonly"><a href="#/">Overzicht</a> <span>›</span> Promptkaart</nav>
+    <nav class="kruimels schermonly" aria-label="Kruimelpad"><a href="#/">Overzicht</a> <span>›</span> Promptkaart</nav>
 
     <header class="titelblok">
       <span class="code groot icoongroot" aria-hidden="true">📇</span>
@@ -1044,7 +1048,7 @@ function toonPromptkaart() {
       )
       .join('')}
 
-    <nav class="verder schermonly"><a class="knop stil" href="#/"><span aria-hidden="true">←</span> Terug naar het overzicht</a></nav>`;
+    <nav class="verder schermonly" aria-label="Verder"><a class="knop stil" href="#/"><span aria-hidden="true">←</span> Terug naar het overzicht</a></nav>`;
 }
 
 // ───────────────────────────── interactie ─────────────────────────────
@@ -1124,7 +1128,7 @@ document.addEventListener('click', (e) => {
       }
     };
     if (!navigator.clipboard) return mislukt();
-    navigator.clipboard.writeText(code.textContent).then(() => melding('Gekopieerd ✓'), mislukt);
+    navigator.clipboard.writeText(code.textContent).then(() => melding('Gekopieerd'), mislukt);
     return;
   }
 

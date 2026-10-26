@@ -49,7 +49,7 @@ schrijfkeuze:
 ```
 js/inhoud.js        spoor A — inhoud
 js/casussen.js      spoor A — casussenmodule (groepswerk A3)
-js/inhoud-vibe.js   spoor B — inhoud
+js/inhoud-vibe.js   spoor B — inhoud (incl. de verdiepingslessen)
 js/gids.js          begeleidersgids + de 22 lastige vragen
 js/workshops.js     draaiboeken + sporen
 js/cursus.js        voegt sporen samen, kloktijden
@@ -125,8 +125,14 @@ python3 -m http.server 8000
 ## Stand van zaken
 
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
-- 12 modules, 28 lessen, 133 inhoudsblokken (tekst 31, kader 31, lijst 18,
-  prompt 15, casus 14, quiz 11, opdracht 11, vergelijk 2).
+- 13 modules, 37 lessen, 210 inhoudsblokken (tekst 54, kader 53, lijst 30,
+  prompt 26, opdracht 18, casus 14, quiz 12, vergelijk 3).
+- Negen daarvan zijn **verdiepingslessen** (`verdieping: true` op de les): stof
+  die niet in de drie uur past en die je na de sessie zelfstandig doorneemt.
+  Ze staan wél op de promptkaart en in de leeromgeving, maar niet in de
+  deelnemersbundel — die is de hand-out van één sessie. `blokkenVanType` neemt
+  daarvoor de optie `{ zonderVerdieping: true }`. Module `vibe-voorbeeld` bestaat
+  volledig uit verdieping en hangt daarom aan geen enkel draaiboek.
 - Pagina's: overzicht, module, draaiboek, deelnemersbundel, promptkaart,
   begeleidersgids. Zie README voor de routes.
 - 14 casussen voor het groepswerk in A3, gespreid over mag / mag niet /
@@ -146,6 +152,12 @@ Hou dit bij als je verder schrijft.
   begeleiders-FAQ (22 vragen) en de quizvraag van de module administratie.
   Verwijs naar een casus met haar **titel**, nooit met haar nummer: de volgorde
   is bij die ronde gewijzigd zodat elke reeks vroeg een "mag" toont.
+- **Nagekeken in de ronde van 26 oktober 2026:** de negen verdiepingslessen van
+  spoor B, en de hele inhoud opnieuw machinaal gescand op Nederlands-Nederlandse
+  termen, prijs- en modelclaims, en op lager/secundair-verwisselingen. De
+  achttien treffers waren alle achttien correct in hun context ("cijfers" in de
+  betekenis van getallen, "klassenraad" telkens in een secundaire setting of
+  uitdrukkelijk naast MDO/zorgoverleg) — er is niets gewijzigd aan de inhoud.
 - **Nog niet nagekeken:** wat je hierna zelf toevoegt. De app zelf (`app.js`,
   `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
   schermcontexten; nieuw blok-type of nieuwe kadervariant vraagt die pas opnieuw.

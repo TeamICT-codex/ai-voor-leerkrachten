@@ -7,3 +7,8 @@ node_modules/
 # Lokale bewerkingsomgeving
 .vscode/
 .idea/
+
+# Een testharnas hoort hier niet in: de repo-root is wat GitHub Pages publiceert,
+# dus elk bestand dat hier belandt, staat ook live.
+_testharnas.js
+_runharnas.js
