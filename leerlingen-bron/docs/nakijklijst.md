@@ -1,5 +1,9 @@
 # Nakijklijst voor de maker
 
+> **Geparkeerd tot na woensdag 28 oktober 2026.** Thomas kijkt wat hieronder
+> openstaat zelf na vanaf donderdag 29 oktober. Pak het dus niet eigenhandig op;
+> wat sindsdien al afgewerkt is, staat per punt vermeld.
+
 Alle 72 lessen en 8 quizzen zijn geschreven, door een tweede lezer nagekeken op Vlaams taalgebruik, feiten, plagiaat en samenhang, en technisch gevalideerd. Onderstaande punten zijn beweringen die een mens best nog even nakijkt vóór publicatie, omdat ze over snel veranderende tools gaan of een redactionele keuze vragen. Ze zijn gesorteerd op belang.
 
 ## Het leercollectief: te bevestigen door iemand van de scholengroep

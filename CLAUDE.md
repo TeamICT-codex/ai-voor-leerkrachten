@@ -303,6 +303,14 @@ CLB in principe bekwaam geacht). Schrijf je iets over wat de app doet of over
 wat de wet zegt: ga het na in `app.js` of bij de bron, ook — vooral — als je het
 zelf een hoofdstuk eerder hebt geschreven.
 
+**Geparkeerd tot na woensdag 28 oktober 2026.** Wat nog openstaat is de
+nakijklijst van de leerlingencursus (`leerlingen-bron/docs/nakijklijst.md`):
+de fictieve details bij echte scholen, de studierichtingen per school,
+Smartschool als platform, de juiste logoversie en de definitieve cursusnaam.
+Dat zijn stuk voor stuk beslissingen van Thomas of van de scholengroep, niet
+iets om zelf in te vullen. Begin er pas aan vanaf donderdag 29 oktober 2026, en
+dan nog alleen op zijn vraag.
+
 **Gedeployed** sinds 4 september 2026 op GitHub Pages (zie "Git & deploy").
 De deelnemersbundel drukt dat adres nu ook af, want `leeromgevingAdres()` in
 `app.js` leest het af van de pagina zelf.
