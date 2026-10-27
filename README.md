@@ -58,6 +58,7 @@ van de scholengroep, Smartschool, KlasCement, terminologie lager/secundair).
 | `#/bundel/<id>` | Afdrukbare deelnemersbundel per workshop | deelnemer |
 | `#/prompts` | Promptkaart — alle promptvoorbeelden op één plek | iedereen |
 | `#/gids` | Begeleidersgids: voorbereiding, de zaal lezen, lastige vragen | begeleider |
+| `#/sessie` | Stel zelf een sessie samen uit losse onderdelen | begeleider |
 
 De begeleidersgids is enkel toegankelijk met begeleidersmodus aan. De casussen
 in module *Casussen: mag dit?* houden hun oordeel verborgen tot je erop klikt —
@@ -82,6 +83,35 @@ vanaf het draaiboek openen en afdrukken — een hand-out met de doelen, de
 vuistregels, alle prompts en opdrachten van de sessie, in A3 ook de casussen,
 een lijstje om verder te lezen en notitieruimte. Verdiepingslessen blijven
 eruit: die kwamen in die drie uur niet aan bod.
+
+## Zelf een sessie samenstellen
+
+Je hebt zelden drie uur. Voor een uur op een personeelsvergadering, veertig
+minuten op een vakwerkgroep of een halve studiedag staat er een **sessiebouwer**
+op `#/sessie` (begeleidersmodus aan). Je kiest onderdelen in de volgorde waarin
+je ze geeft — een blok uit een bestaand draaiboek, een hele module, of een
+generiek blok zoals een onthaal, een pauze, eigen inbreng, een vragenronde of
+een afronding — en je zet elk onderdeel korter of langer. De app telt mee
+terwijl je kiest, rekent daarna de kloktijden uit vanaf je startuur en maakt
+een deelnemersbundel met enkel de prompts, opdrachten en casussen van wat je
+echt deed. Vijf sjablonen (50 tot 120 minuten) geven je een startpunt.
+
+**Je sessie zit volledig in de link**, er is geen server die ze bijhoudt. Dat is
+handig — mail hem naar je co-begeleider, hang hem aan de agenda-afspraak — maar
+sluit je het tabblad zonder de link te bewaren, dan ben je je sessie kwijt.
+Verwijst een oude link naar een onderdeel dat niet meer bestaat, dan meldt de
+pagina dat en toont ze de rest gewoon.
+
+Hoe je zo'n korte sessie opbouwt zonder dat ze een brokstuk wordt, staat in de
+begeleidersgids onder *Een kortere sessie geven*.
+
+## Zelfstudie
+
+Alles is ook te doen zonder begeleider. Elke les draagt haar eigen duurtijd, dus
+je ziet vooraf hoeveel tijd een module kost. Begin bij spoor **C — Het kader**,
+doe daarna de modules van spoor A of B in volgorde, en vink af wat je gehad
+hebt. De casussenmodule werkt solo even goed als in groep: beslis eerst zelf,
+klik dan pas het oordeel open.
 
 ## Lokaal draaien
 
@@ -108,6 +138,7 @@ js/inhoud.js          spoor A — inhoud (ChatGPT én Claude)
 js/casussen.js        spoor A — de casussenmodule (groepswerk in A3)
 js/inhoud-vibe.js     spoor B — inhoud (vibe coden, Claude)
 js/workshops.js       de zes draaiboeken + de sporen
+js/sessies.js         bouwstenen en sjablonen voor een zelf samengestelde sessie
 js/gids.js            begeleidersgids: begeleidingsadvies en de lastige vragen
 js/cursus.js          voegt de sporen samen, kloktijden, blokken verzamelen
 js/app.js             router, weergave, sessietimer, voortgang
@@ -129,7 +160,7 @@ les bestaat uit blokken; de renderer kent deze types:
 | `vergelijk` | Zwakke versus sterke prompt naast elkaar. |
 | `opdracht` | Doe-opdracht met genummerde stappen. |
 | `quiz` | Meerkeuzevraag met feedback per antwoord. |
-| `casus` | Situatie om in groep te beoordelen; deze blokken staan in `js/casussen.js`. Het oordeel blijft verborgen tot de lezer klikt; de gespreksvraag verschijnt enkel in begeleidersmodus. |
+| `casus` | Situatie om te beoordelen, alleen of in groep; deze blokken staan in `js/casussen.js`. Het oordeel blijft verborgen tot de lezer klikt, en de gespreksvraag komt pas mee met dat oordeel. |
 
 Een blok toevoegen vraagt dus geen code — enkel een object in de juiste les.
 Wil je een nieuw blok-*type*, dan voeg je een `case` toe in
@@ -154,9 +185,11 @@ scholengroep.
 
 Een workshop duurt drie uur, en dat is een harde grens. Wat daar niet in past
 maar wel de moeite is, staat als **verdiepingsles** in de leeromgeving: herkenbaar
-aan het etiket bij de lestitel. Spoor B heeft er negen — beeld en downloads,
-grotere projecten, AI als tester, een echte database, een projectgeheugen, je app
-op de telefoon, beeld en spraak, en een volledig uitgewerkt voorbeeldproject.
+aan het etiket bij de lestitel. Er zijn er tien. Negen in spoor B — beeld en
+downloads, grotere projecten, AI als tester, een echte database, een
+projectgeheugen, je app op de telefoon, beeld en spraak, en een volledig
+uitgewerkt voorbeeldproject — en één in spoor C, voor wie dat kader zelf aan
+collega's wil geven.
 
 Ze staan op de promptkaart en je kan ze gewoon doornemen, maar ze komen **niet**
 in de deelnemersbundel: die hand-out hoort te kloppen met wat er die dag gebeurde.

@@ -13,6 +13,17 @@
 //
 // 'module' verwijst naar een module-id uit inhoud.js of inhoud-vibe.js,
 // zodat de deelnemer vanuit het draaiboek naar de inhoud kan doorklikken.
+//
+// 'id' maakt één blok aanspreekbaar van buitenaf: een samengestelde sessie
+// verwijst ernaar als "a1.vier-knoppen". Uniek binnen zijn eigen workshop en
+// bedoeld om leesbaar te blijven in een adresbalk — hernoem er dus geen meer
+// zodra er sessies bestaan die ernaar verwijzen.
+//
+// 'lessen' staat er alleen bij een blok dat maar een deel van zijn module
+// behandelt: de les-ids die het blok echt doet. Geen 'lessen' betekent: de
+// hele module. Zo kan een samengestelde sessie een bundel maken met precies
+// de lessen die aan bod kwamen, terwijl de bundel van een volledige workshop
+// de hele module blijft tonen.
 
 export const WORKSHOPS = [
   // ─────────────────────────── SPOOR A ───────────────────────────
@@ -38,6 +49,7 @@ export const WORKSHOPS = [
     ],
     draaiboek: [
       {
+        id: 'onthaal',
         soort: 'instap',
         minuten: 15,
         titel: 'Onthaal en verwachtingen',
@@ -49,11 +61,13 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'wat-is-ai',
         soort: 'uitleg',
         minuten: 20,
         titel: 'Wat is een AI-assistent?',
         wat: 'Plenaire uitleg met live demo op het grote scherm. Toon ChatGPT én Claude naast elkaar.',
         module: 'kennismaking',
+        lessen: ['wat-is-ai-assistent'],
         tips: [
           'Doe de demo live, niet met screenshots. Dat het soms hapert, is net geruststellend.',
           'Neem een taak van het bord uit de instap als demo-onderwerp.',
@@ -61,35 +75,41 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'eerste-gesprek',
         soort: 'doen',
         minuten: 20,
         titel: 'Je eerste gesprek',
         wat: 'Deelnemers openen zelf een gesprek en proberen de startprompt uit.',
         module: 'kennismaking',
+        lessen: ['eerste-gesprek'],
         tips: [
           'Loop rond. De eerste vijf minuten gaan meestal over inloggen — plan dat in.',
           'Wie vastloopt op een account: laat meekijken bij een buur, niet wachten.',
         ],
       },
       {
+        id: 'vier-knoppen',
         soort: 'uitleg',
         minuten: 20,
         titel: 'De vier knoppen',
         wat: 'Rol, context, vorm en voorbeeld. Toon de zwakke versus sterke prompt op het scherm.',
         module: 'prompten',
+        lessen: ['vier-knoppen'],
         tips: [
           'Laat de groep de zwakke prompt zelf verbeteren voor je de sterke toont.',
           'Draai de sterke prompt live — het verschil zien landt harder dan het horen.',
           'Twintig minuten is de bovengrens — daarna haakt de groep af. Hou het tempo erin: de vier knoppen kort na elkaar, en steek je tijd in het voorbeeld. Dat is de sterkste knop.',
         ],
       },
-      { soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
+      { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
       {
+        id: 'prompten-duos',
         soort: 'doen',
         minuten: 20,
         titel: 'Prompten in duo\'s',
         wat: 'Duo\'s schrijven samen een prompt met alle vier de knoppen, voor het lesonderdeel dat ze meebrachten.',
         module: 'prompten',
+        lessen: ['vier-knoppen'],
         tips: [
           'Dit blok start vlak na de pauze. Zet de vier knoppen eerst opnieuw op het bord — één minuut volstaat — voor je de duo\'s laat vertrekken.',
           'Duo\'s werken beter dan solo: ze verwoorden hardop wat ze willen, en dat is exact de vaardigheid.',
@@ -97,11 +117,13 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'eigen-materiaal',
         soort: 'doen',
         minuten: 30,
         titel: 'Werken aan eigen materiaal',
         wat: 'Iedereen werkt nu alleen verder op zijn eigen meegebrachte lesonderdeel: de prompt uit het duo-blok toepassen, het resultaat beoordelen en aanvullen tot er materiaal staat dat maandag bruikbaar is. Eindpunt: elke deelnemer heeft één bewaard document.',
         module: 'prompten',
+        lessen: ['vier-knoppen'],
         tips: [
           'Dit is het hart van de workshop. Bewaak de tijd van de blokken ervoor zodat dit niet krimpt.',
           'Loop rond en stel telkens dezelfde vraag: "Wat zou je nu bijsturen?"',
@@ -109,22 +131,26 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'drie-rondes',
         soort: 'doen',
         minuten: 20,
         titel: 'Drie rondes bijsturen',
         wat: 'Deelnemers sturen hun resultaat drie keer bij: niveau, lengte, toon.',
         module: 'prompten',
+        lessen: ['bijsturen'],
         tips: [
           'Dit is de belangrijkste gewoonte van de dag. Laat niemand na één ronde stoppen.',
           'Laat twee deelnemers hun voor-en-na tonen. Dat overtuigt sterker dan jouw uitleg.',
         ],
       },
       {
+        id: 'wat-niet-invoeren',
         soort: 'uitleg',
         minuten: 10,
         titel: 'Kort: wat je er niet in zet',
         wat: 'Snelle waarschuwing rond persoonsgegevens en verzonnen feiten. De laatste drie minuten typt iedereen zelf de vraag die hij maandag over één leerling zou stellen, met [LEERLING] in plaats van de naam — anonimiseren doe je vóór je verstuurt. Vooruitblik naar workshop A3.',
         module: 'veilig-en-ethisch',
+        lessen: ['privacy', 'betrouwbaarheid'],
         tips: [
           'Hou het kort en concreet: geen leerlingnamen, feiten altijd nachecken.',
           'Laat het niet bij horen. Wie de vervanging één keer zelf getypt heeft, doet het maandag ook — wie het enkel gehoord heeft, niet.',
@@ -133,6 +159,7 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'afronding',
         soort: 'afronding',
         minuten: 10,
         titel: 'Eén ding voor maandag',
@@ -175,6 +202,7 @@ export const WORKSHOPS = [
     ],
     draaiboek: [
       {
+        id: 'terugblik',
         soort: 'instap',
         minuten: 10,
         titel: 'Terugblik',
@@ -185,62 +213,73 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'leerplandoel-lesopbouw',
         soort: 'uitleg',
         minuten: 15,
         titel: 'Van leerplandoel naar lesopbouw',
         wat: 'Demo: leerplandoel erin plakken en een lesopbouw laten maken met tijdsindeling.',
         module: 'lesvoorbereiding',
+        lessen: ['lesopbouw'],
         tips: [
           'Vraag een leerplandoel uit de zaal en gebruik dat. Live werkt beter dan voorbereid.',
           'Toon expliciet wat er gebeurt als je de klasrealiteit weglaat versus toevoegt.',
         ],
       },
       {
+        id: 'eigen-lesopbouw',
         soort: 'doen',
         minuten: 30,
         titel: 'Je eigen lesopbouw',
         wat: 'Deelnemers maken een lesopbouw voor een les die ze binnenkort geven.',
         module: 'lesvoorbereiding',
+        lessen: ['lesopbouw'],
         tips: [
           'Dring aan op een échte les van volgende week. Fictieve lessen leveren fictieve motivatie op.',
           'Loop rond met één vraag: "Zou je dit zo geven? Wat niet?"',
         ],
       },
       {
+        id: 'differentieren',
         soort: 'uitleg',
         minuten: 20,
         titel: 'Differentiëren',
         wat: 'Uitleg plus demo: één oefening naar drie niveaus, met behoud van opmaak.',
         module: 'lesvoorbereiding',
+        lessen: ['differentiatie'],
         tips: [
           'Benadruk de zin over gelijke opmaak — die verrast en overtuigt bijna elke groep.',
           'Laat de groep eerst zelf zeggen waarin de niveaus zouden moeten verschillen.',
         ],
       },
-      { soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
+      { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
       {
+        id: 'eigen-differentiatie',
         soort: 'doen',
         minuten: 25,
         titel: 'Differentiatie op eigen materiaal',
         wat: 'Deelnemers maken drie niveaus van de oefening die ze meebrachten.',
         module: 'lesvoorbereiding',
+        lessen: ['differentiatie'],
         tips: [
           'Hier valt het kwartje bij de meeste deelnemers. Geef het de tijd.',
           'Laat iemand met een geslaagd resultaat het kort tonen.',
         ],
       },
       {
+        id: 'toetsvragen',
         soort: 'uitleg',
         minuten: 15,
         titel: 'Toetsvragen en denkniveaus',
         wat: 'Waarom "maak 10 vragen" tien weetvragen oplevert, en hoe je dat stuurt.',
         module: 'toetsen-feedback',
+        lessen: ['toetsvragen'],
         tips: [
           'Toon eerst de luie prompt en het magere resultaat. Dan pas de gespreide versie.',
           'Vraag altijd het modelantwoord mee in de demo — deelnemers vergeten dit anders.',
         ],
       },
       {
+        id: 'eigen-toets',
         soort: 'doen',
         minuten: 25,
         titel: 'Je eigen toets onder de loep',
@@ -254,11 +293,13 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'feedback-grens',
         soort: 'doen',
         minuten: 15,
         titel: 'Feedback: waar ligt de grens?',
         wat: 'Kort kader: herformuleren mag je delegeren, beoordelen niet. Daarna zet iedereen vier ruwe steekwoorden over één taak of toets om in feedback — zonder naam of iets anders waarmee je de leerling herkent.',
         module: 'toetsen-feedback',
+        lessen: ['feedback'],
         tips: [
           'Hou het kader op vijf minuten en wees er stellig in. Dit is de grens die deelnemers moeten meenemen.',
           'Laat ze schrappen in de feedback die ze terugkrijgen — die schrapbeweging maakt de grens tastbaarder dan je uitleg.',
@@ -266,6 +307,7 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'oogst',
         soort: 'afronding',
         minuten: 10,
         titel: 'Oogst',
@@ -303,6 +345,7 @@ export const WORKSHOPS = [
     ],
     draaiboek: [
       {
+        id: 'wat-houdt-tegen',
         soort: 'instap',
         minuten: 10,
         titel: 'Wat houdt jullie tegen?',
@@ -313,11 +356,13 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'privacy',
         soort: 'uitleg',
         minuten: 25,
         titel: 'Privacy: de vuistregel',
         wat: 'De prikbordregel, wat nooit mag, en hoe anonimiseren werkt.',
         module: 'veilig-en-ethisch',
+        lessen: ['privacy'],
         tips: [
           'Hou het praktisch, niet juridisch. Eén vuistregel onthouden ze; een GDPR-college niet.',
           'Toon live hoe je een naam vervangt door [LEERLING] en dat het antwoord even goed is.',
@@ -325,31 +370,35 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'casussen',
         soort: 'doen',
         minuten: 25,
         titel: 'Casussen: mag dit?',
         wat: 'In groepjes van drie: elk groepje krijgt vier à vijf casussen uit de module en beoordeelt ze op mag / mag niet / hangt ervan af. Verdeel zo dat elke casus bij minstens één groepje ligt.',
         module: 'casussen',
         tips: [
-          'Verdeel de veertien casussen — niemand haalt ze alle veertien in 25 minuten. Geef elk groepje minstens één "hangt ervan af"-geval: er zijn er zes, naast zes keer "mag niet" en twee keer "mag", en daar ontstaat het gesprek.',
+          'Verdeel de vijftien casussen — niemand haalt ze alle vijftien in 25 minuten. Geef elk groepje minstens één "hangt ervan af"-geval: er zijn er zes, naast zes keer "mag niet" en drie keer "mag", en daar ontstaat het gesprek.',
           'Reken vijftien minuten groepswerk en tien minuten plenair: elk groepje verdedigt één casus, niet meer. Zeg erbij dat de overige casussen in de module blijven staan om later zelf na te lezen.',
           'De casussen staan klaar in de gekoppelde module; print ze vooraf. Vervang bij één groepje een casus door een geval dat op jullie eigen school speelde — dat landt het hardst.',
         ],
       },
       {
+        id: 'overtuigd-fout',
         soort: 'doen',
         minuten: 20,
         titel: 'Als het overtuigd fout is',
         wat: 'Korte demo van een verzonnen bron. Daarna zet elke deelnemer de prompt "Onzekerheid laten aangeven" in op een vraag uit het eigen vak, en checkt één gemarkeerd onderdeel buiten het gesprek na.',
         module: 'veilig-en-ethisch',
+        lessen: ['betrouwbaarheid'],
         tips: [
           'Probeer vooraf een prompt uit die betrouwbaar een twijfelachtig antwoord geeft. Zoek iets lokaals of erg specifieks.',
           'Acht minuten demo, twaalf minuten zelf. De prompt staat klaar in de gekoppelde module en zit ook in de deelnemersbundel, dus niemand hoeft hem over te typen.',
           'Lukt de demo niet, of blijkt bij iedereen alles te kloppen? Zeg dat eerlijk — "het klopt vaak wél" is een even belangrijke boodschap. De oefening werkt ook dan: de reflex is geoefend, en dat is doel 2.',
         ],
       },
-      { soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
+      { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
       {
+        id: 'administratie',
         soort: 'doen',
         minuten: 25,
         titel: 'Administratie zonder gegevens',
@@ -361,11 +410,13 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'leerlingen-en-ai',
         soort: 'gesprek',
         minuten: 25,
         titel: 'Leerlingen en AI',
         wat: 'Plenair gesprek: wat doen we als school? Wat spreken we af per vak?',
         module: 'veilig-en-ethisch',
+        lessen: ['leerlingen'],
         tips: [
           'Hier is de aanwezigheid van directie of ICT-coördinator goud waard.',
           'Stuur weg van "verbieden of toelaten" naar "wat leren we hen".',
@@ -373,17 +424,20 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'eigen-klasafspraak',
         soort: 'doen',
         minuten: 20,
         titel: 'Je eigen klasafspraak',
         wat: 'Elke deelnemer schrijft in twee zinnen wat met AI mag bij één concrete opdracht.',
         module: 'veilig-en-ethisch',
+        lessen: ['leerlingen'],
         tips: [
           'Dring aan op één concrete opdracht, geen algemeen schoolreglement.',
           'Laat de zinnen herschrijven op het taalniveau van de leerlingen — dat maakt ze bruikbaar.',
         ],
       },
       {
+        id: 'delen-en-afspreken',
         soort: 'afronding',
         minuten: 15,
         titel: 'Delen en afspreken',
@@ -425,11 +479,13 @@ export const WORKSHOPS = [
     ],
     draaiboek: [
       {
+        id: 'onthaal',
         soort: 'instap',
         minuten: 15,
         titel: 'Onthaal en wat is vibe coden?',
         wat: 'Kort rondje: elke deelnemer noemt in één zin het lesmoment dat stroef loopt — de vraag die je vooraf stelde. Daarna uitleg met een gebouwd voorbeeld dat je live gebruikt.',
         module: 'vibe-start',
+        lessen: ['wat-is-vibe-coden'],
         tips: [
           'Kort rondje eerst: reken een drietal minuten bij twaalf deelnemers, één zin per persoon. Schrijf die stroeve momenten zichtbaar op het bord — je hebt ze in het volgende blok nodig om samen een demo te kiezen, en opnieuw bij de projectkeuze.',
           'Doe daarna meteen dat gebouwde voorbeeld. Zien werkt beter dan uitleggen.',
@@ -438,45 +494,53 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'onderwijsprobleem',
         soort: 'uitleg',
         minuten: 20,
         titel: 'Begin bij het onderwijsprobleem',
         wat: 'De rode draad: eerst het probleem, dan pas de tool.',
         module: 'vibe-start',
+        lessen: ['onderwijsprobleem-eerst'],
         tips: [
           'Dit is de belangrijkste les van de dag. Wie hier vertrekt van "iets bouwen met AI", bouwt iets nutteloos.',
           'Kies samen één probleem van het bord als demo — de lijst staat er al sinds de instap.',
         ],
       },
       {
+        id: 'kies-project',
         soort: 'doen',
         minuten: 20,
         titel: 'Kies je project',
         wat: 'Deelnemers laten drie bouwideeën genereren bij hun probleem en kiezen er één.',
         module: 'vibe-start',
+        lessen: ['onderwijsprobleem-eerst'],
         tips: [
           'Stuur consequent naar het kleinste idee. Ambitie is hier de vijand van een geslaagde sessie.',
           'Keur elk gekozen project goed voor je verder laat gaan. Eén te groot project kost die persoon de hele namiddag.',
         ],
       },
       {
+        id: 'eerste-versie',
         soort: 'doen',
         minuten: 30,
         titel: 'De eerste versie bouwen',
         wat: 'Met de bouwprompt: één HTML-bestand, werkende eerste versie.',
         module: 'vibe-bouwen',
+        lessen: ['eerste-versie'],
         tips: [
           'Laat iedereen exact dezelfde bouwprompt gebruiken en enkel het bovenste blok aanpassen. Uniformiteit maakt begeleiden haalbaar.',
           'Dit is het magische moment van de dag — iedereen ziet iets werken dat hij zelf bedacht. Geef er ruimte aan.',
         ],
       },
-      { soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
+      { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
       {
+        id: 'testen-bijsturen',
         soort: 'doen',
         minuten: 30,
         titel: 'Testen en bijsturen',
         wat: 'Systematisch testen, fouten precies beschrijven, laten oplossen.',
         module: 'vibe-bouwen',
+        lessen: ['testen-bijsturen'],
         tips: [
           'Leer ze het foutrapport: wat deed ik, wat gebeurde er, wat had er moeten gebeuren.',
           'Laat duo\'s elkaars app testen. Je eigen app kapotklikken lukt niemand.',
@@ -484,28 +548,33 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'stijl',
         soort: 'doen',
         minuten: 15,
         titel: 'Stijl en bruikbaarheid',
         wat: 'Opfrissen voor klasgebruik: leesbaar op smartboard, werkt op gsm, toegankelijk.',
         module: 'vibe-bouwen',
+        lessen: ['stijl-en-bruikbaarheid'],
         tips: [
           'Wijs op de zin "verander niets aan hoe het werkt" — zonder die zin verliezen deelnemers hun geteste versie.',
           'Toegankelijkheid zit al in de bouwprompt uit de vorige les. Je boodschap hier is dus kort: hou die eisen erin, ook als je de prompt inkort — zeker de regel dat feedback nooit enkel op kleur steunt.',
         ],
       },
       {
+        id: 'online-zetten',
         soort: 'doen',
         minuten: 20,
         titel: 'Online zetten',
         wat: 'Publiceren via een gratis dienst, link testen op de gsm, QR-code maken.',
         module: 'vibe-delen',
+        lessen: ['publiceren'],
         tips: [
           'Kies vooraf één dienst en laat iedereen die gebruiken. Keuzevrijheid kost je hier twintig minuten.',
           'Waarschuw expliciet: online betekent publiek. Geen antwoordsleutels, geen leerlingnamen.',
         ],
       },
       {
+        id: 'showcase',
         soort: 'afronding',
         minuten: 15,
         titel: 'Showcase',
@@ -548,6 +617,7 @@ export const WORKSHOPS = [
     ],
     draaiboek: [
       {
+        id: 'showcase',
         soort: 'instap',
         minuten: 10,
         titel: 'Showcase sinds vorige keer',
@@ -558,46 +628,54 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'opslag-nodig',
         soort: 'uitleg',
         minuten: 20,
         titel: 'Heb je opslag echt nodig?',
         wat: 'De drie niveaus: geen opslag, opslag in de browser, echte database.',
         module: 'vibe-data',
+        lessen: ['wanneer-data'],
         tips: [
           'Stuur hard naar het middelste niveau. Voor negen op de tien klastools volstaat dat.',
           'Laat deelnemers hardop zeggen wat hun app moet onthouden. Vaak blijkt: niets.',
         ],
       },
       {
+        id: 'voortgang-browser',
         soort: 'doen',
         minuten: 20,
         titel: 'Voortgang in de browser',
         wat: 'Deelnemers laten hun app de voortgang lokaal bewaren.',
         module: 'vibe-data',
+        lessen: ['wanneer-data'],
         tips: [
           'Laat ze testen door het tabblad te sluiten en opnieuw te openen.',
           'Wijs erop dat dit per toestel is: op de computer van de klas ziet de volgende leerling de vorige score.',
         ],
       },
       {
+        id: 'leerlinggegevens',
         soort: 'gesprek',
         minuten: 25,
         titel: 'Leerlinggegevens: de spelregels',
         wat: 'GDPR in de praktijk, de rol van de DPO, en de anonieme standaard.',
         module: 'vibe-data',
+        lessen: ['leerlingdata-veilig'],
         tips: [
           'Als de DPO aansluit: laat die vooral vertellen wat wél kan en hoe je iets aanmeldt.',
           'De kern in één zin: bouw anoniem, tenzij het echt niet anders kan.',
           'Wees stellig over wat niet in een zelfbouwtool hoort: punten die meetellen, zorggegevens, CLB-verslagen.',
         ],
       },
-      { soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
+      { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
       {
+        id: 'versiebeheer',
         soort: 'doen',
         minuten: 40,
         titel: 'Versiebeheer met GitHub',
         wat: 'Begeleid: project op GitHub zetten, wijzigingen bijhouden, terugkeren naar een vorige versie.',
         module: 'vibe-data',
+        lessen: ['versiebeheer'],
         tips: [
           'Dit is het technisch lastigste blok van het hele traject. Doe het stap voor stap, samen, in hetzelfde tempo.',
           'Laat niemand vooruitlopen — wie vastloopt in stap 3 terwijl jij bij stap 7 bent, is de rest van de sessie kwijt.',
@@ -606,28 +684,33 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'automatisch-publiceren',
         soort: 'doen',
         minuten: 25,
         titel: 'Automatisch publiceren',
         wat: 'GitHub koppelen aan de dienst die je pagina online zet (zoals Netlify of Vercel), zodat elke wijziging vanzelf op je link verschijnt.',
         module: 'vibe-data',
+        lessen: ['versiebeheer'],
         tips: [
           'Laat ze na de koppeling één kleine tekstwijziging doen en online zien verschijnen. Dat maakt het concreet.',
           'Reken op wachttijd bij het eerste publiceren. Vul die met vragen.',
         ],
       },
       {
+        id: 'klaar-voor-de-klas',
         soort: 'doen',
         minuten: 15,
         titel: 'Klaar voor de klas',
         wat: 'Checklist: testen op schooltoestellen, plan B, QR-code, korte handleiding voor collega\'s.',
         module: 'vibe-delen',
+        lessen: ['in-de-klas'],
         tips: [
           'Laat ze de app openen op hun eigen gsm, op het schoolnetwerk. Daar sneuvelt het vaakst.',
           'Moedig aan om het op KlasCement of in de vakwerkgroep te delen.',
         ],
       },
       {
+        id: 'afronding',
         soort: 'afronding',
         minuten: 10,
         titel: 'Afronding',
@@ -666,6 +749,7 @@ export const WORKSHOPS = [
     ],
     draaiboek: [
       {
+        id: 'wat-bouwen',
         soort: 'instap',
         minuten: 10,
         titel: 'Wat wil je bouwen?',
@@ -673,33 +757,39 @@ export const WORKSHOPS = [
         tips: ['Noteer ze. Je gebruikt deze lijst in het volgende blok om te toetsen wat zinvol is.'],
       },
       {
+        id: 'wanneer-de-moeite',
         soort: 'uitleg',
         minuten: 15,
         titel: 'Wanneer is het de moeite?',
         wat: 'De vuistregel: voorspelbaar antwoord = gewone code. Alleen open invoer verdient AI.',
         module: 'vibe-ai',
+        lessen: ['wanneer-ai-inbouwen'],
         tips: [
           'Loop de lijst uit het instapblok af en beoordeel ze samen — reken op een goeie minuut per idee, dan raak je er zeker door. Een aantal ideeën sneuvelt hier terecht.',
           'Wees eerlijk: een AI-functie maakt een app trager, duurder en onvoorspelbaarder.',
         ],
       },
       {
+        id: 'ontwerp-op-papier',
         soort: 'doen',
         minuten: 20,
         titel: 'Ontwerp je functie op papier',
         wat: 'Wat gaat erin, wat komt eruit, en wat gebeurt er als het antwoord fout is?',
         module: 'vibe-ai',
+        lessen: ['wanneer-ai-inbouwen'],
         tips: [
           'Op papier, niet op het scherm. Wie meteen begint te bouwen, bouwt het verkeerde.',
           'De vraag "wat als het fout is" is didactisch de belangrijkste. Laat niemand die overslaan.',
         ],
       },
       {
+        id: 'modellen-en-kosten',
         soort: 'uitleg',
         minuten: 20,
         titel: 'Modellen, kosten en limieten',
         wat: 'Betalen per gebruik, een klein model kiezen, en waarom je vooraf een plafond zet. De laatste vijf minuten zet iedereen de uitgavenlimiet effectief in bij zijn AI-dienst.',
         module: 'vibe-ai',
+        lessen: ['modellen-en-kosten'],
         tips: [
           'Reken het samen uit met echte aantallen: 120 leerlingen die twintig keer klikken. Dat maakt het tastbaar.',
           'Benadruk dat een klein model voor "leg dit in twee zinnen uit" ruim volstaat.',
@@ -708,52 +798,61 @@ export const WORKSHOPS = [
         ],
       },
       {
+        id: 'sleutels',
         soort: 'uitleg',
         minuten: 20,
         titel: 'Sleutels: de duurste fout',
         wat: 'Waarom een sleutel nooit in de webpagina hoort, en wat je in de plaats doet.',
         module: 'vibe-ai',
+        lessen: ['sleutels-en-veiligheid'],
         tips: [
           'Toon live hoe je in een browser de inhoud van een pagina bekijkt. Dat het zó zichtbaar is, doet terecht schrikken.',
           'Laat het veiligheidsblok uit de prompt letterlijk overnemen. Dit is geen moment voor eigen formuleringen.',
           'Laat ze dat veiligheidsblok nog vóór de pauze overschrijven, dan starten ze er meteen mee na de koffie.',
         ],
       },
-      { soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
+      { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },
       {
+        id: 'serverfunctie',
         soort: 'doen',
         minuten: 30,
         titel: 'De serverfunctie opzetten',
         wat: 'De serverfunctie aanmaken en de sleutel als omgevingsvariabele wegzetten.',
         module: 'vibe-ai',
+        lessen: ['sleutels-en-veiligheid'],
         tips: [
           'Werk in hetzelfde tempo en spreek af dat niemand verder gaat voor iedereen zijn functie ziet draaien.',
           'Verwacht problemen bij het instellen van de omgevingsvariabelen. Dat is normaal, de tijd is ervoor voorzien.',
         ],
       },
       {
+        id: 'ai-functie-inbouwen',
         soort: 'doen',
         minuten: 25,
         titel: 'De AI-functie inbouwen en testen',
         wat: 'De AI aanspreken vanuit je app, het antwoord tonen en de lengte beperken.',
         module: 'vibe-ai',
+        lessen: ['sleutels-en-veiligheid'],
         tips: [
           'Plenaire tussenstop bij de start: iedereen staat op hetzelfde punt voor jullie verder gaan.',
           'Loop expliciet bij iedereen langs om te checken dat de sleutel nergens in de pagina staat.',
         ],
       },
       {
+        id: 'veiligheidscheck',
         soort: 'doen',
         minuten: 15,
         titel: 'Veiligheidscheck',
         wat: 'Sleutel nergens zichtbaar, uitgavenlimiet nog altijd ingesteld, antwoordlengte beperkt.',
         module: 'vibe-ai',
+        lessen: ['sleutels-en-veiligheid'],
         tips: [
           'Dit is een controle, geen eerste poging — de limiet stond er al vóór de pauze. Wie hem toch nog mist, help je hier eerst; de rest vink je af.',
           'Laat ze de pagina-inhoud zelf bekijken en bevestigen dat de sleutel er niet in staat.',
         ],
       },
       {
+        id: 'afronding',
         soort: 'afronding',
         minuten: 10,
         titel: 'Afronding en afspraken',

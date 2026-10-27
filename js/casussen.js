@@ -1,14 +1,19 @@
-// Casussen voor het groepswerk "Mag dit?" in workshop A3.
+// Casussen "Mag dit?" — het groepswerk van workshop A3, en meteen ook de
+// module waar een zelfstudent het meest aan heeft.
 //
 // Bewust gespreid over mag / mag niet / hangt ervan af. De gevallen met
 // "hangt ervan af" zijn de belangrijkste: daar ontstaat het gesprek. Elk
 // oordeel blijft in de app verborgen tot de lezer klikt.
 //
-// De gespreksvraag bij elke casus verschijnt enkel in begeleidersmodus.
+// De gespreksvraag (`discussie`) hoort bij het oordeel en verschijnt dus pas
+// nadat de lezer dat oordeel opende — ook zonder begeleidersmodus, enkel met
+// een ander etiket. Op dat moment heeft iedereen al geoordeeld, dus solo
+// tonen bederft het groepsgesprek niet. Zie toonInhoudsblok() in app.js.
 //
-// VERIFICATIE: alle veertien casussen zijn op 3 september 2026 nagekeken op
-// juridische juistheid, didactische werking en Vlaamse herkenbaarheid, en
-// daarna gecorrigeerd. Wat je hierna toevoegt, is nog niet nagekeken.
+// VERIFICATIE: de eerste veertien casussen zijn op 3 september 2026 nagekeken
+// op juridische juistheid, didactische werking en Vlaamse herkenbaarheid, en
+// daarna gecorrigeerd. De vijftiende ("Een brief naar huis in de thuistaal")
+// en de slotopdracht zijn op 27 oktober 2026 toegevoegd en nog niet nagekeken.
 //
 // De volgorde binnen elke les is bewust: elke reeks toont vroeg een geval waar
 // het antwoord "mag" is, zodat een groepje dat de reeks niet uitkrijgt niet
@@ -18,22 +23,26 @@ export const MODULE_CASUSSEN = {
   id: "casussen",
   icoon: "⚖️",
   titel: "Casussen: mag dit?",
-  ondertitel: "Veertien situaties uit de praktijk om in groep te beoordelen.",
-  duur: "25 min",
+  ondertitel: "Vijftien situaties uit de praktijk om te beoordelen — alleen of in groep.",
   niveau: "Essentieel",
   doelen: [
     "Je kan een concrete situatie beoordelen in plaats van een regel opdreunen.",
     "Je herkent de gevallen waar het antwoord \"hangt ervan af\" is, en waarom.",
     "Je weet bij wie je terechtkan als je er zelf niet uit raakt.",
   ],
+  klaarzetten: [
+    "Niets, als je de casussen alleen doorneemt.",
+    "Doe je ze in groep: druk de module één keer af met de begeleidersmodus uit — dan krijgen de groepjes enkel de situatie. Jouw eigen exemplaar druk je af met de begeleidersmodus aan, want daar staan het oordeel en de gespreksvraag bij.",
+  ],
   lessen: [
     {
       id: "casus-privacy",
       titel: "Persoonsgegevens en privacy",
+      minuten: 30,
       blokken: [
         {
           type: "tekst",
-          inhoud: "Lees de situatie, beslis eerst zelf of in je groepje — <strong>mag dit, mag dit niet, of hangt het ervan af?</strong> — en klik dan pas op het oordeel. De helft van de waarde zit in het gesprek dat je ervoor voert.",
+          inhoud: "Lees de situatie en beslis eerst zélf — <strong>mag dit, mag dit niet, of hangt het ervan af?</strong> — en klik dan pas op het oordeel. Schrijf je antwoord op, al is het maar één woord op een kladblad: wie eerst beslist en dan pas leest, onthoudt het dubbel zo goed. Doe je dit in groep, dan beslist eerst iedereen voor zich en pas daarna het groepje.",
         },
         {
           type: "casus",
@@ -42,6 +51,14 @@ export const MODULE_CASUSSEN = {
           oordeel: "mag-niet",
           toelichting: "Een CLB-verslag bevat gegevens over de gezondheid en het zorgtraject van één kind. Dat zijn geen gewone gegevens: de privacywetgeving is daar extra streng in, en of zoiets in een AI-tool mag, beslist een leerkracht niet alleen. De naam wegknippen helpt hier trouwens weinig — een verslag met die inhoud is binnen een schoolteam meteen herleidbaar. Ook je schoolaccount lost dit niet op. Er speelt hier namelijk nog iets naast de privacywetgeving: het CLB werkt onder beroepsgeheim. Wat jij uit zo'n verslag te weten komt, kreeg je in vertrouwen om dit kind te begeleiden — niet om het elders in te plakken. Jij hebt zelf geen beroepsgeheim, maar wel de plicht om discreet om te springen met wat je zo verneemt, en dat verandert niet omdat je school een contract met een leverancier heeft. Wat sowieso veilig is: laat je assistent eerst een leeg sjabloon maken voor je overlegfiche — welke rubrieken, hoeveel zinnen per rubriek, welke toon — en vul dat zelf in met het verslag ernaast. Je wint tijd op de vorm, en de inhoud blijft waar ze hoort. Is het toch al gebeurd? Meld het bij je zorgcoördinator, je directie of de DPO van de scholengroep in plaats van het stil te houden.",
           discussie: "Wat als Wim maar één zin overneemt, zonder naam: \"nood aan verlengde instructie bij rekenen\"? Waar ligt voor jullie de grens tussen een zorggegeven en een gewone pedagogische vraag — en wie op school beslist waar die grens ligt?",
+        },
+        {
+          type: "casus",
+          titel: "Een brief naar huis in de thuistaal",
+          situatie: "Juf Katrien geeft les in het eerste leerjaar. Volgende week gaat de klas naar de boerderij, en ze stuurt daarover een brief mee: wat de kinderen meebrengen, hoe laat ze terug zijn, en dat er geen geld nodig is. Twee gezinnen in haar klas lezen moeilijk Nederlands. Ze plakt haar eigen brief in een AI-assistent en vraagt om een versie in eenvoudig Nederlands en een vertaling naar het Turks en het Arabisch.",
+          oordeel: "mag",
+          toelichting: "Er zit geen enkel gegeven van een kind in: dit is een brief die Katrien zelf schreef, over een uitstap die voor de hele klas geldt. Zoiets plak je gerust in een assistent, ook op je eigen account. Die versie in eenvoudig Nederlands is trouwens vaak nog nuttiger dan de vertaling: korte zinnen zonder schooljargon worden door véél meer ouders gelezen. Twee dingen horen er wel bij. Eén: in een taal die jij zelf niet leest, kan jij niet nakijken wat er staat. Laat de vertaling dus nalezen door een collega, de brugfiguur of een tolk vóór ze vertrekt. Bij een uitstapbrief is het risico klein, bij een brief over het gedrag of de resultaten van een kind niet. Twee: stuur de Nederlandse versie altijd mee, want dat is wat de school officieel communiceert, en in veel gezinnen is er iemand die ze wél leest. Waar deze casus kantelt: zodra de naam van het kind, de reden waarom dit gezin moeilijk Nederlands leest of iets over de thuissituatie in de prompt belandt, zit je in een heel ander geval — kijk dan naar het volgende geval, dat van mevrouw Lien.",
+          discussie: "Katrien wil dezelfde werkwijze gebruiken voor een brief over een kind dat herhaaldelijk zonder boterhammen naar school komt. Wat verandert er dan, en wat zou ze anders moeten doen? En de ongemakkelijke vraag erachter: als niemand op school die taal leest, wie draagt dan de verantwoordelijkheid voor wat er in die brief staat?",
         },
         {
           type: "casus",
@@ -57,7 +74,7 @@ export const MODULE_CASUSSEN = {
           situatie: "Juf Amina merkt dat een kind uit haar tweede leerjaar sinds enkele weken opvallend stiller is; ze weet dat de ouders uit elkaar zijn. Ze wil het kind aanspreken maar weet niet goed hoe ze begint. Ze vraagt: \"Geef me vijf manieren om als leerkracht lager onderwijs een gesprek te openen met een kind van zeven dat het thuis moeilijk heeft, en zeg erbij wat ik beter niet vraag.\"",
           oordeel: "mag",
           toelichting: "Hier verlaat er niets identificeerbaars de school: geen naam, geen klas, geen detail dat naar één gezin leidt. Dit is een algemene pedagogische vraag, en zo geformuleerd mag ze gewoon. De vraag is trouwens goed gebouwd: door er \"en zeg erbij wat ik beter niet vraag\" aan toe te voegen, krijgt Amina meteen ook de grenzen mee in plaats van enkel een lijstje tips. Wat wél hoort: meld wat je ziet aan je zorgcoördinator vóór je het gesprek voert. Een kind dat weken stiller is, hoort thuis in het zorgoverleg — dan sta je er niet alleen voor en beslis je samen wie het gesprek best voert. En lees de tips kritisch: advies over praten met een kind klinkt altijd vlot, maar kan aanvoelen alsof het uit een therapieboek komt. Neem enkel de zinnen over die je zelf ook zou zeggen, en laat het inschatten van wat er thuis speelt aan het CLB.",
-          discussie: "Waar kantelt deze vraag wél? Zoek als groepje één zin die je kan toevoegen om er een \"hangt ervan af\" van te maken, en één die er een \"mag niet\" van maakt. Tip: de \"mag niet\"-zin vinden jullie snel via herkenbaarheid. Voor de \"hangt ervan af\"-zin: kijk naar wat je de assistent laat dóén in plaats van naar wat je erin typt.",
+          discussie: "Waar kantelt deze vraag wél? Zoek één zin die je kan toevoegen om er een \"hangt ervan af\" van te maken, en één die er een \"mag niet\" van maakt. Tip: de \"mag niet\"-zin vinden jullie snel via herkenbaarheid. Voor de \"hangt ervan af\"-zin: kijk naar wat je de assistent laat dóén in plaats van naar wat je erin typt.",
         },
         {
           type: "casus",
@@ -96,6 +113,7 @@ export const MODULE_CASUSSEN = {
     {
       id: "casus-leerlingen",
       titel: "Leerlingen, grenzen en beoordelen",
+      minuten: 30,
       blokken: [
         {
           type: "tekst",
@@ -156,6 +174,18 @@ export const MODULE_CASUSSEN = {
           oordeel: "hangt-ervan-af",
           toelichting: "Het hangt volledig af van wat er in die notities staat. Naam, geboortedatum, thuissituatie, medische of zorggegevens: die gaan er niet in, dat is precies waarvoor de vuistregel bestaat. Wat wél kan: haal de identificerende gegevens eruit, werk met [LEERLING] en algemene omschrijvingen, en laat enkel de vorm verzorgen. Let daarbij op dezelfde valkuil als bij het CLB-verslag van meester Wim in de eerste reeks: [LEERLING] boven je tekst zetten is nog geen anonimiseren. Als wat overblijft — het leerjaar, de aard van het probleem, de hulp die het kind al krijgt — binnen jouw school nog naar één kind wijst, dan heb je enkel de naam weggelaten en hoort het er niet in. Blijf je bij algemene omschrijvingen (\"een leerling van negen die traag en radend leest\"), dan kan het meestal wel, maar jij bent degene die kan inschatten of het bij jullie nog herkenbaar is. Twijfel je, dan neem je de veilige variant van bij Wim: laat een leeg sjabloon voor je observatieverslag maken — welke rubrieken, hoeveel zinnen per rubriek — en vul dat zelf in met je notities ernaast. En hou de conclusies bij jezelf: op het zorgoverleg (MDO) rekenen het CLB en je collega's op jouw inschatting, niet op een vlotte samenvatting. Bij twijfel over wat mag: de DPO van de scholengroep is daarvoor het aanspreekpunt.",
           discussie: "Is een tekst waar alleen de naam uit weg is nog echt anoniem? In een school met tweehonderd leerlingen wijst \"een leerling van het derde leerjaar met ernstige leesproblemen en een broer in het zesde\" maar naar één kind. En wie beslist bij jullie of dit mag: de leerkracht zelf, de directie of de DPO?",
+        },
+        {
+          type: "opdracht",
+          titel: "Je eigen grensgeval",
+          inhoud: "Vijftien casussen van iemand anders zijn een opwarming. De echte oefening is die ene situatie uit jouw klas waar je niet uit raakt.",
+          stappen: [
+            "Schrijf in drie zinnen één situatie uit je eigen praktijk op waarvan je niet zeker bent of het mag. Zonder naam, zonder klas.",
+            "Geef jezelf een oordeel — mag, mag niet, of hangt ervan af — en schrijf erbij waarvan het dan afhangt.",
+            "Loop de vier vragen uit de module Het kader in het kort erop na: zit er iets van of over een herkenbare persoon in, kan die eruit, gaat het over zorg of gezondheid, en beslist het systeem mee over een mens?",
+            "Raak je er niet uit, dan is dat geen falen maar het antwoord: leg het voor op de vakwerkgroep of aan je ICT-coördinator. Noteer wie je het wanneer vraagt.",
+          ],
+          klaar: "je situatie op papier staat met jouw oordeel erbij, en je weet of je ze zelf kan beantwoorden of ze moet voorleggen.",
         },
       ],
     },

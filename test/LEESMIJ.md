@@ -4,16 +4,19 @@ Geen testframework, geen afhankelijkheden: een hoop testgevallen in JSON plus
 twee loperts die ze uitvoeren. Gemaakt in september 2026, bijgewerkt bij elke
 inhoudsronde sindsdien.
 
-`tests.json` bevat **154 testgevallen** over twaalf gebieden: routing, opslag en
+`tests.json` bevat **161 testgevallen** over dertien gebieden: routing, opslag en
 voortgang, sessietimer, de inhoudsblokken, deelnemersbundel, afdrukken,
 responsief gedrag, toegankelijkheid, data-integriteit, consistentie tussen code
-en documentatie, en twee reeksen over het samenspel en over de weg die een
-deelnemer en een begeleider afleggen.
+en documentatie, de sessiebouwer, en twee reeksen over het samenspel en over de
+weg die een deelnemer en een begeleider afleggen.
 
 Elk testgeval heeft een `soort`:
 
-- **node** (42) — draait zonder browser: datastructuren, tellingen, HTML-balans,
-  terminologie, documentatie tegenover de werkelijkheid.
+- **node** (49) — draait zonder browser: datastructuren, tellingen, HTML-balans,
+  terminologie, documentatie tegenover de werkelijkheid, en de zeven tests over
+  de sessiebouwer (T155-T161): sleutels, sjablonen, de rondrit van een link, de
+  generieke blokken, kapotte en kwaadaardige links, en de bundel die zich
+  dichtknijpt tot de behandelde lessen.
 - **browser** (112) — draait in de pagina, met route en begeleidersmodus vooraf
   goed gezet. Tien daarvan vragen een herlaad en draai je met de hand.
 
@@ -62,6 +65,10 @@ gaaf is, zodat een test die de data sloopt zichzelf aanwijst in plaats van zijn
 slachtoffers.
 
 ## De andere scripts
+
+`zet-minuten.mjs` is **al uitgevoerd** en staat hier enkel als geschiedenis: het
+verhuisde in oktober 2026 de duurtijd van de module naar de les. Opnieuw draaien
+zet er een tweede keer velden bij; de tabel erin is wel bruikbaar als naslag.
 
 `bouw-beleid.py` en `voeg-lessen-toe.py` schrijven inhoud uit JSON naar de
 inhoudsbestanden — handig wanneer een schrijfronde haar resultaat als data

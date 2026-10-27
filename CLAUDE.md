@@ -51,9 +51,10 @@ js/inhoud-beleid.js spoor C — het kader: wet, privacy en schoolbeleid
 js/inhoud.js        spoor A — inhoud
 js/casussen.js      spoor A — casussenmodule (groepswerk A3)
 js/inhoud-vibe.js   spoor B — inhoud (incl. de verdiepingslessen)
-js/gids.js          begeleidersgids + de 22 lastige vragen
+js/gids.js          begeleidersgids + de 23 lastige vragen
 js/workshops.js     draaiboeken + sporen
-js/cursus.js        voegt sporen samen, kloktijden
+js/sessies.js       bouwstenen voor een zelf samengestelde sessie + sjablonen
+js/cursus.js        voegt sporen samen, kloktijden, sessies lezen en schrijven
 js/app.js           router, weergave, sessietimer, voortgang
 css/style.css       alle styling, mobiel-eerst, afdrukblok onderaan
 ```
@@ -78,7 +79,7 @@ nieuw blok-type vraagt wel een `case` in `toonInhoudsblok()` plus styling.
 
 ## Testsuite
 
-`test/` bevat 154 testgevallen (42 zonder browser, 112 in de pagina) plus de
+`test/` bevat 161 testgevallen (49 zonder browser, 112 in de pagina) plus de
 scripts die ze draaien, en de twee hulpscripts die inhoud uit JSON naar de
 inhoudsbestanden schrijven. Zie `test/LEESMIJ.md` — daar staat ook waarom het
 harnas met een MessageChannel plant en waarom een lange reeks tests elkaar kan
@@ -89,27 +90,49 @@ python test/draai-nodetests.py test/tests.json .
 ```
 
 Raak je de inhoud aan, dan verschuiven de tellingen: T115, T118 en T127 dragen
-de aantallen hard in zich en moeten dan mee.
+de aantallen hard in zich en moeten dan mee. Raak je een blok-id in
+`workshops.js` aan, dan breekt elke gedeelde sessielink die ernaar wijst; T155
+en T156 vangen af wat er binnen de repo stukgaat, maar een link in iemands
+mailbox repareren ze niet.
 
 ## Controles vóór een commit
 
-Draaiboektiming, moduleverwijzingen en kadervarianten nakijken:
+Draaiboektiming, moduleverwijzingen, lesminuten, kadervarianten en de
+sjablonen van de sessiebouwer nakijken:
 
 ```bash
 node --input-type=module -e "
-import { WORKSHOPS } from './js/workshops.js';
-import { MODULES_AI } from './js/inhoud.js';
-import { MODULES_VIBE } from './js/inhoud-vibe.js';
-import { MODULE_CASUSSEN } from './js/casussen.js';
-import { MODULES_BELEID } from './js/inhoud-beleid.js';
-const modules = [...MODULES_BELEID, ...MODULES_AI, MODULE_CASUSSEN, ...MODULES_VIBE];
+import { WORKSHOPS, MODULES, SJABLONEN, sessieUitCode, sessieMinuten } from './js/cursus.js';
+const modules = MODULES;
 const ids = new Set(modules.map(m => m.id));
 let fout = 0;
 for (const w of WORKSHOPS) {
   const som = w.draaiboek.reduce((s,b) => s + b.minuten, 0);
   if (som !== 180) { console.log('FOUT', w.code, som, 'min'); fout++; }
-  for (const b of w.draaiboek)
+  const blokIds = new Set();
+  for (const b of w.draaiboek) {
+    // De blok-id is de sleutel waarmee een sessielink naar dit blok wijst.
+    if (!b.id || blokIds.has(b.id)) { console.log('FOUT', w.code, 'blok zonder of met dubbele id', b.titel); fout++; }
+    blokIds.add(b.id);
     if (b.module && !ids.has(b.module)) { console.log('FOUT', w.code, 'onbekende module', b.module); fout++; }
+    for (const lesId of b.lessen || [])
+      if (!modules.find(m => m.id === b.module)?.lessen.some(l => l.id === lesId)) {
+        console.log('FOUT', w.code, b.id, 'onbekende les', lesId); fout++;
+      }
+  }
+}
+// Een les zonder minuten telt voor nul in moduleMinuten() en in de sessiebouwer.
+for (const m of modules)
+  for (const l of m.lessen)
+    if (!(l.minuten > 0)) { console.log('FOUT', m.id, l.id, 'geen minuten'); fout++; }
+// Een sjabloon is enkel tekst met sleutels erin: hernoem je een blok-id, dan
+// valt het stil zonder dat het scherm iets meldt.
+for (const s of SJABLONEN) {
+  const sessie = sessieUitCode({ d: s.d, t: String(s.minuten) });
+  if (sessie.onbekend.length) { console.log('FOUT sjabloon', s.id, 'kent niet:', sessie.onbekend.join(', ')); fout++; }
+  if (sessieMinuten(sessie) !== s.minuten) {
+    console.log('FOUT sjabloon', s.id, sessieMinuten(sessie), 'min in plaats van', s.minuten); fout++;
+  }
 }
 // Een kader met een variant zonder styling valt terug op een neutraal kader.
 // Dat ziet er niet kapot uit, dus een tikfout blijft anders onopgemerkt.
@@ -165,27 +188,58 @@ Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
 - Drie sporen: **C Het kader** (wet en schoolbeleid, staat vooraan en is het
   beginpunt), **A AI in de klas** en **B Vibe coden**.
-- 16 modules, 45 lessen, 272 inhoudsblokken (tekst 80, kader 68, lijst 40,
-  prompt 29, opdracht 22, casus 15, quiz 15, vergelijk 3).
+- 16 modules, 47 lessen, 289 inhoudsblokken (tekst 84, kader 77, lijst 42,
+  prompt 29, opdracht 23, casus 16, quiz 15, vergelijk 3).
+- **Elke les draagt haar eigen `minuten`**; modules hebben geen `duur` meer.
+  `moduleMinuten()` in cursus.js telt ze op, en de sessiebouwer rekent ermee.
+  Voeg je een les toe, zet er dan minuten op — zonder dat telt ze voor nul.
 - Spoor C hangt aan geen enkel draaiboek: het is
-  leesstof voor leerkrachten én directies. De `duur` van die modules is dus
+  leesstof voor leerkrachten én directies. De minuten van die lessen zijn dus
   leestijd, niet workshoptijd — reken ongeveer honderd woorden per minuut.
 - Een spoor zonder draaiboek toont zijn modules rechtstreeks in plaats van in
   een uitklapper; `toonSpoor()` in app.js regelt dat.
-- Negen daarvan zijn **verdiepingslessen** (`verdieping: true` op de les): stof
+- Tien daarvan zijn **verdiepingslessen** (`verdieping: true` op de les): stof
   die niet in de drie uur past en die je na de sessie zelfstandig doorneemt.
   Ze staan wél op de promptkaart en in de leeromgeving, maar niet in de
   deelnemersbundel — die is de hand-out van één sessie. `blokkenVanType` neemt
   daarvoor de optie `{ zonderVerdieping: true }`. Module `vibe-voorbeeld` bestaat
   volledig uit verdieping en hangt daarom aan geen enkel draaiboek.
 - Pagina's: overzicht, module, draaiboek, deelnemersbundel, promptkaart,
-  begeleidersgids. Zie README voor de routes.
-- 15 casussen: 14 voor het groepswerk in A3, en één in de directiemodule van
-  spoor C. Gespreid over mag / mag niet / hangt ervan af.
-- Begeleidersgids met 22 lastige vragen, principieel en praktisch.
+  begeleidersgids en de sessiebouwer. Zie README voor de routes.
+- 16 casussen: 15 voor het groepswerk in A3 — die module is tegelijk de
+  zelfstudieroute — en één in de directiemodule van spoor C. Gespreid over
+  mag / mag niet / hangt ervan af.
+- Begeleidersgids met 23 lastige vragen en zes secties, principieel en
+  praktisch. De sectie "Een kortere sessie geven" hoort bij de sessiebouwer.
 - Elke module heeft nu minstens één prompt, één opdracht en één quizvraag,
   behalve waar dat didactisch niet past. Controleer dat bij het toevoegen van
-  een module — de deelnemersbundel trekt precies die blokken op.
+  een module — de deelnemersbundel trekt precies die blokken op. De
+  casussenmodule is de uitzondering: geen prompt, wel één slotopdracht.
+
+### De sessiebouwer
+
+Wie geen drie uur heeft, stelt op `#/sessie` zelf een sessie samen uit losse
+onderdelen. Alles wat je daar nodig hebt staat in twee bestanden:
+
+- `js/sessies.js` — `GENERIEKE_BLOKKEN` (onthaal, pauze, eigen inbreng, vragen,
+  afronding) en `SJABLONEN`: vijf kant-en-klare sessies van 50 tot 120 minuten.
+  Een sjabloon is enkel een naam, een doelduur en een `d`-parameter.
+- `js/cursus.js` — het rekenwerk: `sessieUitCode` / `sessieNaarCode` lezen en
+  schrijven de link, `bouwSessieWorkshop` maakt er een object van dat eruitziet
+  als een workshop, zodat `toonWorkshop()` en `toonBundel()` ongewijzigd werken.
+
+**De sessie leeft volledig in de URL**, er is geen opslag:
+`#/sessie?n=<naam>&s=<startuur>&t=<doelduur>&d=<onderdelen>`. In `d` staan de
+onderdelen in de volgorde van de sessie: `a1.vier-knoppen` (een draaiboekblok),
+`m.beleid-kader` (een hele module), `pauze` (een generiek blok), met `*20` voor
+een eigen duur en `~titel` voor een eigen titel. Wat niet meer bestaat, komt
+als `onbekend` terug en wordt netjes gemeld in plaats van de pagina te breken.
+
+Twee dingen om niet te breken: elk draaiboekblok heeft een `id` (dat is de
+sleutel in de link — hernoem er geen zonder reden) en de blokken die maar een
+deel van hun module behandelen hebben een `lessen`-lijst. Daarop knijpt de
+bundel zich dicht via `lessenPerModule`; zonder die lijst krijgt een sessie van
+een uur de volledige modulebundel mee.
 
 ### Verificatiestatus van de inhoud
 
@@ -193,12 +247,15 @@ Hou dit bij als je verder schrijft.
 
 - **Nagekeken en gecorrigeerd:** alle inhoudsbestanden zijn intussen één keer
   volledig doorgelicht op juridische houdbaarheid, didactiek, Vlaamse
-  terminologie en tool-neutraliteit — inclusief de veertien casussen, de
-  begeleiders-FAQ (22 vragen) en de quizvraag van de module administratie.
+  terminologie en tool-neutraliteit — inclusief de eerste veertien casussen, de
+  begeleiders-FAQ (toen 22 vragen) en de quizvraag van de module administratie.
   Verwijs naar een casus met haar **titel**, nooit met haar nummer: de volgorde
   is bij die ronde gewijzigd zodat elke reeks vroeg een "mag" toont.
-- **Nog niet nagekeken:** wat je hierna zelf toevoegt. De app zelf (`app.js`,
-  `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
+- **Nog niet nagekeken:** alles van de ronde van 27 oktober 2026 — spoor C, de
+  vijftiende casus met haar slotopdracht, de FAQ-vraag over AI-detectie, de
+  gidssectie "Een kortere sessie geven" en de zelfstudieblokken die daarbij in
+  de bestaande modules kwamen. En wat je hierna zelf toevoegt. De app zelf
+  (`app.js`, `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
   schermcontexten; nieuw blok-type of nieuwe kadervariant vraagt die pas opnieuw.
 
 Wat die nakijkronde opleverde is leerzaam voor wie hier verder schrijft: de
@@ -211,16 +268,10 @@ die het sterkste tegenargument wegwuiven in plaats van beantwoorden.
 De deelnemersbundel drukt dat adres nu ook af, want `leeromgevingAdres()` in
 `app.js` leest het af van de pagina zelf.
 
-**Voorstellen die eerst een go vragen** (uit de nakijkronde van 3 september
-2026; ze voegen inhoud toe en zijn daarom niet automatisch gebouwd):
-
-- Een kader over de Europese AI-verordening in de module veilig-en-ethisch.
-- Een FAQ-vraag "Hoe weet ik of een leerling zijn taak door AI liet
-  schrijven?" bij de praktische vragen.
-- Een kader "AI als hulpmiddel, niet als voorsprong" in de les over
-  leerlingen die zelf AI gebruiken (dyslexie, anderstalige nieuwkomers).
-- Een vijftiende casus: een brief aan ouders in de thuistaal (oordeel: mag).
-- Drie startblokken in de les eerste-gesprek over account aanmaken en
-  inloggen, voor wie nog nooit een assistent opende.
-- Een opdracht "Reken je kosten uit en leg de afspraak vast" in de les
-  modellen-en-kosten, zodat B3 meer dan één opdracht in de bundel heeft.
+De zes voorstellen uit de nakijkronde van 3 september 2026 zijn intussen
+allemaal gebouwd: de startblokken over aanmelden, de kostenopdracht in B3, het
+kader "AI als hulpmiddel, niet als voorsprong", de vijftiende casus (de brief
+naar huis in de thuistaal), de FAQ-vraag over AI-detectie, en het stuk over de
+Europese AI-verordening — dat laatste niet als kader in veilig-en-ethisch maar
+als volwaardige les in spoor C, omdat het daar bij de rest van de wetgeving
+hoort. Er staat dus niets meer in de wacht.

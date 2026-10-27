@@ -3,6 +3,11 @@
 //
 // De FAQ hieronder vult het gat dat de draaiboeken openlaten: die waarschuwen
 // wel voor "de scepticus die het gesprek kaapt", maar geven geen antwoorden.
+//
+// Alles in dit bestand gaat door esc(): geen HTML, ook niet <strong>. De
+// sectie "Een kortere sessie geven" is geschreven voor wie geen volledige
+// workshop geeft maar een uur op een personeelsvergadering; ze hoort samen met
+// de sessiebouwer op #/sessie en met de bouwstenen in js/sessies.js.
 
 export const GIDS_SECTIES = [
   {
@@ -10,7 +15,7 @@ export const GIDS_SECTIES = [
     icoon: '📋',
     titel: 'Vóór de workshop',
     inleiding:
-      'Bijna alles wat een sessie doet mislukken, is vooraf op te lossen. Voor A1 volstaat een halfuur plus één mail naar de deelnemers. Voor A3 (casussen afdrukken, het schoolbeleid opzoeken, iemand van de directie of de ICT-coördinator uitnodigen) en zeker voor B2 en B3 (accounts vooraf laten aanmaken, publiceren testen, de kostenafspraak rondkrijgen) trek je er beter een halve dag voor uit.',
+      'Bijna alles wat een sessie doet mislukken, is vooraf op te lossen. Voor A1 volstaat een halfuur plus één mail naar de deelnemers. Voor A3 (casussen afdrukken, het schoolbeleid opzoeken, iemand van de directie of de ICT-coördinator uitnodigen) en zeker voor B2 en B3 (accounts vooraf laten aanmaken, publiceren testen, de kostenafspraak rondkrijgen) trek je er beter een halve dag voor uit. Geef je geen volledige workshop maar een uur of veertig minuten, begin dan bij het volgende onderdeel: "Een kortere sessie geven" vertrekt van de tijd die je wél hebt.',
     punten: [
       {
         kop: 'Beslis of je dit alleen doet',
@@ -50,7 +55,56 @@ export const GIDS_SECTIES = [
       {
         kop: 'Druk af wat op papier moet',
         tekst:
-          'Voor jezelf: het draaiboek, via de knop "Draaiboek afdrukken" — die staat er zodra begeleidersmodus aan is, en je tips gaan mee op papier. Voor de zaal: open de deelnemersbundel via de knop bij hetzelfde draaiboek en druk ze daar af. Die bundel bevat de doelen, de vuistregels, alle prompts en opdrachten van de sessie, in A3 ook de veertien casussen, en ruimte om te noteren. Geef je A3, druk dan ook de casussen af zoals dat draaiboek vraagt — maar doe dat met begeleidersmodus uit: dan krijgt elke casus een leeg vakje om zelf te kiezen. Staat begeleidersmodus aan, dan gaan de oordelen en je tips mee op papier, en dat blad hou je voor jezelf.',
+          'Voor jezelf: het draaiboek, via de knop "Draaiboek afdrukken" — die staat er zodra begeleidersmodus aan is, en je tips gaan mee op papier. Voor de zaal: open de deelnemersbundel via de knop bij hetzelfde draaiboek en druk ze daar af. Die bundel bevat de doelen, de vuistregels, alle prompts en opdrachten van de sessie, in A3 ook de vijftien casussen, en ruimte om te noteren. Geef je A3, druk dan ook de casussen af zoals dat draaiboek vraagt — maar doe dat met begeleidersmodus uit: dan krijgt elke casus een leeg vakje om zelf te kiezen. Staat begeleidersmodus aan, dan gaan de oordelen en je tips mee op papier, en dat blad hou je voor jezelf.',
+      },
+    ],
+  },
+  {
+    id: 'korter',
+    icoon: '⏱',
+    titel: 'Een kortere sessie geven',
+    inleiding:
+      'Je hebt zelden drie uur. Een uur op een personeelsvergadering, veertig minuten op een vakwerkgroep, negentig minuten op een pedagogische studiedag: dat kan, maar niet door een draaiboek van drie uur in te korten. Kies één opbrengst, neem de brokken die daarnaartoe werken, en laat de rest staan voor de leeromgeving. De sessiebouwer maakt van jouw keuze daarna een draaiboek met kloktijden en een deelnemersbundel.',
+    punten: [
+      {
+        kop: 'Eén opbrengst, niet drie',
+        tekst:
+          'Schrijf vóór je iets kiest één zin op: wat heeft elke deelnemer in handen als hij de zaal verlaat? Eén prompt die werkt, één oefening in drie niveaus, één klasafspraak, of gewoon: iedereen weet wie bij ons waarover beslist en bij wie je iets meldt. Twee opbrengsten in zestig minuten worden twee keer niets. Zeg die zin ook luidop bij de start en kom er in je afronding op terug — dan voelt een kort uur af in plaats van afgebroken.',
+      },
+      {
+        kop: 'Reken met vier soorten tijd',
+        tekst:
+          'Instap vijf à tien minuten, uitleg nooit meer dan twintig minuten aan één stuk, zelf doen minstens de helft van je tijd, afronding vijf. Wat er dan overblijft, is wat je kan behandelen — niet omgekeerd. Werk je met accounts, reken dan een kwartier aanloop, ook als je vooraf testte. De sessiebouwer telt je minuten mee terwijl je kiest, dus je ziet meteen wanneer je selectie niet meer in je uur past.',
+      },
+      {
+        kop: 'Wat een uur realistisch oplevert',
+        tekst:
+          'Eén opbrengst en twee werkvormen, meer niet. Een uur op een personeelsvergadering zonder laptops: tien minuten "wat houdt jullie tegen?", vijfentwintig minuten de privacyvuistregel uit A3 en vijfentwintig minuten casussen in groepjes van drie. Iedereen gaat buiten met een regel die hij morgen kan toepassen en met het besef dat "hangt ervan af" een geldig antwoord is. Een uur met het directieteam: de opdracht "Eén vergadering, één eerste versie" uit het spoor Het kader is zelf al een draaiboek van zestig minuten, en levert een eerste versie van jullie afsprakenkader op. Wat een uur niet oplevert, en beloof het dus ook niet: iemand die met een afgewerkte prompt op zijn eigen lesmateriaal naar buiten stapt. Daar heb je anderhalf à twee uur voor nodig, want het grootste deel van die tijd gaat naar zelf doen. Voor allebei staat er een sjabloon klaar in de sessiebouwer.',
+      },
+      {
+        kop: 'Zonder laptops kan ook, en vaak beter',
+        tekst:
+          'De casussen, het spoor Het kader en een eerlijke vragenronde vragen geen toestel en geen account. Op een personeelsvergadering is dat geen verarming maar winst: je verliest geen kwartier aan inloggen en aan één laptop die niet meewil. Heb je een uur en geen laptops, begin dan bij Het kader. Dat spoor heeft genoeg aan drie namen die je vooraf opzoekt: jullie aanspreekpunt informatieveiligheid, de ICT-coördinator en de DPO van de scholengroep. Zonder die namen valt het slot van de module stil, want dat is precies de opdracht.',
+      },
+      {
+        kop: 'Wat je nooit weglaat',
+        tekst:
+          'Eén blok per sessie draagt een grens, en net dat blok vliegt er in een kort uur als eerste uit omdat het niet leuk oogt. In A2 is dat "Feedback: waar ligt de grens?", in A3 het privacyblok, in B2 het gesprek over leerlinggegevens, in B3 het blok over sleutels. In Het kader is het de meldweg: bij wie je terechtkomt als er iets misliep, en dat zorg- en gezondheidsgegevens er sowieso buiten blijven. Haal de minuten die je tekortkomt uit een doe-blok of uit een tweede voorbeeld, nooit uit die grens. Kijk ook de valkuilen van je bronworkshop na: daar staat welk blok in die sessie niet mag sneuvelen.',
+      },
+      {
+        kop: 'Stel samen in plaats van te schrappen',
+        tekst:
+          'Schrap je alle uitleg uit A1, dan hou je nog altijd 130 van de 180 minuten over. Inkorten brengt je dus nooit bij een uur. Zet er in de plaats zelf een sessie in elkaar: zet begeleidersmodus aan en open de sessiebouwer op #/sessie. Je kiest daar onderdelen in de volgorde waarin je ze geeft — een blok uit een bestaand draaiboek, een hele module, of een generiek blok zoals een onthaal, een pauze, eigen inbreng, een vragenronde of een afronding — en je zet elk onderdeel korter of langer. Daarna rekent de app de kloktijden uit vanaf je startuur en maakt ze een deelnemersbundel met enkel de prompts, opdrachten en casussen van wat je echt deed. Weet je niet waar te beginnen: vertrek van een sjabloon en gooi eruit wat niet past.',
+      },
+      {
+        kop: 'Je sessie zit in de link, dus bewaar die link',
+        tekst:
+          'Een samengestelde sessie leeft volledig in het adres van de pagina; er is geen server die ze voor jou bijhoudt. Dat is het goede nieuws: je mailt die link naar je co-begeleider, hangt hem aan de agenda-afspraak, opent hem op de laptop aan de beamer en op je gsm. Het is ook de valkuil: sluit je het tabblad zonder de link te bewaren, dan ben je je sessie kwijt. Kopieer hem dus meteen naar de plek waar jij hem terugvindt.',
+      },
+      {
+        kop: 'Stuur dezelfde dag de link naar de leeromgeving',
+        tekst:
+          'Wat je niet behandelde, staat wél in de leeromgeving. Zeg dat tijdens de sessie en stuur de link diezelfde dag door, samen met de bundel van jouw sessie. Dan is je uur een startpunt in plaats van een brokstuk. Noem er één concreet ding bij dat iemand zelf kan doornemen: de module Het kader in het kort voor wie met privacyvragen blijft zitten, of de verdiepingslessen van spoor B voor wie verder wil bouwen.',
       },
     ],
   },
@@ -59,7 +113,7 @@ export const GIDS_SECTIES = [
     icoon: '👥',
     titel: 'De zaal lezen',
     inleiding:
-      'In elke groep leerkrachten zitten dezelfde vier types. Je hoeft ze niet gelijk te behandelen — je moet ze wel alle vier zien. En in A3 en B2 zit er soms nog iemand bij die er niet als leerkracht zit: zie het laatste punt.',
+      'In elke groep leerkrachten zitten dezelfde vier types. Je hoeft ze niet gelijk te behandelen — je moet ze wel alle vier zien. Daarna volgen twee zalen die anders werken dan een workshop: de personeelsvergadering, en de sessie waar iemand meezit die er niet als leerkracht zit.',
     punten: [
       {
         kop: 'De onzekere',
@@ -80,6 +134,11 @@ export const GIDS_SECTIES = [
         kop: 'De stille',
         tekst:
           'Zegt niets en dat zegt niets. Loop langs en kijk mee op het scherm in plaats van plenair te vragen of het lukt.',
+      },
+      {
+        kop: 'Een personeelsvergadering is geen workshop',
+        tekst:
+          'Op een personeelsvergadering zit het hele korps, in rijen, en niemand koos ervoor. Drie dingen veranderen daardoor. Rondlopen met één vraag lukt niet, dus vervang "zelf doen aan de laptop" door iets wat op een schoot past: een casus op papier, één zin opschrijven, twee minuten overleg met je buur. Een rondje langs veertig mensen bestaat niet, dus verzamel op briefjes en lees er drie voor. En de directie zit er niet toevallig bij maar standaard, dus zeg bij het begin luidop in welke rol ze meezit. Wil je toch laten werken aan de laptop, vraag dan een apart moment met een kleinere groep. Dat is een eerlijker vraag dan een halfuur bezigheid voor veertig mensen.',
       },
       {
         kop: 'De directie, de ICT-coördinator of de DPO',
@@ -160,7 +219,7 @@ export const GIDS_SECTIES = [
       {
         kop: 'Je loopt een halfuur achter',
         tekst:
-          'Schrap uitleg, nooit een doe-blok. Concreet: kort de blokken met het etiket "Uitleg" in en laat alles met het etiket "Zelf doen" volledig staan — dat is de tijd waarin deelnemers aan hun eigen lesmateriaal of hun eigen project werken. Eén uitzondering: het blok waar een grens getrokken wordt — privacy, leerlinggegevens, sleutels — blijft overeind, ook al staat er "Uitleg" of "Gesprek" boven. Kijk vooraf de valkuilen van je draaiboek na, daar staat welk blok in die sessie niet mag sneuvelen. Zeg eerlijk tegen de groep wat je schrapt en waarom.',
+          'Schrap uitleg, nooit een doe-blok. Concreet: kort de blokken met het etiket "Uitleg" in en laat alles met het etiket "Zelf doen" volledig staan — dat is de tijd waarin deelnemers aan hun eigen lesmateriaal of hun eigen project werken. Eén uitzondering: het blok waar een grens getrokken wordt — privacy, leerlinggegevens, sleutels — blijft overeind, ook al staat er "Uitleg" of "Gesprek" boven. Kijk vooraf de valkuilen van je draaiboek na, daar staat welk blok in die sessie niet mag sneuvelen. Zeg eerlijk tegen de groep wat je schrapt en waarom. Eén waarschuwing: dit is advies voor een sessie die uitloopt, niet voor een sessie die van bij het begin kort is. Schrap je alle uitleg uit A1, dan hou je nog altijd 130 van de 180 minuten over, en in A3 blijf je op 155 staan. Heb je van bij het begin maar een uur, stel dan samen in plaats van te schrappen — zie "Een kortere sessie geven".',
       },
       {
         kop: 'Eén iemand loopt volledig vast',
@@ -249,7 +308,7 @@ export const FAQ_GROEPEN = [
       },
       {
         vraag: "Van wie is dat materiaal eigenlijk? Als ik daarmee een bundel maak, mag ik die dan op KlasCement zetten of verkopen?",
-        antwoord: "Goede vraag, en het eerlijke antwoord is dat dit juridisch nog niet uitgeklaard is — ik ben ook geen jurist. Wat de gebruiksvoorwaarden van de grote assistenten vandaag zeggen, komt erop neer dat jij mag gebruiken wat eruit komt, ook voor je werk; check dat wel na voor het account dat jullie school gebruikt. Waar het wringt: auteursrecht veronderstelt normaal een menselijke creatieve inbreng, dus op een tekst die de machine helemaal alleen maakte kan je waarschijnlijk zelf geen auteursrecht claimen — en iemand anders kan met een gelijkaardige vraag iets erg gelijkaardigs krijgen. Praktisch: hoe meer jij geselecteerd, herschreven en aangevuld hebt, hoe meer het jouw werk is, dus deel je bewerkte versie en nooit een rauwe uitvoer. Let ook op de andere richting: plak geen volledige hoofdstukken uit een handboek of werkboek van een uitgeverij in een gesprek en verspreid dat resultaat niet als eigen materiaal. Nog iets dat in je vraag verstopt zit: van wie is jouw bundel eigenlijk? Wat jij zelf schrijft, blijft in principe van jou, ook al maakte je het voor je job — daar is een uitdrukkelijke afspraak voor nodig om dat anders te maken. Gratis delen op KlasCement is dus zelden een probleem; wil je er geld voor vragen, ga dan eerst bij je directie na of daar in het arbeidsreglement of bij je aanstelling iets over is afgesproken. Gaat het over echt commercialiseren of over iets ondertekenen namens de school, leg het dan voor aan de scholengroep.",
+        antwoord: "Goede vraag, en het eerlijke antwoord is dat dit juridisch nog niet uitgeklaard is — ik ben ook geen jurist. Wat de gebruiksvoorwaarden van de grote assistenten vandaag zeggen, komt erop neer dat jij mag gebruiken wat eruit komt, ook voor je werk; check dat wel na voor het account dat jullie school gebruikt. Waar het wringt: auteursrecht veronderstelt normaal een menselijke creatieve inbreng, dus op een tekst die de machine helemaal alleen maakte kan je waarschijnlijk zelf geen auteursrecht claimen — en iemand anders kan met een gelijkaardige vraag iets erg gelijkaardigs krijgen. Praktisch: hoe meer jij geselecteerd, herschreven en aangevuld hebt, hoe meer het jouw werk is, dus deel je bewerkte versie en nooit een rauwe uitvoer. Let ook op de andere richting: plak geen volledige hoofdstukken uit een handboek of werkboek van een uitgeverij in een gesprek en verspreid dat resultaat niet als eigen materiaal. Nog iets dat in je vraag verstopt zit: van wie is jouw bundel eigenlijk? Daar lopen twee antwoorden door elkaar, en dat is precies waarom je het niet alleen uitmaakt. Materiaal dat je op eigen initiatief maakte, is van jou; van materiaal dat je in opdracht van de school maakte gaat Onderwijs Vlaanderen ervan uit dat het aan de school toebehoort. Gratis delen op KlasCement is daarom zelden een probleem; wil je er geld voor vragen, of wil je het meenemen naar een andere school, ga dan eerst bij je directie na wat daarover in het arbeidsreglement of bij je aanstelling is afgesproken. De les Auteursrecht en wat je deelt, in het spoor Het kader, zet die lijn verder uit; verwijs daarnaar in plaats van ze in de zaal te beslechten. Gaat het over echt commercialiseren of over iets ondertekenen namens de school, leg het dan voor aan de scholengroep.",
         tip: "Zeg expliciet dat je geen jurist bent en parkeer de fijne kneepjes bij de scholengroep — verzand hier niet, dat kost je twintig minuten. Eén boodschap moet blijven hangen: rauwe uitvoer deel je niet, jouw bewerkte versie wel.",
       },
       {
@@ -311,6 +370,11 @@ export const FAQ_GROEPEN = [
         vraag: "Mag ik het gebruiken om taken te verbeteren en punten te geven?",
         antwoord: "Deze vraag komt meestal van iemand met een stapel taken op zijn bureau die tegen het rapport verbeterd moet zijn, dus neem die tijdsdruk eerst serieus. Feedback formuleren kan de assistent goed: geef je criteria mee, laat er een eerste tekst van maken en herschrijf die daarna in je eigen woorden. Een punt zetten is iets anders — dat is een pedagogische beslissing en die blijft van jou. Wat je niet doet: een taak met naam en al ingeven, of een score overnemen die je niet zelf kan verantwoorden op een klassenraad, op een zorgoverleg of aan een ouder. Wil je hier verder in gaan, dan is het geen individuele keuze meer: dat hoort thuis bij de vakwerkgroep of het graadoverleg, en bij het evaluatiebeleid van de school.",
         tip: "Erken de werkdruk vóór je over grenzen begint, anders klinkt je antwoord als een verbod en haakt de vrager af. Laat iemand die het al probeerde vertellen wat er gebeurde — dat overtuigt beter dan jouw kader.",
+      },
+      {
+        vraag: "Hoe weet ik of een leerling zijn taak door AI liet schrijven?",
+        antwoord: "Zeker weten doe je het niet, en elk hulpmiddel dat belooft van wel, overdrijft. AI-detectors geven geregeld vals alarm, zeker bij leerlingen die heel verzorgd of formeel schrijven en bij leerlingen die het Nederlands niet als thuistaal hebben, en een lichtjes herwerkte AI-tekst glipt er gewoon door. Een percentage is dus geen bewijs. En er is een tweede reden om ze niet te gebruiken: je stuurt er de tekst van één herkenbare leerling mee naar een dienst waarmee je school niets afsprak. Wat wel werkt, werkt vooraf: spreek per opdracht af wat met AI mag, en vraag naar het proces in plaats van naar het product — een kladversie, een tussenstap, twee minuten mondeling toelichten. Wie zijn tekst kan toelichten, heeft hem begrepen, en dat is wat je eigenlijk wilde weten. Valt een taak je toch op, voer dan een gesprek in plaats van meteen te oordelen: zeg eerlijk dat de tekst je opviel, en vraag hoe hij het aanpakte en welke stukken van hem zijn. En vóór je punten aftrekt of een taak ongeldig verklaart: wat als onregelmatigheid geldt en wie daarover beslist, staat in het school- en evaluatiereglement, en dat loopt via de directie en de klassenraad, niet via één leerkracht.",
+        tip: "Deze vraag komt bijna altijd van iemand die al een verdacht geval had, dus vraag eerst wat er precies gebeurde — anders beantwoord je een andere vraag dan die in de zaal leeft. Zeg duidelijk dat je geen detector aanraadt, en ga niet in discussie over het percentage; vraag in de plaats wat die collega zou doen als de leerling blijft volhouden dat hij het zelf schreef. Zet de zaal daarna aan het werk aan de kant die wel iets oplost: laat iedereen voor één concrete opdracht opschrijven wat er met AI mag. Dat is precies wat A3 doet in het blok Je eigen klasafspraak.",
       },
       {
         vraag: "Wat als een collega of de directie het niet wil?",

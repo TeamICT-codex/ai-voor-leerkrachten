@@ -20,17 +20,21 @@ export const MODULES_AI = [
     icoon: '👋',
     titel: 'Kennismaken met AI-assistenten',
     ondertitel: 'Wat zijn ChatGPT en Claude, wat kunnen ze, en hoe voer je je eerste gesprek?',
-    duur: '30 min',
     niveau: 'Starter',
     doelen: [
       'Je kan in eigen woorden uitleggen wat een AI-assistent is en wat het níét is.',
       'Je vindt je weg in het chatvenster en start zelf een gesprek.',
       'Je weet welk soort schoolwerk zich leent voor AI.',
     ],
+    klaarzetten: [
+      'Een laptop of computer met internet.',
+      'Een account bij een AI-assistent — of de tijd om er in deze module zelf een aan te maken. Voorziet je school of scholengroep er een, gebruik dan die.',
+    ],
     lessen: [
       {
         id: 'wat-is-ai-assistent',
         titel: 'Wat is een AI-assistent?',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -93,6 +97,7 @@ export const MODULES_AI = [
       {
         id: 'eerste-gesprek',
         titel: 'Je eerste gesprek',
+        minuten: 25,
         blokken: [
           {
             type: "tekst",
@@ -113,7 +118,7 @@ export const MODULES_AI = [
             type: "kader",
             variant: "letop",
             titel: "Als je er niet in raakt",
-            inhoud: "<strong>Opent de site niet</strong> of krijg je een blokkeerpagina, dan is dat een filter: vraag je ICT-coördinator om ze vrij te geven voor personeel, met de reden erbij. <strong>Opent ze wel maar raak je niet aangemeld</strong>, dan ligt het aan je beheerde laptop of aan de instellingen van je schoolaccount — zelfde persoon, andere vraag, en vrijgeven lost dit niet op. Raak je er vandaag niet in, of maak je liever geen eigen account aan: zeg het in plaats van er stil mee te blijven zitten. Met twee aan één scherm volg je alles perfect.",
+            inhoud: "<strong>Opent de site niet</strong> of krijg je een blokkeerpagina, dan is dat een filter: vraag je ICT-coördinator om ze vrij te geven voor personeel, met de reden erbij. <strong>Opent ze wel maar raak je niet aangemeld</strong>, dan ligt het aan je beheerde laptop of aan de instellingen van je schoolaccount — zelfde persoon, andere vraag, en vrijgeven lost dit niet op. Raak je er niet in? Probeer het dan eerst op je eigen toestel en je eigen verbinding in plaats van op de beheerde schoollaptop — dan weet je meteen of het aan de school ligt. Lukt het daar wel, dan is het een vraag voor je ICT-coördinator en geen fout van jou; stuur die twee zinnen hierboven door en werk ondertussen gewoon thuis verder. Wil je liever helemaal geen eigen account, dan kan je deze cursus blijven lezen: de uitleg, de prompts en de voorbeelden blijven bruikbaar, alleen de doe-opdrachten moet je uitstellen.",
           },
           {
             type: 'tekst',
@@ -152,11 +157,13 @@ export const MODULES_AI = [
               'Neem één ding dat volgende week op je planning staat en probeer het uit. Vijf minuten, meer niet.',
             stappen: [
               'Ga naar de AI-assistent die jullie school voorziet. Weet je niet of er iets voorzien is, vraag het aan je ICT-coördinator of directie; is er niets, gebruik dan ChatGPT of Claude.',
-              'Meld je aan en start een nieuw gesprek. Lukt het aanmelden nu niet, kijk dan even mee op het scherm van een collega — deze oefening werkt prima met twee aan een scherm.',
+              'Meld je aan en start een nieuw gesprek. Lukt dat vandaag niet, sla deze opdracht dan over en lees eerst verder — kom terug zodra je account werkt.',
               'Kopieer de prompt hierboven, maar vervang het vak en de leeftijd door die van jou.',
               'Vraag daarna: "Maak het een niveau makkelijker."',
               'Vraag ten slotte: "Geef me nu 3 oefeningen bij die uitleg."',
             ],
+            klaar:
+              'je drie antwoorden op je scherm staan en je dat derde antwoord — de drie oefeningen — effectief zou kunnen afdrukken.',
           },
         ],
       },
@@ -168,17 +175,21 @@ export const MODULES_AI = [
     icoon: '🎯',
     titel: 'Goede opdrachten geven',
     ondertitel: 'De vier knoppen waarmee je bruikbaar materiaal krijgt in plaats van algemene praat.',
-    duur: '40 min',
     niveau: 'Starter',
     doelen: [
       'Je kan een vage vraag omzetten in een scherpe opdracht.',
       'Je gebruikt rol, context, vorm en voorbeeld bewust.',
       'Je stuurt bij in plaats van opnieuw te beginnen.',
     ],
+    klaarzetten: [
+      'Een laptop en een werkend account bij een AI-assistent.',
+      'Eén eigen lesonderdeel dat je binnenkort geeft, digitaal — zodat je er een stuk van kan kopiëren en plakken.',
+    ],
     lessen: [
       {
         id: 'vier-knoppen',
         titel: 'De vier knoppen',
+        minuten: 30,
         blokken: [
           {
             type: 'tekst',
@@ -214,7 +225,7 @@ export const MODULES_AI = [
             variant: 'tool',
             titel: 'Zelfde prompt, twee assistenten',
             inhoud:
-              'Een leerzame oefening voor deelnemers die toegang hebben tot beide: plak exact dezelfde prompt in ChatGPT en in Claude en vergelijk. Meestal zie je verschil in toon en lengte, zelden in bruikbaarheid. Conclusie voor de groep: <em>de kwaliteit van je prompt weegt zwaarder door dan de keuze van je tool.</em>',
+              'Heb je toegang tot allebei, dan is dit een leerzame oefening: plak exact dezelfde prompt in ChatGPT en in Claude en vergelijk. Meestal zie je verschil in toon en lengte, zelden in bruikbaarheid. Wat je daaruit meeneemt: <em>de kwaliteit van je prompt weegt zwaarder door dan de keuze van je tool.</em>',
           },
           {
             type: 'quiz',
@@ -244,6 +255,7 @@ export const MODULES_AI = [
       {
         id: 'bijsturen',
         titel: 'Bijsturen in plaats van opnieuw beginnen',
+        minuten: 40,
         blokken: [
           {
             type: 'tekst',
@@ -278,6 +290,8 @@ export const MODULES_AI = [
               'Ronde 3: stuur bij op toon of opmaak.',
               'Vergelijk het eindresultaat met wat je na ronde 1 had. Dat verschil is de hele cursus in één oefening.',
             ],
+            klaar:
+              'je het eindresultaat naast je antwoord van ronde 1 legde en in één zin kan zeggen wat er beter aan is.',
           },
           {
             type: 'prompt',
@@ -295,17 +309,22 @@ export const MODULES_AI = [
     icoon: '📚',
     titel: 'Lesvoorbereiding en differentiatie',
     ondertitel: 'Van leerplandoel naar een lesopbouw en drie niveaus, in de tijd van een koffiepauze.',
-    duur: '45 min',
     niveau: 'Verdieping',
     doelen: [
       'Je laat een lesopbouw maken die past bij jouw tijdsindeling.',
       'Je maakt van één oefening drie niveaus.',
       'Je gebruikt je eigen materiaal als vertrekpunt.',
     ],
+    klaarzetten: [
+      'Een laptop en een werkend account bij een AI-assistent.',
+      'Eén bestaande oefening of werkblad van jezelf, digitaal.',
+      'Het leerplandoel of de eindterm waar de les naartoe werkt, bij de hand.',
+    ],
     lessen: [
       {
         id: 'lesopbouw',
         titel: 'Een lesopbouw laten maken',
+        minuten: 30,
         blokken: [
           {
             type: 'tekst',
@@ -332,6 +351,7 @@ export const MODULES_AI = [
       {
         id: 'differentiatie',
         titel: 'Differentiëren zonder drie keer werk',
+        minuten: 35,
         blokken: [
           {
             type: 'tekst',
@@ -380,7 +400,7 @@ export const MODULES_AI = [
           {
             type: 'opdracht',
             titel: 'Jouw eigen les, drie niveaus',
-            inhoud: 'Neem de les of oefening die je meebracht en maak er in twintig minuten iets van dat maandag effectief de deur uit kan. Werk met echt materiaal, niet met een verzonnen voorbeeld.',
+            inhoud: 'Neem een les of oefening die je binnenkort echt geeft — liefst digitaal, zodat je er een stuk van kan plakken — en maak er in twintig minuten iets van dat maandag effectief de deur uit kan. Werk met echt materiaal, niet met een verzonnen voorbeeld.',
             stappen: [
               'Plak je oefening of werkblad in een nieuw gesprek, met erbij het leerjaar, het vak en het leerplandoel waar ze op mikt.',
               'Vraag de drie versies en zeg zélf waarin BASIS en UITDAGING verschillen — meer sturing, minder stappen, zelf laten opzoeken — en niet enkel korter of langer.',
@@ -388,6 +408,8 @@ export const MODULES_AI = [
               'Vraag hoe je die drie versies binnen één lesuur naast elkaar laat lopen: wie start waarmee, en wat doet wie vroeg klaar is.',
               'Zet de drie versies onder elkaar in één document en noteer erbij wie welke krijgt. Dat document neem je mee naar de klas.',
             ],
+            klaar:
+              'je drie versies onder elkaar in één document staan, met erbij genoteerd wie welke krijgt.',
           },
         ],
       },
@@ -399,17 +421,21 @@ export const MODULES_AI = [
     icoon: '✍️',
     titel: 'Toetsen, oefeningen en feedback',
     ondertitel: 'Vragen maken, verbetersleutels opstellen en feedback formuleren die leerlingen echt lezen.',
-    duur: '45 min',
     niveau: 'Verdieping',
     doelen: [
       'Je laat toetsvragen maken op het juiste denkniveau.',
       'Je maakt een verbetersleutel en een puntenverdeling.',
       'Je gebruikt AI om feedback te formuleren zonder je oordeel uit handen te geven.',
     ],
+    klaarzetten: [
+      'Een laptop en een werkend account bij een AI-assistent.',
+      'Eén toets die je zelf maakte en al eens afnam, digitaal. Enkel op papier werkt niet: dan gaat je tijd naar overtypen.',
+    ],
     lessen: [
       {
         id: 'toetsvragen',
         titel: 'Toetsvragen op het juiste niveau',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -436,6 +462,7 @@ export const MODULES_AI = [
       {
         id: 'feedback',
         titel: 'Feedback formuleren',
+        minuten: 35,
         blokken: [
           {
             type: 'tekst',
@@ -492,6 +519,8 @@ export const MODULES_AI = [
               'Vraag een verbetersleutel bij die twee nieuwe vragen en lees hem na: schrap alles wat niet klopt met hoe jij verbetert.',
               'Bewaar de bijgewerkte toets meteen bij je lesmateriaal — dit is de versie die je volgende keer bovenhaalt.',
             ],
+            klaar:
+              'de twee herschreven vragen met hun verbetersleutel in je toets staan, en die bijgewerkte versie bewaard is op de plek waar je ze volgende keer zoekt.',
           },
         ],
       },
@@ -503,17 +532,21 @@ export const MODULES_AI = [
     icoon: '📮',
     titel: 'Administratie en communicatie',
     ondertitel: 'Oudermails, verslagen en planningen — het werk dat je avonden opeet.',
-    duur: '35 min',
     niveau: 'Verdieping',
     doelen: [
       'Je schrijft lastige oudercommunicatie sneller en rustiger.',
       'Je zet losse notities om in een leesbaar verslag.',
       'Je weet welke administratie je beter niet deelt.',
     ],
+    klaarzetten: [
+      'Een laptop en een werkend account bij een AI-assistent.',
+      'Eén administratieve klus die blijft liggen: ruwe notities van een vergadering, of een mail die je nog moet schrijven.',
+    ],
     lessen: [
       {
         id: 'oudercommunicatie',
         titel: 'Communicatie met ouders',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -540,6 +573,7 @@ export const MODULES_AI = [
       {
         id: 'verslagen',
         titel: 'Verslagen en planningen',
+        minuten: 20,
         blokken: [
           {
             type: 'tekst',
@@ -564,6 +598,8 @@ export const MODULES_AI = [
               'Lees na en corrigeer wat niet klopt.',
               'Klaar. Merk hoeveel korter dat duurde dan anders.',
             ],
+            klaar:
+              'die klus weg is: verstuurd, opgeslagen of doorgegeven — niet enkel netter op je scherm.',
           },
           {
             type: 'quiz',
@@ -596,17 +632,22 @@ export const MODULES_AI = [
     icoon: '🛡️',
     titel: 'Veilig, ethisch en met leerlingen',
     ondertitel: 'Privacy, betrouwbaarheid, en wat je doet als leerlingen zelf met AI werken.',
-    duur: '50 min',
     niveau: 'Essentieel',
     doelen: [
       'Je weet welke informatie je nooit in een AI-gesprek zet.',
       'Je herkent en ondervangt foute antwoorden.',
       'Je kan uitleggen hoe leerlingen AI eerlijk gebruiken.',
     ],
+    klaarzetten: [
+      'Een laptop en een werkend account bij een AI-assistent.',
+      'Het AI-beleid of het ICT-reglement van je school of scholengroep, als dat al bestaat.',
+      'Eén opdracht die je binnenkort geeft, voor de klasafspraak achteraan.',
+    ],
     lessen: [
       {
         id: 'privacy',
         titel: 'Privacy: de korte versie',
+        minuten: 20,
         blokken: [
           {
             type: 'tekst',
@@ -619,7 +660,7 @@ export const MODULES_AI = [
               '<strong>Nooit:</strong> namen van leerlingen, geboortedata, adressen, rijksregisternummers, medische of zorggegevens, verslagen van het CLB, foto\'s van leerlingen.',
               '<strong>Nooit:</strong> gevoelige informatie over collega\'s of over de thuissituatie van een gezin.',
               '<strong>Wél veilig:</strong> geanonimiseerde omschrijvingen ("een leerling van 13 met concentratieproblemen"), je eigen lesmateriaal, algemene vragen.',
-              '<strong>Ging het toch mis?</strong> Plakte je per ongeluk een naam, een klaslijst of een verslag in een gesprek: noteer kort wat er precies in stond en wanneer, meld het diezelfde dag bij je directie en de DPO van de scholengroep, en verwijder daarna het gesprek. Zij beoordelen of dit officieel gemeld moet worden — daar heeft de school maar 72 uur voor, en die inschatting maak jij niet alleen. Melden is precies wat er van je verwacht wordt; stilhouden maakt het alleen erger.',
+              '<strong>Ging het toch mis?</strong> Plakte je per ongeluk een naam, een klaslijst of een verslag in een gesprek: noteer kort wat er precies in stond en wanneer, en meld het diezelfde dag bij het <strong>aanspreekpunt informatieveiligheid</strong> van je school — vaak de ICT-coördinator of iemand uit het directieteam — of bij je directie. Zij beoordelen of dit officieel gemeld moet worden en betrekken daarvoor de DPO van de scholengroep; daar heeft de school maar 72 uur voor, en die klok start bij wie het als eerste wist. Wis het gesprek niet vóór zij gezegd hebben dat het mag: zij moeten kunnen nagaan wat erin stond. Melden is precies wat er van je verwacht wordt; stilhouden maakt het alleen erger.',
             ],
           },
           {
@@ -634,13 +675,14 @@ export const MODULES_AI = [
             variant: 'tool',
             titel: 'Check de instellingen van jullie accounts',
             inhoud:
-              'Zowel ChatGPT als Claude hebben instellingen en abonnementsvormen die bepalen wat er met je gesprekken gebeurt. Bij school- en zakelijke accounts gelden doorgaans strengere afspraken dan bij een gratis privéaccount. Waar dat verschil vandaan komt: bij een schoolaccount hoort een <strong>verwerkersovereenkomst</strong> — een contract tussen je school of scholengroep en de leverancier over wat er met de gegevens mag gebeuren, hoelang ze bewaard blijven en waar ze staan. Die komt er niet vanzelf: de school moet ze afsluiten. Vraag dus gerust aan je ICT-coördinator of aan de DPO of ze er is — daar zijn ze net voor. <strong>Ga na wat jullie school gebruikt</strong> en welke afspraken de scholengroep maakte — en gebruik het schoolaccount voor alles waar leerlingen in voorkomen. Voor lesmateriaal zonder leerlinggegevens is je privéaccount doorgaans geen probleem, tenzij het AI-beleid of het ICT-reglement van jullie school iets anders afspreekt.',
+              'Zowel ChatGPT als Claude hebben instellingen en abonnementsvormen die bepalen wat er met je gesprekken gebeurt. Bij school- en zakelijke accounts gelden doorgaans strengere afspraken dan bij een gratis privéaccount. Waar dat verschil vandaan komt: bij een schoolaccount hoort een <strong>verwerkersovereenkomst</strong> — een contract tussen je school of scholengroep en de leverancier over wat er met de gegevens mag gebeuren, hoelang ze bewaard blijven en waar ze staan. Die komt er niet vanzelf: de school moet ze afsluiten. Vraag dus gerust aan je ICT-coördinator of aan het aanspreekpunt informatieveiligheid of ze er is; die legt de vraag zo nodig voor aan de DPO van de scholengroep — daar zijn ze net voor. <strong>Ga na wat jullie school gebruikt</strong> en welke afspraken de scholengroep maakte — en gebruik het schoolaccount voor alles waar leerlingen in voorkomen. Voor lesmateriaal zonder leerlinggegevens is je privéaccount doorgaans geen probleem, tenzij het AI-beleid of het ICT-reglement van jullie school iets anders afspreekt.',
           },
         ],
       },
       {
         id: 'betrouwbaarheid',
         titel: 'Als het overtuigd fout is',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -692,6 +734,7 @@ export const MODULES_AI = [
       {
         id: 'leerlingen',
         titel: 'Leerlingen die zelf AI gebruiken',
+        minuten: 25,
         blokken: [
           {
             type: 'tekst',
@@ -706,9 +749,16 @@ export const MODULES_AI = [
               '<strong>Laat het proces zien.</strong> Vraag naar tussenstappen, een kladversie of een korte mondelinge toelichting. Dat maakt overschrijven vanzelf zinloos.',
               '<strong>Leer ze nakijken.</strong> Geef bewust een antwoord met een fout erin en laat ze die zoeken. Dat blijft veel beter hangen dan een waarschuwing.',
               '<strong>Laat ze bronvermelden.</strong> "Ik gebruikte AI voor X" hoort er gewoon bij, net als elke andere bron.',
-              '<strong>Let op de leeftijdsgrenzen.</strong> Die verschillen per dienst: bij de ene mag je pas een eigen account als je volwassen bent, bij de andere vanaf dertien mits de ouders akkoord gaan. Kijk het na vóór je iets voorstelt — voor schoolaccounts gelden soms andere afspraken. In het lager onderwijs werk je dus klassikaal via jouw account, niet met leerlingaccounts. En ook in het secundair, waar de leeftijd vaak wél klopt, beslist niet de leerkracht alleen dat een klas met eigen accounts werkt: dat gaat langs de directie en de ICT-coördinator.',
+              '<strong>Let op de leeftijdsgrenzen.</strong> Die verschillen per dienst: bij de ene mag je pas een eigen account als je volwassen bent, bij de andere vanaf dertien mits de ouders akkoord gaan. Dat zijn voorwaarden van de dienst zelf, geen wettelijke AI-leeftijd — die bestaat niet. Kijk het na vóór je iets voorstelt — voor schoolaccounts gelden soms andere afspraken. In het lager onderwijs werk je dus klassikaal via jouw account, niet met leerlingaccounts. En ook in het secundair, waar de leeftijd vaak wél klopt, beslist niet de leerkracht alleen dat een klas met eigen accounts werkt: dat gaat langs de directie en de ICT-coördinator.',
               '<strong>Reken niet op wat er thuis staat.</strong> De ene leerling heeft thuis een eigen toestel, een vlotte verbinding en iemand die meekijkt; de andere deelt één gsm met broers en zussen. Geef dus geen opdracht die eigenlijk een AI-assistent thuis veronderstelt — dan meet je de thuissituatie mee. Hou dat werk in de les: in het lager klassikaal op jouw scherm, in het secundair op de schooltoestellen als je school daar accounts voor voorziet.',
             ],
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'AI als hulpmiddel, niet als voorsprong',
+            inhoud:
+              'Dezelfde hulp is voor de ene leerling een opstapje en voor de andere een omweg rond het leerdoel, en het verschil zit in wat je met die taak wil <strong>meten</strong>. Een leerling met dyslexie die zijn tekst zelf schrijft en hem daarna laat nalezen op spelling, compenseert iets — dat sluit aan bij de redelijke aanpassingen die in zijn zorgfiche staan. Een anderstalige nieuwkomer die de opdracht in zijn thuistaal laat zetten om te snappen wát er gevraagd wordt, ontloopt de opdracht niet maar begrijpt ze. Meet je in die taak kennis van geschiedenis, dan haalt die hulp een drempel weg; meet je spelling, dan valt ze net binnen wat je beoordeelt. Zet de regel daarom bij de opdracht zelf in plaats van ze per leerling af te spreken: <em>wie volgens zijn vastgelegde aanpassingen hulpmiddelen mag gebruiken, mag deze taak laten nalezen op spelling</em>. Dan staat ze er voor iedereen, lijkt ze geen gunst, en hoef je voor de klas niet te zeggen wie dyslexie heeft. De casus <em>Spelling nalezen bij dyslexie</em> in de module <em>Casussen: mag dit?</em> werkt dit verder uit, inclusief het tegenargument van de collega die het oneerlijk vindt.',
           },
           {
             type: 'kader',
@@ -720,13 +770,15 @@ export const MODULES_AI = [
           {
             type: 'opdracht',
             titel: 'Maak je eigen klasafspraak',
-            inhoud: 'Sluit het spoor af met iets dat je maandag kan gebruiken.',
+            inhoud: 'Rond deze module af met iets dat je maandag kan gebruiken. Daarna wachten nog de casussen — die zijn de test of het blijft hangen.',
             stappen: [
               'Kies één opdracht die je binnenkort geeft.',
               'Schrijf in twee zinnen wat er met AI mag en wat niet.',
               'Laat die twee zinnen herschrijven op het taalniveau van je leerlingen.',
               'Zet ze bovenaan de opdracht. Klaar.',
             ],
+            klaar:
+              'die twee zinnen bovenaan de opdracht staan, in de taal van je leerlingen, klaar om uit te delen.',
           },
         ],
       },

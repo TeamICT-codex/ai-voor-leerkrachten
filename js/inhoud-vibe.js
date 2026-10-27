@@ -14,17 +14,51 @@ export const MODULES_VIBE = [
     icoon: '🧩',
     titel: 'Vibe coden: wat en waarom',
     ondertitel: 'Zelf digitaal lesmateriaal bouwen zonder één regel code te kunnen schrijven.',
-    duur: '35 min',
     niveau: 'Basis',
     doelen: [
       'Je kan uitleggen wat vibe coden is en wat het niet is.',
       'Je vertrekt van een onderwijsprobleem in plaats van van een tool.',
       'Je herkent welke ideeën haalbaar zijn voor een eerste bouwsel.',
     ],
+    klaarzetten: [
+      'Een laptop — geen tablet: je moet bestanden kunnen bewaren.',
+      'Een werkend Claude-account.',
+      'Eén lesmoment dat structureel stroef loopt. Daar bouw je de rest van dit spoor omheen.',
+    ],
     lessen: [
+      {
+        id: 'klaarzetten',
+        titel: 'Wat je klaarzet vóór je begint',
+        minuten: 10,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              'Dit spoor is doe-werk: je bouwt doorheen alle modules aan één eigen project. Een kwartier voorbereiding scheelt je straks een halve avond. Hieronder staat wat je nu nodig hebt, en wat pas later. Wat een afzonderlijke module daarbovenop vraagt, staat telkens bij die module zelf.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Een laptop, geen tablet.</strong> Je moet bestanden kunnen bewaren en terugvinden, en dat gaat op een tablet moeizaam. Een chromebook van de school kan, zolang je er bestanden op kwijt kan.',
+              '<strong>Een werkend account bij Claude.</strong> Voorziet je school of scholengroep een schoolaccount, gebruik dan dat en niet je privéaccount: het bepaalt mee wat er met je gesprekken gebeurt. Probeer het één keer uit op het schoolnetwerk — wat thuis vlot werkt, wordt op school soms geblokkeerd.',
+              '<strong>Eén map op je laptop voor dit project.</strong> Daar komt alles in: je bestand, je versies, later je projectblad. Noem ze naar je project.',
+              '<strong>Eén zin over wat er in jouw lessen stroef loopt.</strong> Daar vertrekt alles van. Je hoeft nog niets te bedenken over techniek.',
+              '<strong>Pas later nodig:</strong> een account bij een gratis dienst om je pagina online te zetten (module <em>Delen met collega\'s en leerlingen</em>), een GitHub-account (module <em>Gegevens, privacy en versiebeheer</em>), en een account bij een AI-dienst met tegoed of een betaalmethode (module <em>AI inbouwen in je eigen tool</em>). Maak die aan wanneer je er bent, niet nu.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Reken op een uur of twee per module',
+            inhoud:
+              'Je kan dit spoor in stukken doen — één module per week werkt prima. Maar zet de module waarin je bouwt niet in een halfuurtje tussen twee lessen: de eerste versie maken en ze daarna echt testen loopt in één beweging door.',
+          },
+        ],
+      },
       {
         id: 'wat-is-vibe-coden',
         titel: 'Wat is vibe coden?',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -41,7 +75,7 @@ export const MODULES_VIBE = [
             variant: 'tool',
             titel: 'Waarom dit spoor met Claude werkt',
             inhoud:
-              'In spoor A kon je vrij kiezen tussen ChatGPT en Claude. <strong>Hier werken we met Claude</strong>, om een praktische reden: Claude toont wat het bouwt meteen als werkende pagina in het gesprek, zodat je onmiddellijk kan klikken en testen zonder iets te installeren. Dat maakt de cyclus bouwen-testen-bijsturen veel vlotter voor wie niet kan programmeren. Andere assistenten kunnen ook code schrijven, en wat ze daarbij tonen verandert snel — kijk gerust eens wat jouw assistent ondertussen kan. Voor deze workshop houden we het bij één tool: in een zaal vol beginners scheelt dat verwarring, en de vaardigheid die je hier leert — <strong>beschrijven, testen, bijsturen</strong> — verhuist gewoon mee.',
+              'In spoor A kon je vrij kiezen tussen ChatGPT en Claude. <strong>Hier werken we met Claude</strong>, om een praktische reden: Claude toont wat het bouwt meteen als werkende pagina in het gesprek, zodat je onmiddellijk kan klikken en testen zonder iets te installeren. Dat maakt de cyclus bouwen-testen-bijsturen veel vlotter voor wie niet kan programmeren. Andere assistenten kunnen ook code schrijven, en wat ze daarbij tonen verandert snel — kijk gerust eens wat jouw assistent ondertussen kan. Voor dit spoor houden we het bij één tool: dat scheelt verwarring als je hier nieuw in bent, en in een zaal vol beginners al helemaal. De vaardigheid die je hier leert — <strong>beschrijven, testen, bijsturen</strong> — verhuist gewoon mee.',
           },
           {
             type: 'kader',
@@ -57,6 +91,20 @@ export const MODULES_VIBE = [
               '<strong>Kan, maar later:</strong> iets dat resultaten bijhoudt over meerdere lessen, of dat leerlingen laat inloggen.',
               '<strong>Doe dit niet:</strong> punten of zorggegevens opslaan in een zelfgebouwde tool. Daar bestaan schoolsystemen voor, met de nodige afspraken errond.',
             ],
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Lessen met het etiket Verdieping',
+            inhoud:
+              'Negen lessen in dit spoor dragen het etiket <strong>Verdieping</strong>. Dat betekent niet moeilijker, wel: niet nodig om je eerste pagina in de klas te krijgen. Ze staan telkens achteraan in hun module, en ze beantwoorden een vraag die pas opkomt als je iets gebouwd hebt — beeld erin krijgen, je project op de telefoon, een testlijst laten maken, een gesprek dat te lang wordt. <strong>De route die we aanraden:</strong> doorloop eerst de basislessen van alle modules tot je pagina online staat en één keer in je klas gebruikt is. Kom daarna terug voor de verdieping, en lees dan enkel wat je herkent. Hou daar rekening mee als je plant: de verdiepingslessen van een module kunnen samen even lang duren als de basislessen ervoor. Wie een sessie van drie uur volgde, mist niets van die sessie door ze over te slaan: ze pasten daar niet in.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Wil je eerst zien hoe het in zijn geheel gaat?',
+            inhoud:
+              'De module <em>Een volledig voorbeeld</em>, onderaan dit spoor, volgt één project van het eerste idee tot na de eerste les waarin het gebruikt werd: de prompts zoals ze echt ingetypt zijn, de vier dingen die bij het testen boven kwamen, en wat het uiteindelijk kostte. Je hoeft er niets voor gebouwd te hebben. Lees ze gerust nu al als je liever eerst de hele weg ziet; bouw je liever meteen mee, lees ze dan nadat je je eerste pagina getest hebt.',
           },
           {
             type: 'quiz',
@@ -87,6 +135,7 @@ export const MODULES_VIBE = [
       {
         id: 'onderwijsprobleem-eerst',
         titel: 'Begin bij het probleem, niet bij de tool',
+        minuten: 25,
         blokken: [
           {
             type: 'tekst',
@@ -140,17 +189,22 @@ export const MODULES_VIBE = [
     icoon: '🔨',
     titel: 'Je eerste webapp bouwen',
     ondertitel: 'Van beschrijving naar iets dat werkt — en daarna naar iets dat je durft tonen.',
-    duur: '85 min',
     niveau: 'Basis',
     doelen: [
       'Je bouwt een werkende webpagina uit één beschrijving.',
       'Je test systematisch en stuurt gericht bij.',
       'Je maakt het bruikbaar op het scherm waar het écht gebruikt wordt.',
     ],
+    klaarzetten: [
+      'Een laptop — geen tablet: je moet bestanden kunnen bewaren.',
+      'Een werkend Claude-account.',
+      'Het projectidee uit de module Vibe coden: wat en waarom.',
+    ],
     lessen: [
       {
         id: 'eerste-versie',
         titel: 'De eerste versie',
+        minuten: 30,
         blokken: [
           {
             type: 'tekst',
@@ -184,6 +238,7 @@ export const MODULES_VIBE = [
       {
         id: 'testen-bijsturen',
         titel: 'Testen en bijsturen',
+        minuten: 30,
         blokken: [
           {
             type: 'tekst',
@@ -212,7 +267,14 @@ export const MODULES_VIBE = [
             variant: 'tip',
             titel: 'Bewaar wat werkt',
             inhoud:
-              'Bewaar een kopie zodra iets goed werkt, vóór je een grote wijziging vraagt. Noem het <code>oefenapp-v1.html</code>, <code>-v2</code>, enzovoort. Gaat een nieuwe versie de mist in, dan val je gewoon terug. In module "Gegevens, privacy en versiebeheer" doen we dit netter.',
+              'Zet alles van dit project in die ene map die je aanmaakte bij <em>Wat je klaarzet vóór je begint</em>, de eerste les van dit spoor: je bestand, je versies, later je projectblad. Zo heb je over drie weken nog één plek waar je moet kijken, en niet drie versies tussen je downloads. Bewaar daarin een kopie zodra iets goed werkt, vóór je een grote wijziging vraagt. Noem het <code>oefenapp-v1.html</code>, <code>-v2</code>, enzovoort. Gaat een nieuwe versie de mist in, dan val je gewoon terug. In de module <em>Gegevens, privacy en versiebeheer</em> doen we dit netter.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Als je er na drie keer niet uit raakt',
+            inhoud:
+              'Dat overkomt iedereen, ook mensen die dit elke dag doen. Loop deze vier stappen af, in deze volgorde. <strong>Eén:</strong> ga terug naar je laatst bewaarde versie die wél werkte en vraag dezelfde wijziging opnieuw, maar in kleinere stukken — één ding per bericht, telkens met de zin <em>"Los enkel dit op en verander verder niets aan de pagina."</em> <strong>Twee:</strong> vraag Claude om in gewone taal te beschrijven wat je pagina volgens hem doet, zonder iets aan te passen. Staat daar iets anders dan wat jij dacht, dan heb je je probleem gevonden. <strong>Drie:</strong> begin een nieuw gesprek, sleep je laatst werkende bestand erin en beschrijf wat er moet gebeuren alsof het de eerste keer is. Een gesprek dat vastgelopen is, raakt daar zelden nog uit; een leeg gesprek met hetzelfde bestand meestal meteen. In de verdiepingsles <em>Als het chatvenster te klein wordt</em> staat een prompt die daar een net overdrachtsbriefje van maakt. <strong>Vier:</strong> leg het voor aan een mens — je ICT-coördinator, of een collega uit je vakwerkgroep die hier al eens aan begon. Vastzitten is geen teken dat je het niet kan; het hoort bij het werk, en het stopt meestal bij stap één of drie.',
           },
           {
             type: 'quiz',
@@ -244,7 +306,7 @@ export const MODULES_VIBE = [
             inhoud:
               'Rondklikken tot het lijkt te werken is geen test. Je doorloopt een app vier keer — drie keer in het hoofd van een andere leerling, één keer op het toestel waarop de app écht gebruikt wordt — en je verzamelt alles wat misloopt vóór je iets laat aanpassen.',
             stappen: [
-              'Ruil met je buur: jij test de app van je buur, je buur test de jouwe. Werk je alleen, test dan je eigen app, maar wees streng.',
+              'Werk je samen met iemand, ruil dan: jij test zijn app, hij de jouwe. Werk je alleen, zoek dan toch één paar verse ogen — een collega van je vakwerkgroep, iemand thuis, of één leerling vóór de les — en zeg niets terwijl die klikt. Lukt ook dat niet vandaag, doe de vier rondes hieronder dan zelf en lees daarna de verdiepingsles "Laat de AI je app testen" in deze module: daar laat je een testlijst maken die vindt wat jij over het hoofd ziet, precies omdat jij weet hoe het bedoeld is.',
               'Ronde 1 — de vlotte leerling: vul alles correct in en kijk of de app doet wat je verwacht. Ronde 2 — de leerling die het niet meteen snapt: lees enkel wat op het scherm staat en kijk of je zonder uitleg verder raakt.',
               'Ronde 3 — de leerling die alles uitprobeert: lege velden, dubbelklikken, rare invoer, drie keer na elkaar op verzenden. Ronde 4: open dezelfde pagina op een gsm of op het smartboard en kijk wat daar anders loopt.',
               'Noteer elke fout als één zin: wat je deed, wat je zag, en wat er had moeten gebeuren. Nog niets bijsturen — eerst alles verzamelen.',
@@ -256,6 +318,7 @@ export const MODULES_VIBE = [
       {
         id: 'stijl-en-bruikbaarheid',
         titel: 'Stijl en bruikbaarheid',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -282,11 +345,12 @@ export const MODULES_VIBE = [
       {
         id: 'afbeeldingen-bestanden',
         titel: 'Afbeeldingen, bestanden en downloads',
+        minuten: 40,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de sessie bouwde je een oefenpagina die het redt met tekst en knoppen. Dat brengt je verder dan je zou denken — tot je een oefening wil maken over de dwarsdoorsnede van een bloem in het eerste jaar secundair, en je merkt dat de halve oefening in de tekening zit. Zodra er beeld bij komt, verandert er iets aan je bestand: je pagina bevát die tekening meestal niet, ze <em>verwijst</em> ernaar. Stuur je enkel het HTML-bestand door, dan ziet de leerling een leeg kader waar de bloem had moeten staan. Deze les gaat over die twee kanten: hoe je beeld erin krijgt zonder dat het losvalt, en hoe je de leerling op het einde iets laat meenemen.',
+            inhoud: 'In de basislessen hiervoor bouwde je een oefenpagina die het redt met tekst en knoppen. Dat brengt je verder dan je zou denken — tot je een oefening wil maken over de dwarsdoorsnede van een bloem in het eerste jaar secundair, en je merkt dat de halve oefening in de tekening zit. Zodra er beeld bij komt, verandert er iets aan je bestand: je pagina bevát die tekening meestal niet, ze <em>verwijst</em> ernaar. Stuur je enkel het HTML-bestand door, dan ziet de leerling een leeg kader waar de bloem had moeten staan. Deze les gaat over die twee kanten: hoe je beeld erin krijgt zonder dat het losvalt, en hoe je de leerling op het einde iets laat meenemen.',
           },
           {
             type: 'lijst',
@@ -342,11 +406,12 @@ export const MODULES_VIBE = [
       {
         id: 'grotere-projecten',
         titel: 'Als het chatvenster te klein wordt',
+        minuten: 15,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de sessie bouwde je één pagina in één gesprek: beschrijven, testen, bijsturen, klaar. Voor bijna elke klastool is dat het hele verhaal. Maar af en toe groeit zo\'n ding. Een leerkracht Frans in het derde jaar secundair begint met een woordenschattrainer voor één hoofdstuk, voegt er een tweede oefenvorm bij, daarna een startscherm waar de leerling kiest welk hoofdstuk hij oefent — en drie weken later is dat gesprek zo lang geworden dat ze haar eigen afspraken niet meer terugvindt en het begint te knarsen. Deze les gaat over dat moment. Ze hoort niet bij de sessie van drie uur: lees ze pas als je dit herkent.',
+            inhoud: 'Tot hier bouwde je één pagina in één gesprek: beschrijven, testen, bijsturen, klaar. Voor bijna elke klastool is dat het hele verhaal. Maar af en toe groeit zo\'n ding. Een leerkracht Frans in het derde jaar secundair begint met een woordenschattrainer voor één hoofdstuk, voegt er een tweede oefenvorm bij, daarna een startscherm waar de leerling kiest welk hoofdstuk hij oefent — en drie weken later is dat gesprek zo lang geworden dat ze haar eigen afspraken niet meer terugvindt en het begint te knarsen. Deze les gaat over dat moment. Het is een verdiepingsles: lees ze pas als je dit herkent.',
           },
           {
             type: 'lijst',
@@ -384,7 +449,7 @@ export const MODULES_VIBE = [
             type: 'kader',
             variant: 'weetje',
             titel: 'De vaardigheid verhuist gewoon mee',
-            inhoud: 'Het werk zelf verandert niet: beschrijven, testen, bijsturen. Een goed foutrapport — wat je deed, wat je zag, wat er had moeten gebeuren — is in zo\'n omgeving exact even veel waard als in een gewoon gesprek. En het omgekeerde geldt ook: gereedschap dat meer aankan, maakt een vaag idee niet scherper. Hoe groter je project, hoe zwaarder het weegt dat jij precies kan zeggen wat je wil. Dat is wat je in de sessie oefende, en dat neem je mee.',
+            inhoud: 'Het werk zelf verandert niet: beschrijven, testen, bijsturen. Een goed foutrapport — wat je deed, wat je zag, wat er had moeten gebeuren — is in zo\'n omgeving exact even veel waard als in een gewoon gesprek. En het omgekeerde geldt ook: gereedschap dat meer aankan, maakt een vaag idee niet scherper. Hoe groter je project, hoe zwaarder het weegt dat jij precies kan zeggen wat je wil. Dat is wat je in dit spoor oefende, en dat neem je mee.',
           },
           {
             type: 'kader',
@@ -396,7 +461,7 @@ export const MODULES_VIBE = [
             type: 'kader',
             variant: 'letop',
             titel: 'Zoek uit wat het kost vóór je er lesmateriaal mee maakt',
-            inhoud: 'Een gewoon gesprek zit binnen je gewone account en daar denk je verder niet over na. Een assistent die zelfstandig door een hele projectmap werkt, verbruikt merkbaar meer, en bij dit soort gereedschap reken je vaak per gebruik af in plaats van per maand. Zoek dus uit hoe dat bij jouw keuze zit en zet meteen een limiet — dezelfde reflex als in de module <em>AI inbouwen in je eigen tool</em>. Vind je die limiet niet, vraag dan aan je assistent zelf waar ze staat. En gebruik je dit voor school, spreek dan vooraf af wie het betaalt, net zoals bij een account met betaalmogelijkheid voor de laatste workshop.',
+            inhoud: 'Een gewoon gesprek zit binnen je gewone account en daar denk je verder niet over na. Een assistent die zelfstandig door een hele projectmap werkt, verbruikt merkbaar meer, en bij dit soort gereedschap reken je vaak per gebruik af in plaats van per maand. Zoek dus uit hoe dat bij jouw keuze zit en zet meteen een limiet — dezelfde reflex als in de module <em>AI inbouwen in je eigen tool</em>. Vind je die limiet niet, vraag dan aan je assistent zelf waar ze staat. En gebruik je dit voor school, spreek dan vooraf af wie het betaalt — dezelfde afspraak die daar voor de betaalde AI-dienst geldt.',
           },
           {
             type: 'tekst',
@@ -407,11 +472,12 @@ export const MODULES_VIBE = [
       {
         id: 'ai-als-tester',
         titel: 'Laat de AI je app testen',
+        minuten: 35,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'Je test je eigen app zoals je je eigen tekst nakijkt: je leest wat er <em>zou moeten</em> staan. Je weet dat het antwoordveld een getal verwacht, dus typ je een getal. Je weet dat je bovenaan eerst een oefening kiest, dus klik je die eerst aan. Je klikt vanzelf de juiste weg, en na tien minuten besluit je dat het werkt. In de sessie testte je daarom als drie verschillende leerlingen — dat helpt, maar ook dan blijf jij degene die weet hoe het bedoeld is. Een klas van vierentwintig weet dat niet, en vindt in twee minuten wat jij in een half uur niet vond.',
+            inhoud: 'Je test je eigen app zoals je je eigen tekst nakijkt: je leest wat er <em>zou moeten</em> staan. Je weet dat het antwoordveld een getal verwacht, dus typ je een getal. Je weet dat je bovenaan eerst een oefening kiest, dus klik je die eerst aan. Je klikt vanzelf de juiste weg, en na tien minuten besluit je dat het werkt. In de basislessen hiervoor testte je daarom als drie verschillende leerlingen — dat helpt, maar ook dan blijf jij degene die weet hoe het bedoeld is. Een klas van vierentwintig weet dat niet, en vindt in twee minuten wat jij in een half uur niet vond.',
           },
           {
             type: 'tekst',
@@ -454,12 +520,12 @@ export const MODULES_VIBE = [
             type: 'kader',
             variant: 'tip',
             titel: 'Eén probleem per keer',
-            inhoud: 'Heb je een lijstje met gevonden problemen, los ze dan één voor één op, telkens met de zin: <em>"Los enkel dit op en verander verder niets aan de pagina."</em> Zonder die zin krijg je soms een netjes herschreven versie terug waarin ook dingen veranderd zijn die wél werkten — en dan mag je alles opnieuw testen. Hertest na elke oplossing meteen het punt dat je meldde, en klik ook het vorige nog eens na. In de sessie stuurde je je foutenlijstje in één bericht door: prima voor kleine, losse dingen zoals een tekst die niet klopt. Gaat het over de werking zelf, dan is één voor één trager maar betrouwbaarder.',
+            inhoud: 'Heb je een lijstje met gevonden problemen, los ze dan één voor één op, telkens met de zin: <em>"Los enkel dit op en verander verder niets aan de pagina."</em> Zonder die zin krijg je soms een netjes herschreven versie terug waarin ook dingen veranderd zijn die wél werkten — en dan mag je alles opnieuw testen. Hertest na elke oplossing meteen het punt dat je meldde, en klik ook het vorige nog eens na. Bij de opdracht <em>Test als drie leerlingen</em> stuurde je je foutenlijstje in één bericht door: prima voor kleine, losse dingen zoals een tekst die niet klopt. Gaat het over de werking zelf, dan is één voor één trager maar betrouwbaarder.',
           },
           {
             type: 'opdracht',
             titel: 'Krijg je eigen app stuk',
-            inhoud: 'Je bouwde in de sessie een pagina en testte die zelf. Nu laat je er een testlijst op los en werk je de bovenste vijf punten écht af — niet lezen, klikken. Reken op een twintigtal minuten. Je eindigt met een afgevinkte lijst, één opgelost probleem en een lijstje dat je bij je volgende pagina meteen hergebruikt.',
+            inhoud: 'Je bouwde hiervoor een pagina en testte die zelf. Nu laat je er een testlijst op los en werk je de bovenste vijf punten écht af — niet lezen, klikken. Reken op een twintigtal minuten. Je eindigt met een afgevinkte lijst, één opgelost probleem en een lijstje dat je bij je volgende pagina meteen hergebruikt.',
             stappen: [
               'Open je pagina en bewaar er eerst een kopie van onder een volgend versienummer, zodat je altijd terug kan naar wat je nu hebt.',
               'Vraag met de prompt hierboven een testlijst, in hetzelfde gesprek waarin je je pagina bouwde. Neem enkel de vijf bovenste punten en zet ze onder elkaar op papier, met plaats om achter elk punt iets te schrijven. De rest bewaar je voor later.',
@@ -479,17 +545,23 @@ export const MODULES_VIBE = [
     icoon: '🌐',
     titel: 'Delen met collega\'s en leerlingen',
     ondertitel: 'Van een bestand op jouw laptop naar een link die iedereen kan openen.',
-    duur: '45 min',
     niveau: 'Basis',
     doelen: [
       'Je weet welke manier van delen bij welke situatie past.',
       'Je zet je bouwsel online via een gratis dienst.',
       'Je introduceert het vlot in je klas.',
     ],
+    klaarzetten: [
+      'Een laptop — geen tablet.',
+      'Een werkend Claude-account en je eigen app uit de module Je eerste webapp bouwen.',
+      'Een account bij de dienst waarop je publiceert (Netlify of Vercel), vooraf aangemaakt en bevestigd. Regel dat niet op het moment zelf: je verliest er een kwartier mee aan registreren en wachten op een bevestigingsmail.',
+      'Een gsm om je link op te testen.',
+    ],
     lessen: [
       {
         id: 'publiceren',
         titel: 'Online zetten',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -524,6 +596,7 @@ export const MODULES_VIBE = [
       {
         id: 'in-de-klas',
         titel: 'Gebruiken in de klas',
+        minuten: 20,
         blokken: [
           {
             type: 'tekst',
@@ -589,11 +662,12 @@ export const MODULES_VIBE = [
       {
         id: 'app-op-telefoon',
         titel: 'Als app op de telefoon',
+        minuten: 40,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de sessie bouwde je een oefenpagina en zette je die online. In de klas begint het dan telkens met hetzelfde kwartiertje: de link op het bord, 24 leerlingen die hem overtypen, drie die een letter missen, en twee die intussen op iets helemaal anders zijn beland. De volgende les mag je dat overdoen. Dat kan anders: je pagina kan als pictogram op het startscherm van een toestel staan, naast de andere apps, en dan is het <strong>één tik</strong>. Je hoeft daarvoor niets uit een app-winkel te halen — het zijn vier handelingen die op de meeste toestellen op ongeveer dezelfde manier verlopen.',
+            inhoud: 'In de basislessen hiervoor bouwde je een oefenpagina en zette je die online. In de klas begint het dan telkens met hetzelfde kwartiertje: de link op het bord, 24 leerlingen die hem overtypen, drie die een letter missen, en twee die intussen op iets helemaal anders zijn beland. De volgende les mag je dat overdoen. Dat kan anders: je pagina kan als pictogram op het startscherm van een toestel staan, naast de andere apps, en dan is het <strong>één tik</strong>. Je hoeft daarvoor niets uit een app-winkel te halen — het zijn vier handelingen die op de meeste toestellen op ongeveer dezelfde manier verlopen.',
           },
           {
             type: 'lijst',
@@ -655,17 +729,23 @@ export const MODULES_VIBE = [
     icoon: '🗄️',
     titel: 'Gegevens, privacy en versiebeheer',
     ondertitel: 'Wanneer je app iets moet onthouden — en hoe je dat in orde houdt met de regels.',
-    duur: '80 min',
-    niveau: 'Verdieping',
+    niveau: 'Gevorderd',
     doelen: [
       'Je beslist bewust of je app gegevens moet bewaren.',
       'Je kent de Vlaamse spelregels rond leerlinggegevens.',
       'Je houdt versies bij zonder je werk kwijt te raken.',
     ],
+    klaarzetten: [
+      'Een laptop — geen tablet.',
+      'Een werkend Claude-account en je eigen app uit de module Je eerste webapp bouwen.',
+      'Een GitHub-account, vooraf aangemaakt en één keer uitgeprobeerd.',
+      'Publiceer je via Netlify of Vercel, hou dat account dan bij de hand om GitHub eraan te koppelen. Gaat het via GitHub Pages, dan volstaat je GitHub-account.',
+    ],
     lessen: [
       {
         id: 'wanneer-data',
         titel: 'Heb je opslag echt nodig?',
+        minuten: 10,
         blokken: [
           {
             type: 'tekst',
@@ -697,6 +777,7 @@ export const MODULES_VIBE = [
       {
         id: 'leerlingdata-veilig',
         titel: 'Leerlinggegevens: de Vlaamse spelregels',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -750,11 +831,17 @@ export const MODULES_VIBE = [
       {
         id: 'versiebeheer',
         titel: 'Versiebeheer zonder gedoe',
+        minuten: 40,
         blokken: [
           {
             type: 'tekst',
             inhoud:
               'Vroeg of laat overkomt het je: een nieuwe versie is slechter dan de vorige, en die vorige ben je kwijt. <strong>Versiebeheer</strong> lost dat op — je kan altijd terug naar hoe het was.',
+          },
+          {
+            type: 'tekst',
+            inhoud:
+              '<strong>GitHub</strong> is in gewone taal een website waar je je bestanden bewaart en waar bij elke wijziging een kopie van de vorige versie blijft staan, met de datum erbij. Je kan dus altijd terug naar hoe het vorige week was, zonder dat je zelf kopieën met een nummer bijhoudt. Je maakt er een gratis account aan en je zet je project erop; daarna werk je gewoon verder zoals je gewend bent. Eerlijk vooraf: dit is het technisch lastigste stuk van dit spoor en het kost je de eerste keer makkelijk een uur. Doe het op een moment dat je niet gehaast bent, en sla het gerust over tot je merkt dat je versies met nummers je te veel worden — voor één oefenpagina is dat misschien nooit. Loop je vast, dan is stap drie van <em>Als je er na drie keer niet uit raakt</em> ook hier het snelste antwoord: een nieuw gesprek, en zeg wat je wél op je scherm ziet staan.',
           },
           {
             type: 'lijst',
@@ -778,7 +865,7 @@ export const MODULES_VIBE = [
             inhoud: "Neem je eigen project erbij en maak die keuze bewust in plaats van per ongeluk — ook als de uitkomst is dat je niets bewaart. Je eindigt met een app die niet meer bijhoudt dan nodig, en met vijf regels op papier die zeggen wat er wél bewaard wordt.",
             stappen: [
               "Schrijf op wat jouw app zou moeten onthouden nadat de leerling het tabblad sluit. Schrap daarna alles waar je les even goed zonder kan — vaak blijft er niets over, en dat is een prima uitkomst.",
-              "Duid bij wat overblijft aan waar het thuishoort: nergens, in de browser van de leerling, of in een echte database. Kom je bij een echte database uit, hou dat dan voor na de workshop: dat is een sessie werk apart.",
+              "Duid bij wat overblijft aan waar het thuishoort: nergens, in de browser van de leerling, of in een echte database. Kom je bij een echte database uit, hou dat dan voor een aparte werksessie — dat is een halve dag werk op zich. Lees eerst de verdiepingsles \"Een echte database koppelen\" verderop in deze module: die zegt je of je er echt een nodig hebt.",
               "Blijft er iets over? Vervang elke verwijzing naar een leerling door een klasnummer of een zelfgekozen bijnaam. Blijft er niets over? Vraag Claude te bevestigen dat je pagina echt nergens iets wegschrijft, en waar je dat in je bestand ziet.",
               "Bewaar je iets, vraag Claude dan om je app zo aan te passen, met een knop waarmee de leerling zijn eigen gegevens wist — en klik die knop meteen zelf aan. Bewaar in beide gevallen het resultaat onder een nieuw versienummer, zodat je terug kan als er iets stukgaat.",
               "Vat in vijf regels samen wat je bewaart, waar het staat en hoe het verdwijnt. Staat er iets in dat naar een leerling verwijst, dan is dat blaadje je vertrekpunt voor een gesprek van tien minuten met de DPO van je scholengroep.",
@@ -789,11 +876,12 @@ export const MODULES_VIBE = [
       {
         id: 'echte-database',
         titel: 'Een echte database koppelen',
+        minuten: 30,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de sessie bouwde je een pagina die niets bijhoudt, en misschien eentje die de voortgang <em>in de browser van de leerling</em> bewaart — op dat ene toestel, en nergens anders. Voor de meeste klastools is dat genoeg. Tot je op zoiets botst: je geeft Frans in het derde jaar en wil na de woordenschatoefening op je <strong>eigen</strong> scherm zien welke woorden je klas structureel mist, maar die gegevens zitten verspreid over vierentwintig laptops en je geraakt er niet bij. Of een leerling van het vijfde leerjaar oefende op de klascomputer en wil thuis verder waar hij gebleven was, en op de tablet thuis staat uiteraard niets. Dan volstaat opslag in de browser niet meer. Dan kom je uit bij een echte database — en dat is precies de stap die deze les eerlijk wil kaderen, want hij is groter dan hij lijkt.',
+            inhoud: 'In de basislessen hiervoor bouwde je een pagina die niets bijhoudt, en misschien eentje die de voortgang <em>in de browser van de leerling</em> bewaart — op dat ene toestel, en nergens anders. Voor de meeste klastools is dat genoeg. Tot je op zoiets botst: je geeft Frans in het derde jaar en wil na de woordenschatoefening op je <strong>eigen</strong> scherm zien welke woorden je klas structureel mist, maar die gegevens zitten verspreid over vierentwintig laptops en je geraakt er niet bij. Of een leerling van het vijfde leerjaar oefende op de klascomputer en wil thuis verder waar hij gebleven was, en op de tablet thuis staat uiteraard niets. Dan volstaat opslag in de browser niet meer. Dan kom je uit bij een echte database — en dat is precies de stap die deze les eerlijk wil kaderen, want hij is groter dan hij lijkt.',
           },
           {
             type: 'tekst',
@@ -853,11 +941,12 @@ export const MODULES_VIBE = [
       {
         id: 'projectgeheugen',
         titel: 'Geef je project een geheugen',
+        minuten: 30,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de sessie bouwde je een oefenpagina — zeg: werkwoordspelling voor je vijfde leerjaar. Drie weken later, op een woensdagnamiddag, wil je er een tweede reeks zinnen bij. Je opent een nieuw gesprek, vraagt die reeks, en krijgt iets terug waarin de feedback enkel met kleur werkt, de knoppen op een gsm half wegvallen en er plots naar de naam van de leerling gevraagd wordt. Er is niets stuk: het is gewoon een <em>nieuw</em> gesprek, en alles wat je de vorige keer afsprak is weg. Dus leg je het opnieuw uit. En de keer daarna nog eens.',
+            inhoud: 'In de basislessen hiervoor bouwde je een oefenpagina — zeg: werkwoordspelling voor je vijfde leerjaar. Drie weken later, op een woensdagnamiddag, wil je er een tweede reeks zinnen bij. Je opent een nieuw gesprek, vraagt die reeks, en krijgt iets terug waarin de feedback enkel met kleur werkt, de knoppen op een gsm half wegvallen en er plots naar de naam van de leerling gevraagd wordt. Er is niets stuk: het is gewoon een <em>nieuw</em> gesprek, en alles wat je de vorige keer afsprak is weg. Dus leg je het opnieuw uit. En de keer daarna nog eens.',
           },
           {
             type: 'tekst',
@@ -917,7 +1006,6 @@ export const MODULES_VIBE = [
     icoon: '🤖',
     titel: 'AI inbouwen in je eigen tool',
     ondertitel: 'Je app zelf laten nakijken, uitleggen of genereren — en wat dat kost.',
-    duur: '65 min',
     niveau: 'Expert',
     doelen: [
       'Je beoordeelt wanneer een AI-functie zinvol is.',
@@ -925,15 +1013,29 @@ export const MODULES_VIBE = [
       'Je weet waarom een sleutel nooit in je webpagina hoort.',
       'Je weet wat er met de invoer van je leerlingen gebeurt.',
     ],
+    klaarzetten: [
+      'Een laptop — geen tablet.',
+      'Een werkend Claude-account en een werkend project uit de module Gegevens, privacy en versiebeheer.',
+      'Een account bij een AI-dienst met een API-sleutel die al vóór je begint is aangemaakt, met tegoed of een betaalmethode erop. Zonder dat loopt je allereerste poging vast op een foutmelding. Probeer die sleutel één keer uit bij de dienst zelf.',
+      'Duidelijkheid over wie de kosten draagt. Wil of mag je zelf geen betaalgegevens ingeven, werk dan op een account van de school en spreek af wie het aanmaakt en beheert.',
+    ],
     lessen: [
       {
         id: 'wanneer-ai-inbouwen',
         titel: 'Wanneer is het de moeite?',
+        minuten: 10,
         blokken: [
           {
             type: 'tekst',
             inhoud:
               'Tot nu bouwde je apps met vaste inhoud: jij bepaalt de vragen, de app controleert het antwoord. Je kan ook AI <em>in</em> je app steken, zodat die zelf uitleg geeft of open antwoorden beoordeelt. Dat is krachtig, maar het brengt kosten, wachttijd en onvoorspelbaarheid mee.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Wat je hiervoor nodig hebt, en wie het betaalt',
+            inhoud:
+              'Anders dan de rest van dit spoor kost deze module geld. Je hebt een account nodig bij een AI-dienst met een <strong>API-sleutel</strong> — de geheime code uit de les <em>Sleutels en veiligheid</em> — en daar moet tegoed of een betaalmethode op staan, anders strandt je allereerste poging op een foutmelding. Regel drie dingen vóór je begint. <strong>Eén:</strong> maak dat account aan en probeer de sleutel één keer uit bij de dienst zelf. <strong>Twee:</strong> spreek met je directie of schoolbestuur af wie dit betaalt, met je ICT-coördinator erbij. Wil of mag je zelf geen betaalgegevens ingeven, vraag dan een account van de school en spreek af wie het beheert. <strong>Drie:</strong> zet meteen een uitgavenlimiet — hoe je die berekent, staat in de volgende les. Zonder die drie begin je hier beter niet aan: de rest van dit spoor kan je gerust zelf beslissen, deze module niet.',
           },
           {
             type: 'lijst',
@@ -962,6 +1064,7 @@ export const MODULES_VIBE = [
       {
         id: 'modellen-en-kosten',
         titel: 'Modellen en kosten',
+        minuten: 20,
         blokken: [
           {
             type: 'tekst',
@@ -1001,6 +1104,7 @@ export const MODULES_VIBE = [
       {
         id: 'sleutels-en-veiligheid',
         titel: 'Sleutels en veiligheid',
+        minuten: 40,
         blokken: [
           {
             type: 'tekst',
@@ -1079,11 +1183,12 @@ export const MODULES_VIBE = [
       {
         id: 'meer-dan-tekst',
         titel: 'Meer dan tekst: beeld, spraak en geluid',
+        minuten: 30,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de sessie bouwde je een app waarin de leerling typt: iets invullen, op een knop klikken, feedback lezen. Voor de meeste leerlingen werkt dat prima. Maar je kent er ook bij wie het net daar strandt: de leerling met dyslexie voor wie één zin op het scherm krijgen meer moeite kost dan die zin bedenken, of de leerling in het derde jaar die pas sinds vorig jaar in het Nederlands schoolloopt, in de klas al vlot meepraat en toch nog nauwelijks iets neergeschreven krijgt. Allebei weten ze het antwoord vaak wél; ze raken er alleen niet mee in jouw app. Veel AI-diensten kunnen intussen meer dan tekst alleen: ze zetten gesproken taal om in tekst, ze lezen voor, en ze kunnen zeggen wat er op een afbeelding staat. Wat jouw dienst precies aankan, verschilt en verandert — en let op één ding dat vaak wordt overgeslagen: wat je in een chatvenster ziet werken, is niet automatisch iets wat je in je eigen app kan inbouwen. Kijk dat dus na op het moment dat je het nodig hebt. Deze les gaat over beeld en geluid die jouw app <em>binnenkomen</em>: wanneer je dat inzet en, minstens even belangrijk, wanneer niet. Beeld of stemmen laten <em>génereren</em> laten we hier links liggen — dat kost meer, en de vragen rond auteursrecht en rond wiens stem je namaakt zijn vandaag nog niet uitgeklaard.',
+            inhoud: 'In de basislessen hiervoor bouwde je een app waarin de leerling typt: iets invullen, op een knop klikken, feedback lezen. Voor de meeste leerlingen werkt dat prima. Maar je kent er ook bij wie het net daar strandt: de leerling met dyslexie voor wie één zin op het scherm krijgen meer moeite kost dan die zin bedenken, of de leerling in het derde jaar die pas sinds vorig jaar in het Nederlands schoolloopt, in de klas al vlot meepraat en toch nog nauwelijks iets neergeschreven krijgt. Allebei weten ze het antwoord vaak wél; ze raken er alleen niet mee in jouw app. Veel AI-diensten kunnen intussen meer dan tekst alleen: ze zetten gesproken taal om in tekst, ze lezen voor, en ze kunnen zeggen wat er op een afbeelding staat. Wat jouw dienst precies aankan, verschilt en verandert — en let op één ding dat vaak wordt overgeslagen: wat je in een chatvenster ziet werken, is niet automatisch iets wat je in je eigen app kan inbouwen. Kijk dat dus na op het moment dat je het nodig hebt. Deze les gaat over beeld en geluid die jouw app <em>binnenkomen</em>: wanneer je dat inzet en, minstens even belangrijk, wanneer niet. Beeld of stemmen laten <em>génereren</em> laten we hier links liggen — dat kost meer, en de vragen rond auteursrecht en rond wiens stem je namaakt zijn vandaag nog niet uitgeklaard.',
           },
           {
             type: 'lijst',
@@ -1148,22 +1253,27 @@ export const MODULES_VIBE = [
     icoon: '🧪',
     titel: 'Een volledig voorbeeld',
     ondertitel: 'Eén project van het eerste idee tot in de klas, met alle tussenstappen.',
-    duur: '30 min',
-    niveau: 'Verdieping',
+    niveau: 'Doorkijk',
     doelen: [
       'Je ziet de hele weg één keer in samenhang, van lesprobleem tot werkende app.',
       'Je herkent waar het misloopt en hoe je bijstuurt zonder opnieuw te beginnen.',
       'Je haalt je eigen idee door dezelfde stappen.',
     ],
+    klaarzetten: [
+      'Een laptop — geen tablet.',
+      'Een werkend Claude-account.',
+      'Voor de opdracht achteraan: je eigen idee, en de app die je in de module Je eerste webapp bouwen al bouwde, als je die hebt.',
+    ],
     lessen: [
       {
         id: 'voorbeeld',
         titel: 'Van idee tot werkende versie',
+        minuten: 25,
         verdieping: true,
         blokken: [
           {
             type: 'tekst',
-            inhoud: 'In de vorige modules bouwde je een eerste versie van je eigen idee. Deze les legt daar één volledig project naast, van a tot z: het idee, de prompts zoals ze echt ingetypt zijn, en wat er onderweg misliep. Het voorbeeld komt uit het secundair, maar de weg is exact dezelfde voor een oefening rond breuken in het vierde leerjaar of rond de topografie van België in het vijfde.',
+            inhoud: 'Deze les legt één volledig project voor je neer, van a tot z: het idee, de prompts zoals ze echt ingetypt zijn, en wat er onderweg misliep. Bouwde je al een eerste versie van je eigen idee, dan leg je die er het best naast. Begin je hier, dan kan dat ook — je ziet dan eerst de hele weg en haalt er daarna je eigen idee door. Het voorbeeld komt uit het secundair, maar de weg is exact dezelfde voor een oefening rond breuken in het vierde leerjaar of rond de topografie van België in het vijfde.',
           },
           {
             type: 'tekst',
@@ -1215,6 +1325,7 @@ export const MODULES_VIBE = [
       {
         id: 'voorbeeld-in-de-klas',
         titel: 'Van werkende versie tot in de klas',
+        minuten: 40,
         verdieping: true,
         blokken: [
           {

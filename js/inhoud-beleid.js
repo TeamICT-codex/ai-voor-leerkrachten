@@ -27,17 +27,23 @@ export const MODULES_BELEID = [
     icoon: '🧭',
     titel: 'Het kader in het kort',
     ondertitel: 'Waar de regels eigenlijk over gaan, wat gewoon mag, en wie wat beslist in jouw school.',
-    duur: '25 min',
     niveau: 'Starter',
     doelen: [
       'Je weet waarover de regels rond AI eigenlijk gaan, en waarom het grootste deel van wat je wil doen gewoon mag.',
       'Je herkent in één vraag of iets gevoelig ligt: zit er iets van of over een herkenbare persoon in?',
       'Je weet wie wat beslist in je school, bij wie je met welke vraag terechtkan en bij wie je meldt als er iets misliep, en je kan elke nieuwe AI-vraag aftoetsen aan vier vragen.',
     ],
+    klaarzetten: [
+      'Geen laptops, geen accounts, geen schoolnetwerk. Deze module geef je in een gewone vergaderzaal.',
+      'Drie namen, vooraf opgezocht: jullie aanspreekpunt informatieveiligheid, de ICT-coördinator en de DPO van de scholengroep. Zonder die namen valt de opdracht achteraan stil.',
+      'Het AI-beleid of het ICT-reglement van de school, of de vaststelling dat er nog geen is. Allebei zijn een bruikbaar vertrekpunt.',
+      'Wil je de prompt tonen of uitproberen, hou dan een AI-assistent bij de hand op jouw scherm.',
+    ],
     lessen: [
       {
         id: 'waar-het-over-gaat',
         titel: 'Waar het eigenlijk over gaat',
+        minuten: 10,
         blokken: [
           {
             type: 'tekst',
@@ -74,6 +80,7 @@ export const MODULES_BELEID = [
       {
         id: 'wie-beslist-wat',
         titel: 'Wie beslist wat',
+        minuten: 25,
         blokken: [
           {
             type: 'tekst',
@@ -156,17 +163,22 @@ export const MODULES_BELEID = [
     icoon: '📜',
     titel: 'De wet in mensentaal',
     ondertitel: 'Drie wetten die er echt toe doen, vertaald naar wat jij morgen doet — en naar wat de school moet afspreken.',
-    duur: '35 min',
     niveau: 'Essentieel',
     doelen: [
       'Je kan uitleggen wie verantwoordelijk is voor de gegevens van leerlingen en collega\'s, en waarom dat mee bepaalt wat je in een prompt (je vraag aan de assistent) zet.',
       'Je weet wat de Europese AI-verordening vandaag al van een school vraagt, en wat pas later komt.',
       'Je weet wat je met lesmateriaal van anderen mag doen — in je klas, op Smartschool en op KlasCement.',
     ],
+    klaarzetten: [
+      'Geen laptops nodig. Wil je een van de prompts tonen, dan volstaat jouw scherm met een AI-assistent erop.',
+      'Zoek op waar jullie afgeschermde leeromgeving staat en wie de verwerkersovereenkomsten bijhoudt. Die twee vragen komen gegarandeerd.',
+      'Spreek vooraf met je directie af wat je over jullie eigen contracten kan toezeggen en wat je doorverwijst naar de DPO.',
+    ],
     lessen: [
       {
         id: 'gdpr-mensentaal',
         titel: 'GDPR: gegevens van mensen',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -228,6 +240,7 @@ export const MODULES_BELEID = [
       {
         id: 'ai-verordening',
         titel: 'De Europese AI-verordening',
+        minuten: 10,
         blokken: [
           {
             type: 'tekst',
@@ -294,6 +307,7 @@ export const MODULES_BELEID = [
       {
         id: 'auteursrecht-en-delen',
         titel: 'Auteursrecht en wat je deelt',
+        minuten: 10,
         blokken: [
           {
             type: 'tekst',
@@ -345,17 +359,23 @@ export const MODULES_BELEID = [
     icoon: '🏛️',
     titel: 'Voor directies en schoolbeleid',
     ondertitel: 'Leerlingdata van minderjarigen, gevoelige personeelsdata, en hoe je tot afspraken komt die mensen ook echt volgen.',
-    duur: '40 min',
     niveau: 'Essentieel',
     doelen: [
       'Je weet waarom gegevens van minderjarigen zwaarder wegen, en wat je school daarover concreet vastlegt.',
       'Je ziet waarom personeelsdata een apart hoofdstuk zijn, en welk overleg bij een invoering hoort.',
       'Je brengt je team in één vergadering tot een eerste versie van een AI-afsprakenkader.',
     ],
+    klaarzetten: [
+      'Het AI-beleid of het ICT-reglement van je school of scholengroep, als dat al bestaat.',
+      'Voor de opdracht achteraan: een uur vergadertijd met het directieteam, de ICT-coördinator, de zorgcoördinator en twee of drie leerkrachten uit verschillende vakwerkgroepen of leerjaren.',
+      'Iemand die notuleert, en de namen van jullie aanspreekpunt informatieveiligheid en van de DPO. Die opdracht eindigt met namen en data, niet met functies.',
+      'Vraag de DPO vooraf om advies in plaats van achteraf om goedkeuring. Dat scheelt je een ronde.',
+    ],
     lessen: [
       {
         id: 'leerlingdata-minderjarigen',
         titel: 'Leerlingdata en minderjarigen',
+        minuten: 15,
         blokken: [
           {
             type: 'tekst',
@@ -402,6 +422,7 @@ export const MODULES_BELEID = [
       {
         id: 'personeelsdata',
         titel: 'Personeelsdata, het vergeten stuk',
+        minuten: 10,
         blokken: [
           {
             type: 'tekst',
@@ -457,6 +478,7 @@ export const MODULES_BELEID = [
       {
         id: 'afsprakenkader',
         titel: 'Van losse regels naar een afsprakenkader',
+        minuten: 25,
         blokken: [
           {
             type: 'tekst',
@@ -512,6 +534,51 @@ export const MODULES_BELEID = [
               'Vijftien minuten de harde lijnen. Spreek af wat er nooit in gaat, en schrijf bij elk verbod meteen op wat je dan wél doet, anders onthoudt niemand het.',
               'Twintig minuten de weg en de afspraak. Wie beoordeelt een nieuwe toepassing, bij wie meldt een leerkracht een twijfel of een fout, wie is jullie aanspreekpunt informatieveiligheid, wie schrijft de twee pagina\'s, wanneer gaat ze naar het overlegorgaan, het teamoverleg en de onthaalmap voor nieuwe collega\'s, stagiairs en vrijwilligers, en wanneer herbekijken jullie ze? Noem namen, en zet het in de notulen voor je de zaal verlaat.',
             ],
+          },
+        ],
+      },
+      // Voor wie dit spoor zelf geeft. Staat als verdieping gemarkeerd: het is
+      // geen leerstof voor de zaal, dus het telt niet mee in de sessietijd en
+      // het komt niet in de deelnemersbundel terecht.
+      {
+        id: 'dit-kader-geven',
+        titel: 'Dit kader geven aan je team',
+        minuten: 15,
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'Van de drie sporen is dit het makkelijkst te geven: geen laptops, geen accounts, geen schoolnetwerk dat halverwege dichtvalt. Je hebt een zaal nodig, drie namen en een uur. Wat het lastig maakt, is iets anders. De vragen die terugkomen gaan over <em>jullie</em> school, en daar staat het antwoord niet in deze module. Bereid dus niet de leerstof voor maar de regie: wat zeg je toe, wat parkeer je, en bij wie komt het daarna terecht? Je hoeft geen jurist te zijn om dit te geven. "Dat weet ik niet, ik leg het voor aan de DPO en ik kom erop terug" is hier een volwaardig antwoord, en meteen het goede voorbeeld.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Een halfuur op een personeelsvergadering.</strong> De module <em>Het kader in het kort</em>: de ene vraag die alles stuurt — zit er iets van of over een herkenbare persoon in? — en wie in de school waarover beslist. De sessiebouwer rekent daar vijfendertig minuten voor; hou je het strikt op dertig, deel de vier vragen van de opdracht dan op papier uit in plaats van ze ter plekke te laten invullen. Opbrengst: iedereen weet wat gewoon mag, en iedereen kent de drie namen.',
+              '<strong>Zestig minuten met het directieteam.</strong> De opdracht <em>Eén vergadering, één eerste versie</em>, in de les <em>Van losse regels naar een afsprakenkader</em> hierboven, is daar letterlijk het draaiboek van: tien minuten inventaris, vijftien sorteren, vijftien de harde lijnen, twintig de weg en de afspraak. Opbrengst: een eerste versie van jullie afsprakenkader, met namen en een datum erbij.',
+              '<strong>Negentig minuten voor iedereen die mee beslist.</strong> <em>Het kader in het kort</em> en deze module samen, gelezen en besproken in plaats van voorgelezen. Opbrengst: één gedeeld beeld van wat de school moet regelen en van wat een leerkracht gerust mag doen. Reken dit als leestijd plus gesprek, niet als oefentijd: in dit spoor valt er niets aan een toestel te oefenen.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Wat je ook in een halfuur niet overslaat',
+            inhoud: 'Hoe kort je sessie ook is, twee dingen blijven staan. Eén: de <strong>meldweg</strong>. Wie iets ziet misgaan, meldt het diezelfde dag bij het aanspreekpunt informatieveiligheid of bij de directie, hoeft zelf niet in te schatten hoe erg het is, en wist het gesprek niet vóór zij zeggen dat het mag. Twee: <strong>zorg-, CLB- en gezondheidsgegevens blijven eruit</strong>, ook in een goedgekeurde tool. Die twee zinnen zijn de reden waarom een school dit kader geeft; de rest is context. Zeg ze dus vroeg, en niet in de laatste twee minuten wanneer de helft van de zaal al rechtstaat.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Waar een sessie over dit kader op vastloopt',
+            inhoud: 'Drie dingen, en je ziet ze alle drie aankomen. <strong>Juridische uitzonderingen.</strong> Eén iemand begint over een geval dat nergens in past, en twintig minuten zijn weg; parkeer het zichtbaar bij de DPO en ga door. <strong>De vraag of het bij ons mag.</strong> Daar heb jij het antwoord vaak niet op, en dat is geen falen: noteer de vraag, spreek af wie ze uitzoekt en tegen wanneer, en kom erop terug. <strong>De zaal die zich betrapt voelt.</strong> Iemand plakte vorige week een klaslijst in een chatvenster en beseft dat nu. Open daarom met wat gewoon mag, want dat is het grootste deel, en behandel een fout als iets wat je meldt in plaats van als iets wat je bekent. Sluit nooit af met een waarschuwingenlijst.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Zet je sessie in elkaar met de sessiebouwer',
+            inhoud: 'Zet begeleidersmodus aan en open de sessiebouwer op <code>#/sessie</code>. Je kiest daar hele modules van dit spoor of losse blokken uit een bestaand draaiboek, je zet er een onthaal, een pauze en een afronding bij, en je geeft elk onderdeel het aantal minuten dat jij echt hebt. De app rekent de kloktijden uit vanaf je startuur en maakt er een deelnemersbundel bij met de prompts en opdrachten van wat je koos. Je sessie zit in de link: mail hem naar jezelf en naar wie meekijkt, want zonder die link ben je hem kwijt. De begeleidersgids werkt dat uit onder <em>Een kortere sessie geven</em>.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Stuur de link van deze leeromgeving diezelfde dag door, met één zin over wat je niet behandelde. Wie met een concrete twijfel blijft zitten, leest zelf verder in <em>De wet in mensentaal</em>. En noteer één datum voor je de zaal verlaat: wanneer komen jullie hierop terug? Zonder die datum blijft het bij een goed gesprek.',
           },
         ],
       },

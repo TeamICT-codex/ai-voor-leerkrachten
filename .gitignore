@@ -10,3 +10,6 @@ node_modules/
 
 # Het testharnas wordt uit test/tests.json gebouwd en hoort niet in een commit.
 _testharnas.js
+
+# Uitvoer van de testloper, geen broncode.
+test/uitslag-node.json
