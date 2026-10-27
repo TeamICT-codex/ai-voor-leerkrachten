@@ -1,4 +1,5 @@
-// Eenvoudige lokale server voor dist/: node build/serve.mjs [poort]
+// Eenvoudige lokale server voor de uitvoermap uit cursus.config.json
+// (vandaag ../leerlingen): node build/serve.mjs [poort]
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';

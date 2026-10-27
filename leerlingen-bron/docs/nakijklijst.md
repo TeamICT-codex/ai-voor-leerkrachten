@@ -28,6 +28,7 @@ Alle 72 lessen en 8 quizzen zijn geschreven, door een tweede lezer nagekeken op 
 
 ## Feiten en bronnen
 
+- **Alle 26 externe links** in de cursus zijn op 27 oktober 2026 nagelopen en geven alle een 200. Dat zegt niets over de inhoud erachter: of de omschrijving in de les nog bij de pagina past, blijft mensenwerk. `npm run links` controleert enkel de interne links.
 - **1.4** Link naar de Europese IP Helpdesk (FAQ-pagina): bereikbaar op 27 oktober 2026, bestaan van de pagina af en toe nakijken.
 - **4.11** "Zelfs de bedrijven achter detectietools raden af om een beslissing alleen op die score te baseren": juist, maar zonder bron in de tekst. Eventueel een bron toevoegen.
 - **7.6** Kestin e.a. (Harvard, 2025): "194 studenten". Klopt volgens de reviewer, even nakijken in het artikel.
@@ -37,7 +38,7 @@ Alle 72 lessen en 8 quizzen zijn geschreven, door een tweede lezer nagekeken op 
 
 ## Redactionele keuzes
 
-- **Vaste personages.** De cursus werkt nu met elf vaste fictieve leerlingen, elk met één school, jaar en richting (tabel in `docs/leercollectief.md`). Een mechanische controle bevestigt dat jaar en school overal kloppen. Wil je een personage veranderen, pas dan de tabel én de lessen aan.
+- **Vaste personages.** De cursus werkt nu met elf vaste fictieve leerlingen, elk met één school, jaar en richting (tabel in `docs/leercollectief.md`). `build/personages.mjs` legt elke alinea naast die tabel en draait mee in `npm run check`. Wil je een personage veranderen, pas dan eerst de tabel aan en daarna de lessen; de controle wijst aan wat je nog vergeten bent.
 - **"Stageverslag" en "stagemap"** zijn beide gebruikt; "verslag" als gewone schooltaak is overal vervangen door taak, paper of tekst.
 - **7.4** De zin "Er bestaan apps die van een gewone foto een naaktbeeld maken" staat er bewust, zonder namen of instructies, met Child Focus en 1712 erbij. Beslis zelf of je het zo expliciet wilt.
 - **Naam van de cursus.** "AI-wijs op school" is een werktitel; wijzig ze in `cursus.config.json`.
@@ -46,5 +47,5 @@ Alle 72 lessen en 8 quizzen zijn geschreven, door een tweede lezer nagekeken op 
 ## Technisch, vóór publicatie
 
 - Zet `basisUrl` in `cursus.config.json` als je de site op een subpad host (nu niet nodig: alle links zijn relatief).
-- Het lettertype Nunito wordt van Google Fonts geladen; zonder internet valt de site terug op het systeemlettertype. Wil je geen externe aanroepen, haal de twee `<link>`-regels voor fonts uit `build/build.mjs`.
-- Test het certificaat één keer in de browser van je doelgroep (afdrukken naar pdf).
+- Het lettertype Poppins wordt van Google Fonts geladen; zonder internet valt de site terug op het systeemlettertype. Wil je geen externe aanroepen, haal de twee `<link>`-regels voor fonts uit `build/build.mjs`.
+- Het certificaat is getest op 27 oktober 2026: de drempels kloppen (zonder naam blijft de knop uit), en bij het afdrukken blijft alleen het certificaat staan — kop, zijbalk, formulier en knop vallen weg, en het blad past op één pagina. Doe die test opnieuw na een wijziging aan `assets/style.css` of aan de certificaatvereisten.

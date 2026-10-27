@@ -1,4 +1,5 @@
-// Controleert interne links in dist/ (href en src). Gebruik: node build/links.mjs
+// Controleert interne links (href en src) in de uitvoermap uit cursus.config.json,
+// vandaag ../leerlingen. Draai dit na een build. Gebruik: node build/links.mjs
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

@@ -10,12 +10,15 @@ De opbouw is geïnspireerd op het concept van de Nederlandse cursus *AI voor lee
 
 ```bash
 npm install
-npm run build        # bouwt de site in dist/
+npm run check        # inhoud (format, quizzen, woordgebruik) én de personages
+npm run build        # bouwt de site in de uitvoermap
 npm run serve        # lokale server op http://localhost:4321/
-npm run check        # controleert de inhoud (format, quizzen, woordgebruik)
+npm run links        # kapotte interne links, na een build
 ```
 
-De map `dist/` kun je op elke statische host zetten: GitHub Pages, Netlify, Cloudflare Pages, een schoolserver of een map in SharePoint. De site werkt ook rechtstreeks vanaf een USB-stick (open `dist/index.html`), alleen de voortgang per toestel kan dan door de browser beperkt worden.
+De uitvoermap staat in `cursus.config.json` onder `uitvoermap` en wijst in deze repo naar `../leerlingen`, zodat de cursus meteen als subsite van de leeromgeving mee online gaat. **De build maakt die map eerst leeg en schrijft ze opnieuw**: bewerk er dus niets met de hand, en commit bron én uitvoer samen.
+
+Die map kun je ook op elke andere statische host zetten: GitHub Pages, Netlify, Cloudflare Pages, een schoolserver of een map in SharePoint. De site werkt zelfs rechtstreeks vanaf een USB-stick (open `index.html`), alleen de voortgang per toestel kan dan door de browser beperkt worden.
 
 ## Mappen
 
@@ -29,8 +32,10 @@ De map `dist/` kun je op elke statische host zetten: GitHub Pages, Netlify, Clou
 | `docs/leercollectief.md` | Scholen, studierichtingen, vaste personages en regionale voorbeelden van Het leercollectief. |
 | `docs/nakijklijst.md` | Punten die de maker best zelf nakijkt vóór publicatie. |
 | `build/build.mjs` | De generator: Markdown → statische HTML. |
-| `build/check.mjs` | Controle van de inhoud. |
-| `build/serve.mjs` | Lokale server voor `dist/`. |
+| `build/check.mjs` | Controle van de inhoud: frontmatter, blokken, quizzen, Nederlands-Nederlandse woorden. |
+| `build/personages.mjs` | Controle van de elf vaste personages tegen de tabel in `docs/leercollectief.md`: staat elk personage overal in hetzelfde jaar en op dezelfde school? |
+| `build/links.mjs` | Controle van de interne links in de gebouwde site. |
+| `build/serve.mjs` | Lokale server voor de uitvoermap. |
 | `assets/` | Stylesheet, script, favicon. Worden naar `dist/assets/` gekopieerd. |
 | `cursus.config.json` | Naam, ondertitel, organisatie en certificaatvereisten. |
 
@@ -38,7 +43,7 @@ De map `dist/` kun je op elke statische host zetten: GitHub Pages, Netlify, Clou
 
 1. Open het bestand in `content/<hoofdstuk>/`. Elke les is Markdown met frontmatter (titel, intro, duur, doelen) en blokken zoals `::: prompt`, `::: opdracht`, `::: kernpunten`. Zie `docs/contentformat.md`.
 2. Wil je een eigen video bij een les, zet dan `video: <YouTube-id>` in de frontmatter.
-3. Draai `npm run check` en daarna `npm run build`.
+3. Draai `npm run check` en daarna `npm run build`. Verander je iets aan een personage — ander jaar, andere school, andere richting — pas dan eerst de tabel in `docs/leercollectief.md` aan; `npm run check` legt de lessen daar naast.
 
 Een hoofdstuk weglaten: verwijder de map (of hernoem `hoofdstuk.json`). De nummering en navigatie volgen de mappen.
 
