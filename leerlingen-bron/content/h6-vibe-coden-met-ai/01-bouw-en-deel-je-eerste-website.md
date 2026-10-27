@@ -53,8 +53,9 @@ Om je website online te zetten, gebruik je een gratis dienst zoals Netlify Drop.
 ::: stappen
 1. Zet `index.html` in een lege map. Gebruik je ook afbeeldingen of andere bestanden, zet die in dezelfde map.
 2. Ga naar [Netlify Drop](https://app.netlify.com/drop) en sleep de map naar het venster.
-3. Je krijgt een webadres. Open dat in een privévenster om te zien wat anderen zien.
-4. Op het moment van schrijven blijft een site zonder account maar kort online. Wil je hem bewaren, dan heb je een gratis account nodig. Overleg dat eerst met je ouders of je leerkracht.
+3. Je krijgt meteen een webadres. Op het moment van schrijven zit daar een tijdelijk wachtwoord op tot je de site opeist met een account. Klasgenoten zien dus eerst een wachtwoordscherm, niet je website. Zonder account verdwijnt zo'n site ook snel weer.
+4. Wil je dat klasgenoten of je jury de link kunnen openen? Meld je dan aan met een gratis account, eis je site op en zet hem op openbaar. Dat mag vanaf 13 jaar. Overleg het eerst met je ouders of je leerkracht.
+5. Open je link daarna in een privévenster om te zien wat anderen echt zien.
 :::
 
 ::: letop Online is openbaar

@@ -15,13 +15,13 @@ Een paper of GIP schrijf je niet in één avond. Je werkt er weken aan, in versc
 Op het moment van schrijven zijn er drie gangbare manieren. Menu's en namen veranderen geregeld. Het kan er bij jou dus anders uitzien.
 
 - **ChatGPT: Projecten.** Je start een nieuw project vanuit de zijbalk. Je geeft het een naam, voegt bestanden toe en schrijft instructies. Elke chat binnen dat project kan die bestanden gebruiken.
-- **Gemini: Gems.** Een Gem is een eigen versie van Gemini met vaste instructies, en je kunt er bestanden aan toevoegen. Werk je met een Google-account van school, kijk dan na of Gems daar aanstaan.
+- **Gemini: Gems of vaardigheden.** Dat is een eigen versie van Gemini met vaste instructies, en je kunt er bestanden aan toevoegen. Google is de naam *Gem* aan het vervangen door *vaardigheid*, dus kijk naar allebei. Werk je met een Google-account van school, kijk dan na of ze daar aanstaan.
 - **Eén lange chat.** Heeft je chatbot geen projectfunctie, of mag je die niet gebruiken? Start dan één chat voor je opdracht. Voeg daar je bestanden toe, geef de chat een herkenbare naam en blijf erin werken.
 
 Andere chatbots, zoals Copilot, hebben soms iets gelijkaardigs. Wat met een gratis account kan, verschilt per chatbot.
 
 ::: stappen
-1. Open je chatbot en zoek in de zijbalk naar *Projecten*, *Gems* of iets gelijkaardigs.
+1. Open je chatbot en zoek in de zijbalk naar *Projecten*, *Gems*, *vaardigheden* of iets gelijkaardigs.
 2. Maak een nieuw project en geef het een duidelijke naam, bijvoorbeeld "Onderzoeksopdracht bewegen".
 3. Voeg je bestanden toe. Hieronder lees je welke.
 4. Plak je werkafspraken in het veld voor instructies.
@@ -85,7 +85,7 @@ Volgens de opdracht formuleer je een eigen onderzoeksvraag, verzamel je zelf geg
 Goed dat Noor het vroeg. Anders had AI misschien gedaan alsof het de voorbeeldpaper kende. Ze zoekt een versie met gewone tekst. Lukt dat niet, dan laat ze het voorbeeld gewoon weg. Het is geen verplicht bestand.
 
 ::: opdracht Zet jouw project klaar
-1. Kies waar je werkt: een project, een Gem of één lange chat.
+1. Kies waar je werkt: een project, een Gem of vaardigheid, of één lange chat.
 2. Verzamel je bestanden: opdracht, criteria, je notities en je stijlregels. Een voorbeeld is niet verplicht.
 3. Haal namen en persoonlijke gegevens uit je notities.
 4. Pas de werkafspraken aan voor jouw opdracht en plak ze in het project.

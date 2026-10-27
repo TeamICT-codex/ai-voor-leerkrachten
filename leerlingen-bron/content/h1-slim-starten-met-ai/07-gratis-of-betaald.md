@@ -7,7 +7,7 @@ doelen:
   - Je kunt uitleggen in welke situaties een betaald account helpt en wat het niet oplost.
 ---
 
-Bijna elke chatbot heeft een gratis versie en een of meer betaalde abonnementen. Op het moment van schrijven kost zo'n abonnement vaak rond de twintig euro per maand. Dat is veel geld voor iets wat je voor school misschien maar een paar keer per week gebruikt. Goed nieuws: **voor deze cursus heb je het niet nodig.** Elke les en elke opdracht werkt met een gratis chatbot of met de chatbot van je schoolaccount.
+Bijna elke chatbot heeft een gratis versie en een of meer betaalde abonnementen. Op het moment van schrijven kost het volledige abonnement bij de grote chatbots ruim twintig euro per maand. Dat is veel geld voor iets wat je voor school misschien maar een paar keer per week gebruikt. Sommige aanbieders hebben daarnaast een goedkoper abonnement van een paar euro, met minder ruimte dan het volledige. Prijzen en formules veranderen snel, dus kijk ze altijd zelf na voor je iets beslist. Goed nieuws: **voor deze cursus heb je het niet nodig.** Elke les en elke opdracht werkt met een gratis chatbot of met de chatbot van je schoolaccount.
 
 ## Wat je gratis al kunt
 

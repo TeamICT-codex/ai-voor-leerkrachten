@@ -13,7 +13,7 @@ Je eerste website staat. Misschien wil je verder. Dat kan, en je hebt er geen be
 Je gebruikt telkens gratis hulpmiddelen. Op het moment van schrijven zijn dat vooral deze drie:
 
 - **De canvas- of artifactfunctie van je chatbot.** Je ziet je website meteen naast de chat en kunt hem uitproberen.
-- **Netlify Drop.** Je sleept een map met je website naar het venster en krijgt een webadres.
+- **Netlify Drop.** Je sleept een map met je website naar het venster en krijgt meteen een webadres. Op het moment van schrijven is dat adres beschermd met een tijdelijk wachtwoord zolang je niet aangemeld bent. Meld je je aan met een gratis account, dan wordt de website van jou en kun je hem openbaar zetten.
 - **GitHub Pages.** Je bewaart je website met al zijn versies op GitHub en zet hem gratis online. Daarvoor heb je een gratis GitHub-account nodig. Kijk de leeftijdsvoorwaarden na en overleg met je ouders of leerkracht.
 
 ## Niveau 1 · Basis: één bestand, één doel

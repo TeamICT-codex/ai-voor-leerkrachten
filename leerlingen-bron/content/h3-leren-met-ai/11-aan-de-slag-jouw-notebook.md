@@ -14,7 +14,7 @@ Je weet nu wat Gemini Notebook (tot midden 2026 NotebookLM) kan. Tijd om je eige
 ::: opdracht Leg klaar wat je nodig hebt
 1. Kies één bron: een hoofdstuk uit je cursus, een artikel voor je taak of je eigen notities. Een pdf, een Google-document of geplakte tekst werkt.
 2. Kijk je bron na: staan er namen van klasgenoten, punten of andere persoonsgegevens in? Haal ze eruit.
-3. Ga naar [notebooklm.google.com](https://notebooklm.google.com) (dat adres werkt op het moment van schrijven nog) en meld je aan met een Google-account dat je hiervoor mag gebruiken. Bij voorkeur het schoolaccount, als je school Gemini Notebook aanbiedt.
+3. Ga naar [notebook.google.com](https://notebook.google.com) (het oude adres notebooklm.google.com stuurt je door) en meld je aan met een Google-account dat je hiervoor mag gebruiken. Bij voorkeur het schoolaccount, als je school Gemini Notebook aanbiedt.
 4. Kun je niet aanmelden? Lees de stappen dan toch mee en doe stap 2 in een chatbot die je wel mag gebruiken. Geef nooit een valse leeftijd op.
 :::
 

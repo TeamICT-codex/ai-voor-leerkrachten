@@ -16,7 +16,7 @@ Alle 72 lessen en 8 quizzen zijn geschreven, door een tweede lezer nagekeken op 
 ## Tools en menu's (veranderen snel; overal staat al "op het moment van schrijven")
 
 - **1.6** Aanmeldadres voor Copilot met een schoolaccount: de les zegt copilot.microsoft.com; een Microsoft 365-schoolaccount komt vaak uit bij m365copilot.com of copilot.cloud.microsoft. Kies het adres dat jouw doelscholen gebruiken, of schrijf "via het Copilot-icoon in je Microsoft 365-omgeving".
-- **1.6** Minimumleeftijd van Le Chat (Mistral) is niet nagekeken. De les zegt alleen "lees de voorwaarden".
+- **1.6** Nagekeken op 27 oktober 2026: Mistral hernoemde Le Chat naar **Vibe** (chat.mistral.ai blijft werken) en hanteert 13 jaar, met ouderlijke toestemming onder de 18. De les, les 7.5 en de leerkrachtenpagina in `build/build.mjs` zijn aangepast.
 - **2.9** Namen van instellingen: ChatGPT (Personalisatie, Aangepaste instructies, Gegevensbeheer, "Het model verbeteren voor iedereen"), Gemini (Gems, activiteit), Copilot (privacy, modeltraining). Controleer de Nederlandstalige labels.
 - **3.9 t/m 3.11** Gemini Notebook (de nieuwe naam van NotebookLM sinds 16 juli 2026): de drie delen (Bronnen, Chat, Studio), de leervormen (mindmap, audio-overzicht, video-overzicht, flashcards, quiz), de knop "Aanpassen", en de minimumleeftijd voor privé- en schoolaccounts.
 - **3.6** Spraakmodus: "icoontje met geluidsgolfjes", bij Gemini "Gemini Live".
@@ -32,7 +32,7 @@ Alle 72 lessen en 8 quizzen zijn geschreven, door een tweede lezer nagekeken op 
 - **1.4** Link naar de Europese IP Helpdesk (FAQ-pagina): bereikbaar op 27 oktober 2026, bestaan van de pagina af en toe nakijken.
 - **4.11** "Zelfs de bedrijven achter detectietools raden af om een beslissing alleen op die score te baseren": juist, maar zonder bron in de tekst. Eventueel een bron toevoegen.
 - **7.6** Kestin e.a. (Harvard, 2025): "194 studenten". Klopt volgens de reviewer, even nakijken in het artikel.
-- **7.7** IEA-link (executive summary van "Energy and AI"): bereikbaar; controleer of de omschrijving in de les bij dat rapport past.
+- **7.7** IEA-link: bereikbaar op 27 oktober 2026, en de passage over de afweging tussen water en elektriciteit staat er letterlijk in. De link wijst naar "Powering Artificial Intelligence" (oktober 2026), niet naar het oudere "Energy and AI" — de omschrijving in de les is daarop aangepast.
 - **7.8** Lange link naar de voorjaarsprognose 2026 van de Europese Commissie: bereikbaar op 27 oktober 2026.
 - **7.4** Nederlands onderzoek over gekloonde stemmen (Rijksoverheid, 2024) is bewust behouden, met de vermelding dat het Nederlands is en dat stemklonen in elke taal werkt. Vervangen door een Vlaamse bron als je er een vindt.
 

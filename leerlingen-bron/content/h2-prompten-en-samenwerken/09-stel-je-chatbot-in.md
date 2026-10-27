@@ -54,13 +54,13 @@ Zet er geen persoonsgegevens in: niet je volledige naam, niet je school, niet je
 
 Test het meteen: start een nieuwe chat met een vraag voor school. Vind je het antwoord te kort of te lang, schaaf dan je instructies bij.
 --- Gemini
-In Gemini maak je een **Gem**: een eigen versie van Gemini met vaste instructies.
+In Gemini maak je een eigen versie van Gemini met vaste instructies. Op het moment van schrijven heet dat een **Gem**, en Google is bezig die te vervangen door **vaardigheden**. Zoek dus naar een van die twee; wat je ermee doet, blijft hetzelfde.
 
-1. Open Gemini en zoek in het menu naar **Gems**.
-2. Kies voor een nieuwe Gem en geef hem een naam, bv. "Studiehulp".
+1. Open Gemini en zoek in het menu naar **Gems** of **vaardigheden**.
+2. Maak er een nieuwe aan en geef hem een naam, bv. "Studiehulp".
 3. Plak je tekst bij de instructies en sla op.
 
-Een Gem gebruik je alleen als je hem opent. Zo kun je er ook meerdere maken, bijvoorbeeld een voor talen en een voor wetenschappen.
+Zo'n eigen versie werkt alleen als je ze opent. Je kunt er dus meerdere maken, bijvoorbeeld een voor talen en een voor wetenschappen.
 --- Copilot
 Copilot heeft op het moment van schrijven instellingen voor **personalisatie** en een **geheugen**. Daarmee onthoudt Copilot je voorkeuren.
 
@@ -77,8 +77,8 @@ Een tweede instelling gaat over iets anders. Mag het bedrijf je gesprekken gebru
 
 ::: stappen
 1. **ChatGPT**: ga naar Instellingen, dan **Gegevensbeheer**, en zet **Het model verbeteren voor iedereen** uit.
-2. **Gemini**: zoek in je instellingen naar je **activiteit** (lange tijd *Gemini-apps-activiteit* genoemd) en beslis of die bewaard en gebruikt mag worden.
-3. **Copilot**: zoek bij Privacy naar **modeltraining** en zet die uit als je dat wilt.
+2. **Gemini**: zoek in je instellingen naar je activiteit. De schakelaar heet **Activiteit bewaren** en staat bij je **Gemini Apps-activiteit**. Daar beslis je of je gesprekken bewaard en gebruikt mogen worden.
+3. **Copilot**: zoek bij **Privacy** de schakelaar die bepaalt of je gesprekken gebruikt worden om de AI te trainen, en zet die uit. Vind je er geen? Microsoft zegt dat het gesprekken van aangemelde gebruikers onder de 18 jaar niet gebruikt om zijn AI te trainen.
 :::
 
 Uitzetten wist je oude chats niet. Het zorgt er wel voor dat nieuwe gesprekken niet gebruikt worden om het model te trainen. Let op: beoordeel je een antwoord met een duimpje, dan kan het bedrijf dat gesprek toch bekijken of gebruiken.
@@ -91,7 +91,7 @@ Ook met de training uitgezet kunnen je gesprekken nog bewaard worden bij het bed
 
 ::: kernpunten
 - Vaste voorkeuren (hoe je antwoord wilt) zet je in de instellingen. Een concrete taak hoort in de chat zelf.
-- In ChatGPT gebruik je Aangepaste instructies, in Gemini een Gem en in Copilot personalisatie of het geheugen.
+- In ChatGPT gebruik je Aangepaste instructies, in Gemini een Gem of een vaardigheid, en in Copilot personalisatie of het geheugen.
 - Zet de instelling uit waarmee je chats gebruikt worden om het model te verbeteren, als je dat niet wilt.
 - Menu's en namen veranderen. Zoek in de instellingen als je iets niet vindt.
 :::

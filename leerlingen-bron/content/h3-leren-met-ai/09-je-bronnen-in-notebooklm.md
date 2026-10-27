@@ -13,7 +13,7 @@ Voor studeren is dat een groot voordeel. Je werkt met precies de leerstof die je
 
 ## Wat heb je nodig?
 
-- **Een Google-account.** Gemini Notebook is een aparte app van Google. Je meldt je aan op [notebooklm.google.com](https://notebooklm.google.com). Dat oude adres werkt op het moment van schrijven nog.
+- **Een Google-account.** Gemini Notebook is een aparte app van Google. Je meldt je aan op [notebook.google.com](https://notebook.google.com). Het oude adres notebooklm.google.com stuurt je op het moment van schrijven automatisch door.
 - **Toestemming.** Kijk na wat je school toelaat. Werkt je school met Google Workspace for Education, dan kan Gemini Notebook via je schoolaccount beschikbaar zijn, maar je school kan het ook uitgeschakeld hebben. Werkt je school met Microsoft 365, vraag dan na of er een gelijkaardige tool is. Geef nooit een valse leeftijd op om toegang te krijgen.
 - **Eén goede bron.** Een hoofdstuk uit je cursus, een artikel voor je taak of je eigen notities. Meer is niet nodig om te beginnen.
 

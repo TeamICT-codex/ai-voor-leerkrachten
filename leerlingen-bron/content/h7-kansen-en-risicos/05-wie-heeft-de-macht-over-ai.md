@@ -33,7 +33,7 @@ Hetzelfde speelt op grotere schaal. Stel dat bijna alle AI van bedrijven uit Ã©Ã
 Europa probeert minder afhankelijk te worden en spelregels te maken.
 
 - **Regels.** De [Europese AI-verordening](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) is in werking sinds augustus 2024. Ze deelt AI-toepassingen in volgens hun risico. Sinds 2 februari 2025 zijn sommige toepassingen verboden. Zo mag een school geen AI gebruiken die de emoties van leerlingen herkent, behalve om medische of veiligheidsredenen.
-- **Eigen modellen.** Er zijn Europese AI-bedrijven, zoals het Franse Mistral met de chatbot Le Chat.
+- **Eigen modellen.** Er zijn Europese AI-bedrijven, zoals het Franse Mistral met de chatbot Vibe (vroeger Le Chat).
 - **Rekenkracht.** Via de zogenoemde [AI Factories van EuroHPC](https://www.eurohpc-ju.europa.eu/ai-factories_en) (Engels) bouwt Europa rekencentra uit voor onder meer onderzoekers en bedrijven. Let op: dat een project aangekondigd of goedgekeurd is, betekent nog niet dat het rekencentrum al draait.
 - **Vlaanderen.** Ook de Vlaamse overheid heeft een eigen AI-beleid, met steun voor onderzoek, bedrijven en opleiding. In Leuven doet onderzoekscentrum imec onderzoek naar chiptechnologie.
 

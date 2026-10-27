@@ -18,7 +18,7 @@ Alle prompts in deze cursus werken in elke grote chatbot. De knoppen en menu's z
 | **Gemini** | Google | Werkt je school met Google Workspace, dan kun je Gemini vaak met je schoolaccount gebruiken, naast Docs en Slides. | Ook hier bepaalt je school welke functies aanstaan. |
 | **ChatGPT** | OpenAI | De bekendste chatbot, met veel functies: beelden maken, spraak, een apart venster om teksten en code te bewerken. | Met een privéaccount. De gratis versie heeft limieten. |
 | **Claude** | Anthropic | Sterk in lange teksten en in duidelijke uitleg. | Op het moment van schrijven alleen voor wie 18 jaar of ouder is. |
-| **Le Chat** | Mistral (Frankrijk) | Een Europese chatbot van een Europees bedrijf. Handig als je bewust een Europees alternatief wilt. | Minder bekend, en sommige functies werken anders dan bij de grote Amerikaanse chatbots. |
+| **Vibe** (vroeger Le Chat) | Mistral (Frankrijk) | Een Europese chatbot van een Europees bedrijf. Handig als je bewust een Europees alternatief wilt. | Op het moment van schrijven minstens 13 jaar, net als de meeste andere. Minder bekend, en sommige functies werken anders dan bij de grote Amerikaanse chatbots. |
 
 Er bestaan nog veel meer chatbots, ook uit China en de Verenigde Staten. Met de vijf hierboven kun je de hele cursus volgen. Kies liever een chatbot die je school toelaat dan de nieuwste die je op sociale media ziet.
 

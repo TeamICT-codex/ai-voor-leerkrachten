@@ -22,7 +22,7 @@ Computers worden warm en moeten gekoeld worden. Sommige datacenters gebruiken da
 Chips, servers, kabels en gebouwen worden gemaakt van metalen en andere grondstoffen. Die worden ontgonnen, verwerkt en vervoerd. Na een paar jaar wordt hardware vervangen en wordt het afval. Hoe lang toestellen meegaan en of onderdelen opnieuw gebruikt worden, telt dus ook mee.
 :::
 
-Die drie hangen samen. Volgens het Internationaal Energieagentschap (IEA) kan minder water voor koeling meer elektriciteit vragen, en omgekeerd. Waar een datacenter staat en hoe het gebouwd is, maakt dus verschil. Je leest dat in de [samenvatting van het IEA-rapport over energie en AI](https://www.iea.org/reports/powering-artificial-intelligence/executive-summary) (Engels). Let op: veel cijfers gaan over alle datacenters samen. Daarin zit veel meer dan AI.
+Die drie hangen samen. Volgens het Internationaal Energieagentschap (IEA) kan minder water voor koeling meer elektriciteit vragen, en omgekeerd. Waar een datacenter staat en hoe het gebouwd is, maakt dus verschil. Je leest dat in de [samenvatting van het IEA-rapport "Powering Artificial Intelligence"](https://www.iea.org/reports/powering-artificial-intelligence/executive-summary) uit oktober 2026 (Engels). Let op: veel cijfers gaan over alle datacenters samen. Daarin zit veel meer dan AI.
 
 Ook de VN-organisatie UNCTAD wijst erop dat elektronica in elke fase van haar leven gevolgen heeft: van de mijn tot de fabriek, tijdens het gebruik en als afval. Haar [rapport over de digitale economie](https://unctad.org/publication/digital-economy-report-2024) (Engels) gaat over alle digitale technologie, niet alleen over AI.
 
