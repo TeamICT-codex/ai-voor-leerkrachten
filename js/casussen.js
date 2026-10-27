@@ -5,10 +5,12 @@
 // "hangt ervan af" zijn de belangrijkste: daar ontstaat het gesprek. Elk
 // oordeel blijft in de app verborgen tot de lezer klikt.
 //
-// De gespreksvraag (`discussie`) hoort bij het oordeel en verschijnt dus pas
-// nadat de lezer dat oordeel opende — ook zonder begeleidersmodus, enkel met
-// een ander etiket. Op dat moment heeft iedereen al geoordeeld, dus solo
-// tonen bederft het groepsgesprek niet. Zie toonInhoudsblok() in app.js.
+// De gespreksvraag (`discussie`) staat volledig achter de begeleidersmodus:
+// zonder die modus krijg je ze niet te zien, ook niet nadat je het oordeel
+// opende. Wie de casussen alleen doorneemt, zet die modus dus aan op de
+// modulepagina; in de deelnemersbundel komt de gespreksvraag sowieso niet
+// mee, ook niet met de modus aan. Solo tonen met een ander etiket is
+// overwogen; T049 legt de huidige keuze vast. Zie toonInhoudsblok() in app.js.
 //
 // VERIFICATIE: de eerste veertien casussen zijn op 3 september 2026 nagekeken
 // op juridische juistheid, didactische werking en Vlaamse herkenbaarheid, en
@@ -182,8 +184,8 @@ export const MODULE_CASUSSEN = {
           stappen: [
             "Schrijf in drie zinnen één situatie uit je eigen praktijk op waarvan je niet zeker bent of het mag. Zonder naam, zonder klas.",
             "Geef jezelf een oordeel — mag, mag niet, of hangt ervan af — en schrijf erbij waarvan het dan afhangt.",
-            "Loop de vier vragen uit de module Het kader in het kort erop na: zit er iets van of over een herkenbare persoon in, kan die eruit, gaat het over zorg of gezondheid, en beslist het systeem mee over een mens?",
-            "Raak je er niet uit, dan is dat geen falen maar het antwoord: leg het voor op de vakwerkgroep of aan je ICT-coördinator. Noteer wie je het wanneer vraagt.",
+            "Loop de vier vragen uit de module Het kader in het kort erop na: zit er iets van of over een herkenbare persoon in, kan die eruit, gaat het over zorg, gezondheid, geloof, afkomst of de thuissituatie, en beslist het systeem mee over een mens? Is dat derde antwoord ja, dan stop je daar: dat beslis je niet alleen.",
+            "Raak je er niet uit, dan is dat geen falen maar het antwoord: leg het voor op het teamoverleg of de vakwerkgroep, aan je directie of ICT-coördinator, of aan de DPO van de scholengroep als het over gegevens van leerlingen gaat. Noteer wie je het wanneer vraagt.",
           ],
           klaar: "je situatie op papier staat met jouw oordeel erbij, en je weet of je ze zelf kan beantwoorden of ze moet voorleggen.",
         },

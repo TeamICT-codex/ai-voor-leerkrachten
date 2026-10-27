@@ -327,7 +327,7 @@ export const MODULES_BELEID = [
               '<strong>Mag niet.</strong> De bronvermelding weglaten omdat ze lelijk staat op je dia: zonder vermelding val je buiten de uitzondering.',
               '<strong>Mag niet.</strong> Een foto van je klas op KlasCement zetten. Daar komt naast het auteursrecht ook het portretrecht bij — het recht van iemand op zijn eigen beeld — en de privacywetgeving.',
               '<strong>Hangt ervan af.</strong> Hoeveel je mag overnemen. De wet zegt enkel dat het verantwoord moet zijn door het niet-winstgevende doel. In de praktijk hanteren de koepels en de organisaties die de auteursvergoedingen innen ongeveer tien procent van een afgerond geheel: een sectorafspraak, geen wettelijk maximum. Vraag na wat bij jouw net geldt.',
-              '<strong>Hangt ervan af.</strong> Materiaal dat je in opdracht van de school maakte. Dat behoort volgens Onderwijs Vlaanderen toe aan de school; wat je op eigen initiatief maakte, aan jou. Spreek vooraf af wat ermee gebeurt bij een schoolverandering.',
+              '<strong>Hangt ervan af.</strong> Materiaal dat je in opdracht van de school maakte. Als maker ben je in principe zelf de auteur, ook van wat in uitvoering van je opdracht ontstaat; de school krijgt die rechten pas als dat uitdrukkelijk is vastgelegd — kijk na of daar iets over staat in je arbeidsreglement of bij je aanstelling. Wat je op eigen initiatief maakte, blijft van jou. Voor software die je voor de school schrijft ligt het net omgekeerd: die rechten gaan wél automatisch naar de werkgever. Spreek vooraf af wat er met je materiaal gebeurt bij een schoolverandering.',
             ],
           },
           {
@@ -389,7 +389,7 @@ export const MODULES_BELEID = [
             type: 'kader',
             variant: 'privacy',
             titel: '"Vanaf dertien mag het" — bijna altijd fout',
-            inhoud: 'Je hoort die zin overal, en hij klopt zelden. Die dertien jaar komt uit één regel over online diensten die op toestemming steunen, en geldt daarbuiten niet: over gezondheidsgegevens van een leerling beslissen de ouders tot achttien. Er bestaat <strong>geen wettelijke minimumleeftijd voor AI</strong>. Wat in de praktijk wél bepaalt wat jullie leerlingen mogen, zijn de gebruiksvoorwaarden van de dienst en wat jullie school afspreekt. Hou die twee vragen apart: mag dit volgens de voorwaarden van de leverancier, gezien de leeftijd van onze leerlingen? En daarna pas: willen wij dit, en onder welke begeleiding?',
+            inhoud: 'Je hoort die zin overal, en hij klopt zelden. Die dertien jaar komt uit één regel over online diensten die op toestemming steunen, en geldt daarbuiten niet: bij het CLB bijvoorbeeld mag een leerling vanaf twaalf jaar in principe zelf beslissen over zijn dossier, tenzij blijkt dat hij dat niet kan, en in de zorg telt niet zijn leeftijd maar of hij zijn eigen belangen kan inschatten. Dat gaat over wie zijn rechten op zijn dossier uitoefent, niet over wie een AI-tool mag gebruiken. Er bestaat <strong>geen wettelijke minimumleeftijd voor AI</strong>. Wat in de praktijk wél bepaalt wat jullie leerlingen mogen, zijn de gebruiksvoorwaarden van de dienst en wat jullie school afspreekt. Hou die twee vragen apart: mag dit volgens de voorwaarden van de leverancier, gezien de leeftijd van onze leerlingen? En daarna pas: willen wij dit, en onder welke begeleiding?',
           },
           {
             type: 'tekst',
@@ -491,7 +491,7 @@ export const MODULES_BELEID = [
           {
             type: 'lijst',
             items: [
-              '<strong>Welke toepassingen goedgekeurd zijn, en waarvoor.</strong> Met per toepassing het doel en de gegevens die erin mogen. Wat er niet op staat, gebruik je niet met persoonsgegevens.',
+              '<strong>Welke toepassingen goedgekeurd zijn, en waarvoor.</strong> Met per toepassing het doel, de gegevens die erin mogen, en hoelang gesprekken bewaard blijven — bij een AI-assistent staat de gespreksgeschiedenis vaak standaard aan. Wat er niet op staat, gebruik je niet met persoonsgegevens.',
               '<strong>Wat er nooit in gaat.</strong> Zorg-, CLB- en gezondheidsgegevens, personeelsdossiers, beeld van leerlingen — bij elk verbod meteen de wél-variant.',
               '<strong>Wie beslist wat.</strong> Een leerkracht kiest haar werkwijze, de school kiest de toepassingen, het bestuur draagt de verantwoordelijkheid. Zet er namen bij.',
               '<strong>Hoe je een nieuwe tool binnenhaalt.</strong> Eén beoordelingsstap vóór ingebruikname: wie ze doet, en waar het antwoord landt.',
@@ -510,7 +510,7 @@ export const MODULES_BELEID = [
             type: 'kader',
             variant: 'privacy',
             titel: 'Regel de meldweg vóór je ze nodig hebt',
-            inhoud: 'Een datalek is zelden een hack. Meestal is het een mail met de puntenlijst naar de verkeerde ouders, of een AI-gesprek met leerlinggegevens in een tool zonder afspraken. Twee dingen bepalen hoe zo\'n dag afloopt. Eén: wie het ziet, meldt meteen en hoeft zelf niet in te schatten hoe erg het is — dat doen jullie, met de DPO. Twee: de klok loopt vanaf het moment dat <em>iemand</em> in de school het weet, en voor een ernstig lek staat er 72 uur op om de toezichthouder te verwittigen. Leg dus één meldpunt en één procedure vast, en noteer intern ook wat je niet moet melden.',
+            inhoud: 'Een datalek is zelden een hack. Meestal is het een mail met de puntenlijst naar de verkeerde ouders, of een AI-gesprek met leerlinggegevens in een tool zonder afspraken. Twee dingen bepalen hoe zo\'n dag afloopt. Eén: wie het ziet, meldt meteen en hoeft zelf niet in te schatten hoe erg het is — dat doen jullie, met de DPO. Twee: de klok loopt vanaf het moment dat <em>iemand</em> in de school het weet, en voor een ernstig lek staat er 72 uur op om de toezichthouder te verwittigen. Leg dus één meldpunt en één procedure vast, en noteer intern ook wat je niet moet melden. Spreek er meteen bij af wie de ouders, leerlingen of collega\'s rechtstreeks verwittigt: bij een lek met zware gevolgen voor de mensen zelf moet dat meestal ook, en dat gesprek voer je liever voorbereid dan geïmproviseerd.',
           },
           {
             type: 'prompt',
@@ -522,7 +522,7 @@ export const MODULES_BELEID = [
             type: 'kader',
             variant: 'weetje',
             titel: 'Wat er op dit moment nog niet geregeld is',
-            inhoud: 'Er is <strong>geen afzonderlijke Vlaamse AI-wet voor het onderwijs</strong>: scholen werken binnen de <strong>GDPR</strong> — de Europese privacywetgeving — de Europese AI-verordening en de onderwijsregelgeving. Er lopen wel trajecten, maar dat is nog geen kader. Bij het schrijven van deze module was er in België ook nog geen AI-toezichthouder aangeduid; dat verandert niets aan wat geldt, enkel aan wie er vandaag op kijkt. Wat je school wél moet: haar personeel helpen begrijpen wat de AI doet die ze gebruikt. Daarvoor hoeft niemand een attest te halen en bestaat er geen apart AI-register; één overzicht van welke vorming jullie gaven en welke toepassing jullie goedkeurden, volstaat. Leg een concrete twijfel voor aan de DPO — dit is geen juridisch advies.',
+            inhoud: 'Er is <strong>geen afzonderlijke Vlaamse AI-wet voor het onderwijs</strong>: scholen werken binnen de <strong>GDPR</strong> — de Europese privacywetgeving — de Europese AI-verordening en de onderwijsregelgeving. Er lopen wel trajecten, maar dat is nog geen kader. Bij het schrijven van deze module was er in België ook nog geen AI-toezichthouder aangeduid; dat verandert niets aan wat geldt, enkel aan wie er vandaag op kijkt. Wat je school wél moet: haar personeel helpen begrijpen wat de AI doet die ze gebruikt. Daarvoor hoeft niemand een attest te halen en bestaat er geen apart AI-register; één overzicht van welke vorming jullie gaven en welke toepassing jullie goedkeurden, volstaat. Los daarvan staat het <strong>verwerkingsregister</strong> — het overzicht van wat jullie met gegevens van mensen doen, waarvoor en met welke hulpmiddelen — dat de privacywetgeving al van elk schoolbestuur vraagt: gaan er persoonsgegevens in een AI-toepassing, dan hoort dat gebruik daarin. Het modelregister op privacyinonderwijs.be hierboven is daar net voor. Leg een concrete twijfel voor aan de DPO — dit is geen juridisch advies.',
           },
           {
             type: 'opdracht',
@@ -532,7 +532,7 @@ export const MODULES_BELEID = [
               'Tien minuten inventaris. Iedereen noemt wat hij met AI ziet gebeuren: welke toepassingen, door wie, waarvoor. Ook de gratis dingen, en wat een collega zelf in elkaar zette.',
               'Vijftien minuten sorteren. Zet elke toepassing in een van drie kolommen: er gaan persoonsgegevens in, er komt een beslissing over een leerling of personeelslid uit, of geen van beide. Die derde kolom is meestal de grootste en vraagt weinig werk.',
               'Vijftien minuten de harde lijnen. Spreek af wat er nooit in gaat, en schrijf bij elk verbod meteen op wat je dan wél doet, anders onthoudt niemand het.',
-              'Twintig minuten de weg en de afspraak. Wie beoordeelt een nieuwe toepassing, bij wie meldt een leerkracht een twijfel of een fout, wie is jullie aanspreekpunt informatieveiligheid, wie schrijft de twee pagina\'s, wanneer gaat ze naar het overlegorgaan, het teamoverleg en de onthaalmap voor nieuwe collega\'s, stagiairs en vrijwilligers, en wanneer herbekijken jullie ze? Noem namen, en zet het in de notulen voor je de zaal verlaat.',
+              'Twintig minuten de weg en de afspraak. Zes vragen, telkens met een naam of een datum erbij, soms allebei. Wie beoordeelt een nieuwe toepassing? Bij wie meldt een leerkracht een twijfel of een fout? Wie is jullie aanspreekpunt informatieveiligheid? Wie schrijft de twee pagina\'s, en tegen wanneer? Wanneer gaat die tekst naar het overlegorgaan, naar het teamoverleg en in de onthaalmap voor nieuwe collega\'s, stagiairs en vrijwilligers? En wanneer herbekijken jullie die tekst? Noem namen én functies, en zet de antwoorden in de notulen voor je de zaal verlaat.',
             ],
           },
         ],

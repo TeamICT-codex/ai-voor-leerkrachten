@@ -274,18 +274,34 @@ Hou dit bij als je verder schrijft.
   begeleiders-FAQ (toen 22 vragen) en de quizvraag van de module administratie.
   Verwijs naar een casus met haar **titel**, nooit met haar nummer: de volgorde
   is bij die ronde gewijzigd zodat elke reeks vroeg een "mag" toont.
-- **Nog niet nagekeken:** alles van de ronde van 27 oktober 2026 — spoor C, de
-  vijftiende casus met haar slotopdracht, de FAQ-vraag over AI-detectie, de
-  gidssectie "Een kortere sessie geven" en de zelfstudieblokken die daarbij in
-  de bestaande modules kwamen. En wat je hierna zelf toevoegt. De app zelf
-  (`app.js`, `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
+- **Ook nagekeken, op 27 oktober 2026:** alles wat sinds die eerste ronde is
+  bijgeschreven — spoor C, de verdiepingslessen van spoor B, de vijftiende casus
+  met haar slotopdracht, de FAQ-vraag over AI-detectie, de gidssectie "Een
+  kortere sessie geven", de zelfstudieblokken en de module over de
+  leerlingencursus. Twaalf lezers met elk een eigen bril, elke bevinding door
+  twee tegensprekers die haar probeerden te weerleggen; 31 van de 60 bevindingen
+  hielden stand en zijn verwerkt.
+- **Nog niet nagekeken:** wat je hierna zelf toevoegt. De app zelf (`app.js`,
+  `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
   schermcontexten; nieuw blok-type of nieuwe kadervariant vraagt die pas opnieuw.
 
-Wat die nakijkronde opleverde is leerzaam voor wie hier verder schrijft: de
-terugkerende fouten waren Nederlands-Nederlandse termen (docent, werkstuk,
+Wat de eerste nakijkronde opleverde is leerzaam voor wie hier verder schrijft:
+de terugkerende fouten waren Nederlands-Nederlandse termen (docent, werkstuk,
 cijfer voor punt), verouderde studierichtingen, secundair-terminologie in een
 lager-onderwijscasus (klassenraad in plaats van MDO/zorgoverleg), en adviezen
 die het sterkste tegenargument wegwuiven in plaats van beantwoorden.
+
+De tweede ronde legde een ander patroon bloot: **de tekst beweerde dingen over
+de app en over de wet die net niet klopten.** De gids schreef dat je
+begeleidersmodus nodig hebt voor de sessiebouwer (niet waar), dat een sessie weg
+is als je het tabblad sluit (de app onthoudt de laatste), dat spoor C de
+auteursrechten van lesmateriaal bij de school legt (de maker is de auteur tenzij
+het uitdrukkelijk is overgedragen — behalve voor software, die gaat wél
+automatisch naar de werkgever), en dat ouders tot achttien beslissen over
+gezondheidsgegevens van een leerling (vanaf twaalf wordt een leerling bij het
+CLB in principe bekwaam geacht). Schrijf je iets over wat de app doet of over
+wat de wet zegt: ga het na in `app.js` of bij de bron, ook — vooral — als je het
+zelf een hoofdstuk eerder hebt geschreven.
 
 **Gedeployed** sinds 4 september 2026 op GitHub Pages (zie "Git & deploy").
 De deelnemersbundel drukt dat adres nu ook af, want `leeromgevingAdres()` in

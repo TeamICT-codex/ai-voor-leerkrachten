@@ -596,6 +596,7 @@ export const MODULES_AI = [
               'Typ je notities of losse gedachten in — slordig mag, maar haal er eerst de namen uit.',
               'Vraag om structuur, met "verzin niets bij".',
               'Lees na en corrigeer wat niet klopt.',
+              'Heb je namen weggelaten? Kopieer het resultaat naar je eigen verslag of mail en zet ze daar pas terug — in het gesprek blijven ze weg.',
               'Klaar. Merk hoeveel korter dat duurde dan anders.',
             ],
             klaar:
@@ -816,7 +817,7 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              '<strong>AI-wijs op school</strong> is een cursus die leerlingen van de tweede en derde graad <em>zelfstandig</em> doorlopen, op hun laptop of gsm, thuis of op school. Ze is geschreven voor de leerlingen van onze scholen, met voorbeelden uit Dendermonde, Hamme, Lokeren, Moerbeke, Wetteren en Zele, maar elke school mag ze gebruiken. Geen account, geen betaalde chatbot: alles werkt met de gratis versie van ChatGPT, Gemini, Copilot of Claude, en de cursus zegt overal "vraag na wat je school toelaat". Je opent ze met de knop <em>Open AI-wijs op school</em> bovenaan deze module; het adres eindigt op <code>/leerlingen/</code>.',
+              '<strong>AI-wijs op school</strong> is een cursus die leerlingen van de tweede en derde graad <em>zelfstandig</em> doorlopen, op hun laptop of gsm, thuis of op school. Ze is geschreven voor de leerlingen van onze scholen, met voorbeelden uit Dendermonde, Hamme, Lokeren, Moerbeke, Wetteren en Zele, maar elke school mag ze gebruiken. Voor de cursus zelf maakt een leerling geen account aan en betaalt ze niets. Voor een chatbot is er wél een account nodig; vaak volstaat het schoolaccount, want veel scholen hebben via Microsoft 365 of Google Workspace al Copilot of Gemini staan. Welke chatbot jouw leerlingen mogen gebruiken, hangt af van hun leeftijd en van jullie schoolafspraken: les 1.6 zet die leeftijdsregels op een rij, en de cursus zegt er telkens bij "vraag na wat je school toelaat". Je opent ze met de knop <em>Open AI-wijs op school</em> bovenaan deze module; het adres eindigt op <code>/leerlingen/</code>.',
           },
           {
             type: 'lijst',
@@ -830,7 +831,7 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'Elke les is tekst met een concrete handeling: een prompt om te kopiëren, een stappenplan of een opdracht met de eigen leerstof. Elke les eindigt met kernpunten en één <strong>denkvraag</strong> waar de leerling een antwoord bij typt. Elk hoofdstuk sluit af met een <strong>quiz</strong> van tien situaties uit het schoolleven, met uitleg bij elk antwoord. De rode draad door alles heen is dezelfde als in deze leeromgeving: <em>jij geeft richting, AI helpt, jij controleert</em>.',
+              'Elke les is tekst met een concrete handeling: een prompt om te kopiëren, een stappenplan of een opdracht met de eigen leerstof. De lessen eindigen met kernpunten en één <strong>denkvraag</strong> waar de leerling een antwoord bij typt; op haar scherm heet dat blok <em>Denk even na</em>. De hoofdstukken 1 tot en met 8 sluiten elk af met een <strong>quiz</strong> van tien situaties uit het schoolleven, met uitleg bij elk antwoord; hoofdstuk 9 eindigt met het certificaat. De rode draad door alles heen is dezelfde als in deze leeromgeving: <em>jij geeft richting, AI helpt, jij controleert</em>.',
           },
           {
             type: 'kader',
@@ -925,7 +926,7 @@ export const MODULES_AI = [
             variant: 'letop',
             titel: 'Accounts en leeftijd',
             inhoud:
-              'De cursus zegt het de leerlingen zelf: minstens dertien jaar, onder achttien met toestemming van de ouders voor een privéaccount, en een schoolaccount valt onder de afspraken van de school. Plan je een lesuur waarin leerlingen echt een chatbot gebruiken, kijk dan vooraf na wat er op de schoollaptops werkt en welke tool je school toelaat. Dezelfde vraag als voor jezelf in de module over je eerste gesprek: regel het met de ICT-coördinator, niet ter plaatse.',
+              'De cursus zegt het de leerlingen zelf: de meeste chatbots vragen minstens dertien jaar, voor een privéaccount hoort er onder achttien toestemming van de ouders bij, en sommige chatbots zijn alleen voor volwassenen. Dat zijn voorwaarden van de dienst, geen wettelijke AI-leeftijd, en ze veranderen. Een schoolaccount valt onder de afspraken van de school. Plan je een lesuur waarin leerlingen echt een chatbot gebruiken, kijk dan vooraf na wat er op de schoollaptops werkt en welke tool je school toelaat. Dezelfde vraag als voor jezelf in de module over je eerste gesprek: regel het met de ICT-coördinator, niet ter plaatse.',
           },
           {
             type: 'opdracht',
@@ -975,7 +976,7 @@ export const MODULES_AI = [
           {
             type: 'tekst',
             inhoud:
-              'De cursus leert leerlingen in les 4.11 drie dingen die jou het leven makkelijker maken: per stap navragen welke AI-hulp mag, een <strong>logboek</strong> bijhouden van wat ze AI vroegen en wat ze ermee deden, en hun AI-hulp eerlijk vermelden. Dat werkt alleen als jouw afspraken daarbij aansluiten. Zeg dus niet "geen AI", maar zeg per opdracht wat mag: ideeën en richting, opbouw, feedback op eigen tekst, of ook tekst schrijven. De module <em>Veilig, ethisch en met leerlingen</em> eindigt met precies die klasafspraak; de leerlingencursus is er de spiegel van.',
+              'De cursus leert leerlingen in les 4.11 drie dingen die jou het leven makkelijker maken: per stap navragen welke AI-hulp mag, een <strong>logboek</strong> bijhouden van wat ze AI vroegen en wat ze ermee deden, en hun AI-hulp eerlijk vermelden. Dat werkt alleen als jouw afspraken daarbij aansluiten. Zeg dus niet "geen AI", maar zeg per opdracht wat mag: ideeën en richting, opbouw, feedback en taal (op tekst die de leerling zelf schreef), of ook tekst schrijven. De module <em>Veilig, ethisch en met leerlingen</em> eindigt met precies die klasafspraak; de leerlingencursus is er de spiegel van.',
           },
           {
             type: 'kader',
@@ -1000,7 +1001,7 @@ export const MODULES_AI = [
             type: 'prompt',
             titel: 'Je klasafspraak in de taal van de cursus',
             tekst:
-              'Hieronder staat mijn afspraak over AI bij een opdracht voor het [jaar] [finaliteit]. Herschrijf ze in vier korte zinnen voor leerlingen van 15 tot 18 jaar, in de je-vorm, met deze vier soorten hulp als structuur: ideeën en richting, opbouw, feedback op eigen tekst, tekst schrijven. Zeg per soort of het mag, en hoe de leerling het vermeldt. Voeg één zin toe over het logboek. Gebruik geen namen.\n\nMijn afspraak: [plak je afspraak]',
+              'Hieronder staat mijn afspraak over AI bij een opdracht voor het [jaar] [finaliteit]. Herschrijf ze in vier korte zinnen voor leerlingen van 14 tot 18 jaar, in de je-vorm, met deze vier soorten hulp als structuur: ideeën en richting, opbouw, feedback en taal, tekst schrijven. Zeg per soort of het mag, en hoe de leerling het vermeldt. Voeg één zin toe over het logboek. Gebruik geen namen.\n\nMijn afspraak: [plak je afspraak]',
             uitleg:
               'De vier soorten hulp komen letterlijk uit les 4.11 van de leerlingencursus. Zo herkennen je leerlingen de structuur en hoef je niets uit te leggen.',
           },

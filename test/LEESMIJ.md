@@ -57,12 +57,22 @@ halve testronde voor het gevonden was.
 
 **Sommige tests besmetten elkaar.** Een test die `navigator.clipboard` of
 `console.warn` vervangt en dat niet terugzet, laat de tests erna om de verkeerde
-reden zakken. Een veertiental tests zakt daardoor in één lange reeks, maar
-slaagt wanneer je ze apart of als groep draait. Zakt er iets: draai het eerst
-opnieuw met `{ alleen: [...] }` vóór je in de app gaat zoeken. Het harnas breekt
-een test af zodra zijn tijd om is en controleert na elke test of de inhoud nog
-gaaf is, zodat een test die de data sloopt zichzelf aanwijst in plaats van zijn
-slachtoffers.
+reden zakken. T064 was zo'n test — die zette het klembord enkel terug als hij
+helemaal uitliep — en staat sinds 27 oktober 2026 in een `try/finally`. Vervang
+je zelf iets globaals, doe dat dan ook; T050, T051, T052 en T153 tonen hoe.
+
+Wat daarna overblijft, is een traagheid die zich opstapelt: draai je meerdere
+reeksen na elkaar in dezelfde pagina, dan beginnen de laatste tests te zakken op
+navigaties die niet meer op tijd klaar zijn. **Herlaad de pagina tussen twee
+reeksen** en draai lange reeksen in stukken van een twintigtal. Zo gemeten op
+27 oktober 2026: 88 laptoptests, 19 op gsm, 12 op beamer en 10 op smal, alle
+groen. Zakt er iets: draai het eerst opnieuw met `{ alleen: [...] }` na een
+herlaad, vóór je in de app gaat zoeken.
+
+Het harnas breekt een test af zodra zijn tijd om is en controleert na elke test
+of de inhoud nog gaaf is, zodat een test die de data sloopt zichzelf aanwijst in
+plaats van zijn slachtoffers. Die controle ijkt zich op wat ze bij de eerste
+meting ziet, dus ze blijft kloppen als er een module bij komt.
 
 ## De andere scripts
 
