@@ -59,6 +59,7 @@ van de scholengroep, Smartschool, KlasCement, terminologie lager/secundair).
 | `#/prompts` | Promptkaart — alle promptvoorbeelden op één plek | iedereen |
 | `#/gids` | Begeleidersgids: voorbereiding, de zaal lezen, lastige vragen | begeleider |
 | `#/sessie` | Stel zelf een sessie samen uit losse onderdelen | begeleider |
+| `leerlingen/` | AI-wijs op school: de aparte cursus voor leerlingen (geen hash-route, eigen site) | leerling |
 
 De begeleidersgids is enkel toegankelijk met begeleidersmodus aan. De casussen
 in module *Casussen: mag dit?* houden hun oordeel verborgen tot je erop klikt —
@@ -113,6 +114,25 @@ doe daarna de modules van spoor A of B in volgorde, en vink af wat je gehad
 hebt. De casussenmodule werkt solo even goed als in groep: beslis eerst zelf,
 klik dan pas het oordeel open.
 
+## Voor leerlingen: AI-wijs op school
+
+Naast dit materiaal voor leerkrachten bevat de repo een aparte cursus voor
+**leerlingen van de tweede en derde graad**: *AI-wijs op school*, negen
+hoofdstukken en 72 lessen met prompts, opdrachten, hoofdstukquizzen en een
+certificaat, in de huisstijl van GO! scholengroep Het leercollectief en met
+voorbeelden uit de eigen scholen. Ze staat live op
+<https://teamict-codex.github.io/ai-voor-leerkrachten/leerlingen/> en werkt
+zonder account.
+
+De module **De leerlingencursus in je klas** (spoor A) is de handleiding voor
+de leerkracht: wat erin zit, vier manieren om ze in te zetten, en hoe je
+afspraken en opvolging erop afstemt.
+
+- `leerlingen/` is gegenereerd; bewerk het niet met de hand.
+- `leerlingen-bron/` bevat de Markdown-lessen, de generator en de docs. Bouwen:
+  `cd leerlingen-bron && npm install && npm run build` (en `npm run check`
+  voor de inhoudscontrole). Zie `leerlingen-bron/README.md`.
+
 ## Lokaal draaien
 
 Geen build-stap en geen afhankelijkheden, maar de app gebruikt ES-modules —
@@ -143,6 +163,8 @@ js/gids.js            begeleidersgids: begeleidingsadvies en de lastige vragen
 js/cursus.js          voegt de sporen samen, kloktijden, blokken verzamelen
 js/app.js             router, weergave, sessietimer, voortgang
 assets/favicon.svg
+leerlingen/           AI-wijs op school, de cursus voor leerlingen (gegenereerd)
+leerlingen-bron/      bron van die cursus: Markdown-lessen, generator, docs
 ```
 
 ## Inhoud aanpassen of uitbreiden

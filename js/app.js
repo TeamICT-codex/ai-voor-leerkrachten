@@ -382,6 +382,10 @@ function toonHome() {
           <span class="snel-icoon" aria-hidden="true">🧩</span>
           <span><strong>Stel je eigen sessie samen</strong><small>Een uur, een halve dag of één module</small></span>
         </a>
+        <a class="snel" href="leerlingen/index.html">
+          <span class="snel-icoon" aria-hidden="true">🎒</span>
+          <span><strong>Voor je leerlingen: AI-wijs op school</strong><small>Gratis cursus voor de 2de en 3de graad, met een module voor jou</small></span>
+        </a>
         ${
           staat.begeleider
             ? `<a class="snel" href="#/gids">
@@ -768,6 +772,11 @@ function toonModule(m) {
           ${bij
             .map((w) => `<a class="etiket-klein link" href="#/workshop/${w.id}">${esc(w.code)}</a>`)
             .join('')}
+          ${
+            // Een module kan naar iets buiten de app wijzen (de leerlingencursus
+            // in leerlingen/). De inhoudsvelden zelf mogen geen <a> bevatten.
+            m.link ? `<a class="etiket-klein link" href="${esc(m.link.href)}">${esc(m.link.tekst)} <span aria-hidden="true">↗</span></a>` : ''
+          }
         </div>
       </div>
     </header>

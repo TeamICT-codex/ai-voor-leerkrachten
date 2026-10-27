@@ -1,0 +1,15 @@
+{
+  "name": "ai-wijs-op-school",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI-wijs op school: gratis AI-cursus voor leerlingen in het Vlaamse secundair onderwijs. Statische site, gebouwd uit Markdown.",
+  "type": "module",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "check": "node build/check.mjs",
+    "serve": "node build/serve.mjs"
+  },
+  "dependencies": {
+    "marked": "^15.0.0"
+  }
+}

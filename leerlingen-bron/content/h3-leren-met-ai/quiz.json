@@ -1,0 +1,135 @@
+{
+  "slaagpercentage": 80,
+  "vragen": [
+    {
+      "id": "h3-01",
+      "les": "leren-op-jouw-manier",
+      "onderwerp": "Je leermoment kiezen",
+      "vraag": "Het is de week voor je examen biologie in december. De voedselketen ken je goed: alle oefeningen uit je cursus heb je juist. Je wilt weten of je ook een moeilijke, nieuwe examenvraag aankunt. Wat vraag je aan AI?",
+      "juist": "c",
+      "opties": [
+        { "id": "a", "tekst": "Leg de voedselketen nog eens kort uit, zodat ik zeker weet dat ik alles heb.", "feedback": "Een korte herhaling kan geruststellen. Maar je kent de basis al. Een uitleg vertelt je niet of je een nieuwe situatie zelf aankunt." },
+        { "id": "b", "tekst": "Overhoor me over de definities van producent, consument en reducent.", "feedback": "Overhoren is een goede reflex. Alleen ken je die definities al. Je wilt net testen of je de leerstof kunt toepassen op iets nieuws." },
+        { "id": "c", "tekst": "Geef me een nieuwe situatie, laat mij voorspellen wat er verandert en wacht op mijn antwoord.", "feedback": "Je kiest de hulp die past bij jouw moment: een stap verder. Omdat AI wacht, moet jij zelf redeneren, zoals op het examen." },
+        { "id": "d", "tekst": "Maak een samenvatting van één pagina die ik de avond voor het examen kan herlezen.", "feedback": "Een samenvatting is handig om op te frissen. Maar herlezen test niet of je een nieuwe vraag aankunt. Daarvoor moet je zelf antwoorden." }
+      ]
+    },
+    {
+      "id": "h3-02",
+      "les": "uitleg-op-jouw-niveau",
+      "onderwerp": "Uitleg op jouw niveau",
+      "vraag": "Je zit in het vierde jaar, dubbele finaliteit. Je vraagt een chatbot uitleg over vraag en aanbod. Je krijgt formules en grafieken die niet in je cursus staan en die je niet snapt. Wat doe je?",
+      "juist": "a",
+      "opties": [
+        { "id": "a", "tekst": "Je geeft je jaar, finaliteit en samenvatting mee en vraagt de uitleg opnieuw in kleine stappen.", "feedback": "Nu weet AI voor wie het schrijft en welke leerstof telt. De uitleg sluit aan bij je cursus en jij bepaalt het tempo." },
+        { "id": "b", "tekst": "Je vraagt: \"Leg het simpeler uit.\"", "feedback": "Dat kan al helpen. Maar AI weet nog altijd niet wat in jouw cursus staat of welk stukje je niet snapt. Een eenvoudigere uitleg kan dan nog naast je leerstof liggen." },
+        { "id": "c", "tekst": "Je vraagt meer voorbeelden bij dezelfde uitleg, zodat je de formules beter leert gebruiken.", "feedback": "Voorbeelden helpen vaak. Maar de uitleg zelf is te moeilijk en sluit niet aan bij je cursus. Geef eerst je niveau en je leerstof mee." },
+        { "id": "d", "tekst": "Je leert de formules toch van buiten, want de chatbot weet het waarschijnlijk beter dan je cursus.", "feedback": "Op je examen telt wat in je cursus staat, niet wat AI erbij haalt. Van buiten leren wat je niet snapt, helpt je bovendien weinig." }
+      ]
+    },
+    {
+      "id": "h3-03",
+      "les": "leerstof-visueel-en-interactief",
+      "onderwerp": "Een passende vorm kiezen",
+      "vraag": "Voor je examen geschiedenis moet je de volgorde van een reeks gebeurtenissen kennen. Je hebt de tekst al drie keer gelezen, maar je haalt de jaartallen steeds door elkaar. Welke vorm vraag je aan AI?",
+      "juist": "d",
+      "opties": [
+        { "id": "a", "tekst": "Een metafoor die de gebeurtenissen vergelijkt met iets uit het dagelijks leven.", "feedback": "Een metafoor helpt bij een abstract begrip. Jij worstelt met een volgorde. Daarvoor is een vorm die de tijd zichtbaar maakt directer." },
+        { "id": "b", "tekst": "Een mooie infographic met pictogrammen om op je kamer te hangen.", "feedback": "Een infographic kan overzicht geven. Maar als je ze alleen bekijkt, oefen je de volgorde niet zelf. Controleer zeker de jaartallen, want daar maakt een gegenereerd beeld vaak fouten." },
+        { "id": "c", "tekst": "Een nieuwe, kortere samenvatting in lopende tekst.", "feedback": "Korter is overzichtelijker, maar het blijft dezelfde vorm die je al drie keer las. Een andere vorm geeft je een nieuwe ingang." },
+        { "id": "d", "tekst": "Een tijdlijn uit je samenvatting, die je daarna zelf uit je hoofd natekent.", "feedback": "Een tijdlijn maakt de volgorde zichtbaar. Door ze zelf na te tekenen, oefen je wat je moet kennen. Leg de jaartallen wel naast je cursus." }
+      ]
+    },
+    {
+      "id": "h3-04",
+      "les": "aan-de-slag-ai-als-tutor",
+      "onderwerp": "Voorbeelden die bij jou passen",
+      "vraag": "Je studeert hefbomen voor mechanica. Je vraagt AI vijf voorbeelden. Het eerste, een wip op de speelplaats, maakt het duidelijk. De andere vier gaan over toestellen die je niet kent. Wat doe je nu?",
+      "juist": "b",
+      "opties": [
+        { "id": "a", "tekst": "Je houdt het bij het voorbeeld van de wip en stopt.", "feedback": "Fijn dat één voorbeeld werkt. Maar met één voorbeeld weet je nog niet of je het principe ook in een andere situatie herkent." },
+        { "id": "b", "tekst": "Je zegt dat de wip hielp, noemt wat je kent (fietsen, de werkplaats) en vraagt nieuwe voorbeelden daaruit.", "feedback": "Je stuurt bij met wat werkt. Voorbeelden uit jouw leefwereld helpen je om het principe telkens terug te zien." },
+        { "id": "c", "tekst": "Je vraagt tien extra voorbeelden, want tussen zoveel voorbeelden zit er vast wel een dat je helpt.", "feedback": "Meer voorbeelden kan helpen, maar zonder richting krijg je opnieuw toestellen die je niet kent. Zeg wat je kent en wat hielp." },
+        { "id": "d", "tekst": "Je vraagt de definitie van een hefboom om die van buiten te leren.", "feedback": "De definitie kennen is nuttig. Maar je wilt het principe begrijpen en herkennen. Daarvoor heb je voorbeelden nodig die bij jou aansluiten." }
+      ]
+    },
+    {
+      "id": "h3-05",
+      "les": "laat-je-overhoren",
+      "onderwerp": "Een hint in plaats van de oplossing",
+      "vraag": "Je oefent de vergelijking 5(x + 1) = 3x + 9. AI vraagt: \"Wat is je eerste stap?\" Je weet niet hoe je de haakjes moet uitwerken. Wat antwoord je?",
+      "juist": "c",
+      "opties": [
+        { "id": "a", "tekst": "\"Geef me de volledige uitwerking, dan doe ik het daarna zelf na met een andere opgave.\"", "feedback": "Een uitwerking kan later helpen. Maar dan doet AI de stap die jij net moet leren. Met een kleine hint probeer je het eerst zelf." },
+        { "id": "b", "tekst": "\"Geef me het eindantwoord, dan reken ik terug.\"", "feedback": "Terugrekenen is een goede controle. Maar je weet daarmee nog niet hoe je de haakjes uitwerkt, en dat is waar je vastzit." },
+        { "id": "c", "tekst": "\"Geef me een kleine hint over de haakjes en laat me opnieuw proberen.\"", "feedback": "Je maakt de stap kleiner zonder het antwoord te krijgen. Zo leer je de stap zelf, en AI kan je poging daarna nakijken." },
+        { "id": "d", "tekst": "\"Sla deze over en geef me een makkelijkere zonder haakjes.\"", "feedback": "Een makkelijkere opgave kan een opstap zijn. Maar zo ontwijk je net het stuk dat je moet leren. Vraag liever een hint." }
+      ]
+    },
+    {
+      "id": "h3-06",
+      "les": "oefen-hardop",
+      "onderwerp": "Hardop oefenen en zelf controleren",
+      "vraag": "Je oefent via de spraakmodus voor je mondeling examen Frans. Je zegt: \"J'ai allé au cinéma.\" AI antwoordt: \"Très bien !\" en stelt de volgende vraag. Je twijfelt of je zin juist was. Wat doe je?",
+      "juist": "b",
+      "opties": [
+        { "id": "a", "tekst": "Je gaat gewoon door, want AI zei dat het goed was.", "feedback": "Doorgaan houdt het gesprek vlot. Maar lof is geen garantie: een chatbot mist soms een fout. Je twijfel is een goed signaal." },
+        { "id": "b", "tekst": "Je onderbreekt en vraagt of je zin met aller juist was, en zegt hem daarna opnieuw.", "feedback": "Je vraagt gericht naar de zin waar je aan twijfelt en oefent hem meteen opnieuw. Zo haal je het meeste uit hardop oefenen. Kijk de regel ook na in je cursus." },
+        { "id": "c", "tekst": "Je stopt met de spraakmodus en typt voortaan alles.", "feedback": "Typen helpt soms om fouten te zien. Maar op je mondeling examen moet je spreken. Je kunt in de spraakmodus net zo goed om uitleg vragen." },
+        { "id": "d", "tekst": "Je vraagt AI om voortaan elk antwoord eerst voor te zeggen, zodat je het foutloos kunt nazeggen.", "feedback": "Nazeggen kan helpen bij uitspraak. Maar dan oefen je niet meer zelf zinnen maken, en dat test een mondeling examen net." }
+      ]
+    },
+    {
+      "id": "h3-07",
+      "les": "maak-je-oefenwebsite",
+      "onderwerp": "Je oefenwebsite herstellen",
+      "vraag": "AI heeft van je samenvatting geschiedenis een oefenwebsite gemaakt. Bij het testen merk je dat de quiz een fout jaartal toch als juist aanrekent. Wat doe je?",
+      "juist": "d",
+      "opties": [
+        { "id": "a", "tekst": "Je laat het zo. Jij weet zelf wel welk jaartal juist is.", "feedback": "Misschien wel, maar een site die fout nakijkt, kan je verkeerde dingen aanleren. Je merkt het bovendien niet altijd." },
+        { "id": "b", "tekst": "Je vraagt een volledig nieuwe website, zonder te zeggen wat er fout liep, want dan begint AI met een schone lei.", "feedback": "Een nieuwe versie kan beter zijn, maar AI weet niet wat er moet veranderen. Dezelfde fout kan terugkomen." },
+        { "id": "c", "tekst": "Je verwijdert die vraag uit de site en studeert verder met de rest.", "feedback": "Zo vermijd je de fout, maar dat jaartal moet je wel kennen. En misschien kijkt de site ook andere vragen fout na." },
+        { "id": "d", "tekst": "Je zegt precies welk antwoord fout wordt nagekeken, vraagt het volledige bestand opnieuw en test opnieuw.", "feedback": "Je geeft AI een duidelijke foutmelding en controleert of het hersteld is. Zo kun je de site daarna echt vertrouwen." }
+      ]
+    },
+    {
+      "id": "h3-08",
+      "les": "aan-de-slag-drie-manieren-oefenen",
+      "onderwerp": "Oefenen plannen voor je examens",
+      "vraag": "Over twee weken begint je examenperiode in juni. Voor economie wil je overhoren, hardop oefenen en je oefenwebsite combineren. Welke planning is het slimst?",
+      "juist": "a",
+      "opties": [
+        { "id": "a", "tekst": "Eerst overhoren, een paar dagen later hardop uitleggen, en tot het examen korte herhalingen op de website.", "feedback": "Je spreidt je oefenmomenten en elke manier doet waar ze goed in is. Zo blijft de leerstof beter hangen dan na één lange sessie." },
+        { "id": "b", "tekst": "De avond voor het examen alle drie na elkaar, zodat alles nog vers in je hoofd zit als je begint.", "feedback": "Alle drie gebruiken is goed. Maar alles op één avond proppen werkt minder goed dan je oefenmomenten spreiden." },
+        { "id": "c", "tekst": "Alleen de oefenwebsite, want daar zie je je punten stijgen.", "feedback": "De website is handig voor korte herhalingen. Maar punten bewijzen niet dat je de leerstof kunt uitleggen. Overhoren en hardop oefenen tonen meer." },
+        { "id": "d", "tekst": "Elke dag dezelfde overhoring met dezelfde vragen, tot je alles juist hebt.", "feedback": "Elke dag oefenen is een goede gewoonte. Maar met steeds dezelfde vragen herken je vooral de vragen. Wissel af en laat nieuwe vragen maken." }
+      ]
+    },
+    {
+      "id": "h3-09",
+      "les": "je-bronnen-in-notebooklm",
+      "onderwerp": "Toegang tot Gemini Notebook",
+      "vraag": "Je wilt je cursus aardrijkskunde in Gemini Notebook (tot midden 2026 NotebookLM) zetten. Met je schoolaccount lukt het niet om aan te melden. Wat doe je?",
+      "juist": "c",
+      "opties": [
+        { "id": "a", "tekst": "Je maakt een nieuw Google-account en geeft een ouder geboortejaar op.", "feedback": "Dan kom je misschien binnen, maar je liegt over je leeftijd en omzeilt de afspraken. Dat doe je niet." },
+        { "id": "b", "tekst": "Je meldt je aan met het account van je oudere broer.", "feedback": "Dan werk je op het account van iemand anders en deel je je leerstof met hem. Gebruik alleen een account dat van jou is en dat je mag gebruiken." },
+        { "id": "c", "tekst": "Je vraagt na wat je school aanbiedt, en oefent intussen in een toegelaten chatbot met een stuk uit je cursus.", "feedback": "Je respecteert de afspraken van je school en oefent toch dezelfde vaardigheid. Vraag de chatbot wel om bij elk antwoord de zin uit je cursus te citeren." },
+        { "id": "d", "tekst": "Je uploadt je cursus naar een onbekende website die gratis pdf's samenvat en er vragen bij maakt.", "feedback": "Je zoekt een oplossing, maar je weet niet wat die site met je bestand doet. Kies een tool die je school toelaat." }
+      ]
+    },
+    {
+      "id": "h3-10",
+      "les": "kies-hoe-je-leert-met-je-bron",
+      "onderwerp": "Een leervorm bij je doel",
+      "vraag": "Je hebt op de bus van De Lijn het audio-overzicht van je hoofdstuk biologie beluisterd. Nu wil je weten of je de leerstof echt uit je geheugen kunt ophalen voor je examen. Wat kies je in Gemini Notebook?",
+      "juist": "b",
+      "opties": [
+        { "id": "a", "tekst": "Je beluistert het audio-overzicht nog een keer, maar nu met meer aandacht en zonder afleiding.", "feedback": "Opnieuw luisteren kan helpen om op te frissen. Maar luisteren test niet of je het zelf kunt ophalen. Daarvoor moet je antwoorden." },
+        { "id": "b", "tekst": "Je laat een quiz maken, antwoordt eerst zelf en zoekt bij een fout de passage op in je bron.", "feedback": "Je test precies wat je wilt weten: kun je het zelf ophalen? Bij twijfel ga je terug naar de bron, niet naar een andere samenvatting." },
+        { "id": "c", "tekst": "Je laat een video-overzicht maken, zodat je het ook eens ziet.", "feedback": "Een video geeft een nieuwe ingang. Maar ook kijken is vooral volgen. Je doel is testen wat je zelf kunt." },
+        { "id": "d", "tekst": "Je laat een mindmap maken en bekijkt de takken.", "feedback": "Een mindmap geeft een goed overzicht van de samenhang. Maar bekijken is nog geen testen. Probeer de takken eerst zelf in te vullen of kies een quiz." }
+      ]
+    }
+  ]
+}

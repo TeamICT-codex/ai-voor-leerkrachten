@@ -784,4 +784,273 @@ export const MODULES_AI = [
       },
     ],
   },
+
+  // De leerlingencursus "AI-wijs op school" staat als aparte site in leerlingen/
+  // (bron in leerlingen-bron/). Deze module is de handleiding voor de
+  // leerkracht: wat zit erin, hoe zet je ze in, hoe volg je op.
+  {
+    id: 'leerlingencursus',
+    icoon: '🎒',
+    titel: 'De leerlingencursus in je klas',
+    ondertitel:
+      'AI-wijs op school is een gratis cursus voor je leerlingen van de tweede en derde graad. Zo zet je ze in, zonder er zelf een expert voor te moeten zijn.',
+    niveau: 'Verdieping',
+    // Een module mag geen <a> in haar tekst (zie T122/T130); de ingang naar de
+    // subsite hangt daarom als link aan de module zelf. toonModule() toont hem.
+    link: { href: 'leerlingen/index.html', tekst: 'Open AI-wijs op school' },
+    doelen: [
+      'Je weet wat er in AI-wijs op school zit en welke hoofdstukken voor jouw vak en je klas interessant zijn.',
+      'Je kiest een manier om de cursus in te zetten: als huiswerk, in één lesuur, in een GWP of als begeleiding bij een taak of GIP.',
+      'Je maakt klasafspraken die kloppen met wat de cursus de leerlingen zelf aanleert, en je weet hoe je opvolgt zonder controletools.',
+    ],
+    klaarzetten: [
+      'Open de leerlingencursus zelf eens via de knop bovenaan deze module (of via <code>leerlingen/</code> op de startpagina). Een half uur bladeren volstaat om te zien wat je leerlingen te zien krijgen.',
+      'De afspraken over AI in het schoolreglement van je school en, als die er zijn, de afspraken van je vakwerkgroep.',
+    ],
+    lessen: [
+      {
+        id: 'wat-zit-erin',
+        titel: 'Wat zit er in AI-wijs op school?',
+        minuten: 10,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              '<strong>AI-wijs op school</strong> is een cursus die leerlingen van de tweede en derde graad <em>zelfstandig</em> doorlopen, op hun laptop of gsm, thuis of op school. Ze is geschreven voor de leerlingen van onze scholen, met voorbeelden uit Dendermonde, Hamme, Lokeren, Moerbeke, Wetteren en Zele, maar elke school mag ze gebruiken. Geen account, geen betaalde chatbot: alles werkt met de gratis versie van ChatGPT, Gemini, Copilot of Claude, en de cursus zegt overal "vraag na wat je school toelaat". Je opent ze met de knop <em>Open AI-wijs op school</em> bovenaan deze module; het adres eindigt op <code>/leerlingen/</code>.',
+          },
+          {
+            type: 'lijst',
+            geordend: true,
+            items: [
+              '<strong>De basis</strong> (hoofdstuk 1 en 2): wat generatieve AI is, welke chatbot je kiest, en hoe je een goede opdracht geeft. Dit doen alle leerlingen eerst.',
+              '<strong>Jouw route</strong> (hoofdstuk 3 tot 8): leren voor toetsen en examens, taken en de GIP, presentaties en affiches maken, een website bouwen, de risico\'s van AI, en AI in studie en werk. De leerling kiest zelf welke hoofdstukken.',
+              '<strong>Afronding</strong> (hoofdstuk 9): terugblik en een certificaat dat de leerling zelf afdrukt.',
+            ],
+          },
+          {
+            type: 'tekst',
+            inhoud:
+              'Elke les is tekst met een concrete handeling: een prompt om te kopiëren, een stappenplan of een opdracht met de eigen leerstof. Elke les eindigt met kernpunten en één <strong>denkvraag</strong> waar de leerling een antwoord bij typt. Elk hoofdstuk sluit af met een <strong>quiz</strong> van tien situaties uit het schoolleven, met uitleg bij elk antwoord. De rode draad door alles heen is dezelfde als in deze leeromgeving: <em>jij geeft richting, AI helpt, jij controleert</em>.',
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Elf vaste leerlingen uit onze scholen',
+            inhoud:
+              'De voorbeelden volgen elf fictieve leerlingen, elk met één school, jaar en richting: Noor uit het vijfde jaar humane wetenschappen in Dendermonde werkt aan een onderzoeksopdracht, Senne uit het zesde jaar elektromechanische technieken in Lokeren bereidt zijn GIP voor, Imani loopt stage in een woonzorgcentrum, Elias combineert school en werkvloer in duaal leren. Zo herkent een leerling uit elke finaliteit zich, en dat is bewust: in de cursus is een lasser evenveel waard als een latinist.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Wat de cursus bewaart, en wat niet',
+            inhoud:
+              'De voortgang, de quizscores en de antwoorden op de denkvragen blijven in de browser van de leerling, op dat toestel. Er gaat niets naar een server en er is geen leerkrachtoverzicht. Een leerling kan een <em>voortgangscode</em> exporteren om op een ander toestel verder te werken. Wil je zien hoe ver een leerling staat, dan vraag je het, of je laat het certificaat tonen. Dat is een keuze: geen controle, wel vertrouwen en gesprek.',
+          },
+          {
+            type: 'tekst',
+            inhoud:
+              'De hoofdstukken zijn gekoppeld aan de vier domeinen van het Europese kader voor AI-geletterdheid: <em>omgaan met AI</em>, <em>creëren met AI</em>, <em>AI beheren</em> en <em>AI ontwerpen</em>. Dat kader komt vanaf 2029 ook in het PISA-onderzoek. Voor je eigen planning sluit de cursus aan bij sleutelcompetentie 4, digitale competentie en mediawijsheid, en bij de leercompetenties en burgerschap. Op de pagina <em>Voor leerkrachten</em> van de cursus (in het menu bovenaan) staat een tabel met de hoofdstukken, de domeinen en de tijd per hoofdstuk.',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Een leerling zegt dat ze hoofdstuk 3 afgerond heeft en toont het vinkje in haar overzicht. Wat weet je dan zeker?',
+            opties: [
+              {
+                tekst: 'Dat ze alle lessen van hoofdstuk 3 als voltooid markeerde en de quiz minstens één keer met 80 % haalde.',
+                juist: true,
+                feedback:
+                  'Juist. Meer zegt het vinkje niet: een leerling vinkt lessen zelf af, alleen de quiz wordt automatisch afgevinkt. Wil je weten wat ze eruit haalde, vraag dan naar haar antwoord op een denkvraag of laat ze een prompt uit de les tonen.',
+              },
+              {
+                tekst: 'Dat de school kan nakijken welke antwoorden ze op de denkvragen gaf.',
+                juist: false,
+                feedback:
+                  'Nee. Alles blijft in haar browser. Er is geen leerkrachtoverzicht, en dat is een bewuste keuze.',
+              },
+              {
+                tekst: 'Dat ze de leerstof van hoofdstuk 3 beheerst.',
+                juist: false,
+                feedback:
+                  'Te veel geconcludeerd. De quiz test tien situaties, geen beheersing. Het gesprek in de klas doet dat beter.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'zo-zet-je-ze-in',
+        titel: 'Vier manieren om de cursus in te zetten',
+        minuten: 15,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              'De cursus duurt ongeveer dertien uur als een leerling alles doet, maar niemand hoeft alles te doen. Hoofdstuk 1 en 2 samen zijn een kleine drie uur en leggen de basis. Daarna kies je, of laat je kiezen. Vier manieren die in de praktijk werken, van weinig naar veel lestijd.',
+          },
+          {
+            type: 'lijst',
+            geordend: true,
+            items: [
+              '<strong>Als huiswerk of zelfstudie.</strong> Je geeft hoofdstuk 1 en 2 op, met een week of twee tijd, en je bespreekt in de klas één denkvraag per les. Kost je tien minuten per week en levert verrassend eerlijke gesprekken op over hoe leerlingen AI nu al gebruiken.',
+              '<strong>In één lesuur.</strong> Kies één les en doe ze samen: les 1.4 (wat is generatieve AI) met de drie voorbeelden, of les 1.8 (jij houdt de regie) gevolgd door de klasafspraak. Een hoofdstukquiz van tien situaties werkt ook goed als klasgesprek: stem per vraag met de hand, lees daarna de uitleg.',
+              '<strong>In een GWP of projectdag.</strong> Hoofdstuk 5 (presentaties, affiches, gesproken uitleg, data) en hoofdstuk 6 (een website bouwen) zijn doe-hoofdstukken van een halve dag. Leerlingen maken iets voor een echt doel: de opendeurdag, de leerlingenraad, de sportdag.',
+              '<strong>Als begeleiding bij een taak, paper of GIP.</strong> Hoofdstuk 4 volgt één onderzoeksopdracht van onderzoeksvraag tot mondeling, met de afspraken over AI erbij. Geef het mee bij de opdracht, samen met jouw regels voor wat mag.',
+            ],
+          },
+          {
+            type: 'vergelijk',
+            zwak: 'Doe de leerlingencursus tegen volgende maand.',
+            sterk:
+              'Doe deze week les 1.6 en 1.8. Noteer je antwoord op de denkvraag van 1.8; vrijdag bespreken we die en maken we onze klasafspraak over AI bij de taak Frans.',
+            uitleg:
+              'Een afgebakende opdracht met een moment in de klas werkt. "Doe de cursus" verzandt, net zoals bij elk ander zelfstudiepakket.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Kies de route bij de finaliteit en het vak',
+            inhoud:
+              'Een klas elektrische installaties haalt meer uit hoofdstuk 3 (leren met AI, met een schema uit de werkplaats) en hoofdstuk 8 (AI op de werkvloer, duaal leren) dan uit hoofdstuk 4. Een klas humane wetenschappen in het vijfde jaar zit met hoofdstuk 4 midden in haar onderzoeksopdracht. Taalvakken: les 3.5 (laat je overhoren) en 3.6 (oefen hardop) zijn meteen bruikbaar voor Frans en Engels. Kijk naar de personages in de lessen: wie lijkt op jouw leerlingen, daar zit je ingang.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Laat je assistent een lesuur uitwerken rond één les',
+            tekst:
+              'Ik geef [vak] in het [jaar] [finaliteit] en wil één lesuur van 50 minuten bouwen rond een les uit een AI-cursus voor leerlingen. De les gaat over [onderwerp van de les, bv. "jij geeft richting, AI helpt, jij controleert"] en eindigt met deze denkvraag: [plak de denkvraag]. Maak een lesverloop met een instap van 5 minuten, 20 minuten zelfstandig lezen en proberen met een gratis chatbot, 15 minuten klasgesprek over de denkvraag en 10 minuten om samen een klasafspraak over AI te formuleren. Geef bij het klasgesprek vijf doorvragen. Gebruik geen namen van leerlingen.',
+            uitleg:
+              'Vul de haakjes in met je eigen vak en klas. Je assistent kent de cursus niet, dus geef het onderwerp en de denkvraag letterlijk mee.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Accounts en leeftijd',
+            inhoud:
+              'De cursus zegt het de leerlingen zelf: minstens dertien jaar, onder achttien met toestemming van de ouders voor een privéaccount, en een schoolaccount valt onder de afspraken van de school. Plan je een lesuur waarin leerlingen echt een chatbot gebruiken, kijk dan vooraf na wat er op de schoollaptops werkt en welke tool je school toelaat. Dezelfde vraag als voor jezelf in de module over je eerste gesprek: regel het met de ICT-coördinator, niet ter plaatse.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Kies je klas en je manier',
+            inhoud:
+              'Rond deze les af met een concreet plan voor één klas. Klein houden mag: één les, één moment in de klas.',
+            stappen: [
+              'Kies één klas en bekijk welk personage uit de cursus op die leerlingen lijkt (school, jaar, finaliteit).',
+              'Kies één van de vier manieren hierboven en één hoofdstuk of les.',
+              'Leg een datum vast voor het moment in de klas: de bespreking van een denkvraag, een quiz als klasgesprek of de klasafspraak.',
+              'Zet de opdracht op Smartschool met de link naar de les en de datum.',
+            ],
+            klaar:
+              'er een opdracht op Smartschool staat met één les uit de cursus, een datum en wat je in de klas gaat doen.',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Je hebt één lesuur met een klas van het vierde jaar en wil dat ze iets concreets meenemen. Wat kies je?',
+            opties: [
+              {
+                tekst: 'De hele cursus kort voorstellen en vragen om ze thuis te doorlopen.',
+                juist: false,
+                feedback:
+                  'Dan gebeurt er thuis meestal weinig. Een open opdracht zonder moment in de klas verzandt.',
+              },
+              {
+                tekst: 'Eén les samen doen, de denkvraag bespreken en eindigen met een klasafspraak over AI.',
+                juist: true,
+                feedback:
+                  'Juist. Eén les, één gesprek, één afspraak: dat past in vijftig minuten en levert iets op dat je morgen gebruikt.',
+              },
+              {
+                tekst: 'Een hoofdstukquiz laten maken als toets voor punten.',
+                juist: false,
+                feedback:
+                  'De quizzen zijn gemaakt om van te leren, met uitleg bij elk antwoord. Als toets voor punten verlies je dat, en de leerling kan ze thuis gewoon opnieuw doen.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'afspraken-en-opvolging',
+        titel: 'Afspraken, opvolging en het certificaat',
+        minuten: 10,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              'De cursus leert leerlingen in les 4.11 drie dingen die jou het leven makkelijker maken: per stap navragen welke AI-hulp mag, een <strong>logboek</strong> bijhouden van wat ze AI vroegen en wat ze ermee deden, en hun AI-hulp eerlijk vermelden. Dat werkt alleen als jouw afspraken daarbij aansluiten. Zeg dus niet "geen AI", maar zeg per opdracht wat mag: ideeën en richting, opbouw, feedback op eigen tekst, of ook tekst schrijven. De module <em>Veilig, ethisch en met leerlingen</em> eindigt met precies die klasafspraak; de leerlingencursus is er de spiegel van.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Wat de cursus zegt over AI-detectoren',
+            inhoud:
+              'De leerlingen lezen dat een detector een schatting geeft en geen bewijs, dat hij in twee richtingen kan missen, en dat hun logboek, notities en tussenversies hun beste bewijs van eigen werk zijn. Zeg jij in de klas iets anders, dan verlies je de geloofwaardigheid van allebei. Vraag bij twijfel over een tekst naar het proces, niet naar een score.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Dezelfde regel voor hen als voor jou',
+            inhoud:
+              'De cursus hamert erop: geen volledige namen, geen adressen, geen namen van klasgenoten of leerkrachten, geen toetsen die nog moeten komen, en bij stage geen gegevens van zorgvragers of klanten. Dat is dezelfde regel die je in deze leeromgeving voor jezelf leerde. Het helpt om ze ook zo te benoemen: wat jij niet in een chatbot zet over een leerling, zet een leerling niet over jou.',
+          },
+          {
+            type: 'tekst',
+            inhoud:
+              'Opvolgen doe je zonder dashboard, en dat kan prima. Drie dingen die werken: laat leerlingen hun antwoord op een denkvraag voorlezen of inleveren, laat ze één prompt uit de les tonen die ze echt gebruikten (met het antwoord van de chatbot erbij), en bespreek een hoofdstukquiz klassikaal. Het <strong>certificaat</strong> vraagt hoofdstuk 1, 2, minstens één routehoofdstuk en hoofdstuk 9; de leerling vult zelf een naam in en drukt af. Het is een bewijs van inzet, geen attest. Wil je het meetellen voor een portfolio of een vakoverschrijdend project, spreek dat af in je vakwerkgroep.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Je klasafspraak in de taal van de cursus',
+            tekst:
+              'Hieronder staat mijn afspraak over AI bij een opdracht voor het [jaar] [finaliteit]. Herschrijf ze in vier korte zinnen voor leerlingen van 15 tot 18 jaar, in de je-vorm, met deze vier soorten hulp als structuur: ideeën en richting, opbouw, feedback op eigen tekst, tekst schrijven. Zeg per soort of het mag, en hoe de leerling het vermeldt. Voeg één zin toe over het logboek. Gebruik geen namen.\n\nMijn afspraak: [plak je afspraak]',
+            uitleg:
+              'De vier soorten hulp komen letterlijk uit les 4.11 van de leerlingencursus. Zo herkennen je leerlingen de structuur en hoef je niets uit te leggen.',
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Samen leren samenleven',
+            inhoud:
+              'De cursus noemt het GO! nergens als regel, maar de zes kernwaarden van het PPGO! zitten erin: eerlijk vermelden wat je deed (oprechtheid), bronnen en vooroordelen controleren (respect en gelijkwaardigheid), delen wat werkt met klasgenoten (betrokkenheid) en nadenken over de gevolgen voor anderen (engagement). Wie in een klasgesprek naar die waarden wil, vindt in hoofdstuk 7 (kansen en risico\'s) negen lessen die ernaar vragen zonder te preken.',
+          },
+          {
+            type: 'opdracht',
+            titel: 'Breng je afspraak en de cursus op één lijn',
+            inhoud:
+              'Neem de klasafspraak die je in de module over veilig en ethisch werken maakte, of maak ze nu, en leg ze naast les 4.11 van de leerlingencursus.',
+            stappen: [
+              'Lees les 4.11 van de cursus in de rol van een leerling: welke vragen zou je aan jezelf stellen?',
+              'Herschrijf je afspraak met de prompt hierboven en lees het resultaat kritisch na.',
+              'Zet de afspraak bovenaan je volgende opdracht, met de link naar les 4.11 erbij.',
+              'Spreek met je vakwerkgroep af of het certificaat van de cursus ergens voor meetelt.',
+            ],
+            klaar:
+              'je afspraak bovenaan een echte opdracht staat, in dezelfde vier soorten hulp als de cursus, met een link naar les 4.11.',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Een leerling levert een taak in die opvallend vlot geschreven is. Je twijfelt. Wat doe je, in lijn met wat de cursus de leerling leerde?',
+            opties: [
+              {
+                tekst: 'De tekst door een AI-detector halen en de score als bewijs gebruiken.',
+                juist: false,
+                feedback:
+                  'De leerling heeft net geleerd dat zo\'n score geen bewijs is, en dat klopt. Je verliest het gesprek voor het begint.',
+              },
+              {
+                tekst: 'Vragen naar het proces: het logboek, de notities, de tussenversies, en hoe de leerling tot zijn keuzes kwam.',
+                juist: true,
+                feedback:
+                  'Juist. Dat is precies wat de cursus de leerling leert bij te houden. Wie het werk echt zelf deed, vertelt het zo.',
+              },
+              {
+                tekst: 'De taak zonder uitleg laten herschrijven in de klas.',
+                juist: false,
+                feedback:
+                  'Dat straft ook wie eerlijk werkte, en je weet nog altijd niet wat er gebeurd is. Eerst het gesprek.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];

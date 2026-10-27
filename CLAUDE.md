@@ -50,6 +50,7 @@ schrijfkeuze:
 js/inhoud-beleid.js spoor C — het kader: wet, privacy en schoolbeleid
 js/inhoud.js        spoor A — inhoud
 js/casussen.js      spoor A — casussenmodule (groepswerk A3)
+                    (inhoud.js bevat ook de module "De leerlingencursus in je klas")
 js/inhoud-vibe.js   spoor B — inhoud (incl. de verdiepingslessen)
 js/gids.js          begeleidersgids + de 23 lastige vragen
 js/workshops.js     draaiboeken + sporen
@@ -57,7 +58,29 @@ js/sessies.js       bouwstenen voor een zelf samengestelde sessie + sjablonen
 js/cursus.js        voegt sporen samen, kloktijden, sessies lezen en schrijven
 js/app.js           router, weergave, sessietimer, voortgang
 css/style.css       alle styling, mobiel-eerst, afdrukblok onderaan
+leerlingen/         de leerlingencursus AI-wijs op school: GEGENEREERD, niet met de hand bewerken
+leerlingen-bron/    bron van die cursus: Markdown-lessen, generator, docs (zie README daar)
 ```
+
+### De leerlingencursus (leerlingen/)
+
+"AI-wijs op school" is een aparte, statische cursus voor leerlingen van de 2de
+en 3de graad, in de huisstijl van Het leercollectief. Ze leeft in de repo als
+subsite en staat live op `.../ai-voor-leerkrachten/leerlingen/`. De bron staat
+in `leerlingen-bron/` (Markdown met `:::`-blokken, een eigen generator en een
+eigen testscript). Werkwijze bij een inhoudelijke wijziging:
+
+```bash
+cd leerlingen-bron && npm install && npm run check && npm run build
+```
+
+De build maakt `leerlingen/` leeg en schrijft ze opnieuw; commit bron én
+uitvoer samen. De schrijfregels voor die cursus staan in
+`leerlingen-bron/docs/schrijfwijzer.md`; de scholen, personages en regionale
+voorbeelden in `leerlingen-bron/docs/leercollectief.md`. De module
+"De leerlingencursus in je klas" in `js/inhoud.js` is de handleiding voor de
+leerkracht en verwijst naar lesnummers (bv. les 4.11): hernummer je lessen in de
+leerlingencursus, kijk die verwijzingen dan na.
 
 Inhoud is **data, geen code**. Een les toevoegen = een object toevoegen. Een
 nieuw blok-type vraagt wel een `case` in `toonInhoudsblok()` plus styling.
@@ -188,8 +211,8 @@ Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
 - Drie sporen: **C Het kader** (wet en schoolbeleid, staat vooraan en is het
   beginpunt), **A AI in de klas** en **B Vibe coden**.
-- 16 modules, 47 lessen, 289 inhoudsblokken (tekst 84, kader 77, lijst 42,
-  prompt 29, opdracht 23, casus 16, quiz 15, vergelijk 3).
+- 17 modules, 50 lessen, 312 inhoudsblokken (tekst 90, kader 84, lijst 44,
+  prompt 31, opdracht 25, casus 16, quiz 18, vergelijk 4).
 - **Elke les draagt haar eigen `minuten`**; modules hebben geen `duur` meer.
   `moduleMinuten()` in cursus.js telt ze op, en de sessiebouwer rekent ermee.
   Voeg je een les toe, zet er dan minuten op — zonder dat telt ze voor nul.

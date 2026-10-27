@@ -1,0 +1,295 @@
+{
+  "slaagpercentage": 80,
+  "vragen": [
+    {
+      "id": "h2-01",
+      "les": "maak-je-vraag-concreet",
+      "onderwerp": "Van vaag naar concreet",
+      "vraag": "Lotte zit in het vierde jaar bedrijfswetenschappen op GO! atheneum MiRA en heeft overmorgen een toets chemie over de atoombouw. Ze wil oefenen met toepassen, en de leerstof staat in haar samenvatting. Haar vraag ‘Geef me oefenvragen chemie’ levert vooral definities op, en ook vragen over leerstof die ze niet kent. Welke vraag helpt haar het meest?",
+      "juist": "b",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "‘Maak tien moeilijke vragen chemie voor het vierde jaar.’",
+          "feedback": "Het niveau staat er nu in, en dat helpt. Maar ‘moeilijk’ zegt niet dat Lotte wil toepassen, en de leerstof is nog altijd niet afgebakend."
+        },
+        {
+          "id": "b",
+          "tekst": "‘Ik zit in het vierde jaar. Maak tien toepassingsvragen over de atoombouw, alleen uit mijn samenvatting hieronder.’",
+          "feedback": "Juist. Niveau, aantal, vraagvorm en leerstof staan er allemaal in. AI hoeft bijna niets meer te raden."
+        },
+        {
+          "id": "c",
+          "tekst": "‘Gebruik mijn samenvatting en stel vragen om te testen of ik de begrippen ken.’",
+          "feedback": "De samenvatting meegeven is een goede stap. Maar ‘begrippen kennen’ kan AI nog altijd testen met definitievragen, terwijl Lotte wil toepassen."
+        },
+        {
+          "id": "d",
+          "tekst": "‘Maak toepassingsvragen over de belangrijkste onderwerpen uit de chemie, op een niveau dat past bij de tweede graad.’",
+          "feedback": "Toepassen en niveau staan er nu in. Maar ‘de belangrijkste onderwerpen uit de chemie’ is veel te breed. Lotte krijgt dan weer vragen over leerstof die niet op haar toets komt."
+        }
+      ]
+    },
+    {
+      "id": "h2-02",
+      "les": "doel-en-voorwaarden",
+      "onderwerp": "Een duidelijk doel",
+      "vraag": "Senne zit in het zesde jaar elektromechanische technieken op GO! technisch atheneum Lokeren. Hij moet voor aardrijkskunde een advies van 300 woorden schrijven aan de stad Lokeren over meer groen rond de school. Hij wil dat AI hem een structuur voorstelt. Zijn prompt begint met ‘Ik zit in het zesde jaar.’ Wat maakt het doel van zijn prompt het duidelijkst?",
+      "juist": "d",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "Hij vraagt AI om te antwoorden als een ervaren leerkracht aardrijkskunde.",
+          "feedback": "Een rol kan helpen, maar zegt niet wat AI moet maken. Een leerkracht kan ook uitleg geven, vragen stellen of de tekst zelf schrijven."
+        },
+        {
+          "id": "b",
+          "tekst": "Hij voegt toe dat het resultaat professioneel en goed geschreven moet zijn.",
+          "feedback": "Dat is een wens over kwaliteit, geen doel. AI weet nog altijd niet dat het om een structuur voor een advies gaat."
+        },
+        {
+          "id": "c",
+          "tekst": "Hij zet er zijn finaliteit, zijn studierichting en de woordlimiet van 300 woorden bij.",
+          "feedback": "Dat zijn nuttige voorwaarden. Maar het eindproduct ontbreekt nog: AI weet niet dat Senne een structuur wil voor een advies aan de stad."
+        },
+        {
+          "id": "d",
+          "tekst": "Hij begint met wat hij wil krijgen: een structuur voor zijn advies over meer groen. Niveau en lengte volgen daarna.",
+          "feedback": "Juist. Het doel zegt wat AI maakt en waarvoor. Het niveau en de woordlimiet zijn voorwaarden die daarna komen."
+        }
+      ]
+    },
+    {
+      "id": "h2-03",
+      "les": "geef-bronnen-mee",
+      "onderwerp": "Bronnen in een nieuwe chat",
+      "vraag": "Imani zit in het zesde jaar basiszorg en ondersteuning op GO! Campus Kompas. Gisteren uploadde ze haar opdracht en haar samenvatting over infectiepreventie in een chat. Vandaag opent ze een nieuwe chat en schrijft: ‘Gebruik mijn bestanden van gisteren.’ AI gebruikt begrippen die niet in haar cursus staan. Wat doet ze eerst?",
+      "juist": "a",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "Ze uploadt beide bestanden opnieuw in deze chat en vraagt AI te zeggen als het iets niet kan lezen.",
+          "feedback": "Juist. Bestanden uit een andere chat zijn er meestal niet meer. Pas als AI de bestanden echt kan lezen, kan het met haar leerstof werken."
+        },
+        {
+          "id": "b",
+          "tekst": "Ze noemt in haar prompt de exacte bestandsnamen en de datum van de chat waarin ze de bestanden gisteren uploadde.",
+          "feedback": "Een bestandsnaam is geen inhoud. Daarmee kan AI de bestanden nog altijd niet lezen."
+        },
+        {
+          "id": "c",
+          "tekst": "Ze typt de juiste begrippen over en laat AI de rest van de uitleg zelf aanvullen.",
+          "feedback": "Losse begrippen bevatten niet de uitleg en de verbanden uit haar cursus. AI vult dan zelf aan, en dat wil ze net vermijden."
+        },
+        {
+          "id": "d",
+          "tekst": "Ze schrijft: ‘Gebruik alleen begrippen uit mijn samenvatting.’",
+          "feedback": "Die instructie is goed, maar ze werkt pas als AI de samenvatting ook echt heeft. Eerst moet het bestand in deze chat staan."
+        }
+      ]
+    },
+    {
+      "id": "h2-04",
+      "les": "toon-een-voorbeeld",
+      "onderwerp": "Stijl en inhoud uit elkaar houden",
+      "vraag": "Yasmine zit in het vierde jaar zorg en welzijn op GO! talent, vestiging Zele. Ze schrijft een tekst voor haar stagemap. Ze geeft AI drie dingen mee: haar eigen stagenotities, de opdracht van haar leerkracht en een goede stagemap van vorig jaar als stijlvoorbeeld. In die oude stagemap staan taken die ze zelf niet deed. Welke instructie past het best?",
+      "juist": "c",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "‘Volg de oude stagemap voor de inhoud en de opbouw, en maak het persoonlijker met mijn notities.’",
+          "feedback": "Dan wordt de oude stagemap de basis. Er kunnen taken in blijven staan die Yasmine niet deed, en de oude opbouw past misschien niet bij de opdracht van dit jaar."
+        },
+        {
+          "id": "b",
+          "tekst": "‘Gebruik mijn notities, en vul aan met taken uit het voorbeeld die ook op mijn stage hadden kunnen gebeuren.’",
+          "feedback": "Dat iets had kunnen gebeuren, betekent niet dat Yasmine het deed. Een stijlvoorbeeld vult geen eigen ervaringen aan."
+        },
+        {
+          "id": "c",
+          "tekst": "‘Mijn notities zijn de inhoud, de opdracht geeft de eisen en de oude stagemap gebruik je alleen voor de stijl.’",
+          "feedback": "Juist. Elk stuk heeft een duidelijke rol. De stijl mag uit het voorbeeld komen, de ervaringen komen uit haar notities en de eisen uit de opdracht van dit jaar."
+        },
+        {
+          "id": "d",
+          "tekst": "‘Neem het besluit van de oude stagemap over en pas alleen de taken aan.’",
+          "feedback": "Een besluit is ook inhoud. Het bevat conclusies over een andere stage, die niet bij de ervaringen van Yasmine hoeven te passen."
+        }
+      ]
+    },
+    {
+      "id": "h2-05",
+      "les": "jij-bepaalt-de-werkwijze",
+      "onderwerp": "Wanneer informatie ontbreekt",
+      "vraag": "Jonas zit in het zesde jaar wetenschappen-wiskunde op GO! atheneum MiRA. Hij vraagt AI om zijn labotaak chemie te schrijven. Hij geeft de lengte en de toon mee, maar nog niet zijn metingen en de opdracht van de leerkracht. Wat moet AI in de eerste plaats doen?",
+      "juist": "d",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "Alvast een volledige labotaak schrijven met resultaten die bij zo’n proef gebruikelijk zijn, zodat Jonas die later kan aanpassen.",
+          "feedback": "Gebruikelijke resultaten zijn niet de metingen van Jonas. Zo ontstaat een tekst die overtuigend klinkt, maar niet klopt met wat hij deed."
+        },
+        {
+          "id": "b",
+          "tekst": "Vragen welke proef hij deed en daarna zelf een passend besluit kiezen.",
+          "feedback": "Weten welke proef het was, is een begin. Maar zonder metingen kan niemand zeggen welk besluit bij zijn proef past."
+        },
+        {
+          "id": "c",
+          "tekst": "Eerst één alinea schrijven met de resultaten die hij waarschijnlijk vond.",
+          "feedback": "Klein beginnen is vaak slim, maar ook in één alinea horen geen verzonnen resultaten."
+        },
+        {
+          "id": "d",
+          "tekst": "Eerst vragen naar de opdracht en de metingen, en pas schrijven als die er zijn.",
+          "feedback": "Juist. De opdracht geeft de eisen, de metingen zijn de inhoud. AI moet ontbrekende gegevens vragen en niet verzinnen."
+        }
+      ]
+    },
+    {
+      "id": "h2-06",
+      "les": "simpel-mag-simpel",
+      "onderwerp": "Hoe lang moet een prompt zijn?",
+      "vraag": "Je typt: ‘Leg in drie zinnen uit wat het verschil is tussen weer en klimaat.’ Het antwoord is precies wat je nodig hebt. Wat leer je daaruit?",
+      "juist": "c",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "Korte vragen werken voor uitleg, maar voor elke schrijfopdracht gebruik je altijd alle vijf de bouwstenen.",
+          "feedback": "Ook schrijfopdrachten verschillen. Niet het soort taak, maar de informatie die het resultaat bepaalt, beslist welke bouwstenen helpen."
+        },
+        {
+          "id": "b",
+          "tekst": "Je werkt de vraag toch nog uit met alle vijf de bouwstenen, zodat het antwoord betrouwbaarder wordt.",
+          "feedback": "Meer bouwstenen maken een antwoord niet vanzelf juister. Als je vraag duidelijk is en het antwoord past, ben je klaar."
+        },
+        {
+          "id": "c",
+          "tekst": "Je vraag was duidelijk genoeg. Je voegt pas iets toe als dat het resultaat beter maakt.",
+          "feedback": "Juist. De bouwstenen zijn een hulpmiddel. Een korte vraag mag kort blijven, en voor een grotere taak geef je meer mee."
+        },
+        {
+          "id": "d",
+          "tekst": "Doel en voorbeeld zijn het minimum. Die twee zet je voortaan in elke prompt.",
+          "feedback": "Ook een vast minimum is soms overbodig. Wat nodig is, hangt af van je vraag. Soms is één gerichte zin genoeg."
+        }
+      ]
+    },
+    {
+      "id": "h2-07",
+      "les": "simpel-mag-simpel",
+      "onderwerp": "Persoonsgegevens weglaten",
+      "vraag": "Je volgt duaal leren en werkt drie dagen per week in een winkel. Daar wil je de toon van een antwoord op een klacht laten verbeteren. Je hebt de naam van de klant al weggehaald. Het adres, het gsm-nummer en het klantnummer staan er nog in. Die heb je niet nodig om de toon te verbeteren. Wat doe je?",
+      "juist": "a",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "Je haalt ook het adres en de nummers weg. De klacht en de gewenste toon laat je staan.",
+          "feedback": "Juist. AI krijgt alles wat het nodig heeft voor de schrijftaak, zonder gegevens waarmee de klant herkenbaar is."
+        },
+        {
+          "id": "b",
+          "tekst": "Je laat alles staan. Zonder naam weet AI toch niet over wie het gaat.",
+          "feedback": "Ook een adres of een gsm-nummer kan iemand herkenbaar maken. Dat AI de taak kan uitvoeren, betekent niet dat je die gegevens moet delen."
+        },
+        {
+          "id": "c",
+          "tekst": "Je vervangt het adres door initialen, maar houdt het klantnummer zodat je later nog weet over welke klacht het precies ging.",
+          "feedback": "Initialen en een klantnummer kunnen nog altijd naar een persoon leiden. Voor deze schrijftaak heb je ze niet nodig."
+        },
+        {
+          "id": "d",
+          "tekst": "Je zet de gegevens van de klant in een apart bestand en uploadt dat mee.",
+          "feedback": "Ook een bijlage deel je met de chatbot. Verplaatsen haalt de gegevens niet weg."
+        }
+      ]
+    },
+    {
+      "id": "h2-08",
+      "les": "goede-prompts-voor-je-vakken",
+      "onderwerp": "Leren in plaats van overnemen",
+      "vraag": "Je zit vast bij een oefening goniometrie. Je wilt de oefening echt zelf leren oplossen, want op de toets heb je geen AI. Welke prompt past het best?",
+      "juist": "b",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "‘Los deze oefening op en leg elke stap uitgebreid uit, zodat ik de redenering daarna kan nalezen.’",
+          "feedback": "Een uitgewerkte oplossing kan helpen om iets te begrijpen. Maar dan doet AI het denkwerk, en jij oefent niet zelf."
+        },
+        {
+          "id": "b",
+          "tekst": "‘Geef me de oplossing niet. Geef één hint per keer en wacht tot ik een volgende stap probeer.’",
+          "feedback": "Juist. Zo doe jij het denkwerk en krijg je net genoeg hulp om verder te kunnen. Reken het eindantwoord daarna zelf na."
+        },
+        {
+          "id": "c",
+          "tekst": "‘Geef me tien gelijkaardige oefeningen met de oplossingen erbij.’",
+          "feedback": "Extra oefeningen zijn nuttig, maar je zit nog vast bij deze ene. Met de oplossingen erbij is de verleiding groot om meteen te kijken."
+        },
+        {
+          "id": "d",
+          "tekst": "‘Leg uit wat goniometrie is, in gewone taal.’",
+          "feedback": "Dat is een goede korte vraag als je de basis niet snapt. Maar het helpt je niet om deze oefening zelf op te lossen."
+        }
+      ]
+    },
+    {
+      "id": "h2-09",
+      "les": "aan-de-slag-prompt-verbeteren",
+      "onderwerp": "Werken met een promptcoach",
+      "vraag": "Je gebruikt de promptcoach voor de inleiding van je GIP. De coach stelt je drie vragen over je eerste versie. Je kent de antwoorden. Je wilt eerst de verbeterde prompt nalezen voor AI aan je inleiding begint. Wat doe je nu?",
+      "juist": "d",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "Je opent een nieuwe chat, plakt je antwoorden en vraagt om een inleiding die je kunt indienen.",
+          "feedback": "Dan vraag je meteen om de inleiding zelf, en de nieuwe chat kent het gesprek met de coach niet. Je wilde eerst de prompt nalezen."
+        },
+        {
+          "id": "b",
+          "tekst": "Je laat de coach alvast een stuk van de inleiding schrijven, om te zien of de prompt werkt.",
+          "feedback": "Een proefstuk kan later nuttig zijn. Maar nu wil je eerst de prompt zelf beoordelen, en die heb je nog niet."
+        },
+        {
+          "id": "c",
+          "tekst": "Je plakt je antwoorden onder de coachprompt en gebruikt die als opdracht voor je inleiding.",
+          "feedback": "De coachprompt vraagt AI om een prompt te verbeteren, niet om je inleiding te schrijven. Voor je echte taak gebruik je de prompt die de coach maakt."
+        },
+        {
+          "id": "d",
+          "tekst": "Je antwoordt in dezelfde chat en laat de coach de verbeterde prompt maken, nog zonder inleiding.",
+          "feedback": "Juist. De coach kent je eerste versie al en vult ze aan met je antwoorden. Daarna lees jij de prompt na en test je hem in een nieuwe chat."
+        }
+      ]
+    },
+    {
+      "id": "h2-10",
+      "les": "stel-je-chatbot-in",
+      "onderwerp": "Vaste voorkeuren instellen",
+      "vraag": "Je wilt in ChatGPT je aangepaste instructies invullen, zodat je niet in elke chat dezelfde wensen moet typen. Wat zet je daar het best in?",
+      "juist": "a",
+      "opties": [
+        {
+          "id": "a",
+          "tekst": "‘Begin met een kort antwoord, gebruik gewone taal en zeg het als je iets niet zeker weet.’",
+          "feedback": "Juist. Dat zijn voorkeuren die voor bijna al je vragen gelden. Een concrete taak geef je per gesprek."
+        },
+        {
+          "id": "b",
+          "tekst": "‘Maak tien vragen over hoofdstuk 4 van biologie, één voor één, en wacht telkens op mijn antwoord voor je feedback geeft.’",
+          "feedback": "Dat is een goede opdracht, maar ze hoort in de chat zelf, samen met je leerstof. In je vaste instructies blijft ze gelden, ook als je allang met iets anders bezig bent."
+        },
+        {
+          "id": "c",
+          "tekst": "Je volledige naam, je school en je klas, zodat AI je beter leert kennen.",
+          "feedback": "AI heeft die gegevens niet nodig om je goed te helpen. Je jaar en finaliteit zeg je per gesprek, zonder namen."
+        },
+        {
+          "id": "d",
+          "tekst": "‘Gebruik mijn gesprekken niet om het model te trainen.’",
+          "feedback": "Die keuze maak je niet met een instructie. Daarvoor is er op het moment van schrijven een aparte instelling bij Gegevensbeheer: ‘Het model verbeteren voor iedereen’."
+        }
+      ]
+    }
+  ]
+}

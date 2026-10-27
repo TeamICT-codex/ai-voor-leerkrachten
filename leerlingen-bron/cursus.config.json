@@ -1,0 +1,23 @@
+{
+  "naam": "AI-wijs op school",
+  "ondertitel": "De AI-cursus voor leerlingen van GO! scholengroep Het leercollectief",
+  "korteBeschrijving": "Leer hoe AI werkt en zet het meteen in voor school: leerstof begrijpen, je voorbereiden op toetsen en examens, en sterkere taken, papers en presentaties maken. Gemaakt voor de leerlingen van onze scholen in Dendermonde, Hamme, Lokeren, Moerbeke, Wetteren en Zele.",
+  "doelgroep": "2de en 3de graad secundair, alle finaliteiten",
+  "organisatie": "Het leercollectief",
+  "organisatieUrl": "https://www.hetleercollectief.be",
+  "contactMail": "",
+  "basisUrl": "",
+  "certificaatVereisten": {
+    "verplichteHoofdstukken": [
+      1,
+      2
+    ],
+    "minstensRouteHoofdstukken": 1
+  },
+  "taal": "nl-BE",
+  "organisatieVoluit": "GO! scholengroep Het leercollectief",
+  "motto": "samen is beter",
+  "regio": "Dendermonde – Hamme – Lokeren – Moerbeke – Wetteren – Zele",
+  "uitvoermap": "../leerlingen",
+  "leerkrachtenUrl": "../#/module/leerlingencursus"
+}
