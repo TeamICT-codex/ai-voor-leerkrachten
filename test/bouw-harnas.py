@@ -116,16 +116,25 @@ function verstreken(p) {
 // Sommige tests wijzigen de gedeelde inhoud om iets uit te lokken. Zet zo'n test
 // dat niet terug, dan zakt alles wat erna komt om de verkeerde reden. Deze
 // controle wijst meteen de schuldige aan in plaats van de slachtoffers.
+let ijkpunt = null;
+
 async function dataGaaf() {
   const { MODULES, WORKSHOPS } = await import('/js/cursus.js');
-  if (MODULES.length !== 16) return 'MODULES telt ' + MODULES.length + ' modules';
+  // Niet tegen een vast getal vergelijken: dat veroudert bij elke module die
+  // erbij komt, en dan breekt het harnas in plaats van de app. We leggen bij de
+  // eerste controle vast wat we zien, en bewaken dat het dat blijft — want dat
+  // is wat deze controle moet vangen: een test die de gedeelde data sloopt.
+  if (!ijkpunt) ijkpunt = { modules: MODULES.length, workshops: WORKSHOPS.length };
+  if (MODULES.length !== ijkpunt.modules)
+    return 'MODULES telt ' + MODULES.length + ' modules in plaats van ' + ijkpunt.modules;
   for (const m of MODULES) {
     if (!Array.isArray(m.lessen) || !m.lessen.length) return 'module ' + m.id + ' heeft geen lessen';
     if (!Array.isArray(m.doelen) || !m.doelen.length) return 'module ' + m.id + ' heeft geen doelen';
     for (const l of m.lessen)
       if (!Array.isArray(l.blokken) || !l.blokken.length) return 'les ' + m.id + '/' + l.id + ' heeft geen blokken';
   }
-  if (WORKSHOPS.length !== 6) return 'WORKSHOPS telt ' + WORKSHOPS.length + ' workshops';
+  if (WORKSHOPS.length !== ijkpunt.workshops)
+    return 'WORKSHOPS telt ' + WORKSHOPS.length + ' workshops in plaats van ' + ijkpunt.workshops;
   for (const w of WORKSHOPS) {
     if (!Array.isArray(w.draaiboek) || !w.draaiboek.length) return 'workshop ' + w.code + ' heeft geen draaiboek';
     if (w.draaiboek.reduce((n, b) => n + b.minuten, 0) !== 180) return 'workshop ' + w.code + ' telt geen 180 minuten meer';
