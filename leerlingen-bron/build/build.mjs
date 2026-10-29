@@ -183,9 +183,9 @@ ${extraHead}
   <div class="wrap site-head-in">
     <a class="brand" href="${base}index.html"><img class="brand-logo" src="${base}assets/logo-leercollectief.svg" alt="${attr(config.organisatie)}" width="150" height="38"><span class="brand-sep" aria-hidden="true"></span><span class="brand-name">${esc(config.naam)}</span></a>
     <nav class="site-nav" aria-label="Hoofdnavigatie">
-      <a href="${base}index.html#cursusinhoud">Cursusinhoud</a>
-      <a href="${base}index.html#voortgang">Mijn voortgang</a>
-      <a href="${base}voor-leerkrachten.html">Voor leerkrachten</a>
+      <a href="${base}index.html#cursusinhoud"><span class="lang">Cursusinhoud</span><span class="kort">Inhoud</span></a>
+      <a href="${base}index.html#voortgang"><span class="lang">Mijn voortgang</span><span class="kort">Voortgang</span></a>
+      <a class="nav-leerkrachten" href="${base}voor-leerkrachten.html">Voor leerkrachten</a>
     </nav>
   </div>
 </header>
@@ -198,6 +198,7 @@ ${body}
     <p><strong>${esc(config.naam)}</strong> · ${esc(config.ondertitel)}. Voor de leerlingen van onze scholen in ${esc(config.regio || 'de regio')}, en voor elke andere school die ze wil gebruiken.</p>
     <p>Een initiatief van <a href="${attr(config.organisatieUrl)}" rel="noopener">${esc(config.organisatieVoluit || config.organisatie)}</a>. De opbouw is geïnspireerd op het concept van een gratis Nederlandse AI-cursus voor leerlingen; alle teksten, voorbeelden en quizvragen zijn opnieuw geschreven voor het Vlaamse secundair onderwijs.</p>
     <p>Je voortgang wordt alleen in deze browser op dit toestel bewaard. Er worden geen gegevens naar een server gestuurd.</p>
+    <p>Ben je leerkracht? Lees <a href="${base}voor-leerkrachten.html">hoe je de cursus in de klas gebruikt</a>.</p>
   </div>
 </footer>
 <script src="${base}assets/app.js" defer></script>

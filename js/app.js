@@ -1697,6 +1697,30 @@ function bewaarBouwer() {
   vervangAdres(sessieNaarHash(voorLink));
 }
 
+// Een generiek blok blijft na een klik gewoon klikbaar, want het mag meer dan
+// eens in je sessie. Zonder een teken op de plek zelf lijkt de klik dan niets
+// te doen — zeker op een gsm, waar je sessie ver boven de lijst staat.
+// Op een gsm staat je sessie bóven de lijst. Elk onderdeel dat erbij komt,
+// duwt de lijst dus een blok naar beneden, en je volgende tik belandt op het
+// verkeerde onderdeel. Dit zet de knop waarop je tikte terug op dezelfde
+// hoogte op je scherm. Een knop die zelf hertekend werd, laten we met rust.
+function behoudPlek(el, wijzig) {
+  const voor = el.getBoundingClientRect().top;
+  wijzig();
+  if (!el.isConnected) return;
+  const verschil = el.getBoundingClientRect().top - voor;
+  if (Math.abs(verschil) > 1) window.scrollBy({ top: verschil, behavior: 'instant' });
+}
+
+const toevoegTimers = new WeakMap();
+function bevestigToevoeging(knop) {
+  const item = knop.closest('.voorraad-item');
+  if (!item) return;
+  clearTimeout(toevoegTimers.get(item));
+  item.classList.add('net-toegevoegd');
+  toevoegTimers.set(item, setTimeout(() => item.classList.remove('net-toegevoegd'), 1400));
+}
+
 function bouwerGewijzigd() {
   const herstelFocus = onthoudFocus();
   bewaarBouwer();
@@ -1957,8 +1981,11 @@ document.addEventListener('click', (e) => {
   if (actie === 'deel-toevoegen') {
     if (!bouwerActief()) return;
     const deel = deelUitCode(knop.dataset.sleutel);
-    if (deel) bouwerSessie.delen.push(deel);
-    bouwerGewijzigd();
+    behoudPlek(knop, () => {
+      if (deel) bouwerSessie.delen.push(deel);
+      bouwerGewijzigd();
+    });
+    if (deel) bevestigToevoeging(knop);
     return;
   }
 

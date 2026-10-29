@@ -85,6 +85,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
 .site-nav { display: flex; gap: .2em; flex-wrap: wrap; }
 .site-nav a { padding: .4em .7em; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: .92rem; color: var(--muted); }
 .site-nav a:hover { background: var(--surface-2); color: var(--ink); }
+.site-nav .kort { display: none; }
 .site-foot { margin-top: 4em; padding: 2.5em 0 3em; background: var(--surface); border-top: 1px solid var(--line); font-size: .9rem; color: var(--muted); }
 .foot-brand { display: flex; align-items: center; gap: 1em; margin-bottom: 1em; flex-wrap: wrap; }
 .foot-brand img { height: 44px; width: auto; }
@@ -333,6 +334,12 @@ a.is-done .side-check::after { content: "✓"; color: #fff; font-size: .75rem; f
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .site-nav a { padding: .35em .5em; font-size: .85rem; }
+  /* De kop brak op een gsm over twee regels en at zo 70px van elk scherm.
+     Korte labels, en de link voor leerkrachten staat hier in de voettekst. */
+  .site-nav { flex-wrap: nowrap; }
+  .site-nav .lang, .site-nav .nav-leerkrachten { display: none; }
+  .site-nav .kort { display: inline; }
+  .site-head-in { min-height: 60px; }
   .brand-name, .brand-sep { display: none; }
   .brand-logo { height: 30px; }
   .vergelijk { grid-template-columns: 1fr; }
