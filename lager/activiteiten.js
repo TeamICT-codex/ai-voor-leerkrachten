@@ -5,6 +5,11 @@
 // Een activiteit is een functie maak(vak, klaar): ze bouwt zichzelf op in het
 // element vak en roept klaar() op zodra de klas genoeg gedaan heeft om de
 // stempel te verdienen.
+//
+// Dit bestand raakt bij het laden de pagina niet aan: stem/verzamel.mjs leest
+// het (via de stations) in node, om de voorgelezen zinnen te verzamelen.
+
+import { zeg } from './stem.js';
 
 export function el(tag, eigenschappen = {}, ...kinderen) {
   const e = document.createElement(tag);
@@ -26,35 +31,31 @@ export function inzicht(tekst) {
 export const wacht = ms => new Promise(r => setTimeout(r, ms));
 export const stil = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Voorlezen: een Nederlandse stem als het toestel er een heeft, liefst een
-// Vlaamse. spreek() leest alleen voor als "Lees mee" aanstaat (zie wereld.js):
-// voor de 1ste graad, waar de kinderen nog maar net leren lezen.
-export function stem() {
-  const stemmen = 'speechSynthesis' in window ? speechSynthesis.getVoices() : [];
-  return stemmen.find(v => v.lang === 'nl-BE') || stemmen.find(v => v.lang?.startsWith('nl')) || null;
-}
+// Voorlezen met de ingelezen stem van de juf of de meester (zie stem.js).
+// spreek() leest alleen voor als "Lees mee" aanstaat (zie wereld.js): voor de
+// 1ste graad, waar de kinderen nog maar net leren lezen.
 // erachter: wacht tot wat er nu voorgelezen wordt, gedaan is. Geeft een
 // belofte terug die afloopt als de zin uitgesproken is (of meteen, als er niet
-// voorgelezen wordt). Sommige browsers melden het einde niet: daarom wachten we
-// nooit langer dan de zin ongeveer duurt.
+// voorgelezen wordt).
 export function spreek(tekst, { erachter = false } = {}) {
   if (!document.body.classList.contains('lees-mee')) return Promise.resolve();
-  const v = stem();
-  if (!v) return Promise.resolve();
-  if (!erachter) speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(tekst);
-  u.voice = v;
-  u.lang = v.lang;
-  u.rate = 0.9;
-  const klaar = new Promise(r => { u.onend = u.onerror = r; });
-  speechSynthesis.speak(u);
-  return Promise.race([klaar, wacht(1500 + tekst.length * 90)]);
+  return zeg(tekst, { erachter });
 }
 // Een tekening voor op een kaartje of een bak: een stukje SVG.
 export function beeld(svg, klasse = 'll-beeld') {
   const b = el('span', { klasse, 'aria-hidden': 'true' });
   b.innerHTML = svg;
   return b;
+}
+
+// Wat het sorteerspel voorleest: de vraag bij een kaartje, het antwoord als het
+// kaartje in een bak komt, en het slot. sorteer() en sorteerZinnen() gebruiken
+// dezelfde functies: zo staat elke zin die kan klinken, in de lijst om in te
+// lezen (zie stem/LEESMIJ.md).
+export const kaartVraag = (kaart, bakken) => kaart.tekst + '. ' + bakken.map(b => b.naam).join(', of: ') + '?';
+export const kaartAntwoord = (kaart, juist) => (juist ? 'Juist! ' : 'Nog eens bekijken: ') + kaart.uitleg;
+export function sorteerZinnen({ bakken, kaarten, slot }) {
+  return [...kaarten.flatMap(k => [kaartVraag(k, bakken), kaartAntwoord(k, true), kaartAntwoord(k, false)]), ...(slot ? [slot] : [])];
 }
 
 // Sorteerspel met bakken. Werkt met klikken en met het toetsenbord: kies een
@@ -87,14 +88,14 @@ export function sorteer(vak, { bakken, kaarten, klaar, slot, opdracht = 'Kies ee
     terug.className = 'll-terug';
     terug.textContent = 'In welke bak hoort dit kaartje?';
     // Wie nog niet leest, hoort ook welke bakken er zijn.
-    spreek(kaarten[i].tekst + '. ' + bakken.map(b => b.naam).join(', of: ') + '?');
+    spreek(kaartVraag(kaarten[i], bakken));
   }
   function leg(bakId) {
     if (gekozen == null) return;
     const k = kaarten[gekozen], kaart = kaartEls[gekozen];
     const juist = k.bak === bakId;
     terug.className = 'll-terug ' + (juist ? 'juist' : 'nog');
-    terug.textContent = (juist ? 'Juist! ' : 'Nog eens bekijken: ') + k.uitleg;
+    terug.textContent = kaartAntwoord(k, juist);
     spreek(terug.textContent);
     if (!juist) return;
     kaart.classList.remove('gekozen');

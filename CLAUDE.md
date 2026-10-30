@@ -70,6 +70,9 @@ gedeeld/            wat alles deelt: Poppins (fonts/), het logo, en de 3D-motor
                     (diorama-kern.js bovenop een uitgedunde bundel van three.js)
 lager/              Leerlichtjes, het aanbod voor het lager: één 3D-wereld per graad
                     (zie lager/LEESMIJ.md en lager/TESTLIJST.md)
+lager/stem/         de voorleesstemmen van Leerlichtjes: elke tekst vooraf ingelezen
+                    door een juf en een meester (Gemini), met het script om opnieuw
+                    in te lezen en na te kijken (zie lager/stem/LEESMIJ.md)
 teaser/             de promofilm van een halve minuut: opname.py neemt de filmmodus
                     van de voorpagina beeld per beeld op, muziek.py rekent het
                     deuntje uit (zie teaser/LEESMIJ.md)
@@ -79,7 +82,15 @@ teaser/             de promofilm van een halve minuut: opname.py neemt de filmmo
 de seizoenen de datum (`voorpagina/sfeer.js`). Dat rekent de pagina zelf uit.
 Alleen de zaalmodus haalt het weer op bij Open-Meteo, met enkel de coördinaten
 van Dendermonde. Zo stuurt een gewone bezoeker niets naar een andere server.
-Hou dat zo, en zet nooit een weerverzoek buiten de zaalmodus. De motor in
+Hou dat zo, en zet nooit een weerverzoek buiten de zaalmodus.
+
+**Het voorlezen in Leerlichtjes** speelt vooraf ingelezen mp3's af
+(`lager/stem.js`). Tijdens de les gaat er dus niets naar een AI-dienst. Verander
+je een tekst die voorgelezen wordt, lees dan opnieuw in: `node
+lager/stem/verzamel.mjs`, daarna `python lager/stem/gemini.py alles` (de
+sleutel staat in `GEMINI_API_KEY`; toon of bewaar hem nooit). `naloop.mjs` gaat
+na dat elk pad een opname heeft. Vergeet je het inlezen, dan leest de
+browserstem die ene zin voor. De motor in
 `gedeeld/diorama-kern.js` draagt ook de werelden van Leerlichtjes. Elke
 uitbreiding daar staat standaard uit, en na een wijziging test je de drie
 werelden mee.
@@ -414,9 +425,9 @@ Hou dit bij als je verder schrijft.
   uitzondering maakt); bij het begin van het schooljaar is bijna niemand in het
   eerste jaar al 13, tegen het einde ongeveer de helft; en alleen Child Focus
   (116 000) is dag en nacht bereikbaar, Awel en 1712 op vaste uren.
-- **Open, voor Thomas:** les 5 van AI-wijs Start (deepnudes en sextortion) en het
-  stuk erover in de handleiding nalezen. Ze staan online sinds 30 oktober 2026:
-  Thomas liet alles pushen en leest ze daarna na.
+- **Nagelezen door Thomas, op 30 oktober 2026:** les 5 van AI-wijs Start
+  (deepnudes en sextortion) en het stuk erover in de handleiding. In orde
+  bevonden, niets aan veranderd.
 - **Open, voor Thomas:** de begeleidersgids laat bij één leerlingnaam in een
   workshopgesprek het gesprek verwijderen; spoor C zegt bij elk gesprek met
   leerlinggegevens in een tool zonder afspraken: dezelfde dag melden en niet
@@ -452,7 +463,8 @@ zelf een hoofdstuk eerder hebt geschreven.
 
 **AI-wijs Start, voor de 1ste graad secundair,** is gebouwd op 30 oktober 2026
 (zie hierboven) en staat sinds die dag online. Les 5, over deepnudes en
-sextortion, en het stuk erover in de handleiding leest Thomas nog zelf na.
+sextortion, en het stuk erover in de handleiding heeft Thomas zelf nagelezen en
+goedgekeurd.
 
 **Geparkeerd tot na woensdag 28 oktober 2026.** Wat nog openstaat is de
 nakijklijst van de leerlingencursus (`leerlingen-bron/docs/nakijklijst.md`):

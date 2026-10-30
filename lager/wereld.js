@@ -5,7 +5,7 @@
 //
 // Elke graad roept startWereld op met haar eigen stations, haar eigen sleutel
 // voor de stempels en een functie die haar tafereel laadt.
-import { stem } from './activiteiten.js';
+import { zeg, stop, kiesStem, stemNu, laadVooraf, volgVoorlezen, voorleesTekst } from './stem.js';
 
 const GETAL = ['nul', 'een', 'twee', 'drie', 'vier', 'vijf', 'zes', 'zeven', 'acht'];
 
@@ -74,10 +74,25 @@ export function startWereld({ stations: STATIONS, sleutel: SLEUTEL, plaats, laad
   }
 
   // ── voorlezen ──
-  const spraak = 'speechSynthesis' in window ? window.speechSynthesis : null;
-  spraak?.addEventListener?.('voiceschanged', () => document.body.classList.toggle('kan-voorlezen', !!stem()));
-  document.body.classList.toggle('kan-voorlezen', !!stem());
-  if (leesMee && spraak) {
+  // De teksten zijn vooraf ingelezen met een juf en een meester (zie stem.js).
+  // Zonder die opnames leest de browser voor, als het toestel een Nederlandse
+  // stem heeft. Kan geen van beide, dan verbergt lager.css de voorleesknoppen.
+  volgVoorlezen(({ opnames, kan }) => {
+    document.body.classList.toggle('kan-voorlezen', kan);
+    document.body.classList.toggle('ingelezen', opnames);
+  });
+  const kopknoppen = document.querySelector('.ll-kopknoppen');
+  const stemKnop = document.createElement('button');
+  stemKnop.type = 'button';
+  stemKnop.className = 'll-kopknop ll-stemkeus';
+  stemKnop.title = 'Wie leest er voor? Klik om te wisselen tussen een juf en een meester.';
+  stemKnop.textContent = `Stem: ${stemNu()}`;
+  stemKnop.addEventListener('click', () => {
+    kiesStem(stemNu() === 'juf' ? 'meester' : 'juf');
+    stemKnop.textContent = `Stem: ${stemNu()}`;
+  });
+  kopknoppen.prepend(stemKnop);
+  if (leesMee) {
     document.body.classList.add('lees-mee');
     const knop = document.createElement('button');
     knop.type = 'button';
@@ -89,24 +104,25 @@ export function startWereld({ stations: STATIONS, sleutel: SLEUTEL, plaats, laad
       document.body.classList.toggle('lees-mee', aan);
       knop.setAttribute('aria-pressed', String(aan));
       knop.textContent = aan ? 'Lees mee: aan' : 'Lees mee: uit';
-      if (!aan) spraak.cancel();
+      if (!aan) stop();
     });
-    document.querySelector('.ll-kopknoppen').prepend(knop);
+    kopknoppen.prepend(knop);
   }
+  // Een klik start het voorlezen, ook als er nog iets anders klonk; een tweede
+  // klik stopt het. De knop weet zelf of het zijn voorlezing is die loopt.
   function leesKnop(teksten) {
     const knop = document.createElement('button');
     knop.type = 'button';
     knop.className = 'll-lees';
     knop.textContent = '▶ Lees voor';
+    let deze = null;
     knop.addEventListener('click', () => {
-      if (spraak.speaking) { spraak.cancel(); knop.textContent = '▶ Lees voor'; return; }
-      const u = new SpeechSynthesisUtterance(teksten.join(' '));
-      const v = stem();
-      if (v) { u.voice = v; u.lang = v.lang; }
-      u.rate = 0.95;
-      u.onend = u.onerror = () => { knop.textContent = '▶ Lees voor'; };
-      spraak.speak(u);
+      if (deze) { deze = null; stop(); knop.textContent = '▶ Lees voor'; return; }
+      const beurt = deze = {};
       knop.textContent = '■ Stop met lezen';
+      zeg(voorleesTekst(teksten)).then(() => {
+        if (deze === beurt) { deze = null; knop.textContent = '▶ Lees voor'; }
+      });
     });
     return knop;
   }
@@ -139,12 +155,14 @@ export function startWereld({ stations: STATIONS, sleutel: SLEUTEL, plaats, laad
     venster.hidden = false;
     document.body.classList.add('venster-open');
     dio?.focus(id);
+    // De opnames van dit station alvast laden, zodat een tik meteen klinkt.
+    laadVooraf([voorleesTekst(s.ontdek), ...(leesMee ? s.zinnen ?? [] : []), voorleesTekst(s.praat)]);
     toonStap(0);
     delen.titel.focus({ preventScroll: true });
   }
   function sluitStation() {
     if (!open) return;
-    spraak?.cancel();
+    stop();
     open = null;
     venster.hidden = true;
     document.body.classList.remove('venster-open');
@@ -152,7 +170,7 @@ export function startWereld({ stations: STATIONS, sleutel: SLEUTEL, plaats, laad
     terugNaar?.focus?.({ preventScroll: true });
   }
   function toonStap(n) {
-    spraak?.cancel();
+    stop();
     stap = n;
     delen.stappen.forEach((b, i) => {
       b.setAttribute('aria-current', i === n ? 'step' : 'false');
@@ -163,7 +181,7 @@ export function startWereld({ stations: STATIONS, sleutel: SLEUTEL, plaats, laad
     vak.className = 'll-stap-inhoud';
     if (n === 0) {
       vak.append(...s.ontdek.map(t => Object.assign(document.createElement('p'), { textContent: t, className: 'll-groot' })));
-      if (spraak) vak.append(leesKnop(s.ontdek));
+      vak.append(leesKnop(s.ontdek));
     } else if (n === 1) {
       // De activiteit blijft staan als je even terug- en vooruitbladert.
       if (!doeVak) {
@@ -180,7 +198,7 @@ export function startWereld({ stations: STATIONS, sleutel: SLEUTEL, plaats, laad
       onthoud.innerHTML = '<p class="ll-onthoud-kop">Onthoud</p><p class="ll-onthoud-tekst"></p>';
       onthoud.querySelector('.ll-onthoud-tekst').textContent = s.onthoud;
       vak.append(Object.assign(document.createElement('p'), { textContent: 'Praat samen in de kring. Er zijn geen foute antwoorden.', className: 'll-klein' }), lijst);
-      if (spraak) vak.append(leesKnop(s.praat));
+      vak.append(leesKnop(s.praat));
       vak.append(onthoud, stempelVak(s));
     }
     delen.inhoud.replaceChildren(vak);

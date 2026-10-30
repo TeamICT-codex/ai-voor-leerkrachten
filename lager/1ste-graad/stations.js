@@ -2,8 +2,14 @@
 // leren nog maar net lezen: elke opdracht werkt met tekeningen, en met "Lees
 // mee" aan wordt elk kaartje en elk antwoord voorgelezen zodra je erop tikt.
 // De bouwstenen (el, knop, sorteer, spreek...) staan in ../activiteiten.js.
+//
+// Alles wat voorgelezen kan worden, is vooraf ingelezen. Daarom heeft elke hoek
+// een lijst zinnen: elke zin die de opdracht kan zeggen, gemaakt met dezelfde
+// functies als de opdracht zelf. Verander je een zin, lees dan opnieuw in (zie
+// ../stem/LEESMIJ.md). Dit bestand raakt bij het laden de pagina niet aan:
+// ../stem/verzamel.mjs leest het in node.
 
-import { el, knop, inzicht, wacht, stil, sorteer, spreek, beeld } from '../activiteiten.js';
+import { el, knop, inzicht, wacht, stil, sorteer, sorteerZinnen, spreek, beeld } from '../activiteiten.js';
 
 // ───────────────────────────── de tekeningen ─────────────────────────────
 
@@ -54,17 +60,17 @@ const DINGEN = [
   { tekst: 'Een gewone knuffelbeer', beeld: BEELD.beer, bak: 'zonder', uitleg: 'In een gewone knuffelbeer zit geen computer.' },
   { tekst: 'Een auto', beeld: BEELD.auto, bak: 'met', uitleg: 'In een auto zitten zelfs heel veel kleine computers.' },
 ];
+const ONTDEKSPEL = {
+  bakken: [
+    { id: 'met', naam: 'Met een computer erin', kleur: '#c2e3cc', beeld: BEELD.tablet },
+    { id: 'zonder', naam: 'Zonder computer', kleur: '#fde3c8', beeld: BEELD.bal },
+  ],
+  kaarten: DINGEN,
+  opdracht: 'Tik op een ding. Tik daarna op de juiste bak.',
+  slot: 'Goed gezocht! In veel toestellen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen.',
+};
 function maakOntdekhoek(vak, klaar) {
-  sorteer(vak, {
-    bakken: [
-      { id: 'met', naam: 'Met een computer erin', kleur: '#c2e3cc', beeld: BEELD.tablet },
-      { id: 'zonder', naam: 'Zonder computer', kleur: '#fde3c8', beeld: BEELD.bal },
-    ],
-    kaarten: DINGEN,
-    klaar,
-    opdracht: 'Tik op een ding. Tik daarna op de juiste bak.',
-    slot: 'Goed gezocht! In veel toestellen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen.',
-  });
+  sorteer(vak, { ...ONTDEKSPEL, klaar });
 }
 
 // ───────────────────────────── 2 · de bouwhoek: leer het lichtje sorteren ─────────────────────────────
@@ -79,6 +85,42 @@ function speelgoedSvg({ vorm, kleur }) {
 }
 // het blok, de bal
 const naam = d => d.vorm === 'blok' ? `het ${KLEURNAAM[d.kleur]} blok` : `de ${KLEURNAAM[d.kleur]} bal`;
+// Wat de bouwhoek voorleest, in de volgorde van de opdracht. De stapregels die
+// niet voorgelezen worden, staan gewoon in maakBouwhoek.
+const ZEG = {
+  stap1: 'Stap 1: leer het lichtje opruimen. Tik op een stuk speelgoed, en dan op de juiste bak.',
+  welkom: 'Ik weet nog niet waar alles hoort. Laten jullie het me zien?',
+  tikEerst: 'Tik eerst op een stuk speelgoed op de mat.',
+  kijkGoed: 'Kijk nog eens goed. Is het rond, of heeft het hoeken?',
+  nogEentje: 'Ik kijk goed mee. Nog eentje!',
+  volgende: 'Ik kijk goed mee. Toon me de volgende!',
+  magIk: 'Dank je! Ik heb goed gekeken. Mag ik het nu eens proberen?',
+  gelukt: 'Gelukt! Ik deed het zoals jullie het me leerden.',
+  stap3: 'Stap 3: doe nu expres een foutje. Leg de gele bal in de blokkenbak.',
+  expres: 'Dat klopt. Maar nu doen we expres een foutje: leg de gele bal in de blokkenbak.',
+  onthoud: 'De gele bal hoort bij de blokken. Ik onthoud het!',
+  foutje: 'Ik legde de gele bal bij de blokken. Dat leerden jullie me toch?',
+  lesFoutje: 'Het lichtje deed na wat wij het leerden. Ook ons foutje! Een computer weet niet zelf wat juist is.',
+  nogEens: 'Dank je! Mag ik het nog eens proberen?',
+  geluktSlot: 'Gelukt! De gele bal lijkt op de gele bal in de ballenbak.',
+  lesSlot: 'Goed zo! Het lichtje leert van onze voorbeelden. Daarom geven we het goede voorbeelden.',
+};
+// "Het rode blok. In welke bak?", als een kind een stuk speelgoed aantikt.
+const welkeBak = d => naam(d)[0].toUpperCase() + naam(d).slice(1) + '. In welke bak?';
+// "Dit lijkt op de rode bal. Dus: de ballenbak.", als het lichtje sorteert.
+const lijktOp = lijkt => `Dit lijkt op ${naam(lijkt)}. Dus: ${lijkt.bak === 'blok' ? 'de blokkenbak' : 'de ballenbak'}.`;
+// Fase 1: de klas leert het lichtje met vier voorbeelden. Daarna doet ze
+// expres een foutje met de gele bal.
+const LES = [{ vorm: 'blok', kleur: 'rood' }, { vorm: 'bal', kleur: 'blauw' }, { vorm: 'blok', kleur: 'geel' }, { vorm: 'bal', kleur: 'rood' }];
+const GELE_BAL = { vorm: 'bal', kleur: 'geel' };
+// Elke zin die de bouwhoek kan zeggen. Een kind tikt alleen het speelgoed van
+// de les en de gele bal aan. Het lichtje vergelijkt altijd met een voorbeeld
+// van de klas: speelgoed uit de les in de juiste bak, of de gele bal (eerst
+// expres in de blokkenbak, na het verbeteren in de ballenbak).
+function bouwhoekZinnen() {
+  const voorbeelden = [...LES.map(d => ({ ...d, bak: d.vorm })), { ...GELE_BAL, bak: 'blok' }, { ...GELE_BAL, bak: 'bal' }];
+  return [...Object.values(ZEG), ...[...LES, GELE_BAL].map(welkeBak), ...voorbeelden.map(lijktOp)];
+}
 // Het lichtje kijkt naar de voorbeelden van de klas en zoekt het speelgoed dat
 // er het meest op lijkt: de vorm telt het zwaarst, de kleur een beetje.
 function lichtjeKiest(voorbeelden, ding) {
@@ -125,7 +167,7 @@ function maakBouwhoek(vak, klaar) {
       b.addEventListener('click', () => {
         gekozen = d;
         mat.querySelectorAll('.ll-speelgoed').forEach(x => x.classList.toggle('gekozen', x === b));
-        spreek(naam(d)[0].toUpperCase() + naam(d).slice(1) + '. In welke bak?');
+        spreek(welkeBak(d));
       });
       d.knop = b;
       return b;
@@ -136,37 +178,35 @@ function maakBouwhoek(vak, klaar) {
     d.mini = mini;
     bakken[bak].querySelector('.ll-bak-inhoud').append(mini);
   }
-  // Fase 1: de klas leert het lichtje met vier voorbeelden.
-  const LES = [{ vorm: 'blok', kleur: 'rood' }, { vorm: 'bal', kleur: 'blauw' }, { vorm: 'blok', kleur: 'geel' }, { vorm: 'bal', kleur: 'rood' }];
-  let teLeggen = [...LES];
-  const STAP1 = 'Stap 1: leer het lichtje opruimen. Tik op een stuk speelgoed, en dan op de juiste bak.';
+  // Fase 1: elk stuk speelgoed krijgt een eigen knop en plaats, daarom een kopie.
+  let teLeggen = LES.map(d => ({ ...d }));
   function leg(bak) {
     if (fase !== 1 && fase !== 3) return;
-    if (!gekozen) { zegStap('Tik eerst op een stuk speelgoed op de mat.'); return; }
+    if (!gekozen) { zegStap(ZEG.tikEerst); return; }
     const d = gekozen;
     if (fase === 1) {
-      if (d.vorm !== bak) { zegStap('Kijk nog eens goed. Is het rond, of heeft het hoeken?'); return; }
+      if (d.vorm !== bak) { zegStap(ZEG.kijkGoed); return; }
       d.bak = bak;
       voorbeelden.push(d);
       inBak(d, bak);
-      stap.textContent = STAP1;
+      stap.textContent = ZEG.stap1;
       teLeggen = teLeggen.filter(x => x !== d);
       toonMat(teLeggen);
-      if (teLeggen.length) { zegt(teLeggen.length === 1 ? 'Ik kijk goed mee. Nog eentje!' : 'Ik kijk goed mee. Toon me de volgende!'); return; }
+      if (teLeggen.length) { zegt(teLeggen.length === 1 ? ZEG.nogEentje : ZEG.volgende); return; }
       fase = 2;
       stap.textContent = 'Stap 2: laat het lichtje zelf sorteren.';
-      zegt('Dank je! Ik heb goed gekeken. Mag ik het nu eens proberen?');
+      zegt(ZEG.magIk);
       verder.replaceChildren(knop('Laat het lichtje sorteren', () => lichtjeSorteert([{ vorm: 'blok', kleur: 'blauw' }, { vorm: 'bal', kleur: 'groen' }, { vorm: 'blok', kleur: 'groen' }], naFase2), 'll-knop groot'));
     } else if (fase === 3) {
-      if (bak === 'bal') { zegStap('Dat klopt. Maar nu doen we expres een foutje: leg de gele bal in de blokkenbak.'); return; }
+      if (bak === 'bal') { zegStap(ZEG.expres); return; }
       d.bak = bak;
       voorbeelden.push(d);
       inBak(d, bak);
       toonMat([]);
       fase = 4;
       stap.textContent = 'Stap 4: wat doet het lichtje nu?';
-      zegt('De gele bal hoort bij de blokken. Ik onthoud het!');
-      verder.replaceChildren(knop('Laat het lichtje sorteren', () => lichtjeSorteert([{ vorm: 'bal', kleur: 'geel' }], naFase4), 'll-knop groot'));
+      zegt(ZEG.onthoud);
+      verder.replaceChildren(knop('Laat het lichtje sorteren', () => lichtjeSorteert([{ ...GELE_BAL }], naFase4), 'll-knop groot'));
     }
   }
   async function lichtjeSorteert(dingen, daarna) {
@@ -178,7 +218,7 @@ function maakBouwhoek(vak, klaar) {
       const lijkt = lichtjeKiest(voorbeelden, d);
       // Wacht tot de zin uitgesproken is: wie niet leest, moet de redenering horen.
       await Promise.all([
-        zegt(`Dit lijkt op ${naam(lijkt)}. Dus: ${lijkt.bak === 'blok' ? 'de blokkenbak' : 'de ballenbak'}.`),
+        zegt(lijktOp(lijkt)),
         wacht(stil() ? 0 : 1800),
       ]);
       d.knop.remove();
@@ -189,20 +229,20 @@ function maakBouwhoek(vak, klaar) {
   }
   async function naFase2() {
     fase = 3;
-    toonMat([{ vorm: 'bal', kleur: 'geel' }]);
-    await zegt('Gelukt! Ik deed het zoals jullie het me leerden.');
-    zegStap('Stap 3: doe nu expres een foutje. Leg de gele bal in de blokkenbak.');
+    toonMat([{ ...GELE_BAL }]);
+    await zegt(ZEG.gelukt);
+    zegStap(ZEG.stap3);
   }
   let fout = null;
   async function naFase4([d]) {
     fout = d;
-    const les = 'Het lichtje deed na wat wij het leerden. Ook ons foutje! Een computer weet niet zelf wat juist is.';
+    const les = ZEG.lesFoutje;
     verder.replaceChildren(
       inzicht(les),
       el('p', { klasse: 'll-opdracht', tekst: 'Stap 5: help het lichtje. Leg de gele ballen in de ballenbak.' }),
       knop('Leg de gele ballen in de ballenbak', herstel, 'll-knop groot'),
     );
-    await zegt('Ik legde de gele bal bij de blokken. Dat leerden jullie me toch?');
+    await zegt(ZEG.foutje);
     spreek(les, { erachter: true });
   }
   function herstel() {
@@ -211,20 +251,20 @@ function maakBouwhoek(vak, klaar) {
     for (const x of [vb, fout]) { x.mini?.remove(); inBak(x, 'bal'); }
     fase = 5;
     stap.textContent = 'Stap 6: laat het lichtje nog eens sorteren.';
-    zegt('Dank je! Mag ik het nog eens proberen?');
-    verder.replaceChildren(knop('Laat het lichtje nog eens sorteren', () => lichtjeSorteert([{ vorm: 'bal', kleur: 'geel' }], slot), 'll-knop groot'));
+    zegt(ZEG.nogEens);
+    verder.replaceChildren(knop('Laat het lichtje nog eens sorteren', () => lichtjeSorteert([{ ...GELE_BAL }], slot), 'll-knop groot'));
   }
   async function slot() {
-    const les = 'Goed zo! Het lichtje leert van onze voorbeelden. Daarom geven we het goede voorbeelden.';
+    const les = ZEG.lesSlot;
     stap.textContent = 'Klaar! Met goede voorbeelden sorteert het lichtje weer goed.';
     verder.replaceChildren(inzicht(les));
     klaar();
-    await zegt('Gelukt! De gele bal lijkt op de gele bal in de ballenbak.');
+    await zegt(ZEG.geluktSlot);
     spreek(les, { erachter: true });
   }
   toonMat(teLeggen);
-  stap.textContent = STAP1;
-  lichtje.querySelector('p').textContent = 'Ik weet nog niet waar alles hoort. Laten jullie het me zien?';
+  stap.textContent = ZEG.stap1;
+  lichtje.querySelector('p').textContent = ZEG.welkom;
   vak.append(stap, lichtje, mat, bakVak, verder);
   spreek(stap.textContent).then(() => spreek(lichtje.querySelector('p').textContent, { erachter: true }));
 }
@@ -241,17 +281,17 @@ const KUNNEN = [
   { tekst: 'Je vriend zijn', beeld: BEELD.vriend, bak: 'mens', uitleg: 'Een computer kan lief praten, maar hij is geen echte vriend.' },
   { tekst: 'Een verhaal voorlezen', beeld: BEELD.voorlezen, bak: 'allebei', uitleg: 'Een computer kan voorlezen. Jij leert het ook, op school!' },
 ];
+const KRINGSPEL = {
+  bakken: [
+    { id: 'mens', naam: 'Jij wel, een computer niet', kleur: '#fde3c8', beeld: BEELD.mens },
+    { id: 'allebei', naam: 'Jij én een computer', kleur: '#dcecf5', beeld: BEELD.allebei },
+  ],
+  kaarten: KUNNEN,
+  opdracht: 'Kan een computer dit ook? Tik op een kaartje. Tik daarna op de juiste bak.',
+  slot: 'Goed gedaan! Een computer kan veel, maar hij voelt niets. Hij is geen mens, en geen vriend.',
+};
 function maakKring(vak, klaar) {
-  sorteer(vak, {
-    bakken: [
-      { id: 'mens', naam: 'Jij wel, een computer niet', kleur: '#fde3c8', beeld: BEELD.mens },
-      { id: 'allebei', naam: 'Jij én een computer', kleur: '#dcecf5', beeld: BEELD.allebei },
-    ],
-    kaarten: KUNNEN,
-    klaar,
-    opdracht: 'Kan een computer dit ook? Tik op een kaartje. Tik daarna op de juiste bak.',
-    slot: 'Goed gedaan! Een computer kan veel, maar hij voelt niets. Hij is geen mens, en geen vriend.',
-  });
+  sorteer(vak, { ...KRINGSPEL, klaar });
 }
 
 // ───────────────────────────── 4 · de laatjeskast: mijn geheimendoos ─────────────────────────────
@@ -266,17 +306,17 @@ const VRAGEN = [
   { tekst: 'Een spel vraagt: op welke school zit je?', beeld: BEELD.school, bak: 'doos', uitleg: 'Op welke school je zit, vertel je niet aan een spel.' },
   { tekst: 'Een spel vraagt: hoeveel is 2 plus 3?', beeld: BEELD.rekenen, bak: 'vertel', uitleg: 'Dat is een gewone spelvraag. Het antwoord is 5!' },
 ];
+const LAATJESSPEL = {
+  bakken: [
+    { id: 'doos', naam: 'In mijn geheimendoos', kleur: '#e6dcf3', beeld: BEELD.doos },
+    { id: 'vertel', naam: 'Dat mag ik vertellen', kleur: '#c2e3cc', beeld: BEELD.vertellen },
+  ],
+  kaarten: VRAGEN,
+  opdracht: 'Wat vertel je aan een spel? Tik op een kaartje. Tik daarna op de juiste bak.',
+  slot: 'Goed zo! Vraagt een spel of een toestel naar je geheimen? Stop dan, en vraag het aan een grote mens.',
+};
 function maakLaatjeskast(vak, klaar) {
-  sorteer(vak, {
-    bakken: [
-      { id: 'doos', naam: 'In mijn geheimendoos', kleur: '#e6dcf3', beeld: BEELD.doos },
-      { id: 'vertel', naam: 'Dat mag ik vertellen', kleur: '#c2e3cc', beeld: BEELD.vertellen },
-    ],
-    kaarten: VRAGEN,
-    klaar,
-    opdracht: 'Wat vertel je aan een spel? Tik op een kaartje. Tik daarna op de juiste bak.',
-    slot: 'Goed zo! Vraagt een spel of een toestel naar je geheimen? Stop dan, en vraag het aan een grote mens.',
-  });
+  sorteer(vak, { ...LAATJESSPEL, klaar });
 }
 
 // ───────────────────────────── 5 · het bureau van de juf: vraag het aan een grote mens ─────────────────────────────
@@ -317,6 +357,16 @@ const SCHERMEN = [
     beeld: scherm('<rect width="160" height="100" fill="#fde3c8"/><rect x="18" y="26" width="40" height="34" rx="10" fill="#5fa9c9"/><circle cx="31" cy="42" r="3.6" fill="#fff"/><circle cx="45" cy="42" r="3.6" fill="#fff"/><rect x="66" y="22" width="80" height="44" rx="10" fill="#fff"/><text x="106" y="40" font-size="9" text-anchor="middle" font-family="Poppins, sans-serif" fill="#2b3038">Vertel me</text><text x="106" y="54" font-size="9" text-anchor="middle" font-family="Poppins, sans-serif" fill="#2b3038">een geheim...</text>'),
   },
 ];
+// Wat het bureau voorleest: de vraag bij een scherm, het antwoord op de keuze
+// van de klas, en het slot. maakBureau() en bureauZinnen() gebruiken dezelfde
+// functies.
+const schermVraag = s => s.tekst + ' Wat doe je?';
+function schermAntwoord(s, vraagHet) {
+  if (s.veilig) return { zin: vraagHet ? 'Vragen is nooit fout! Hier mocht je ook gerust verder doen.' : s.oke, juist: true };
+  return vraagHet ? { zin: 'Goed zo! ' + s.uitleg, juist: true } : { zin: 'Wacht even! ' + s.uitleg, juist: false };
+}
+const BUREAUSLOT = 'Twijfel je, schrik je, of vraagt iets naar je geheimen? Stop, en vraag het aan een grote mens. Vragen is nooit fout.';
+const bureauZinnen = () => [...SCHERMEN.flatMap(s => [schermVraag(s), schermAntwoord(s, false).zin, schermAntwoord(s, true).zin]), BUREAUSLOT];
 const DOE_VERDER = svg('<circle cx="32" cy="32" r="26" fill="#4e9a63"/><path d="M26 20l18 12-18 12z" fill="#fff"/>');
 const VRAAG_HET = svg('<circle cx="32" cy="32" r="26" fill="#f08a3c"/><path d="M26 44V24a3 3 0 0 1 6 0v10-14a3 3 0 0 1 6 0v14-10a3 3 0 0 1 6 0v16c0 6-4 10-10 10h-2c-4 0-7-2-9-6l-5-8a3 3 0 0 1 5-3l3 4z" fill="#fff"/>');
 
@@ -338,9 +388,8 @@ function maakBureau(vak, klaar) {
       tekst.textContent = 'Alle schermen bekeken!';
       teller.textContent = '';
       keuzes.hidden = true;
-      const slot = 'Twijfel je, schrik je, of vraagt iets naar je geheimen? Stop, en vraag het aan een grote mens. Vragen is nooit fout.';
-      terug.replaceChildren(inzicht(slot));
-      spreek(slot);
+      terug.replaceChildren(inzicht(BUREAUSLOT));
+      spreek(BUREAUSLOT);
       klaar();
       return;
     }
@@ -350,14 +399,10 @@ function maakBureau(vak, klaar) {
     teller.textContent = `Scherm ${index + 1} van ${SCHERMEN.length}`;
     keuzes.hidden = false;
     terug.replaceChildren();
-    spreek(s.tekst + ' Wat doe je?');
+    spreek(schermVraag(s));
   }
   function kies(vraagHet) {
-    const s = SCHERMEN[index];
-    let zin, juist = true;
-    if (s.veilig) zin = vraagHet ? 'Vragen is nooit fout! Hier mocht je ook gerust verder doen.' : s.oke;
-    else if (vraagHet) zin = 'Goed zo! ' + s.uitleg;
-    else { zin = 'Wacht even! ' + s.uitleg; juist = false; }
+    const { zin, juist } = schermAntwoord(SCHERMEN[index], vraagHet);
     keuzes.hidden = true;
     terug.replaceChildren(
       el('p', { klasse: 'll-terug ' + (juist ? 'juist' : 'nog'), tekst: zin }),
@@ -373,6 +418,9 @@ function maakBureau(vak, klaar) {
 }
 
 // ───────────────────────────── de hoeken ─────────────────────────────
+// zinnen: alles wat de opdracht kan voorlezen (Lees mee). De wereld laadt die
+// opnames vooraf zodra de hoek opengaat, en ../stem/verzamel.mjs zet ze in de
+// lijst om in te lezen.
 
 export const STATIONS = [
   {
@@ -383,6 +431,7 @@ export const STATIONS = [
       'Zoek jij waar een computer in zit?',
     ],
     maak: maakOntdekhoek,
+    zinnen: sorteerZinnen(ONTDEKSPEL),
     praat: [
       'Welke toestellen met een computer heb jij thuis?',
       'Wat kun jij doen met een boek, zonder computer?',
@@ -398,6 +447,7 @@ export const STATIONS = [
       'Jullie laten het zien. Zo leert het lichtje sorteren.',
     ],
     maak: maakBouwhoek,
+    zinnen: bouwhoekZinnen(),
     praat: [
       'Hoe leerde het lichtje sorteren?',
       'Wat gebeurde er toen we expres een foutje deden?',
@@ -413,6 +463,7 @@ export const STATIONS = [
       'Zoek samen uit wat een mens kan, en wat een computer kan.',
     ],
     maak: maakKring,
+    zinnen: sorteerZinnen(KRINGSPEL),
     praat: [
       'Het lichtje zei "Dank je!". Was het lichtje echt blij? Hoe weet je dat?',
       'Een computer praat soms heel lief. Is hij dan je vriend?',
@@ -428,6 +479,7 @@ export const STATIONS = [
       'Een spel op de tablet stelt vragen. Wat vertel je? En wat stop je in je geheimendoos?',
     ],
     maak: maakLaatjeskast,
+    zinnen: sorteerZinnen(LAATJESSPEL),
     praat: [
       'Wat stop jij in je geheimendoos?',
       'Aan wie mag je wel vertellen waar je woont?',
@@ -443,6 +495,7 @@ export const STATIONS = [
       'Dan doe je dit: stop, en vraag het aan een grote mens.',
     ],
     maak: maakBureau,
+    zinnen: bureauZinnen(),
     praat: [
       'Wanneer vraag jij hulp aan een grote mens?',
       'Welke grote mensen kun jij altijd iets vragen?',

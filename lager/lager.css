@@ -393,6 +393,8 @@ body.venster-open .labels { display: none; }
 .ll-grote-keus:hover { border-color: var(--groen); }
 .ll-leesmee[aria-pressed="true"] { background: var(--groen); color: var(--wit); }
 body:not(.kan-voorlezen) .ll-leesmee { display: none; }
+/* De keuze tussen de juf en de meester heeft alleen zin met de ingelezen stemmen. */
+body:not(.ingelezen) .ll-stemkeus { display: none; }
 
 /* ── de onthaalpagina en de handleiding ── */
 .ll-pagina .ll-kop { position: sticky; top: 0; }

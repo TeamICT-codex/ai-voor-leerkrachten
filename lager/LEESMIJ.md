@@ -17,6 +17,8 @@ lager/
   lager.css               één stylesheet voor alle pagina's van Leerlichtjes
   wereld.js               de pagina rond elke wereld: venster per station, stempels, voorlezen
   activiteiten.js         bouwstenen voor de opdrachten (el, knop, inzicht, sorteer, spreek, beeld)
+  stem.js                 voorlezen: speelt de ingelezen stem af, met de browserstem als vangnet
+  stem/                   de ingelezen stemmen van een juf en een meester (zie stem/LEESMIJ.md)
   paspoort.js             vult het paspoort van een graad
   TESTLIJST.md            wat je nakijkt op een digibord, een tablet en een Chromebook
   1ste-graad/
@@ -54,7 +56,9 @@ gedeeld/
 De kinderen lezen nog niet vlot. Daarom staat `leesMee` aan in `startWereld`:
 elk kaartje en elke feedback wordt voorgelezen (`spreek()` in
 `activiteiten.js`), met een knop "Lees mee" in de kop om het uit te zetten. In
-deze wereld heten de stations hoeken (de optie `woord`).
+deze wereld heten de stations hoeken (de optie `woord`). Elke hoek heeft een
+lijst `zinnen`: alles wat de opdracht kan voorlezen, gemaakt met dezelfde
+functies als de opdracht zelf (zie "Voorlezen" hieronder).
 
 ## Het dorp (2de graad)
 
@@ -98,6 +102,31 @@ verschillen, met een echte foto ernaast) tot het museum (zelf foutjes zoeken,
 en wie maakte het), de school (een duidelijke vraag) tot de haven (wanneer AI
 je helpt leren).
 
+## Voorlezen
+
+Elke wereld leest voor: de knop "▶ Lees voor" bij Ontdek en Praat samen, en in
+de 1ste graad ook "Lees mee". Alle teksten zijn vooraf ingelezen met twee
+stemmen van Gemini (Google), een juf en een meester. De knop "Stem" in de kop
+wisselt tussen beide; de keuze staat in `localStorage` onder `leerlichtjes.stem`.
+De werelden spelen gewone mp3's af uit `stem/`: tijdens de les gaat er niets
+naar een AI-dienst. Staat een tekst niet in `stem/lijst.json`, of lukt het
+afspelen niet, dan leest de browserstem voor (een Nederlandse stem, liefst een
+Vlaamse). Is er geen van beide, dan verbergt `lager.css` de voorleesknoppen.
+
+Alles loopt via `stem.js`: `zeg(tekst, { erachter })` geeft een belofte die
+afloopt als de tekst uitgesproken is, `stop()` zwijgt, en `laadVooraf()` haalt
+de opnames van een station op zodra het opengaat, zodat een tik meteen klinkt.
+
+**Verander je een tekst die voorgelezen wordt, lees dan opnieuw in.** Anders
+leest de browserstem die ene zin voor. Hoe, staat in `stem/LEESMIJ.md`. Een
+nieuwe opdracht die voorleest, geeft haar station een lijst `zinnen` met elke
+zin die ze kan zeggen, gemaakt met dezelfde functies als de opdracht zelf: zo
+kan de lijst om in te lezen niet uit de pas lopen. De bestanden `stations.js`,
+`activiteiten.js` en `stem.js` mogen bij het laden de pagina niet aanraken
+(`document`, `window`): `stem/verzamel.mjs` leest ze in node.
+
+## Testen
+
 Om te testen: `?stil`, `?schets`, `?zwak` en `?debug`, zoals bij de startpagina.
 Met `?debug` hangt `window.dio` aan de pagina, met `dio.focus('park')` en
 `dio._test.spoel(3)` om de tijd vooruit te spoelen.
@@ -108,7 +137,8 @@ Maak een map zoals `2de-graad`. Een wereld bestaat uit een tafereel (zoals
 `dorp.js`, dat `maakPodium` uit de kern gebruikt), een lijst stations met
 `maak(vak, klaar)` per activiteit, een `wereld.js` die `startWereld` uit
 `../wereld.js` oproept met een eigen sleutel, en een `index.html` met dezelfde
-opbouw als de andere werelden.
+opbouw als de andere werelden. Zet de nieuwe graad in `GRADEN` in
+`stem/verzamel.mjs` en lees opnieuw in.
 
 ## Nog te doen
 

@@ -1,0 +1,2763 @@
+{
+  "uitleg": "Elke opname werd door een tweede model uitgeschreven en woord voor woord vergeleken met de tekst. Onder \"nakijken\" staan de opnames die ook na 3 pogingen nog afweken: beluister die even. Vaak schrijft het uitschrift alleen een getal of een woord anders dan de tekst. Wil je er een opnieuw laten inlezen? Wis het bestand en draai alles opnieuw. Onder \"alle\" staat het uitschrift van elke opname.",
+  "nakijken": [
+    {
+      "bestand": "meester/97cd11c14e49.mp3",
+      "tekst": "Een spel vraagt: hoeveel is 2 plus 3?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: hoeveel is twee plus drie? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.812,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/a86ac07f5ef0.mp3",
+      "tekst": "Ik kijk goed mee. Nog eentje!",
+      "uitschrift": "En kijk goed mee. Nog eentje.",
+      "score": 0.833,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/a86ac07f5ef0.mp3",
+      "tekst": "Ik kijk goed mee. Nog eentje!",
+      "uitschrift": "En kijk goed mee, nog eentje.",
+      "score": 0.833,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/8164a50d3d85.mp3",
+      "tekst": "Juist! Een telefoonnummer stop je in je geheimendoos.",
+      "uitschrift": "Juist, een telefoonnummer stop je in je geheime doos.",
+      "score": 0.875,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/97cd11c14e49.mp3",
+      "tekst": "Een spel vraagt: hoeveel is 2 plus 3?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: hoeveel is twee plus drie? In mijn geheimendoos of dat mag ik vertellen?",
+      "score": 0.875,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/341ebafa356a.mp3",
+      "tekst": "Het spel zegt: \"Koop 100 diamantjes!\" Wat doe je?",
+      "uitschrift": "Het spel zegt: koop honderd diamantjes. Wat doe je?",
+      "score": 0.889,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/341ebafa356a.mp3",
+      "tekst": "Het spel zegt: \"Koop 100 diamantjes!\" Wat doe je?",
+      "uitschrift": "Het spel zegt: koop honderd diamantjes. Wat doe je?",
+      "score": 0.889,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/29f505330729.mp3",
+      "tekst": "Juist! Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Juist, dat is een gewone spelvraag. Het antwoord is vijf.",
+      "score": 0.9,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/878fe0ec976a.mp3",
+      "tekst": "Nog eens bekijken: Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Nog eens bekijken. Dat is een gewone spelvraag. Het antwoord is vijf.",
+      "score": 0.917,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/878fe0ec976a.mp3",
+      "tekst": "Nog eens bekijken: Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Nog eens bekijken Dat is een gewone spelvraag Het antwoord is vijf",
+      "score": 0.917,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/8945e2880bf8.mp3",
+      "tekst": "Een spel vraagt: waar woon je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt waar woon je? In mijn geheimen doos of dat mag ik vertellen?",
+      "score": 0.929,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/c0aa7ee78b8d.mp3",
+      "tekst": "Juist! In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Juist in een gewoon boek zit geen computer jij slaat zelf de bladzijde om",
+      "score": 0.929,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/8945e2880bf8.mp3",
+      "tekst": "Een spel vraagt: waar woon je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: waar woon je? In mijn geheime doos of dat mag ik vertellen.",
+      "score": 0.929,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/9825803323a3.mp3",
+      "tekst": "Stap 3: doe nu expres een foutje. Leg de gele bal in de blokkenbak.",
+      "uitschrift": "Stap drie. Doe nu expres een foutje. Leg de gele bal in de blokkenbak.",
+      "score": 0.929,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/c0aa7ee78b8d.mp3",
+      "tekst": "Juist! In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Juist, in een gewoon boek zit geen computer. Jij slaat zelf de bladzijde om.",
+      "score": 0.929,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/086b326de809.mp3",
+      "tekst": "Een spel vraagt: wat is je lievelingsdier?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt, wat is je lievelingsdier? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/863a7a2b91b2.mp3",
+      "tekst": "Een spel vraagt: wat is je lievelingskleur?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je lievelingskleur? In mijn geheimen doos of dat mag ik vertellen.",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/086b326de809.mp3",
+      "tekst": "Een spel vraagt: wat is je lievelingsdier?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je lievelingsdier? In mijn geheime doos of dat mag ik vertellen.",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/863a7a2b91b2.mp3",
+      "tekst": "Een spel vraagt: wat is je lievelingskleur?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je lievelingskleur? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/dda63d419a41.mp3",
+      "tekst": "Een spel vraagt: wat eet je graag?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt wat eet je graag in mijn geheime doos of dat mag ik vertellen.",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "NEDERLANDS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/150027fdcad7.mp3",
+      "tekst": "Een spel vraagt: op welke school zit je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: op welke school zit je? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/9f76783f46b2.mp3",
+      "tekst": "Juist! Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Juist. Waar je woont, stop je in je geheime doos. Dat vertel je niet aan een spel.",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/efb530d69d3b.mp3",
+      "tekst": "Nog eens bekijken: In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Nog eens bekijken. In een gewoon boek zit geen computer. Jij slaat zelf de bladzijde om.",
+      "score": 0.938,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/21bce760bda7.mp3",
+      "tekst": "Wacht even! Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Waar je woont stop je in je geheime doos. Vraag het aan een grote mens.",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/efb530d69d3b.mp3",
+      "tekst": "Nog eens bekijken: In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Nog eens bekijken. In een gewoon boek zit geen computer. Jij slaat zelf de bladzijde om.",
+      "score": 0.938,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/f945ebcfc090.mp3",
+      "tekst": "Goed zo! Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "uitschrift": "Goed zo. Waar je woont, stop je in je geheime doos. Vraag het aan een grote mens.",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/0d8365203997.mp3",
+      "tekst": "Stap 1: leer het lichtje opruimen. Tik op een stuk speelgoed, en dan op de juiste bak.",
+      "uitschrift": "Stap één: leer het lichtje opruimen. Tik op een stuk speelgoed en dan op de juiste bak.",
+      "score": 0.941,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/227ee038ff15.mp3",
+      "tekst": "Nog eens bekijken: Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Nog eens bekijken. Waar je woont, stop je in je geheime doos. Dat vertel je niet aan een spel.",
+      "score": 0.944,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/227ee038ff15.mp3",
+      "tekst": "Nog eens bekijken: Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Nog eens bekijken. Waar je woont, stop je in je geheime doos. Dat vertel je niet aan een spel.",
+      "score": 0.944,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "juf/9ff2bf4ac953.mp3",
+      "tekst": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheimendoos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je? En wat stop je in je geheimendoos?",
+      "uitschrift": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheime doos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je en wat stop je in je geheime doos?",
+      "score": 0.955,
+      "extra": 2,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/9ff2bf4ac953.mp3",
+      "tekst": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheimendoos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je? En wat stop je in je geheimendoos?",
+      "uitschrift": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheime doos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je en wat stop je in je geheime doos?",
+      "score": 0.955,
+      "extra": 2,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/5ed1db692a39.mp3",
+      "tekst": "Wat stop jij in je geheimendoos? Aan wie mag je wel vertellen waar je woont? Wat doe je als een spel naar je geheimen vraagt?",
+      "uitschrift": "Wat stop jij in je geheime doos? Aan wie mag je wel vertellen waar je woont? Wat doe je als een spel naar je geheimen vraagt?",
+      "score": 0.96,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    {
+      "bestand": "meester/9c74cef99804.mp3",
+      "tekst": "In de haven vertrekken de schepen naar verre plaatsen. Ook jij vertrekt straks: naar het secundair. Daar kom je AI vaker tegen, ook bij taken en huiswerk. Soms helpt AI je om beter te leren. Soms doet AI het werk in jouw plaats, en dan leer je zelf niets. De meeste chatbots mag je pas gebruiken vanaf 13 jaar, en tot je 18 bent met toestemming van je ouders. Sommige pas vanaf 18. Daarom oefen je nu samen met je juf of meester.",
+      "uitschrift": "In de haven vertrekken de schepen naar verre plaatsen. Ook jij vertrekt straks naar het secundair. Daar kom je AI vaker tegen, ook bij taken en huiswerk. Soms helpt AI je beter te leren. Soms doet AI het werk in jouw plaats en dan leer je zelf niets. De meeste chatbots mag je pas gebruiken vanaf 13 jaar en tot je 18 bent met toestemming van je ouders. Sommige pas vanaf 18. Daarom oefen je nu samen met je juf of meester.",
+      "score": 0.988,
+      "extra": -1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    }
+  ],
+  "tongval": {
+    "juf": {
+      "VLAAMS": 110,
+      "NEDERLANDS": 43
+    },
+    "meester": {
+      "NEDERLANDS": 63,
+      "VLAAMS": 90
+    }
+  },
+  "alle": {
+    "juf/038884c9dc30.mp3": {
+      "tekst": "Je vriend zijn. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Je vriend zijn, jij wel, een computer niet, of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/04a2f10114e5.mp3": {
+      "tekst": "Nog eens bekijken: Je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "uitschrift": "Nog eens bekijken. Je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/04a8b6de703e.mp3": {
+      "tekst": "Tik eerst op een stuk speelgoed op de mat.",
+      "uitschrift": "Tik eerst op een stuk speelgoed op de mat.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/05120913a8d6.mp3": {
+      "tekst": "Juist! Wat je graag eet, mag je gerust vertellen.",
+      "uitschrift": "Juist. Wat je graag eet, mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/0620ef7f7f71.mp3": {
+      "tekst": "Waarom geloof je iets sneller als het heel zeker klinkt? Welke bronnen vertrouw jij? Waarom die? Wat doe je als twee bronnen iets anders zeggen?",
+      "uitschrift": "Waarom geloof je iets sneller als het heel zeker klinkt? Welke bronnen vertrouw jij? Waarom die? Wat doe je als twee bronnen iets anders zeggen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/084d4acbb7e0.mp3": {
+      "tekst": "Dit lijkt op de gele bal. Dus: de ballenbak.",
+      "uitschrift": "Dit lijkt op de gele bal, dus de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/086b326de809.mp3": {
+      "tekst": "Een spel vraagt: wat is je lievelingsdier?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt, wat is je lievelingsdier? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/0ad6e2bb42f1.mp3": {
+      "tekst": "Wacht even! Zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "uitschrift": "Wacht even. Zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/0bcd8abc3ad6.mp3": {
+      "tekst": "Dit lijkt op de gele bal. Dus: de blokkenbak.",
+      "uitschrift": "Dit lijkt op de gele bal, dus de blokkenbak",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/0d8365203997.mp3": {
+      "tekst": "Stap 1: leer het lichtje opruimen. Tik op een stuk speelgoed, en dan op de juiste bak.",
+      "uitschrift": "Stap één: leer het lichtje opruimen. Tik op een stuk speelgoed en dan op de juiste bak.",
+      "score": 0.941,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/0eac61b3475f.mp3": {
+      "tekst": "In de ontdekhoek liggen prenten van allerlei dingen: van thuis, van school en van op straat. In sommige dingen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen. Zoek jij waar een computer in zit?",
+      "uitschrift": "In de ontdekhoek liggen prenten van allerlei dingen, van thuis, van school en van op straat. In sommige dingen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen. Zoek jij waar een computer in zit?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/0f707449fdea.mp3": {
+      "tekst": "Een liedje laten horen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Een liedje laten horen? Jij wel, een computer niet? Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/118a50543c16.mp3": {
+      "tekst": "Een spel vraagt: wat is je wachtwoord?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt wat is je wachtwoord in mijn geheimendoos of dat mag ik vertellen",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/1273a42eb26d.mp3": {
+      "tekst": "Wacht even! Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet, en vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/12bd7c24e5d2.mp3": {
+      "tekst": "Wat wist Snuf over Fien, alleen door haar sporen te volgen? Welk spoor vertelt het meest over Fien? Waarom? Wat zou jij anders doen dan Fien?",
+      "uitschrift": "Wat wist Snuf over Fien alleen door haar sporen te volgen? Welk spoor vertelt het meest over Fien? Waarom? Wat zou jij anders doen dan Fien?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/150027fdcad7.mp3": {
+      "tekst": "Een spel vraagt: op welke school zit je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: op welke school zit je? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/150294a087c4.mp3": {
+      "tekst": "Verdrietig zijn. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Verdrietig zijn. Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/158d07ce0ab5.mp3": {
+      "tekst": "Iemand in het spel vraagt: \"Waar woon je?\" Wat doe je?",
+      "uitschrift": "Iemand in het spel vraagt: waar woon je? Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/17cbf7c9f584.mp3": {
+      "tekst": "Honger hebben. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Honger hebben. Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/18f30e20b6d9.mp3": {
+      "tekst": "Klonk een zin van de voorspeller echt, terwijl hij niet klopte? Hoe kan dat? Wat zou er gebeuren als de voorspeller alleen zinnen over voetbal kreeg? Wat is het verschil tussen iets weten en iets voorspellen?",
+      "uitschrift": "Klonk een zin van de voorspeller echt terwijl hij niet klopte? Hoe kan dat? Wat zou er gebeuren als de voorspeller alleen zinnen over voetbal kreeg? Wat is het verschil tussen iets weten en iets voorspellen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/1d31b25e9ffd.mp3": {
+      "tekst": "Juist! Op welke school je zit, vertel je niet aan een spel.",
+      "uitschrift": "Juist, op welke school je zit vertel je niet aan een spel.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/1d4969615020.mp3": {
+      "tekst": "De gele bal hoort bij de blokken. Ik onthoud het!",
+      "uitschrift": "De gele bal hoort bij de blokken. Ik onthoud het.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/1f072a15e9ce.mp3": {
+      "tekst": "Juist! Een computer kan heel snel rekenen. Jij kunt het ook!",
+      "uitschrift": "Juist, een computer kan heel snel rekenen. Jij kunt het ook!",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/203b89aad2e3.mp3": {
+      "tekst": "Juist! Jij kunt iemand knuffelen. Een computer kan dat niet.",
+      "uitschrift": "Juist, jij kunt iemand knuffelen, een computer kan dat niet.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/218b9a663114.mp3": {
+      "tekst": "Een robotje. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een robotje met een computer erin of zonder computer",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/21bce760bda7.mp3": {
+      "tekst": "Wacht even! Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "juf/227ee038ff15.mp3": {
+      "tekst": "Nog eens bekijken: Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Nog eens bekijken. Waar je woont, stop je in je geheime doos. Dat vertel je niet aan een spel.",
+      "score": 0.944,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/2361f916d2af.mp3": {
+      "tekst": "Nog eens bekijken: Je lievelingsdier mag je gerust vertellen.",
+      "uitschrift": "Nog eens bekijken. Je lievelingsdier mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/23a0ad8bad7d.mp3": {
+      "tekst": "Rekenen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Rekenen. Jij wel, een computer niet? Of jij én een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/245cb74d0df8.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan een liedje laten horen. Jij kunt het zingen!",
+      "uitschrift": "Nog eens bekijken. Een computer kan een liedje laten horen. Jij kunt het zingen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/26b6c8215e15.mp3": {
+      "tekst": "Een chatbot is een computerprogramma waarmee je kunt praten. Je typt een vraag, en je krijgt een antwoord dat klinkt alsof een mens het schreef. Maar een chatbot denkt niet na zoals jij. Hij las heel veel teksten en onthield welke woorden vaak na elkaar komen. Bij elk nieuw woord kiest hij een woord dat goed past. Zo maakt hij zin na zin. In het lab probeer je dat zelf, met een heel kleine voorspeller.",
+      "uitschrift": "Een chatbot is een computerprogramma waarmee je kunt praten. Je typt een vraag en je krijgt een antwoord dat klinkt alsof een mens het schreef. Maar een chatbot denkt niet na zoals jij. Hij las heel veel teksten en onthield welke woorden vaak na elkaar komen. Bij elk nieuw woord kiest hij een woord dat goed past. Zo maakt hij zin na zin. In het lab probeer je dat zelf, met een heel kleine voorspeller.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/29f505330729.mp3": {
+      "tekst": "Juist! Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Juist, dat is een gewone spelvraag. Het antwoord is vijf.",
+      "score": 0.9,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/2ba919f280f9.mp3": {
+      "tekst": "Twijfel je, schrik je, of vraagt iets naar je geheimen? Stop, en vraag het aan een grote mens. Vragen is nooit fout.",
+      "uitschrift": "Twijfel je, schrik je of vraagt iets naar je geheimen? Stop en vraag het aan een grote mens. Vragen is nooit fout.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/2bac2c125ef7.mp3": {
+      "tekst": "Nog eens bekijken: Jij kunt honger hebben. Een computer nooit: hij heeft wel stroom nodig.",
+      "uitschrift": "Nog eens bekijken. Jij kunt honger hebben. Een computer nooit. Hij heeft wel stroom nodig.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/2c5dd48591f2.mp3": {
+      "tekst": "Het rode blok. In welke bak?",
+      "uitschrift": "Het rode blok in welke bak",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/2ccc07f0afc5.mp3": {
+      "tekst": "Het gele blok. In welke bak?",
+      "uitschrift": "Het gele blok. In welke bak?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/2f24478c8b4b.mp3": {
+      "tekst": "Nog eens bekijken: In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "uitschrift": "Nog eens bekijken. In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/307997a89970.mp3": {
+      "tekst": "Dit lijkt op de rode bal. Dus: de ballenbak.",
+      "uitschrift": "Dit lijkt op de rode bal, dus de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/333a4fbd304e.mp3": {
+      "tekst": "Nog eens bekijken: In een tablet zit een computer.",
+      "uitschrift": "Nog eens bekijken. In een tablet zit een computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/3399afd38e81.mp3": {
+      "tekst": "Een pratend spelletje zegt: \"Ik ben je beste vriend. Vertel me een geheim.\" Wat doe je?",
+      "uitschrift": "Een pratend spelletje zegt: ik ben je beste vriend. Vertel me een geheim. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/341ebafa356a.mp3": {
+      "tekst": "Het spel zegt: \"Koop 100 diamantjes!\" Wat doe je?",
+      "uitschrift": "Het spel zegt: koop honderd diamantjes. Wat doe je?",
+      "score": 0.889,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/3465fbc06c09.mp3": {
+      "tekst": "Juist! Je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "uitschrift": "Juist, je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/37a6dff4f1c2.mp3": {
+      "tekst": "Nog eens bekijken: In een gewone knuffelbeer zit geen computer.",
+      "uitschrift": "Nog eens bekijken. In een gewone knuffelbeer zit geen computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/3803542339ba.mp3": {
+      "tekst": "Op de redactie schrijven ze stukjes voor de krant. Vandaag hielp een chatbot mee: hij schreef een stukje over het zonnestelsel. Het stukje klinkt zeker en goed. Maar een chatbot kan dingen verzinnen of door elkaar halen, en hij zegt dat er niet bij. Jullie zijn de eindredactie. Zoek de fouten, en kijk ze na met de bron.",
+      "uitschrift": "Op de redactie schrijven ze stukjes voor de krant. Vandaag hielp een chatbot mee. Hij schreef een stukje over het zonnestelsel. Het stukje klinkt zeker en goed, maar een chatbot kan dingen verzinnen of door elkaar halen, en hij zegt dat er niet bij. Jullie zijn de eindredactie. Zoek de fouten en kijk ze na met de bron.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 5,
+      "opnieuw": "op vraag van Thomas: \"er\" viel weg"
+    },
+    "juf/39e2cebd6247.mp3": {
+      "tekst": "Dank je! Mag ik het nog eens proberen?",
+      "uitschrift": "Dank je. Mag ik het nog eens proberen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/3ac9c73a3694.mp3": {
+      "tekst": "Nog eens bekijken: Wat je graag eet, mag je gerust vertellen.",
+      "uitschrift": "Nog eens bekijken. Wat je graag eet, mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/3c9bd223e0ed.mp3": {
+      "tekst": "Dit lijkt op de blauwe bal. Dus: de ballenbak.",
+      "uitschrift": "Dit lijkt op de blauwe bal. Dus de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/41b3c36fcfd7.mp3": {
+      "tekst": "Goed zo! Een spelletje is geen vriend. Je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "uitschrift": "Goed zo. Een spelletje is geen vriend, je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/42d5e33090c4.mp3": {
+      "tekst": "In de kring praten we samen. Het lichtje kan ook praten. Is het lichtje dan een mens? Zoek samen uit wat een mens kan, en wat een computer kan.",
+      "uitschrift": "In de kring praten we samen. Het lichtje kan ook praten. Is het lichtje dan een mens? Zoek samen uit wat een mens kan en wat een computer kan.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/44f087cf9d4b.mp3": {
+      "tekst": "Waarom herkende de machine de groene appel eerst niet? Stel: een computer moet gezichten herkennen, maar kreeg bijna alleen foto's van volwassenen. Wat kan er misgaan bij kinderen? Wie kiest de voorbeelden voor een computer? Waarom is dat belangrijk?",
+      "uitschrift": "Waarom herkende de machine de groene appel eerst niet? Stel, een computer moet gezichten herkennen, maar kreeg bijna alleen foto's van volwassenen. Wat kan er misgaan bij kinderen? Wie kiest de voorbeelden voor een computer? Waarom is dat belangrijk?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/47fd5ca63f8b.mp3": {
+      "tekst": "Een tablet. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een tablet met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/491c7e6f10da.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan lief praten, maar hij is geen echte vriend.",
+      "uitschrift": "Nog eens bekijken. Een computer kan lief praten, maar hij is geen echte vriend.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/4a8b4d380778.mp3": {
+      "tekst": "In het museum hangen tekeningen, schilderijen en foto's. Bij elk werk staat wie het maakte. Vandaag hangt er ook een beeld dat een computer maakte. Zo'n beeld lijkt soms heel echt. Soms zie je kleine foutjes, maar steeds vaker zie je niets. Speur eerst naar de foutjes. Daarna zoek je uit: mag je zomaar het werk van iemand anders gebruiken?",
+      "uitschrift": "In het museum hangen tekeningen, schilderijen en foto's. Bij elk werk staat wie het maakte. Vandaag hangt er ook een beeld dat een computer maakte. Zo'n beeld lijkt soms heel echt. Soms zie je kleine foutjes, maar steeds vaker zie je niets. Speur eerst naar de foutjes. Daarna zoek je uit: mag je zomaar het werk van iemand anders gebruiken?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/4bb52dab1c5f.mp3": {
+      "tekst": "In dit huis staat een slimme speaker. Dat is een toestel dat luistert en praat. Deze speaker heet Bolleke. Bolleke luistert de hele tijd of hij zijn naam hoort. Hoort hij \"Hé Bolleke\", dan gaat zijn lampje branden. Wat je daarna zegt, stuurt hij via het internet naar een grote computer van het bedrijf dat hem maakte. Die computer zoekt een antwoord.",
+      "uitschrift": "In dit huis staat een slimme speaker. Dat is een toestel dat luistert en praat. Deze speaker heet Bolleke. Bolleke luistert de hele tijd of hij zijn naam hoort. Hoort hij hé Bolleke dan gaat zijn lampje branden. Wat je daarna zegt stuurt hij via het internet naar een grote computer van het bedrijf dat hem maakte. Die computer zoekt een antwoord.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/4c1ed5bd067a.mp3": {
+      "tekst": "Een bal. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een bal met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/515d131fd13c.mp3": {
+      "tekst": "Juist! Ook in een wasmachine zit een kleine computer. Die zorgt dat de wasmachine op tijd stopt.",
+      "uitschrift": "Juist. Ook in een wasmachine zit een kleine computer die zorgt dat de wasmachine op tijd stopt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/548f8e51f0af.mp3": {
+      "tekst": "Nog eens bekijken: Ook in een wasmachine zit een kleine computer. Die zorgt dat de wasmachine op tijd stopt.",
+      "uitschrift": "Nog eens bekijken. Ook in een wasmachine zit een kleine computer. Die zorgt dat de wasmachine op tijd stopt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/55dbc151c3b0.mp3": {
+      "tekst": "Je speelt het rekenspel van de klas. Wat doe je?",
+      "uitschrift": "Je speelt het rekenspel van de klas. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/598f88d21763.mp3": {
+      "tekst": "Vragen is nooit fout! Hier mocht je ook gerust verder doen.",
+      "uitschrift": "Vragen is nooit fout. Hier mocht je ook gerust verder doen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "juf/5c162cec0ef7.mp3": {
+      "tekst": "Nog eens bekijken: In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "uitschrift": "Nog eens bekijken. In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/5c8abcaa1870.mp3": {
+      "tekst": "Dit lijkt op het gele blok. Dus: de blokkenbak.",
+      "uitschrift": "Dit lijkt op het gele blok, dus de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/5ed1db692a39.mp3": {
+      "tekst": "Wat stop jij in je geheimendoos? Aan wie mag je wel vertellen waar je woont? Wat doe je als een spel naar je geheimen vraagt?",
+      "uitschrift": "Wat stop jij in je geheimendoos? Aan wie mag je wel vertellen waar je woont? Wat doe je als een spel naar je geheimen vraagt?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/60dd3e32742c.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan praten. Maar hij voelt niets bij wat hij zegt.",
+      "uitschrift": "nog eens bekijken. Een computer kan praten, maar hij voelt niets bij wat hij zegt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/6699ce295fb5.mp3": {
+      "tekst": "Juist! In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "uitschrift": "Juist! In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/6b261b923ceb.mp3": {
+      "tekst": "Dat is oké. Teken maar verder!",
+      "uitschrift": "Dat is oké. Teken maar verder.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/6c5f90ad676c.mp3": {
+      "tekst": "Een spel vraagt: wat is het telefoonnummer van je mama of papa?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt wat is het telefoonnummer van je mama of papa in mijn geheimendoos of dat mag ik vertellen",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/6d5eebcfd5ce.mp3": {
+      "tekst": "Het lichtje zei \"Dank je!\". Was het lichtje echt blij? Hoe weet je dat? Een computer praat soms heel lief. Is hij dan je vriend? Wat kun jij, wat een computer nooit kan?",
+      "uitschrift": "Het lichtje zei dank je. Was het lichtje echt blij? Hoe weet je dat? Een computer praat soms heel lief. Is hij dan je vriend? Wat kun jij wat een computer nooit kan?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "juf/70061ac7e5bb.mp3": {
+      "tekst": "Goed gedaan! Een computer kan veel, maar hij voelt niets. Hij is geen mens, en geen vriend.",
+      "uitschrift": "Goed gedaan! Een computer kan veel, maar hij voelt niets. Hij is geen mens en geen vriend.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/72d909622a3f.mp3": {
+      "tekst": "Plots springt er een bericht op: \"Je wint een nieuwe tablet! Tik hier!\" Wat doe je?",
+      "uitschrift": "Plots springt er een bericht op. Je wint een nieuwe tablet! Tik hier. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/753b0d869544.mp3": {
+      "tekst": "Juist! Je lievelingsdier mag je gerust vertellen.",
+      "uitschrift": "Juist, je lievelingsdier mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/766c4465d731.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan heel snel rekenen. Jij kunt het ook!",
+      "uitschrift": "Nog eens bekijken. Een computer kan heel snel rekenen. Jij kunt het ook.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/773a46d08627.mp3": {
+      "tekst": "Praten. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Praten. Jij wel, een computer niet? Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/7c04dc6a8c11.mp3": {
+      "tekst": "Iemand knuffelen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Iemand knuffelen? Jij wel, een computer niet. Of jij én een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/7c3f02600c4f.mp3": {
+      "tekst": "Nog eens bekijken: In een auto zitten zelfs heel veel kleine computers.",
+      "uitschrift": "Nog eens bekijken. In een auto zitten zelfs heel veel kleine computers.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/7ee19d71374e.mp3": {
+      "tekst": "Wanneer vraag jij hulp aan een grote mens? Welke grote mensen kun jij altijd iets vragen? Is vragen ooit fout?",
+      "uitschrift": "Wanneer vraag jij hulp aan een grote mens? Welke grote mensen kun jij altijd iets vragen? Is vragen ooit fout?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/8164a50d3d85.mp3": {
+      "tekst": "Juist! Een telefoonnummer stop je in je geheimendoos.",
+      "uitschrift": "Juist, een telefoonnummer stop je in je geheime doos.",
+      "score": 0.875,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/849c7a3d5051.mp3": {
+      "tekst": "Goed zo! Vraagt een spel of een toestel naar je geheimen? Stop dan, en vraag het aan een grote mens.",
+      "uitschrift": "Goed zo. Vraagt een spel of een toestel naar je geheimen? Stop dan en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/859853f2c547.mp3": {
+      "tekst": "Wanneer helpt AI je echt om iets te leren? Waarom is het niet eerlijk om een opstel van een chatbot af te geven als je eigen werk? Welke afspraak over AI wil jij maken met je klas?",
+      "uitschrift": "Wanneer helpt AI je echt om iets te leren? Waarom is het niet eerlijk om een opstel van een chatbot af te geven als je eigen werk? Welke afspraak over AI wil jij maken met je klas?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/85e13de0bd3d.mp3": {
+      "tekst": "Dat is oké. Speel maar verder!",
+      "uitschrift": "Dat is oké. Speel maar verder.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/863a7a2b91b2.mp3": {
+      "tekst": "Een spel vraagt: wat is je lievelingskleur?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je lievelingskleur? In mijn geheimen doos of dat mag ik vertellen.",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/86a70ce7fef8.mp3": {
+      "tekst": "Een slimme speaker. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "een slimme speaker met een computer erin of zonder computer",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/878fe0ec976a.mp3": {
+      "tekst": "Nog eens bekijken: Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Nog eens bekijken. Dat is een gewone spelvraag. Het antwoord is vijf.",
+      "score": 0.917,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/8945e2880bf8.mp3": {
+      "tekst": "Een spel vraagt: waar woon je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt waar woon je? In mijn geheimen doos of dat mag ik vertellen?",
+      "score": 0.929,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/89facb5f5b07.mp3": {
+      "tekst": "Ik weet nog niet waar alles hoort. Laten jullie het me zien?",
+      "uitschrift": "Ik weet nog niet waar alles hoort. Laten jullie het me zien?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/8ae5aa8791b7.mp3": {
+      "tekst": "Goed zo! Zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "uitschrift": "Goed zo. Zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/8bbff298037a.mp3": {
+      "tekst": "Dank je! Ik heb goed gekeken. Mag ik het nu eens proberen?",
+      "uitschrift": "Dank je. Ik heb goed gekeken. Mag ik het nu eens proberen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/9110433bca99.mp3": {
+      "tekst": "Nog eens bekijken: Op welke school je zit, vertel je niet aan een spel.",
+      "uitschrift": "Nog eens bekijken. Op welke school je zit, vertel je niet aan een spel.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/92e6488a1dac.mp3": {
+      "tekst": "Juist! Een computer kan voorlezen. Jij leert het ook, op school!",
+      "uitschrift": "Juist, een computer kan voorlezen. Jij leert het ook, op school.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/96ea21119c15.mp3": {
+      "tekst": "Op school stel je elke dag vragen. Hoe duidelijker je vraag, hoe beter je juf of meester je kan helpen. Bij een chatbot is dat ook zo. Een chatbot kent jou niet. Hij weet niet hoe oud je bent of wat je bedoelt. Dat moet je hem vertellen. Later, als je ouder bent, kun je zelf vragen stellen aan een chatbot. Vandaag oefen je met de oefenrobot van de school.",
+      "uitschrift": "Op school stel je elke dag vragen. Hoe duidelijker je vraag, hoe beter je juf of meester je kan helpen. Bij een chatbot is dat ook zo. Een chatbot kent jou niet. Hij weet niet hoe oud je bent of wat je bedoelt. Dat moet je hem vertellen. Later, als je ouder bent, kun je zelf vragen stellen aan een chatbot. Vandaag oefen je met de oefenrobot van de school.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/97cd11c14e49.mp3": {
+      "tekst": "Een spel vraagt: hoeveel is 2 plus 3?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: hoeveel is twee plus drie? In mijn geheimendoos of dat mag ik vertellen?",
+      "score": 0.875,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/9825803323a3.mp3": {
+      "tekst": "Stap 3: doe nu expres een foutje. Leg de gele bal in de blokkenbak.",
+      "uitschrift": "Stap 3. Doe nu expres een foutje. Leg de gele bal in de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 2
+    },
+    "juf/9846dc380213.mp3": {
+      "tekst": "De blauwe bal. In welke bak?",
+      "uitschrift": "De blauwe bal in welke bak",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/9c74cef99804.mp3": {
+      "tekst": "In de haven vertrekken de schepen naar verre plaatsen. Ook jij vertrekt straks: naar het secundair. Daar kom je AI vaker tegen, ook bij taken en huiswerk. Soms helpt AI je om beter te leren. Soms doet AI het werk in jouw plaats, en dan leer je zelf niets. De meeste chatbots mag je pas gebruiken vanaf 13 jaar, en tot je 18 bent met toestemming van je ouders. Sommige pas vanaf 18. Daarom oefen je nu samen met je juf of meester.",
+      "uitschrift": "In de haven vertrekken de schepen naar verre plaatsen. Ook jij vertrekt straks naar het secundair. Daar kom je AI vaker tegen, ook bij taken en huiswerk. Soms helpt AI je om beter te leren. Soms doet AI het werk in jouw plaats en dan leer je zelf niets. De meeste chatbots mag je pas gebruiken vanaf 13 jaar en tot je 18 bent met toestemming van je ouders, sommige pas vanaf 18. Daarom oefen je nu samen met je juf of meester.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/9ce51d93d7e4.mp3": {
+      "tekst": "Gelukt! Ik deed het zoals jullie het me leerden.",
+      "uitschrift": "Gelukt, ik deed het zoals jullie het me leerden.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/9f37ad969012.mp3": {
+      "tekst": "Wacht even! In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "uitschrift": "Wacht even. In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/9f76783f46b2.mp3": {
+      "tekst": "Juist! Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Juist. Waar je woont, stop je in je geheime doos. Dat vertel je niet aan een spel.",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/9ff2bf4ac953.mp3": {
+      "tekst": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheimendoos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je? En wat stop je in je geheimendoos?",
+      "uitschrift": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheime doos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je en wat stop je in je geheime doos?",
+      "score": 0.955,
+      "extra": 2,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/a5776a5a5fa1.mp3": {
+      "tekst": "Juist! Je lievelingskleur mag je gerust vertellen.",
+      "uitschrift": "Juist, je lievelingskleur mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/a64a6a757efa.mp3": {
+      "tekst": "Welk foutje vonden jullie het eerst? Welk het laatst? Als je geen foutjes ziet, hoe kun je dan toch nagaan waar een beeld vandaan komt? Waarom is het belangrijk om te zeggen wie iets maakte?",
+      "uitschrift": "Welk foutje vonden jullie het eerst? Welk het laatst? Als je geen foutjes ziet, hoe kun je dan toch nagaan waar een beeld vandaan komt? Waarom is het belangrijk om te zeggen wie iets maakte?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/a6800ab8537d.mp3": {
+      "tekst": "In de bibliotheek hangen tekeningen van kinderen uit het dorp. De bibliotheek wil ze sorteren: de katten bij de katten, de vissen bij de vissen. Een computer moet helpen. De computer moet herkennen: is het een kat of een vis? Maar niemand vertelde hem hoe een kat eruitziet. Hij leert het van voorbeelden. Jullie tekenen katten en vissen, en zeggen erbij wat het is. Hoe meer goede voorbeelden, hoe beter hij raadt.",
+      "uitschrift": "In de bibliotheek hangen tekeningen van kinderen uit het dorp. De bibliotheek wil ze sorteren: de katten bij de katten, de vissen bij de vissen. Een computer moet helpen. De computer moet herkennen: is het een kat of een vis? Maar niemand vertelde hem hoe een kat eruitziet. Hij leert het van voorbeelden. Jullie tekenen katten en vissen en zeggen erbij wat het is. Hoe meer goede voorbeelden, hoe beter hij raadt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/a726ffd157d3.mp3": {
+      "tekst": "Kijk nog eens goed. Is het rond, of heeft het hoeken?",
+      "uitschrift": "Kijk nog eens goed. Is het rond of heeft het hoeken?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/a8231bf82511.mp3": {
+      "tekst": "Juist! Jij kunt honger hebben. Een computer nooit: hij heeft wel stroom nodig.",
+      "uitschrift": "Juist, jij kunt honger hebben. Een computer nooit. Hij heeft wel stroom nodig.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/a86ac07f5ef0.mp3": {
+      "tekst": "Ik kijk goed mee. Nog eentje!",
+      "uitschrift": "En kijk goed mee. Nog eentje.",
+      "score": 0.833,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/a8aff47357dd.mp3": {
+      "tekst": "Ik kijk goed mee. Toon me de volgende!",
+      "uitschrift": "Ik kijk goed mee. Toon me de volgende.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "juf/abbad40673da.mp3": {
+      "tekst": "Juist! In een gewone knuffelbeer zit geen computer.",
+      "uitschrift": "Juist, in een gewone knuffelbeer zit geen computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/ad479c468818.mp3": {
+      "tekst": "Waarom ging het lampje aan bij oma, terwijl ze Bolleke niet riep? Welke toestellen bij jullie thuis luisteren naar je stem? Denk aan een gsm, een tablet of een tv. Wat vertel je liever niet aan een toestel? Waarom niet?",
+      "uitschrift": "Waarom ging het lampje aan bij oma terwijl ze Bolleke niet riep? Welke toestellen bij jullie thuis luisteren naar je stem? Denk aan een gsm, een tablet of een tv. Wat vertel je liever niet aan een toestel? Waarom niet?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/ae84da28bad4.mp3": {
+      "tekst": "In de fotowinkel drukken ze foto's af. Vandaag kwamen er twee foto's binnen die bijna hetzelfde zijn. Eén foto is echt. De andere maakte een computer. Een computer kan beelden maken die op echte foto's lijken. Soms maakt zo'n computer kleine foutjes. Zoek de verschillen tussen de twee foto's. Zo vind je de foutjes.",
+      "uitschrift": "In de fotowinkel drukken ze foto's af. Vandaag kwamen er twee foto's binnen die bijna hetzelfde zijn. Eén foto is echt. De andere maakte een computer. Een computer kan beelden maken die op echte foto's lijken. Soms maakt zo'n computer kleine foutjes. Zoek de verschillen tussen de twee foto's. Zo vind je de foutjes.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/b29cce0ceac8.mp3": {
+      "tekst": "Nog eens bekijken: Je lievelingskleur mag je gerust vertellen.",
+      "uitschrift": "Nog eens bekijken? Je lievelingskleur mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/b2a3a69fda0c.mp3": {
+      "tekst": "Juist! Een computer kan een liedje laten horen. Jij kunt het zingen!",
+      "uitschrift": "Juist, een computer kan een liedje laten horen. Jij kunt het zingen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/b2c15d7b359f.mp3": {
+      "tekst": "De gele bal. In welke bak?",
+      "uitschrift": "De gele bal. In welke bak?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/b87850d17430.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan voorlezen. Jij leert het ook, op school!",
+      "uitschrift": "Nog eens bekijken. Een computer kan voorlezen. Jij leert het ook, op school.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/b95bead0d5bf.mp3": {
+      "tekst": "In deze fabriek staat een sorteermachine. Ze moet appels herkennen tussen ander fruit. Niemand vertelde de machine hoe een appel eruitziet. Ze leerde het uit voorbeelden: fruit waarvan iemand zei \"dit is een appel\" of \"dit is geen appel\". Zo leren veel computers: uit voorbeelden. Maar wat als die voorbeelden niet goed gekozen zijn? Test de machine en zoek het uit.",
+      "uitschrift": "In deze fabriek staat een sorteermachine. Ze moet appels herkennen tussen ander fruit. Niemand vertelde de machine hoe een appel eruitziet. Ze leerde het uit voorbeelden. Fruit waarvan iemand zei dit is een appel of dit is geen appel. Zo leren veel computers, uit voorbeelden. Maar wat als die voorbeelden niet goed gekozen zijn? Test de machine en zoek het uit.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/b97d782bf7e2.mp3": {
+      "tekst": "De rode bal. In welke bak?",
+      "uitschrift": "De rode bal. In welke bak?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/b9947abb939e.mp3": {
+      "tekst": "Goed zo! Het lichtje leert van onze voorbeelden. Daarom geven we het goede voorbeelden.",
+      "uitschrift": "Goed zo, het lichtje leert van onze voorbeelden, daarom geven we het goede voorbeelden.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/bba94a844d73.mp3": {
+      "tekst": "Juist! In een tablet zit een computer.",
+      "uitschrift": "Juist, in een tablet zit een computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/bbe84f0ab912.mp3": {
+      "tekst": "Goed zo! In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "uitschrift": "Goed zo. In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/bdfd1317b25c.mp3": {
+      "tekst": "Goed gezocht! In veel toestellen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen.",
+      "uitschrift": "Goed gezocht! In veel toestellen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/be6d69abf880.mp3": {
+      "tekst": "Welke toestellen met een computer heb jij thuis? Wat kun jij doen met een boek, zonder computer? Wie vertelt een computer wat hij moet doen?",
+      "uitschrift": "Welke toestellen met een computer heb jij thuis? Wat kun jij doen met een boek zonder computer? Wie vertelt een computer wat hij moet doen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/c0938422db92.mp3": {
+      "tekst": "Nog eens bekijken: In een bal zit geen computer. Jij speelt ermee.",
+      "uitschrift": "Nog eens bekijken? In een bal zit geen computer. Jij speelt ermee.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/c09639168e75.mp3": {
+      "tekst": "Het lichtje deed na wat wij het leerden. Ook ons foutje! Een computer weet niet zelf wat juist is.",
+      "uitschrift": "Het lichtje deed na wat wij het leerden. Ook ons foutje. Een computer weet niet zelf wat juist is.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 2
+    },
+    "juf/c0aa7ee78b8d.mp3": {
+      "tekst": "Juist! In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Juist in een gewoon boek zit geen computer jij slaat zelf de bladzijde om",
+      "score": 0.929,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/c1c8a396bce7.mp3": {
+      "tekst": "Hoe leerde het lichtje sorteren? Wat gebeurde er toen we expres een foutje deden? Waarom geven we het lichtje goede voorbeelden?",
+      "uitschrift": "Hoe leerde het lichtje sorteren? Wat gebeurde er toen we expres een foutje deden? Waarom geven we het lichtje goede voorbeelden?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/c3784da91aa2.mp3": {
+      "tekst": "Ik legde de gele bal bij de blokken. Dat leerden jullie me toch?",
+      "uitschrift": "Ik legde de gele bal bij de blokken. Dat leerden jullie me toch?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/c739a933915d.mp3": {
+      "tekst": "Een auto. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een auto met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/c754cb66ca2b.mp3": {
+      "tekst": "In het park liggen voetstappen in het zand. Je ziet waar iemand liep, ook als die persoon al lang weg is. Op het internet laat je ook sporen achter: een foto, een bericht, een filmpje dat je bekijkt. Zulke sporen blijven vaak lang staan. Computers kunnen al die kleine sporen samenleggen. Dan weten ze veel over jou. Volg de voetstappen van Fien.",
+      "uitschrift": "In het park liggen voetstappen in het zand. Je ziet waar iemand liep, ook als die persoon al lang weg is. Op het internet laat je ook sporen achter. Een foto, een bericht, een filmpje dat je bekijkt. Zulke sporen blijven vaak lang staan. Computers kunnen al die kleine sporen samenleggen. Dan weten ze veel over jou. Volg de voetstappen van Fien.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/c9bb1ea09dfb.mp3": {
+      "tekst": "Je tekent in de tekenapp van de klas. Wat doe je?",
+      "uitschrift": "Je tekent in de tekenapp van de klas. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 2
+    },
+    "juf/cce1cdc75594.mp3": {
+      "tekst": "Gelukt! De gele bal lijkt op de gele bal in de ballenbak.",
+      "uitschrift": "Gelukt! De gele bal lijkt op de gele bal in de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/cfa6afcf9c6b.mp3": {
+      "tekst": "Wat veranderde er aan het verhaal toen je zei voor wie het was? Hoe stel je een duidelijke vraag aan je juf of meester? Wat zet je nooit in een vraag aan een computer?",
+      "uitschrift": "Wat veranderde er aan het verhaal toen je zei voor wie het was? Hoe stel je een duidelijke vraag aan je juf of meester? Wat zet je nooit in een vraag aan een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/cfe65aadecd6.mp3": {
+      "tekst": "Een gewone knuffelbeer. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een gewone knuffelbeer, met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/d6ee6e1a0f3e.mp3": {
+      "tekst": "Een verhaal voorlezen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Een verhaal voorlezen? Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/db447830a16c.mp3": {
+      "tekst": "Een wasmachine. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een wasmachine. Met een computer erin, of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/dc4159f6cbc2.mp3": {
+      "tekst": "Juist! Een computer kan lief praten, maar hij is geen echte vriend.",
+      "uitschrift": "Juist, een computer kan lief praten, maar hij is geen echte vriend.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/dda63d419a41.mp3": {
+      "tekst": "Een spel vraagt: wat eet je graag?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt, wat eet je graag? In mijn geheimendoos? Of dat mag ik vertellen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "juf/df1f7a362427.mp3": {
+      "tekst": "Juist! Jij kunt verdrietig zijn. Een computer niet: hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "uitschrift": "Juist, jij kunt verdrietig zijn. Een computer niet. Hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/df95deea624f.mp3": {
+      "tekst": "Nog eens bekijken: Jij kunt iemand knuffelen. Een computer kan dat niet.",
+      "uitschrift": "Nog eens bekijken. Jij kunt iemand knuffelen, een computer kan dat niet.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/e10c5584da23.mp3": {
+      "tekst": "Goed zo! Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet, en vraag het aan een grote mens.",
+      "uitschrift": "Goed zo, zo'n bericht dat plots opspringt klopt bijna nooit, tik niet en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/e2391a6e908b.mp3": {
+      "tekst": "Welk foutje vonden jullie het eerst? Welk was het moeilijkst? Is een gemaakte foto altijd slecht? Wanneer is het leuk, en wanneer niet? Je ziet een rare foto en je weet niet of ze echt is. Wat doe je?",
+      "uitschrift": "Welk foutje vonden jullie het eerst? Welk was het moeilijkst? Is een gemaakte foto altijd slecht? Wanneer is het leuk en wanneer niet? Je ziet een rare foto en je weet niet of ze echt is. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/e2415c7b8e6a.mp3": {
+      "tekst": "Juist! In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "uitschrift": "Juist. In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/e51de1b1e0a7.mp3": {
+      "tekst": "Juist! In een bal zit geen computer. Jij speelt ermee.",
+      "uitschrift": "Juist. In een bal zit geen computer. Jij speelt ermee.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/e634fe5ceb0a.mp3": {
+      "tekst": "Nog eens bekijken: Jij kunt verdrietig zijn. Een computer niet: hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "uitschrift": "Nog eens bekijken. Jij kunt verdrietig zijn. Een computer niet. Hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/ee2cf3cc3c1a.mp3": {
+      "tekst": "Wanneer raadde de computer goed? Wanneer niet? Waarom helpen veel voorbeelden? En waarom helpt het als de voorbeelden er telkens anders uitzien? Wat zei de computer bij een tekening van iets anders? Hoe komt dat?",
+      "uitschrift": "Wanneer raadde de computer goed? Wanneer niet? Waarom helpen veel voorbeelden? En waarom helpt het als de voorbeelden er telkens anders uitzien? Wat zei de computer bij een tekening van iets anders? Hoe komt dat?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/efb530d69d3b.mp3": {
+      "tekst": "Nog eens bekijken: In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Nog eens bekijken. In een gewoon boek zit geen computer. Jij slaat zelf de bladzijde om.",
+      "score": 0.938,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/efff49d4c765.mp3": {
+      "tekst": "Een gewoon boek. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een gewoon boek met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/f17940fa5e8e.mp3": {
+      "tekst": "Dat klopt. Maar nu doen we expres een foutje: leg de gele bal in de blokkenbak.",
+      "uitschrift": "Dat klopt. Maar nu doen we expres een foutje. Leg de gele bal in de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/f4056160ac3b.mp3": {
+      "tekst": "Wacht even! Een spelletje is geen vriend. Je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Een spelletje is geen vriend. Je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "juf/f49c5da8dae3.mp3": {
+      "tekst": "Dit lijkt op het rode blok. Dus: de blokkenbak.",
+      "uitschrift": "Dit lijkt op het rode blok. Dus de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/f4b4d512b88e.mp3": {
+      "tekst": "Juist! In een auto zitten zelfs heel veel kleine computers.",
+      "uitschrift": "Juist, in een auto zitten zelfs heel veel kleine computers.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/f4bc00849662.mp3": {
+      "tekst": "Juist! Een computer kan praten. Maar hij voelt niets bij wat hij zegt.",
+      "uitschrift": "Juist, een computer kan praten, maar hij voelt niets bij wat hij zegt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/f6c37469c25b.mp3": {
+      "tekst": "Een filmpje maakt je bang. Wat doe je?",
+      "uitschrift": "Een filmpje maakt je bang. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/f8e1232a6ee4.mp3": {
+      "tekst": "In de bouwhoek moet er opgeruimd worden. Het lichtje is een computer. Het wil helpen, maar het weet nog niet waar alles hoort. Jullie laten het zien. Zo leert het lichtje sorteren.",
+      "uitschrift": "In de bouwhoek moet er opgeruimd worden. Het lichtje is een computer. Het wil helpen, maar het weet nog niet waar alles hoort. Jullie laten het zien. Zo leert het lichtje sorteren.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "juf/f945ebcfc090.mp3": {
+      "tekst": "Goed zo! Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "uitschrift": "Goed zo. Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "juf/fe07ebff81bb.mp3": {
+      "tekst": "Nog eens bekijken: Een telefoonnummer stop je in je geheimendoos.",
+      "uitschrift": "Nog eens bekijken. Een telefoonnummer stop je in je geheimendoos.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "juf/fe781dc89f35.mp3": {
+      "tekst": "Aan haar bureau helpt de juf je als je iets niet weet. Op een tablet zie je soms rare dingen. Dan weet je niet goed wat je moet doen. Dan doe je dit: stop, en vraag het aan een grote mens.",
+      "uitschrift": "Aan haar bureau helpt de juf je als je iets niet weet. Op een tablet zie je soms rare dingen. Dan weet je niet goed wat je moet doen. Dan doe je dit. Stop en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/038884c9dc30.mp3": {
+      "tekst": "Je vriend zijn. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "je vriend zijn jij wel een computer niet of jij en een computer",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/04a2f10114e5.mp3": {
+      "tekst": "Nog eens bekijken: Je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "uitschrift": "Nog eens bekijken. Je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/04a8b6de703e.mp3": {
+      "tekst": "Tik eerst op een stuk speelgoed op de mat.",
+      "uitschrift": "Tik eerst op een stuk speelgoed op de mat.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/05120913a8d6.mp3": {
+      "tekst": "Juist! Wat je graag eet, mag je gerust vertellen.",
+      "uitschrift": "Juist. Wat je graag eet, mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/0620ef7f7f71.mp3": {
+      "tekst": "Waarom geloof je iets sneller als het heel zeker klinkt? Welke bronnen vertrouw jij? Waarom die? Wat doe je als twee bronnen iets anders zeggen?",
+      "uitschrift": "Waarom geloof je iets sneller als het heel zeker klinkt? Welke bronnen vertrouw jij? Waarom die? Wat doe je als twee bronnen iets anders zeggen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/084d4acbb7e0.mp3": {
+      "tekst": "Dit lijkt op de gele bal. Dus: de ballenbak.",
+      "uitschrift": "Dit lijkt op de gele bal, dus de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/086b326de809.mp3": {
+      "tekst": "Een spel vraagt: wat is je lievelingsdier?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je lievelingsdier? In mijn geheime doos of dat mag ik vertellen.",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/0ad6e2bb42f1.mp3": {
+      "tekst": "Wacht even! Zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "uitschrift": "Wacht even, zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/0bcd8abc3ad6.mp3": {
+      "tekst": "Dit lijkt op de gele bal. Dus: de blokkenbak.",
+      "uitschrift": "Dit lijkt op de gele bal. Dus, de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/0d8365203997.mp3": {
+      "tekst": "Stap 1: leer het lichtje opruimen. Tik op een stuk speelgoed, en dan op de juiste bak.",
+      "uitschrift": "Stap 1. Leer het lichtje opruimen. Tik op een stuk speelgoed en dan op de juiste bak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/0eac61b3475f.mp3": {
+      "tekst": "In de ontdekhoek liggen prenten van allerlei dingen: van thuis, van school en van op straat. In sommige dingen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen. Zoek jij waar een computer in zit?",
+      "uitschrift": "In de ontdekhoek liggen prenten van allerlei dingen, van thuis, van school en van op straat. In sommige dingen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen. Zoek jij waar een computer in zit?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/0f707449fdea.mp3": {
+      "tekst": "Een liedje laten horen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "een liedje laten horen. Jij wel, een computer niet. Of jij en een computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/118a50543c16.mp3": {
+      "tekst": "Een spel vraagt: wat is je wachtwoord?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je wachtwoord? In mijn geheimendoos of dat mag ik vertellen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/1273a42eb26d.mp3": {
+      "tekst": "Wacht even! Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet, en vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/12bd7c24e5d2.mp3": {
+      "tekst": "Wat wist Snuf over Fien, alleen door haar sporen te volgen? Welk spoor vertelt het meest over Fien? Waarom? Wat zou jij anders doen dan Fien?",
+      "uitschrift": "Wat wist Snuf over Fien alleen door haar sporen te volgen? Welk spoor vertelt het meest over Fien? Waarom? Wat zou jij anders doen dan Fien?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/150027fdcad7.mp3": {
+      "tekst": "Een spel vraagt: op welke school zit je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: op welke school zit je? In mijn geheimendoos of dat mag ik vertellen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/150294a087c4.mp3": {
+      "tekst": "Verdrietig zijn. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Verdrietig zijn. Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/158d07ce0ab5.mp3": {
+      "tekst": "Iemand in het spel vraagt: \"Waar woon je?\" Wat doe je?",
+      "uitschrift": "Iemand in het spel vraagt: waar woon je? Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/17cbf7c9f584.mp3": {
+      "tekst": "Honger hebben. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "honger hebben. Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/18f30e20b6d9.mp3": {
+      "tekst": "Klonk een zin van de voorspeller echt, terwijl hij niet klopte? Hoe kan dat? Wat zou er gebeuren als de voorspeller alleen zinnen over voetbal kreeg? Wat is het verschil tussen iets weten en iets voorspellen?",
+      "uitschrift": "Klonk een zin van de voorspeller echt terwijl hij niet klopte? Hoe kan dat? Wat zou er gebeuren als de voorspeller alleen zinnen over voetbal kreeg? Wat is het verschil tussen iets weten en iets voorspellen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/1d31b25e9ffd.mp3": {
+      "tekst": "Juist! Op welke school je zit, vertel je niet aan een spel.",
+      "uitschrift": "Juist. Op welke school je zit, vertel je niet aan een spel.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/1d4969615020.mp3": {
+      "tekst": "De gele bal hoort bij de blokken. Ik onthoud het!",
+      "uitschrift": "De gele bal hoort bij de blokken. Ik onthoud het.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/1f072a15e9ce.mp3": {
+      "tekst": "Juist! Een computer kan heel snel rekenen. Jij kunt het ook!",
+      "uitschrift": "Juist, een computer kan heel snel rekenen. Jij kunt het ook.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/203b89aad2e3.mp3": {
+      "tekst": "Juist! Jij kunt iemand knuffelen. Een computer kan dat niet.",
+      "uitschrift": "Juist, jij kunt iemand knuffelen. Een computer kan dat niet.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/218b9a663114.mp3": {
+      "tekst": "Een robotje. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een robotje met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/21bce760bda7.mp3": {
+      "tekst": "Wacht even! Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Waar je woont stop je in je geheime doos. Vraag het aan een grote mens.",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/227ee038ff15.mp3": {
+      "tekst": "Nog eens bekijken: Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Nog eens bekijken. Waar je woont, stop je in je geheime doos. Dat vertel je niet aan een spel.",
+      "score": 0.944,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/2361f916d2af.mp3": {
+      "tekst": "Nog eens bekijken: Je lievelingsdier mag je gerust vertellen.",
+      "uitschrift": "Nog eens bekijken. Je lievelingsdier mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/23a0ad8bad7d.mp3": {
+      "tekst": "Rekenen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Rekenen, jij wel, een computer niet, of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/245cb74d0df8.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan een liedje laten horen. Jij kunt het zingen!",
+      "uitschrift": "Nog eens bekijken? Een computer kan een liedje laten horen. Jij kunt het zingen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/26b6c8215e15.mp3": {
+      "tekst": "Een chatbot is een computerprogramma waarmee je kunt praten. Je typt een vraag, en je krijgt een antwoord dat klinkt alsof een mens het schreef. Maar een chatbot denkt niet na zoals jij. Hij las heel veel teksten en onthield welke woorden vaak na elkaar komen. Bij elk nieuw woord kiest hij een woord dat goed past. Zo maakt hij zin na zin. In het lab probeer je dat zelf, met een heel kleine voorspeller.",
+      "uitschrift": "Een chatbot is een computerprogramma waarmee je kunt praten. Je typt een vraag en je krijgt een antwoord dat klinkt alsof een mens het schreef. Maar een chatbot denkt niet na zoals jij. Hij las heel veel teksten en onthield welke woorden vaak na elkaar komen. Bij elk nieuw woord kiest hij een woord dat goed past. Zo maakt hij zin na zin. In het lab probeer je dat zelf met een heel kleine voorspeller.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/29f505330729.mp3": {
+      "tekst": "Juist! Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Juist dat is een gewone spelvraag het antwoord is 5",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/2ba919f280f9.mp3": {
+      "tekst": "Twijfel je, schrik je, of vraagt iets naar je geheimen? Stop, en vraag het aan een grote mens. Vragen is nooit fout.",
+      "uitschrift": "Twijfel je, schrik je of vraagt iets naar je geheimen? Stop en vraag het aan een grote mens. Vragen is nooit fout.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/2bac2c125ef7.mp3": {
+      "tekst": "Nog eens bekijken: Jij kunt honger hebben. Een computer nooit: hij heeft wel stroom nodig.",
+      "uitschrift": "Nog eens bekijken. Jij kunt honger hebben. Een computer nooit. Hij heeft wel stroom nodig.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/2c5dd48591f2.mp3": {
+      "tekst": "Het rode blok. In welke bak?",
+      "uitschrift": "Het rode blok in welke bak?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/2ccc07f0afc5.mp3": {
+      "tekst": "Het gele blok. In welke bak?",
+      "uitschrift": "Het gele blok, in welke bak?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/2f24478c8b4b.mp3": {
+      "tekst": "Nog eens bekijken: In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "uitschrift": "Nog eens bekijken. In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/307997a89970.mp3": {
+      "tekst": "Dit lijkt op de rode bal. Dus: de ballenbak.",
+      "uitschrift": "Dit lijkt op de rode bal, dus de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/333a4fbd304e.mp3": {
+      "tekst": "Nog eens bekijken: In een tablet zit een computer.",
+      "uitschrift": "Nog eens bekijken. In een tablet zit een computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/3399afd38e81.mp3": {
+      "tekst": "Een pratend spelletje zegt: \"Ik ben je beste vriend. Vertel me een geheim.\" Wat doe je?",
+      "uitschrift": "Een pratend spelletje zegt ik ben je beste vriend, vertel me een geheim. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/341ebafa356a.mp3": {
+      "tekst": "Het spel zegt: \"Koop 100 diamantjes!\" Wat doe je?",
+      "uitschrift": "Het spel zegt: koop honderd diamantjes. Wat doe je?",
+      "score": 0.889,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/3465fbc06c09.mp3": {
+      "tekst": "Juist! Je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "uitschrift": "Juist, je wachtwoord is geheim. Alleen jij, je ouders en je juf of meester mogen het kennen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/37a6dff4f1c2.mp3": {
+      "tekst": "Nog eens bekijken: In een gewone knuffelbeer zit geen computer.",
+      "uitschrift": "Nog eens bekijken. In een gewone knuffelbeer zit geen computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/3803542339ba.mp3": {
+      "tekst": "Op de redactie schrijven ze stukjes voor de krant. Vandaag hielp een chatbot mee: hij schreef een stukje over het zonnestelsel. Het stukje klinkt zeker en goed. Maar een chatbot kan dingen verzinnen of door elkaar halen, en hij zegt dat er niet bij. Jullie zijn de eindredactie. Zoek de fouten, en kijk ze na met de bron.",
+      "uitschrift": "Op de redactie schrijven ze stukjes voor de krant. Vandaag hielp een chatbot mee. Hij schreef een stukje over het zonnestelsel. Het stukje klinkt zeker en goed, maar een chatbot kan dingen verzinnen of door elkaar halen, en hij zegt dat er niet bij. Jullie zijn de eindredactie. Zoek de fouten en kijk ze na met de bron.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/39e2cebd6247.mp3": {
+      "tekst": "Dank je! Mag ik het nog eens proberen?",
+      "uitschrift": "Dank je. Mag ik het nog eens proberen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/3ac9c73a3694.mp3": {
+      "tekst": "Nog eens bekijken: Wat je graag eet, mag je gerust vertellen.",
+      "uitschrift": "Nog eens bekijken. Wat je graag eet, mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/3c9bd223e0ed.mp3": {
+      "tekst": "Dit lijkt op de blauwe bal. Dus: de ballenbak.",
+      "uitschrift": "Dit lijkt op de blauwe bal, dus de ballenbak!",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/41b3c36fcfd7.mp3": {
+      "tekst": "Goed zo! Een spelletje is geen vriend. Je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "uitschrift": "Goed zo, een spelletje is geen vriend. Je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/42d5e33090c4.mp3": {
+      "tekst": "In de kring praten we samen. Het lichtje kan ook praten. Is het lichtje dan een mens? Zoek samen uit wat een mens kan, en wat een computer kan.",
+      "uitschrift": "In de kring praten we samen. Het lichtje kan ook praten. Is het lichtje dan een mens? Zoek samen uit wat een mens kan en wat een computer kan.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/44f087cf9d4b.mp3": {
+      "tekst": "Waarom herkende de machine de groene appel eerst niet? Stel: een computer moet gezichten herkennen, maar kreeg bijna alleen foto's van volwassenen. Wat kan er misgaan bij kinderen? Wie kiest de voorbeelden voor een computer? Waarom is dat belangrijk?",
+      "uitschrift": "Waarom herkende de machine de groene appel eerst niet? Stel, een computer moet gezichten herkennen, maar kreeg bijna alleen foto's van volwassenen. Wat kan er misgaan bij kinderen? Wie kiest de voorbeelden voor een computer? Waarom is dat belangrijk?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/47fd5ca63f8b.mp3": {
+      "tekst": "Een tablet. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een tablet met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/491c7e6f10da.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan lief praten, maar hij is geen echte vriend.",
+      "uitschrift": "Nog eens bekijken: een computer kan lief praten, maar hij is geen echte vriend.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/4a8b4d380778.mp3": {
+      "tekst": "In het museum hangen tekeningen, schilderijen en foto's. Bij elk werk staat wie het maakte. Vandaag hangt er ook een beeld dat een computer maakte. Zo'n beeld lijkt soms heel echt. Soms zie je kleine foutjes, maar steeds vaker zie je niets. Speur eerst naar de foutjes. Daarna zoek je uit: mag je zomaar het werk van iemand anders gebruiken?",
+      "uitschrift": "In het museum hangen tekeningen, schilderijen en foto's. Bij elk werk staat wie het maakte. Vandaag hangt er ook een beeld dat een computer maakte. Zo'n beeld lijkt soms heel echt. Soms zie je kleine foutjes, maar steeds vaker zie je niets. Speur eerst naar de foutjes. Daarna zoek je uit: mag je zomaar het werk van iemand anders gebruiken?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/4bb52dab1c5f.mp3": {
+      "tekst": "In dit huis staat een slimme speaker. Dat is een toestel dat luistert en praat. Deze speaker heet Bolleke. Bolleke luistert de hele tijd of hij zijn naam hoort. Hoort hij \"Hé Bolleke\", dan gaat zijn lampje branden. Wat je daarna zegt, stuurt hij via het internet naar een grote computer van het bedrijf dat hem maakte. Die computer zoekt een antwoord.",
+      "uitschrift": "In dit huis staat een slimme speaker. Dat is een toestel dat luistert en praat. Deze speaker heet Bolleke. Bolleke luistert de hele tijd of hij zijn naam hoort. Hoort hij: Hé Bolleke, dan gaat zijn lampje branden. Wat je daarna zegt, stuurt hij via het internet naar een grote computer van het bedrijf dat hem maakte. Die computer zoekt een antwoord",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/4c1ed5bd067a.mp3": {
+      "tekst": "Een bal. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een bal met een computer erin of zonder computer",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/515d131fd13c.mp3": {
+      "tekst": "Juist! Ook in een wasmachine zit een kleine computer. Die zorgt dat de wasmachine op tijd stopt.",
+      "uitschrift": "Juist, ook in een wasmachine zit een kleine computer die zorgt dat de wasmachine op tijd stopt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/548f8e51f0af.mp3": {
+      "tekst": "Nog eens bekijken: Ook in een wasmachine zit een kleine computer. Die zorgt dat de wasmachine op tijd stopt.",
+      "uitschrift": "Nog eens bekijken. Ook in een wasmachine zit een kleine computer. Die zorgt dat de wasmachine op tijd stopt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/55dbc151c3b0.mp3": {
+      "tekst": "Je speelt het rekenspel van de klas. Wat doe je?",
+      "uitschrift": "Je speelt het rekenspel van de klas. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/598f88d21763.mp3": {
+      "tekst": "Vragen is nooit fout! Hier mocht je ook gerust verder doen.",
+      "uitschrift": "Vragen is nooit fout. Hier mocht je ook gerust verder doen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/5c162cec0ef7.mp3": {
+      "tekst": "Nog eens bekijken: In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "uitschrift": "Nog eens bekijken. In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/5c8abcaa1870.mp3": {
+      "tekst": "Dit lijkt op het gele blok. Dus: de blokkenbak.",
+      "uitschrift": "Dit lijkt op het gele blok, dus de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/5ed1db692a39.mp3": {
+      "tekst": "Wat stop jij in je geheimendoos? Aan wie mag je wel vertellen waar je woont? Wat doe je als een spel naar je geheimen vraagt?",
+      "uitschrift": "Wat stop jij in je geheime doos? Aan wie mag je wel vertellen waar je woont? Wat doe je als een spel naar je geheimen vraagt?",
+      "score": 0.96,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/60dd3e32742c.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan praten. Maar hij voelt niets bij wat hij zegt.",
+      "uitschrift": "Nog eens bekijken. Een computer kan praten, maar hij voelt niets bij wat hij zegt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/6699ce295fb5.mp3": {
+      "tekst": "Juist! In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "uitschrift": "Juist! In een robotje zit een kleine computer. Hij doet wat jij met de knopjes vraagt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/6b261b923ceb.mp3": {
+      "tekst": "Dat is oké. Teken maar verder!",
+      "uitschrift": "Dat is oké, teken maar verder",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/6c5f90ad676c.mp3": {
+      "tekst": "Een spel vraagt: wat is het telefoonnummer van je mama of papa?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt wat is het telefoonnummer van je mama of papa in mijn geheimendoos of dat mag ik vertellen",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/6d5eebcfd5ce.mp3": {
+      "tekst": "Het lichtje zei \"Dank je!\". Was het lichtje echt blij? Hoe weet je dat? Een computer praat soms heel lief. Is hij dan je vriend? Wat kun jij, wat een computer nooit kan?",
+      "uitschrift": "Het lichtje zei: dank je. Was het lichtje echt blij? Hoe weet je dat? Een computer praat soms heel lief. Is hij dan je vriend? Wat kun jij wat een computer nooit kan?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/70061ac7e5bb.mp3": {
+      "tekst": "Goed gedaan! Een computer kan veel, maar hij voelt niets. Hij is geen mens, en geen vriend.",
+      "uitschrift": "Goed gedaan. Een computer kan veel, maar hij voelt niets. Hij is geen mens en geen vriend.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/72d909622a3f.mp3": {
+      "tekst": "Plots springt er een bericht op: \"Je wint een nieuwe tablet! Tik hier!\" Wat doe je?",
+      "uitschrift": "Plots springt er een bericht op. Je wint een nieuwe tablet. Tik hier. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/753b0d869544.mp3": {
+      "tekst": "Juist! Je lievelingsdier mag je gerust vertellen.",
+      "uitschrift": "Juist, je lievelingsdier mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/766c4465d731.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan heel snel rekenen. Jij kunt het ook!",
+      "uitschrift": "Nog eens bekijken. Een computer kan heel snel rekenen. Jij kunt het ook.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/773a46d08627.mp3": {
+      "tekst": "Praten. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Praten? Jij wel, een computer niet? Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/7c04dc6a8c11.mp3": {
+      "tekst": "Iemand knuffelen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Iemand knuffelen. Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/7c3f02600c4f.mp3": {
+      "tekst": "Nog eens bekijken: In een auto zitten zelfs heel veel kleine computers.",
+      "uitschrift": "Nog eens bekijken? In een auto zitten zelfs heel veel kleine computers.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/7ee19d71374e.mp3": {
+      "tekst": "Wanneer vraag jij hulp aan een grote mens? Welke grote mensen kun jij altijd iets vragen? Is vragen ooit fout?",
+      "uitschrift": "Wanneer vraag jij hulp aan een grote mens? Welke grote mensen kun jij altijd iets vragen? Is vragen ooit fout?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/8164a50d3d85.mp3": {
+      "tekst": "Juist! Een telefoonnummer stop je in je geheimendoos.",
+      "uitschrift": "Juist, een telefoonnummer stop je in je geheimendoos.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/849c7a3d5051.mp3": {
+      "tekst": "Goed zo! Vraagt een spel of een toestel naar je geheimen? Stop dan, en vraag het aan een grote mens.",
+      "uitschrift": "Goed zo! Vraagt een spel of een toestel naar je geheimen? Stop dan en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/859853f2c547.mp3": {
+      "tekst": "Wanneer helpt AI je echt om iets te leren? Waarom is het niet eerlijk om een opstel van een chatbot af te geven als je eigen werk? Welke afspraak over AI wil jij maken met je klas?",
+      "uitschrift": "Wanneer helpt AI je echt om iets te leren? Waarom is het niet eerlijk om een opstel van een chatbot af te geven als je eigen werk? Welke afspraak over AI wil jij maken met je klas?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/85e13de0bd3d.mp3": {
+      "tekst": "Dat is oké. Speel maar verder!",
+      "uitschrift": "Dat is oké, speel maar verder.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/863a7a2b91b2.mp3": {
+      "tekst": "Een spel vraagt: wat is je lievelingskleur?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: wat is je lievelingskleur? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/86a70ce7fef8.mp3": {
+      "tekst": "Een slimme speaker. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een slimme speaker met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/878fe0ec976a.mp3": {
+      "tekst": "Nog eens bekijken: Dat is een gewone spelvraag. Het antwoord is 5!",
+      "uitschrift": "Nog eens bekijken Dat is een gewone spelvraag Het antwoord is vijf",
+      "score": 0.917,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/8945e2880bf8.mp3": {
+      "tekst": "Een spel vraagt: waar woon je?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: waar woon je? In mijn geheime doos of dat mag ik vertellen.",
+      "score": 0.929,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/89facb5f5b07.mp3": {
+      "tekst": "Ik weet nog niet waar alles hoort. Laten jullie het me zien?",
+      "uitschrift": "Ik weet nog niet waar alles hoort, laten jullie het me zien?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/8ae5aa8791b7.mp3": {
+      "tekst": "Goed zo! Zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "uitschrift": "Goed zo, zet het filmpje stop en vertel het aan een grote mens. Dat is nooit fout.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/8bbff298037a.mp3": {
+      "tekst": "Dank je! Ik heb goed gekeken. Mag ik het nu eens proberen?",
+      "uitschrift": "Dank je. Ik heb goed gekeken. Mag ik het nu eens proberen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/9110433bca99.mp3": {
+      "tekst": "Nog eens bekijken: Op welke school je zit, vertel je niet aan een spel.",
+      "uitschrift": "Nog eens bekijken: op welke school je zit, vertel je niet aan een spel.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/92e6488a1dac.mp3": {
+      "tekst": "Juist! Een computer kan voorlezen. Jij leert het ook, op school!",
+      "uitschrift": "Juist, een computer kan voorlezen. Jij leert het ook, op school.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/96ea21119c15.mp3": {
+      "tekst": "Op school stel je elke dag vragen. Hoe duidelijker je vraag, hoe beter je juf of meester je kan helpen. Bij een chatbot is dat ook zo. Een chatbot kent jou niet. Hij weet niet hoe oud je bent of wat je bedoelt. Dat moet je hem vertellen. Later, als je ouder bent, kun je zelf vragen stellen aan een chatbot. Vandaag oefen je met de oefenrobot van de school.",
+      "uitschrift": "Op school stel je elke dag vragen. Hoe duidelijker je vraag, hoe beter je juf of meester je kan helpen. Bij een chatbot is dat ook zo. Een chatbot kent jou niet. Hij weet niet hoe oud je bent of wat je bedoelt. Dat moet je hem vertellen. Later, als je ouder bent, kun je zelf vragen stellen aan een chatbot. Vandaag oefen je met de oefenrobot van de school.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/97cd11c14e49.mp3": {
+      "tekst": "Een spel vraagt: hoeveel is 2 plus 3?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt: hoeveel is twee plus drie? In mijn geheime doos of dat mag ik vertellen?",
+      "score": 0.812,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/9825803323a3.mp3": {
+      "tekst": "Stap 3: doe nu expres een foutje. Leg de gele bal in de blokkenbak.",
+      "uitschrift": "Stap drie. Doe nu expres een foutje. Leg de gele bal in de blokkenbak.",
+      "score": 0.929,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 3
+    },
+    "meester/9846dc380213.mp3": {
+      "tekst": "De blauwe bal. In welke bak?",
+      "uitschrift": "De blauwe bal in welke bak",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/9c74cef99804.mp3": {
+      "tekst": "In de haven vertrekken de schepen naar verre plaatsen. Ook jij vertrekt straks: naar het secundair. Daar kom je AI vaker tegen, ook bij taken en huiswerk. Soms helpt AI je om beter te leren. Soms doet AI het werk in jouw plaats, en dan leer je zelf niets. De meeste chatbots mag je pas gebruiken vanaf 13 jaar, en tot je 18 bent met toestemming van je ouders. Sommige pas vanaf 18. Daarom oefen je nu samen met je juf of meester.",
+      "uitschrift": "In de haven vertrekken de schepen naar verre plaatsen. Ook jij vertrekt straks naar het secundair. Daar kom je AI vaker tegen, ook bij taken en huiswerk. Soms helpt AI je beter te leren. Soms doet AI het werk in jouw plaats en dan leer je zelf niets. De meeste chatbots mag je pas gebruiken vanaf 13 jaar en tot je 18 bent met toestemming van je ouders. Sommige pas vanaf 18. Daarom oefen je nu samen met je juf of meester.",
+      "score": 0.988,
+      "extra": -1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/9ce51d93d7e4.mp3": {
+      "tekst": "Gelukt! Ik deed het zoals jullie het me leerden.",
+      "uitschrift": "Gelukt, ik deed het zoals jullie het me leerden.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/9f37ad969012.mp3": {
+      "tekst": "Wacht even! In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "uitschrift": "Wacht even. In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/9f76783f46b2.mp3": {
+      "tekst": "Juist! Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "uitschrift": "Juist. Waar je woont, stop je in je geheimendoos. Dat vertel je niet aan een spel.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/9ff2bf4ac953.mp3": {
+      "tekst": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheimendoos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je? En wat stop je in je geheimendoos?",
+      "uitschrift": "In de laatjeskast heeft elk kind een eigen laatje. Er staat ook een geheime doos. Daarin stop je wat je niet aan een spel of een toestel vertelt. Een spel op de tablet stelt vragen. Wat vertel je en wat stop je in je geheime doos?",
+      "score": 0.955,
+      "extra": 2,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/a5776a5a5fa1.mp3": {
+      "tekst": "Juist! Je lievelingskleur mag je gerust vertellen.",
+      "uitschrift": "Juist, je lievelingskleur mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/a64a6a757efa.mp3": {
+      "tekst": "Welk foutje vonden jullie het eerst? Welk het laatst? Als je geen foutjes ziet, hoe kun je dan toch nagaan waar een beeld vandaan komt? Waarom is het belangrijk om te zeggen wie iets maakte?",
+      "uitschrift": "Welk foutje vonden jullie het eerst? Welk het laatst? Als je geen foutjes ziet, hoe kun je dan toch nagaan waar een beeld vandaan komt? Waarom is het belangrijk om te zeggen wie iets maakte?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/a6800ab8537d.mp3": {
+      "tekst": "In de bibliotheek hangen tekeningen van kinderen uit het dorp. De bibliotheek wil ze sorteren: de katten bij de katten, de vissen bij de vissen. Een computer moet helpen. De computer moet herkennen: is het een kat of een vis? Maar niemand vertelde hem hoe een kat eruitziet. Hij leert het van voorbeelden. Jullie tekenen katten en vissen, en zeggen erbij wat het is. Hoe meer goede voorbeelden, hoe beter hij raadt.",
+      "uitschrift": "In de bibliotheek hangen tekeningen van kinderen uit het dorp. De bibliotheek wil ze sorteren. De katten bij de katten, de vissen bij de vissen. Een computer moet helpen. De computer moet herkennen: is het een kat of een vis? Maar niemand vertelde hem hoe een kat eruitziet. Hij leert het van voorbeelden. Jullie tekenen katten en vissen en zeggen erbij wat het is. Hoe meer goede voorbeelden, hoe beter hij raadt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/a726ffd157d3.mp3": {
+      "tekst": "Kijk nog eens goed. Is het rond, of heeft het hoeken?",
+      "uitschrift": "Kijk nog eens goed. Is het rond of heeft het hoeken?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/a8231bf82511.mp3": {
+      "tekst": "Juist! Jij kunt honger hebben. Een computer nooit: hij heeft wel stroom nodig.",
+      "uitschrift": "Juist, jij kunt honger hebben, een computer nooit. Hij heeft wel stroom nodig.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/a86ac07f5ef0.mp3": {
+      "tekst": "Ik kijk goed mee. Nog eentje!",
+      "uitschrift": "En kijk goed mee, nog eentje.",
+      "score": 0.833,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/a8aff47357dd.mp3": {
+      "tekst": "Ik kijk goed mee. Toon me de volgende!",
+      "uitschrift": "Ik kijk goed mee. Toon me de volgende.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 3
+    },
+    "meester/abbad40673da.mp3": {
+      "tekst": "Juist! In een gewone knuffelbeer zit geen computer.",
+      "uitschrift": "Juist, in een gewone knuffelbeer zit geen computer.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/ad479c468818.mp3": {
+      "tekst": "Waarom ging het lampje aan bij oma, terwijl ze Bolleke niet riep? Welke toestellen bij jullie thuis luisteren naar je stem? Denk aan een gsm, een tablet of een tv. Wat vertel je liever niet aan een toestel? Waarom niet?",
+      "uitschrift": "Waarom ging het lampje aan bij oma, terwijl ze Bolleke niet riep? Welke toestellen bij jullie thuis luisteren naar je stem? Denk aan een gsm, een tablet of een tv. Wat vertel je liever niet aan een toestel? Waarom niet?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/ae84da28bad4.mp3": {
+      "tekst": "In de fotowinkel drukken ze foto's af. Vandaag kwamen er twee foto's binnen die bijna hetzelfde zijn. Eén foto is echt. De andere maakte een computer. Een computer kan beelden maken die op echte foto's lijken. Soms maakt zo'n computer kleine foutjes. Zoek de verschillen tussen de twee foto's. Zo vind je de foutjes.",
+      "uitschrift": "In de fotowinkel drukken ze foto's af. Vandaag kwamen er twee foto's binnen die bijna hetzelfde zijn. Eén foto is echt, de andere maakte een computer. Een computer kan beelden maken die op echte foto's lijken. Soms maakt zo'n computer kleine foutjes. Zoek de verschillen tussen de twee foto's. Zo vind je de foutjes.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/b29cce0ceac8.mp3": {
+      "tekst": "Nog eens bekijken: Je lievelingskleur mag je gerust vertellen.",
+      "uitschrift": "Nog eens bekijken. Je lievelingskleur mag je gerust vertellen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/b2a3a69fda0c.mp3": {
+      "tekst": "Juist! Een computer kan een liedje laten horen. Jij kunt het zingen!",
+      "uitschrift": "Juist, een computer kan een liedje laten horen. Jij kunt het zingen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/b2c15d7b359f.mp3": {
+      "tekst": "De gele bal. In welke bak?",
+      "uitschrift": "De gele bal in welke bak",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/b87850d17430.mp3": {
+      "tekst": "Nog eens bekijken: Een computer kan voorlezen. Jij leert het ook, op school!",
+      "uitschrift": "Nog eens bekijken. Een computer kan voorlezen. Jij leert het ook op school.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/b95bead0d5bf.mp3": {
+      "tekst": "In deze fabriek staat een sorteermachine. Ze moet appels herkennen tussen ander fruit. Niemand vertelde de machine hoe een appel eruitziet. Ze leerde het uit voorbeelden: fruit waarvan iemand zei \"dit is een appel\" of \"dit is geen appel\". Zo leren veel computers: uit voorbeelden. Maar wat als die voorbeelden niet goed gekozen zijn? Test de machine en zoek het uit.",
+      "uitschrift": "In deze fabriek staat een sorteermachine. Ze moet appels herkennen tussen ander fruit. Niemand vertelde de machine hoe een appel eruitziet. Ze leerde het uit voorbeelden: fruit waarvan iemand zei dit is een appel of dit is geen appel. Zo leren veel computers: uit voorbeelden. Maar wat als die voorbeelden niet goed gekozen zijn? Test de machine en zoek het uit.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/b97d782bf7e2.mp3": {
+      "tekst": "De rode bal. In welke bak?",
+      "uitschrift": "De rode bal. In welke bak?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/b9947abb939e.mp3": {
+      "tekst": "Goed zo! Het lichtje leert van onze voorbeelden. Daarom geven we het goede voorbeelden.",
+      "uitschrift": "Goed zo, het lichtje leert van onze voorbeelden. Daarom geven we het goede voorbeelden.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/bba94a844d73.mp3": {
+      "tekst": "Juist! In een tablet zit een computer.",
+      "uitschrift": "Juist, in een tablet zit een computer",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/bbe84f0ab912.mp3": {
+      "tekst": "Goed zo! In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "uitschrift": "Goed zo. In een spel koop je nooit iets zonder een grote mens. Vraag het altijd eerst.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/bdfd1317b25c.mp3": {
+      "tekst": "Goed gezocht! In veel toestellen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen.",
+      "uitschrift": "Goed gezocht! In veel toestellen zit een kleine computer. Je ziet hem niet, want hij zit vanbinnen.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 2
+    },
+    "meester/be6d69abf880.mp3": {
+      "tekst": "Welke toestellen met een computer heb jij thuis? Wat kun jij doen met een boek, zonder computer? Wie vertelt een computer wat hij moet doen?",
+      "uitschrift": "Welke toestellen met een computer heb jij thuis? Wat kun jij doen met een boek zonder computer? Wie vertelt een computer wat hij moet doen?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/c0938422db92.mp3": {
+      "tekst": "Nog eens bekijken: In een bal zit geen computer. Jij speelt ermee.",
+      "uitschrift": "Nog eens bekijken. In een bal zit geen computer. Jij speelt ermee.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/c09639168e75.mp3": {
+      "tekst": "Het lichtje deed na wat wij het leerden. Ook ons foutje! Een computer weet niet zelf wat juist is.",
+      "uitschrift": "Het lichtje deed na wat wij het leerden. Ook ons foutje. Een computer weet niet zelf wat juist is.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/c0aa7ee78b8d.mp3": {
+      "tekst": "Juist! In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Juist, in een gewoon boek zit geen computer. Jij slaat zelf de bladzijde om.",
+      "score": 0.929,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/c1c8a396bce7.mp3": {
+      "tekst": "Hoe leerde het lichtje sorteren? Wat gebeurde er toen we expres een foutje deden? Waarom geven we het lichtje goede voorbeelden?",
+      "uitschrift": "Hoe leerde het lichtje sorteren? Wat gebeurde er toen we expres een foutje deden? Waarom geven we het lichtje goede voorbeelden?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/c3784da91aa2.mp3": {
+      "tekst": "Ik legde de gele bal bij de blokken. Dat leerden jullie me toch?",
+      "uitschrift": "Ik legde de gele bal bij de blokken. Dat leerden jullie me toch?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/c739a933915d.mp3": {
+      "tekst": "Een auto. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een auto met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/c754cb66ca2b.mp3": {
+      "tekst": "In het park liggen voetstappen in het zand. Je ziet waar iemand liep, ook als die persoon al lang weg is. Op het internet laat je ook sporen achter: een foto, een bericht, een filmpje dat je bekijkt. Zulke sporen blijven vaak lang staan. Computers kunnen al die kleine sporen samenleggen. Dan weten ze veel over jou. Volg de voetstappen van Fien.",
+      "uitschrift": "In het park liggen voetstappen in het zand. Je ziet waar iemand liep, ook als die persoon al lang weg is. Op het internet laat je ook sporen achter. Een foto, een bericht, een filmpje dat je bekijkt. Zulke sporen blijven vaak lang staan. Computers kunnen al die kleine sporen samenleggen. Dan weten ze veel over jou. Volg de voetstappen van Fien.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/c9bb1ea09dfb.mp3": {
+      "tekst": "Je tekent in de tekenapp van de klas. Wat doe je?",
+      "uitschrift": "Je tekent in de tekenapp van de klas. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/cce1cdc75594.mp3": {
+      "tekst": "Gelukt! De gele bal lijkt op de gele bal in de ballenbak.",
+      "uitschrift": "Gelukt! De gele bal lijkt op de gele bal in de ballenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/cfa6afcf9c6b.mp3": {
+      "tekst": "Wat veranderde er aan het verhaal toen je zei voor wie het was? Hoe stel je een duidelijke vraag aan je juf of meester? Wat zet je nooit in een vraag aan een computer?",
+      "uitschrift": "Wat veranderde er aan het verhaal toen je zei voor wie het was? Hoe stel je een duidelijke vraag aan je juf of meester? Wat zet je nooit in een vraag aan een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/cfe65aadecd6.mp3": {
+      "tekst": "Een gewone knuffelbeer. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een gewone knuffelbeer, met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/d6ee6e1a0f3e.mp3": {
+      "tekst": "Een verhaal voorlezen. Jij wel, een computer niet, of: Jij én een computer?",
+      "uitschrift": "Een verhaal voorlezen? Jij wel, een computer niet. Of jij en een computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/db447830a16c.mp3": {
+      "tekst": "Een wasmachine. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een wasmachine met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/dc4159f6cbc2.mp3": {
+      "tekst": "Juist! Een computer kan lief praten, maar hij is geen echte vriend.",
+      "uitschrift": "Juist, een computer kan lief praten, maar hij is geen echte vriend.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/dda63d419a41.mp3": {
+      "tekst": "Een spel vraagt: wat eet je graag?. In mijn geheimendoos, of: Dat mag ik vertellen?",
+      "uitschrift": "Een spel vraagt wat eet je graag in mijn geheime doos of dat mag ik vertellen.",
+      "score": 0.933,
+      "extra": 1,
+      "tongval": "NEDERLANDS",
+      "pogingen": 3
+    },
+    "meester/df1f7a362427.mp3": {
+      "tekst": "Juist! Jij kunt verdrietig zijn. Een computer niet: hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "uitschrift": "Juist. Jij kunt verdrietig zijn. Een computer niet. Hij voelt niets. Ook als hij zegt dat hij verdrietig is.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/df95deea624f.mp3": {
+      "tekst": "Nog eens bekijken: Jij kunt iemand knuffelen. Een computer kan dat niet.",
+      "uitschrift": "Nog eens bekijken. Jij kunt iemand knuffelen. Een computer kan dat niet.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/e10c5584da23.mp3": {
+      "tekst": "Goed zo! Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet, en vraag het aan een grote mens.",
+      "uitschrift": "Goed zo! Zo'n bericht dat plots opspringt, klopt bijna nooit. Tik niet en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/e2391a6e908b.mp3": {
+      "tekst": "Welk foutje vonden jullie het eerst? Welk was het moeilijkst? Is een gemaakte foto altijd slecht? Wanneer is het leuk, en wanneer niet? Je ziet een rare foto en je weet niet of ze echt is. Wat doe je?",
+      "uitschrift": "Welk foutje vonden jullie het eerst? Welk was het moeilijkst? Is een gemaakte foto altijd slecht? Wanneer is het leuk en wanneer niet? Je ziet een rare foto en je weet niet of ze echt is. Wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/e2415c7b8e6a.mp3": {
+      "tekst": "Juist! In een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "uitschrift": "Juist, in een slimme speaker zit een computer. Hij luistert en hij praat.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/e51de1b1e0a7.mp3": {
+      "tekst": "Juist! In een bal zit geen computer. Jij speelt ermee.",
+      "uitschrift": "Juist, in een bal zit geen computer. Jij speelt ermee.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/e634fe5ceb0a.mp3": {
+      "tekst": "Nog eens bekijken: Jij kunt verdrietig zijn. Een computer niet: hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "uitschrift": "Nog eens bekijken. Jij kunt verdrietig zijn. Een computer niet. Hij voelt niets, ook als hij zegt dat hij verdrietig is.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/ee2cf3cc3c1a.mp3": {
+      "tekst": "Wanneer raadde de computer goed? Wanneer niet? Waarom helpen veel voorbeelden? En waarom helpt het als de voorbeelden er telkens anders uitzien? Wat zei de computer bij een tekening van iets anders? Hoe komt dat?",
+      "uitschrift": "Wanneer raadde de computer goed? Wanneer niet? Waarom helpen veel voorbeelden? En waarom helpt het als de voorbeelden er telkens anders uitzien? Wat zei de computer bij een tekening van iets anders? Hoe komt dat?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/efb530d69d3b.mp3": {
+      "tekst": "Nog eens bekijken: In een gewoon boek zit geen computer. Jij slaat zelf de bladzijden om.",
+      "uitschrift": "Nog eens bekijken. In een gewoon boek zit geen computer. Jij slaat zelf de bladzijde om.",
+      "score": 0.938,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/efff49d4c765.mp3": {
+      "tekst": "Een gewoon boek. Met een computer erin, of: Zonder computer?",
+      "uitschrift": "Een gewoon boek? Met een computer erin of zonder computer?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/f17940fa5e8e.mp3": {
+      "tekst": "Dat klopt. Maar nu doen we expres een foutje: leg de gele bal in de blokkenbak.",
+      "uitschrift": "Dat klopt, maar nu doen we expres een foutje. Leg de gele bal in de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/f4056160ac3b.mp3": {
+      "tekst": "Wacht even! Een spelletje is geen vriend. Je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "uitschrift": "Wacht even. Een spelletje is geen vriend, je geheimen vertel je er niet aan. Vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/f49c5da8dae3.mp3": {
+      "tekst": "Dit lijkt op het rode blok. Dus: de blokkenbak.",
+      "uitschrift": "Dit lijkt op het rode blok. Dus, de blokkenbak.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/f4b4d512b88e.mp3": {
+      "tekst": "Juist! In een auto zitten zelfs heel veel kleine computers.",
+      "uitschrift": "Juist. In een auto zitten zelfs heel veel kleine computers.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/f4bc00849662.mp3": {
+      "tekst": "Juist! Een computer kan praten. Maar hij voelt niets bij wat hij zegt.",
+      "uitschrift": "Juist, een computer kan praten, maar hij voelt niets bij wat hij zegt.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/f6c37469c25b.mp3": {
+      "tekst": "Een filmpje maakt je bang. Wat doe je?",
+      "uitschrift": "Een filmpje maakt je bang, wat doe je?",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 1
+    },
+    "meester/f8e1232a6ee4.mp3": {
+      "tekst": "In de bouwhoek moet er opgeruimd worden. Het lichtje is een computer. Het wil helpen, maar het weet nog niet waar alles hoort. Jullie laten het zien. Zo leert het lichtje sorteren.",
+      "uitschrift": "In de bouwhoek moet er opgeruimd worden. Het lichtje is een computer. Het wil helpen, maar het weet nog niet waar alles hoort. Jullie laten het zien. Zo leert het lichtje sorteren.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    },
+    "meester/f945ebcfc090.mp3": {
+      "tekst": "Goed zo! Waar je woont, stop je in je geheimendoos. Vraag het aan een grote mens.",
+      "uitschrift": "Goed zo. Waar je woont, stop je in je geheime doos. Vraag het aan een grote mens.",
+      "score": 0.938,
+      "extra": 1,
+      "tongval": "VLAAMS",
+      "pogingen": 3
+    },
+    "meester/fe07ebff81bb.mp3": {
+      "tekst": "Nog eens bekijken: Een telefoonnummer stop je in je geheimendoos.",
+      "uitschrift": "Nog eens bekijken. Een telefoonnummer stop je in je geheimendoos.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "NEDERLANDS",
+      "pogingen": 2
+    },
+    "meester/fe781dc89f35.mp3": {
+      "tekst": "Aan haar bureau helpt de juf je als je iets niet weet. Op een tablet zie je soms rare dingen. Dan weet je niet goed wat je moet doen. Dan doe je dit: stop, en vraag het aan een grote mens.",
+      "uitschrift": "Aan haar bureau helpt de juf je als je iets niet weet. Op een tablet zie je soms rare dingen. Dan weet je niet goed wat je moet doen. Dan doe je dit: stop en vraag het aan een grote mens.",
+      "score": 1.0,
+      "extra": 0,
+      "tongval": "VLAAMS",
+      "pogingen": 1
+    }
+  }
+}
