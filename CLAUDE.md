@@ -47,6 +47,9 @@ schrijfkeuze:
 ## Structuur
 
 ```
+index.html          de voorpagina van de site: het 3D-poppenhuis (voorpagina/)
+leeromgeving/       de leeromgeving zelf: index.html is de omhulling van de app
+voorpagina/         stijl en scripts van de voorpagina (zie LEESMIJ daar)
 js/inhoud-beleid.js spoor C — het kader: wet, privacy en schoolbeleid
 js/inhoud.js        spoor A — inhoud
 js/casussen.js      spoor A — casussenmodule (groepswerk A3)
@@ -57,10 +60,49 @@ js/workshops.js     draaiboeken + sporen
 js/sessies.js       bouwstenen voor een zelf samengestelde sessie + sjablonen
 js/cursus.js        voegt sporen samen, kloktijden, sessies lezen en schrijven
 js/app.js           router, weergave, sessietimer, voortgang
+js/beelden.js       de tekeningen in de kop van een module (één per module, anders die van het spoor)
 css/style.css       alle styling, mobiel-eerst, afdrukblok onderaan
 leerlingen/         de leerlingencursus AI-wijs op school: GEGENEREERD, niet met de hand bewerken
-leerlingen-bron/    bron van die cursus: Markdown-lessen, generator, docs (zie README daar)
+aiwijs-start/       AI-wijs Start, de klassikale cursus voor de 1ste graad: GEGENEREERD
+leerlingen-bron/    bron van beide cursussen: Markdown-lessen, generator, docs (zie README daar);
+                    AI-wijs Start staat in leerlingen-bron/start/
+gedeeld/            wat alles deelt: Poppins (fonts/), het logo, en de 3D-motor
+                    (diorama-kern.js bovenop een uitgedunde bundel van three.js)
+lager/              Leerlichtjes, het aanbod voor het lager: één 3D-wereld per graad
+                    (zie lager/LEESMIJ.md en lager/TESTLIJST.md)
 ```
+
+De app draait in `leeromgeving/index.html`, maar haar code staat nog altijd in
+`js/` en `css/` in de root. Een link in de inhoud naar iets buiten de app
+(`leerlingen/`, `lager/`) schrijf je vanaf de root van de site: `naarSite()` in
+`app.js` zet er `../` voor. Oude links naar `…/ai-voor-leerkrachten/#/…`, ook
+gedeelde sessielinks, komen op de voorpagina binnen; een script bovenaan
+`index.html` stuurt ze door naar `leeromgeving/#/…`. Haal dat script dus niet
+weg.
+
+**Navigatie tussen de delen.** De voorpagina heet "AI op school" en bundelt
+alles: vier ingangen (directie, leerkracht, leerling, lager) en onderaan een rij
+naar de leeromgeving, AI-wijs op school en Leerlichtjes. Elke pagina die voor
+leerkrachten bedoeld is, heeft rechtsboven dezelfde weg terug: een knop met een
+huisje en "AI op school" (de kop van de leeromgeving, de startpagina en de
+handleiding van Leerlichtjes, en de pagina "Voor leerkrachten" van AI-wijs
+Start). Pagina's voor leerlingen hebben die knop bewust niet: de lessen van
+AI-wijs Start en AI-wijs op school en de drie werelden op het digibord blijven op
+zich. De keten voor leerlingen is Leerlichtjes (lager), AI-wijs Start (1ste
+graad) en AI-wijs op school (2de en 3de graad), en elk deel verwijst naar het
+volgende. Het overzicht van de leeromgeving verwijst met snelkoppelingen naar
+alle drie. Komt er een deel bij, geef het dan
+dezelfde knop en een plaats op de voorpagina.
+
+### Huisstijl
+
+Alles volgt de huisstijl van Het leercollectief: Poppins, donkergroen #126425
+met mint, perzik, geel en lichtblauw, ruime afgeronde hoeken en zachte
+schaduwen. De leeromgeving (`css/style.css`), de leerlingencursus, de
+startpagina en Leerlichtjes delen die lijn. Het lettertype en het logo komen uit
+`gedeeld/`, dus die map moet mee online. De drie sporen hebben elk een tint uit
+het palet: lichtblauw voor A, perzik voor B, groen voor C. Begeleidersmodus
+blijft paars, zodat je altijd ziet dat je in die modus zit.
 
 ### De leerlingencursus (leerlingen/)
 
@@ -81,6 +123,22 @@ voorbeelden in `leerlingen-bron/docs/leercollectief.md`. De module
 "De leerlingencursus in je klas" in `js/inhoud.js` is de handleiding voor de
 leerkracht en verwijst naar lesnummers (bv. les 4.11): hernummer je lessen in de
 leerlingencursus, kijk die verwijzingen dan na.
+
+### AI-wijs Start (aiwijs-start/)
+
+De klassikale instap voor de 1ste graad secundair, gebouwd met dezelfde
+generator: `npm run check:start && npm run build:start` in `leerlingen-bron`.
+De bron staat in `leerlingen-bron/start/` (eigen config, lessen,
+`leerkrachten.md` voor de handleiding, en `docs/personages.md`), de uitvoer in
+`aiwijs-start/`. Zes lessen in twee lesuren, een slotquiz en een paspoort om af
+te drukken; een bordmodus met grote letters voor het digibord (knop bij elke les,
+of `?bord` in het adres). Vaste afspraken, met Thomas beslist op 30 oktober 2026
+en uitgeschreven in `leerlingen-bron/docs/start-lessenschets.md`: leerlingen
+hebben geen account nodig en typen zelf niets in een chatbot; de stap "Probeer
+het zelf" is voor wie 13 is, gebeurt alleen op school onder begeleiding, en noemt
+geen merk ("de chatbot van je school"); de personages zijn fictief en zitten op
+geen echte school. Een verandering aan de generator mag AI-wijs op school niet
+veranderen: bouw die na afloop opnieuw en kijk na dat `leerlingen/` gelijk blijft.
 
 Inhoud is **data, geen code**. Een les toevoegen = een object toevoegen. Een
 nieuw blok-type vraagt wel een `case` in `toonInhoudsblok()` plus styling.
@@ -148,6 +206,12 @@ for (const w of WORKSHOPS) {
 for (const m of modules)
   for (const l of m.lessen)
     if (!(l.minuten > 0)) { console.log('FOUT', m.id, l.id, 'geen minuten'); fout++; }
+// Zonder intro staat de les er zonder aanloop; zonder onthoud mist ze haar
+// afsluiter en ontbreekt ze in de deelnemersbundel, bij Wat je onthoudt.
+for (const m of modules)
+  for (const l of m.lessen)
+    for (const veld of ['intro', 'onthoud'])
+      if (!l[veld]) { console.log('FOUT', m.id, l.id, 'geen', veld); fout++; }
 // Een sjabloon is enkel tekst met sleutels erin: hernoem je een blok-id, dan
 // valt het stil zonder dat het scherm iets meldt.
 for (const s of SJABLONEN) {
@@ -173,15 +237,23 @@ console.log(fout ? 'NIET OK' : 'alles OK');
 Lokaal draaien (ES-modules laden niet via `file://`):
 
 ```bash
-python3 -m http.server 8000
+python test/server.py
 ```
+
+Gebruik die en niet `python -m http.server`: die laatste stuurt geen
+Cache-Control mee, en dan toont de browser na een wijziging nog minutenlang de
+oude inhoudsbestanden. `test/server.py` zegt bij elk bestand `no-store`.
+
+Daarna: <http://localhost:8000/> voor de voorpagina en
+<http://localhost:8000/leeromgeving/> voor de leeromgeving.
 
 ## Git & deploy
 
 - Direct committen en pushen naar `main`; geen branches of PR's.
 - Git-author: `Thomas Aelbrecht <ict@hetleercollectief.be>`.
 - De site staat live op <https://teamict-codex.github.io/ai-voor-leerkrachten/>
-  via GitHub Pages, rechtstreeks vanaf de repo-root van `main`. Elke push is
+  via GitHub Pages, rechtstreeks vanaf de repo-root van `main`. Daar staat de
+  voorpagina; de leeromgeving staat op `…/ai-voor-leerkrachten/leeromgeving/`. Elke push is
   binnen de minuut online; er is geen build-stap. `.nojekyll` moet blijven
   staan, anders laat Jekyll bestanden met een underscore weg.
 
@@ -211,11 +283,20 @@ Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
 - Drie sporen: **C Het kader** (wet en schoolbeleid, staat vooraan en is het
   beginpunt), **A AI in de klas** en **B Vibe coden**.
-- 17 modules, 50 lessen, 312 inhoudsblokken (tekst 90, kader 84, lijst 44,
-  prompt 31, opdracht 25, casus 16, quiz 18, vergelijk 4).
+- 18 modules, 54 lessen, 332 inhoudsblokken (tekst 97, kader 89, lijst 48,
+  prompt 32, opdracht 26, casus 17, quiz 19, vergelijk 4).
 - **Elke les draagt haar eigen `minuten`**; modules hebben geen `duur` meer.
   `moduleMinuten()` in cursus.js telt ze op, en de sessiebouwer rekent ermee.
   Voeg je een les toe, zet er dan minuten op — zonder dat telt ze voor nul.
+- Spoor C telt vier modules. De vierde, **Zelf bouwen met schoolgegevens**
+  (`beleid-zelfbouw`, oktober 2026), is voor directies die zelf tools bouwen met
+  AI. Ze deelt wat je bouwt in drie zones in: dit kan, dit doe je samen met je
+  scholengroep, dit hoort in de schoolsystemen. De toon is bewust die van de
+  uitgestoken hand: het gebeurt al, en de scholengroep helpt het veiliger te
+  maken en wat goed werkt naar meer scholen te brengen. Schrijf er in die toon
+  verder, en algemeen over "je scholengroep", zonder naam of verzonnen
+  procedure. Op de voorpagina hoort er het bolletje "zelfbouw" bij: een kastje
+  met een scherm in de directiekamer.
 - Spoor C hangt aan geen enkel draaiboek: het is
   leesstof voor leerkrachten én directies. De minuten van die lessen zijn dus
   leestijd, niet workshoptijd — reken ongeveer honderd woorden per minuut.
@@ -229,9 +310,22 @@ Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
   volledig uit verdieping en hangt daarom aan geen enkel draaiboek.
 - Pagina's: overzicht, module, draaiboek, deelnemersbundel, promptkaart,
   begeleidersgids en de sessiebouwer. Zie README voor de routes.
-- 16 casussen: 15 voor het groepswerk in A3 — die module is tegelijk de
-  zelfstudieroute — en één in de directiemodule van spoor C. Gespreid over
-  mag / mag niet / hangt ervan af.
+- **Elke les heeft een `intro` en een `onthoud`** (velden, geen blokken: de
+  bloktellingen hierboven veranderen er niet door). De intro staat bovenaan de
+  les, de onthoud in haar voet en in de deelnemersbundel onder "Wat je
+  onthoudt". Die onthoud wordt dus op papier gelezen zonder de les ernaast:
+  een voorwaarde die de les stelt ("zonder naam", "als je de pagina liet
+  aanpassen") moet er dan ook in staan. `test/zet-lesregels.py` zet ze vanuit
+  JSON; de controle hierboven slaat alarm als er een ontbreekt.
+- De modulepagina kreeg in oktober 2026 een make-over: een kop met een eigen
+  tekening per module (`js/beelden.js`, getekende SVG, geen emoji meer) en een
+  voortgangsring, een lesnavigatie die meeloopt, en per les een voet met de
+  onthoud, het afvinken en een knop naar de volgende les. Het overzicht toont
+  per spoor de voortgang en, voor een deelnemer, een kaart "Verder waar je was".
+- 17 casussen: 15 voor het groepswerk in A3 — die module is tegelijk de
+  zelfstudieroute — en twee in spoor C: één in de directiemodule en één in
+  "Zelf bouwen met schoolgegevens". Gespreid over mag / mag niet / hangt ervan
+  af.
 - Begeleidersgids met 23 lastige vragen en zes secties, principieel en
   praktisch. De sectie "Een kortere sessie geven" hoort bij de sessiebouwer.
 - Elke module heeft nu minstens één prompt, één opdracht en één quizvraag,
@@ -281,9 +375,50 @@ Hou dit bij als je verder schrijft.
   leerlingencursus. Twaalf lezers met elk een eigen bril, elke bevinding door
   twee tegensprekers die haar probeerden te weerleggen; 31 van de 60 bevindingen
   hielden stand en zijn verwerkt.
+- **Ook nagekeken, op 29 oktober 2026:** de intro en onthoud van alle vijftig
+  lessen. Vier lezers, één per spoor (B in twee), legden elke regel naast haar
+  eigen les; tien van de honderd regels zijn aangepast, telkens omdat een
+  voorwaarde of nuance van de les wegviel zodra de zin los op papier stond.
+  Dezelfde ronde ving drie dingen in de bestaande tekst: het voorbeeld "Lotte
+  uit 4A" stond tegenover "een leerling van het tweede jaar" (nu: vierde), de
+  vuistregel en de doelen van spoor B noemden een klasnummer of bijnaam
+  "anoniem" terwijl de les zegt dat het dan nog leerlinggegevens zijn (nu:
+  "zonder echte namen"), en het tipkader over de sessiebouwer in spoor C
+  herhaalde de twee fouten die de gids al kwijt was.
+- **Ook nagekeken, op 30 oktober 2026:** de module *Zelf bouwen met
+  schoolgegevens* en de zinnen in spoor B en C die ze bijstuurde. Een juridische
+  lezer en een lezer voor toon en samenhang; hun 17 bevindingen zijn verwerkt.
+  Twee lessen voor wie verder schrijft: een onthoud verloor op papier opnieuw
+  een voorwaarde (afsluiten en dezelfde dag melden), en "de rechten op software
+  gaan automatisch naar de werkgever" is te sterk als de zin uit zijn context
+  van een opdracht valt — het geldt voor software die je in je functie schrijft,
+  tenzij anders afgesproken, en code die de AI zelf schreef heeft waarschijnlijk
+  geen auteur.
+- **Nagekeken, op 30 oktober 2026:** AI-wijs Start, de zes lessen, de slotquiz
+  en de handleiding. Een lezer voor feiten, wet en veiligheid en een lezer voor
+  doelgroep en didactiek; hun 27 bevindingen zijn verwerkt. Drie zaken om te
+  onthouden: in de 1ste graad geldt sinds 1 september 2025 een smartphoneverbod
+  de hele schooldag (dus geen eigen gsm in een les, tenzij de school een
+  uitzondering maakt); bij het begin van het schooljaar is bijna niemand in het
+  eerste jaar al 13, tegen het einde ongeveer de helft; en alleen Child Focus
+  (116 000) is dag en nacht bereikbaar, Awel en 1712 op vaste uren.
+- **Open, voor Thomas:** les 5 van AI-wijs Start (deepnudes en sextortion) en het
+  stuk erover in de handleiding nalezen. Ze staan online sinds 30 oktober 2026:
+  Thomas liet alles pushen en leest ze daarna na.
+- **Open, voor Thomas:** de begeleidersgids laat bij één leerlingnaam in een
+  workshopgesprek het gesprek verwijderen; spoor C zegt bij elk gesprek met
+  leerlinggegevens in een tool zonder afspraken: dezelfde dag melden en niet
+  wissen. Welke lijn geldt in de zaal, is een keuze, geen tikfout.
+- **Open, voor Thomas:** een lezer vond in secundaire bronnen (advocatenkantoren,
+  vakpers) dat de AI-omnibus vanaf 2 december 2026 ook nieuwe verboden invoert.
+  De les over de AI-verordening noemt die niet. Niet nagegaan in het
+  Publicatieblad, en dus niets aan veranderd.
 - **Nog niet nagekeken:** wat je hierna zelf toevoegt. De app zelf (`app.js`,
   `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
   schermcontexten; nieuw blok-type of nieuwe kadervariant vraagt die pas opnieuw.
+  De make-over van de modulepagina en het overzicht (oktober 2026) is getest
+  met de volledige suite in de vier schermmaten en met het oog bekeken, maar
+  nog niet door een aparte toegankelijkheidsronde gehaald.
 
 Wat de eerste nakijkronde opleverde is leerzaam voor wie hier verder schrijft:
 de terugkerende fouten waren Nederlands-Nederlandse termen (docent, werkstuk,
@@ -302,6 +437,10 @@ gezondheidsgegevens van een leerling (vanaf twaalf wordt een leerling bij het
 CLB in principe bekwaam geacht). Schrijf je iets over wat de app doet of over
 wat de wet zegt: ga het na in `app.js` of bij de bron, ook — vooral — als je het
 zelf een hoofdstuk eerder hebt geschreven.
+
+**AI-wijs Start, voor de 1ste graad secundair,** is gebouwd op 30 oktober 2026
+(zie hierboven) en staat sinds die dag online. Les 5, over deepnudes en
+sextortion, en het stuk erover in de handleiding leest Thomas nog zelf na.
 
 **Geparkeerd tot na woensdag 28 oktober 2026.** Wat nog openstaat is de
 nakijklijst van de leerlingencursus (`leerlingen-bron/docs/nakijklijst.md`):

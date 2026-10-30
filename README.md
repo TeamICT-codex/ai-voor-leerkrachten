@@ -4,7 +4,11 @@ Digitale leeromgeving én workshopmateriaal om leerkrachten lager en secundair
 onderwijs te leren werken met AI. Gemaakt voor deelnemers die nog nooit met
 ChatGPT of Claude werkten.
 
-**De leeromgeving staat online: <https://teamict-codex.github.io/ai-voor-leerkrachten/>**
+**De site staat online: <https://teamict-codex.github.io/ai-voor-leerkrachten/>**
+Daar staat de voorpagina, met een ingang voor directies, leerkrachten, leerlingen
+en het lager. De leeromgeving zelf staat op
+<https://teamict-codex.github.io/ai-voor-leerkrachten/leeromgeving/>; oude links
+naar `…/ai-voor-leerkrachten/#/…` sturen automatisch door.
 
 De omgeving dient twee doelen tegelijk:
 
@@ -128,6 +132,14 @@ De module **De leerlingencursus in je klas** (spoor A) is de handleiding voor
 de leerkracht: wat erin zit, vier manieren om ze in te zetten, en hoe je
 afspraken en opvolging erop afstemt.
 
+Voor de **eerste graad** is er *AI-wijs Start*: zes korte lessen die de
+leerkracht klassikaal geeft, op het digibord, zonder dat leerlingen een account
+nodig hebben. Over feeds, echte en nagemaakte beelden, wat je een chatbot
+vertelt, chatbots als vriend, misbruik van beelden en leren of laten doen. Met
+een slotquiz, een paspoort om af te drukken en een bordmodus. De bron staat in
+`leerlingen-bron/start/`, de uitvoer in `aiwijs-start/`
+(`npm run build:start`).
+
 - `leerlingen/` is gegenereerd; bewerk het niet met de hand.
 - `leerlingen-bron/` bevat de Markdown-lessen, de generator en de docs. Bouwen:
   `cd leerlingen-bron && npm install && npm run build` (en `npm run check`
@@ -139,10 +151,12 @@ Geen build-stap en geen afhankelijkheden, maar de app gebruikt ES-modules —
 die laden niet via `file://`. Start dus een kleine server:
 
 ```bash
-python3 -m http.server 8000
+python test/server.py
 ```
 
-Daarna surf je naar <http://localhost:8000>.
+Dat is `python -m http.server` met één verschil: de browser bewaart niets, dus
+na een wijziging zie je bij herladen meteen de nieuwe versie. Daarna surf je naar <http://localhost:8000> voor de voorpagina, of naar
+<http://localhost:8000/leeromgeving/> voor de leeromgeving.
 
 Je hebt dat enkel nodig om aan de inhoud te werken. Wie de omgeving gewoon wil
 gebruiken, surft naar de link hierboven — die volgt automatisch elke wijziging
@@ -151,7 +165,8 @@ die naar `main` gaat.
 ## Structuur
 
 ```
-index.html            de volledige pagina-omhulling
+index.html            de voorpagina met het 3D-poppenhuis (stijl en scripts in voorpagina/)
+leeromgeving/index.html  de omhulling van de leeromgeving
 css/style.css         alle styling, mobiel-eerst, met afdrukblok onderaan
 js/inhoud-beleid.js   spoor C — het kader: wet, privacy en schoolbeleid
 js/inhoud.js          spoor A — inhoud (ChatGPT én Claude)
@@ -162,9 +177,11 @@ js/sessies.js         bouwstenen en sjablonen voor een zelf samengestelde sessie
 js/gids.js            begeleidersgids: begeleidingsadvies en de lastige vragen
 js/cursus.js          voegt de sporen samen, kloktijden, blokken verzamelen
 js/app.js             router, weergave, sessietimer, voortgang
+js/beelden.js         de tekeningen in de kop van een module
 assets/favicon.svg
 leerlingen/           AI-wijs op school, de cursus voor leerlingen (gegenereerd)
-leerlingen-bron/      bron van die cursus: Markdown-lessen, generator, docs
+aiwijs-start/         AI-wijs Start, de klassikale cursus voor de 1ste graad (gegenereerd)
+leerlingen-bron/      bron van beide cursussen: Markdown-lessen, generator, docs
 ```
 
 ## Inhoud aanpassen of uitbreiden
@@ -197,9 +214,11 @@ minuten blijven.
 ## Het kader
 
 Spoor C staat los van de workshops: het is leesstof voor wie wil weten wat er
-mag, en voor wie afspraken maakt voor de hele school. Drie modules — het kader
-in het kort, de wet in mensentaal, en een module voor directies over leerlingdata
-van minderjarigen, personeelsgegevens en het opbouwen van een afsprakenkader.
+mag, en voor wie afspraken maakt voor de hele school. Vier modules — het kader
+in het kort, de wet in mensentaal, een module voor directies over leerlingdata
+van minderjarigen, personeelsgegevens en het opbouwen van een afsprakenkader, en
+een module voor wie als directie zelf een tool bouwt met schoolgegevens: wat
+kan, wat je samen met je scholengroep doet, en wat in de schoolsystemen hoort.
 Het is geen juridisch advies: bij echte twijfel gaat het naar de DPO van de
 scholengroep.
 
