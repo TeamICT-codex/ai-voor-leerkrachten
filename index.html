@@ -1,39 +1,234 @@
-<!DOCTYPE html>
-<html lang="nl">
+<!doctype html>
+<html lang="nl-BE">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI voor leerkrachten — workshops lager &amp; secundair</title>
-  <meta name="description" content="Digitale leeromgeving en workshopmateriaal om leerkrachten lager en secundair onderwijs te leren werken met ChatGPT en Claude. Zelfstandig door te nemen, of stel er je eigen sessie mee samen.">
-  <meta name="theme-color" content="#1f3a68">
+  <title>AI op school · Het leercollectief</title>
+  <meta name="description" content="Een gratis leeromgeving over AI voor iedereen in de school: directies, leerkrachten en leerlingen. Je hoeft er niets van te kennen om te beginnen.">
+  <meta name="theme-color" content="#ffffff">
+  <script>
+    // Oude links naar de leeromgeving (…/#/module/…, gedeelde sessielinks) wezen
+    // naar deze pagina. Sinds de voorpagina hier staat, woont de leeromgeving in
+    // leeromgeving/: zo'n link gaat meteen door, met alles achter het hekje.
+    if (location.hash.startsWith('#/')) location.replace('leeromgeving/' + location.hash);
+  </script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preload" href="gedeeld/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="gedeeld/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="voorpagina/startpagina.css">
+  <script type="module" src="voorpagina/startpagina.js"></script>
 </head>
 <body>
-  <header id="kop"></header>
-  <main id="hoofd">
-    <div class="kaart leeg opstart">
-      <h1>De leeromgeving start op…</h1>
-      <p>Blijft deze tekst staan? Dan is er één van twee dingen aan de hand.
-         Ofwel staat JavaScript uit in je browser. Ofwel is deze map met een
-         dubbelklik geopend: kijk of het adres bovenaan begint met
-         <code>file://</code>. Zo werkt de leeromgeving niet — de bestanden
-         moeten via een webadres (<code>http</code> of <code>https</code>)
-         geopend worden. Je ICT-coördinator of de begeleider van de workshop
-         zet dat in enkele minuten recht.</p>
+  <a class="overslaan" href="#inhoud">Naar de inhoud</a>
+
+  <header class="kop">
+    <a class="merk" href="./">
+      <img src="gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
+      <span>AI op school</span>
+    </a>
+    <a class="kop-link" href="leeromgeving/#/">Naar de leeromgeving</a>
+  </header>
+
+  <main id="inhoud">
+    <div class="verhaal">
+      <div class="podium">
+        <div class="lucht ochtend" aria-hidden="true"></div>
+        <div class="lucht dag" aria-hidden="true"></div>
+
+        <!-- Staat er meteen, ook zonder 3D: een vlakke schets van hetzelfde tafereel. -->
+        <svg class="schets" viewBox="0 0 640 460" role="img" aria-label="Een school met drie verdiepingen: de directie, een klas en een computerlokaal">
+          <circle cx="560" cy="78" r="30" fill="#fbf59b"/>
+          <rect x="30" y="372" width="580" height="44" rx="22" fill="#126425"/>
+          <rect x="22" y="352" width="596" height="44" rx="22" fill="#c2e3cc"/>
+          <g fill="#4e9a63"><circle cx="96" cy="282" r="44"/><circle cx="548" cy="290" r="38"/></g>
+          <g fill="#86c494"><circle cx="122" cy="252" r="30"/><circle cx="572" cy="262" r="26"/></g>
+          <g fill="#9c6f45"><rect x="90" y="318" width="12" height="40" rx="5"/><rect x="543" y="320" width="11" height="36" rx="5"/></g>
+          <rect x="168" y="96" width="304" height="262" rx="8" fill="#fffaf3"/>
+          <rect x="180" y="110" width="280" height="68" rx="4" fill="#fbf59b"/>
+          <rect x="180" y="196" width="280" height="68" rx="4" fill="#bfe3ed"/>
+          <rect x="180" y="282" width="280" height="68" rx="4" fill="#fcc89b"/>
+          <rect x="196" y="120" width="96" height="48" rx="4" fill="#fff" stroke="#126425" stroke-width="4"/>
+          <rect x="202" y="206" width="140" height="44" rx="4" fill="#fff" stroke="#cfd2cf" stroke-width="4"/>
+          <rect x="210" y="292" width="70" height="42" rx="4" fill="#2b3038"/>
+          <g fill="#2b3038"><circle cx="390" cy="140" r="9"/><circle cx="378" cy="226" r="9"/><circle cx="318" cy="308" r="9"/></g>
+          <g fill="#126425"><rect x="380" y="150" width="20" height="24" rx="8"/></g>
+          <g fill="#fcc89b"><rect x="368" y="236" width="20" height="24" rx="8"/></g>
+          <g fill="#bfe3ed"><rect x="308" y="318" width="20" height="24" rx="8"/></g>
+          <circle cx="352" cy="214" r="9" fill="#fff6b5" stroke="#fbf59b" stroke-width="8"/>
+          <rect x="160" y="84" width="320" height="16" rx="6" fill="#126425"/>
+          <rect x="230" y="46" width="180" height="34" rx="6" fill="#fff" stroke="#126425" stroke-width="3"/>
+          <text x="320" y="69" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="17" fill="#126425">samen is beter</text>
+        </svg>
+
+        <canvas class="tafereel" aria-hidden="true"></canvas>
+        <div class="waas boven" aria-hidden="true"></div>
+        <div class="waas onder" aria-hidden="true"></div>
+
+        <div class="labels">
+          <button type="button" class="label" data-kamer="directie" data-doel="directie" style="--stip: #e9dc3a">Directie</button>
+          <button type="button" class="label" data-kamer="klas" data-doel="leerkracht" style="--stip: #5fa9c9">Leerkracht</button>
+          <button type="button" class="label" data-kamer="leerling" data-doel="leerling" style="--stip: #f2a76b">Leerling</button>
+          <button type="button" class="label" data-kamer="lager" data-doel="lager" style="--stip: #ffcf3a">Lager</button>
+        </div>
+
+        <div class="pinnen"></div>
+
+        <button type="button" class="avond-knop" aria-pressed="false">
+          <span class="avond-icoon" aria-hidden="true"></span><span class="avond-tekst">Avond</span>
+        </button>
+
+        <p class="laadtekst" aria-hidden="true">De school wordt opgebouwd…</p>
+        <p class="hint" aria-hidden="true"></p>
+
+        <section class="uitleg" hidden aria-labelledby="uitleg-titel">
+          <button type="button" class="uitleg-sluit" aria-label="Sluit de uitleg">×</button>
+          <p class="uitleg-waar"></p>
+          <h3 id="uitleg-titel" tabindex="-1"></h3>
+          <p class="uitleg-tekst"></p>
+          <a class="knop uitleg-link" href="#"></a>
+          <div class="uitleg-nav">
+            <button type="button" class="uitleg-vorige">← Vorige</button>
+            <span class="uitleg-teller" aria-live="polite"></span>
+            <button type="button" class="uitleg-volgende">Volgende →</button>
+          </div>
+        </section>
+        <button type="button" class="toon-toch" hidden>Toon het tafereel in 3D (± 160 kB)</button>
+
+        <div class="zaalbord" aria-hidden="true">
+          <p class="zaal-titel">AI op school</p>
+          <p class="zaal-adres"></p>
+        </div>
+      </div>
+
+      <div class="hoofdstukken">
+        <section class="hoofdstuk held" data-kamer="overzicht" aria-labelledby="titel">
+          <p class="etiket">Het leercollectief · samen is beter</p>
+          <h1 id="titel">AI op school? <span class="markeer">Samen</span> zetten we de eerste stap.</h1>
+          <p class="inleiding">
+            Een leeromgeving voor iedereen in de school: wie beleid maakt, wie lesgeeft en wie leert.
+            Je hoeft nog niets van AI te kennen om te beginnen.
+          </p>
+          <nav class="ik-ben" aria-label="Kies wie je bent">
+            <a href="#directie" style="--stip: #e9dc3a">Ik leid een school</a>
+            <a href="#leerkracht" style="--stip: #5fa9c9">Ik geef les</a>
+            <a href="#leerling" style="--stip: #f2a76b">Ik zoek iets voor mijn leerlingen</a>
+            <a href="#lager" style="--stip: #ffcf3a">Ik geef les in het lager</a>
+          </nav>
+          <p class="scrolhint"><span aria-hidden="true">↓</span> Scroll verder en kijk wat er op elke verdieping gebeurt</p>
+        </section>
+
+        <section class="hoofdstuk" id="directie" data-kamer="directie" aria-labelledby="titel-directie" style="--stip: #e9dc3a">
+          <p class="etiket">Voor directies en beleidsmakers</p>
+          <h2 id="titel-directie">Weten wat mag, en het samen afspreken</h2>
+          <p>
+            Wat vraagt de privacywet als een leerkracht met AI werkt? Wat verwacht de Europese
+            AI-verordening van een school? In het spoor <strong>Het kader</strong> lees je het in
+            gewone taal, met de vragen die je samen met de DPO van je scholengroep uitklaart.
+          </p>
+          <ul class="vinkjes">
+            <li>De wet en privacy, zonder juridisch jargon</li>
+            <li>Stap voor stap naar afspraken voor je eigen school</li>
+            <li>Zelf een tool bouwen met schoolgegevens, samen met je scholengroep</li>
+            <li>Zelf een sessie voor je team samenstellen, ook als je maar een uur hebt</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="leeromgeving/#/module/beleid-kader">Lees Het kader</a>
+            <a class="knop zacht" href="leeromgeving/#/sessie">Stel een sessie samen</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="leerkracht" data-kamer="klas" aria-labelledby="titel-leerkracht" style="--stip: #5fa9c9">
+          <p class="etiket">Voor leerkrachten lager en secundair</p>
+          <h2 id="titel-leerkracht">Morgen al iets bruikbaars in je klas</h2>
+          <p>
+            Geen vakjargon, wel voorbeelden uit je eigen klas: een les voorbereiden, oefeningen op
+            maat maken, feedback geven, een brief naar de ouders schrijven. Met prompts die je zo
+            overneemt in je AI-assistent.
+          </p>
+          <ul class="vinkjes">
+            <li>Zes workshops van drie uur, of alles in je eigen tempo</li>
+            <li>Werkt met ChatGPT en met Claude</li>
+            <li>Een promptkaart met alle prompts op één plek</li>
+            <li>Zelf een kleine webapp bouwen voor je klas, zonder te leren programmeren</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="leeromgeving/#/module/kennismaking">Begin bij de eerste les</a>
+            <a class="knop zacht" href="leeromgeving/#/">Alle workshops</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="leerling" data-kamer="leerling" aria-labelledby="titel-leerling" style="--stip: #f2a76b">
+          <p class="etiket">Voor je leerlingen</p>
+          <h2 id="titel-leerling">Slim en eerlijk leren met AI</h2>
+          <p>
+            <strong>AI-wijs op school</strong> is een gratis cursus voor leerlingen van de 2de en
+            3de graad. Ze leren AI gebruiken om beter te leren, niet om het werk over te laten. Met
+            voorbeelden uit hun eigen schoolleven: een toets voorbereiden, de stage, de GIP.
+            Voor de 1ste graad is er <strong>AI-wijs Start</strong>: zes korte lessen die je
+            klassikaal geeft, zonder account, over feeds, nepbeelden, chatbots en je eigen taken.
+          </p>
+          <ul class="vinkjes">
+            <li>Voor de 1ste graad klassikaal en zonder account, voor de 2de en 3de graad zelfstandig</li>
+            <li>Korte lessen met opdrachten die ze meteen doen</li>
+            <li>Over kansen én risico's, zonder te preken</li>
+            <li>Met een paspoort in de 1ste graad en een certificaat in de 2de en 3de graad</li>
+            <li>En een handleiding voor jou: hoe je de cursus in je klas gebruikt</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="aiwijs-start/index.html">AI-wijs Start · 1ste graad</a>
+            <a class="knop" href="leerlingen/index.html">AI-wijs op school · 2de en 3de graad</a>
+            <a class="knop zacht" href="leeromgeving/#/module/leerlingencursus">Hoe gebruik ik ze in mijn klas?</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="lager" data-kamer="lager" aria-labelledby="titel-lager" style="--stip: #ffcf3a">
+          <p class="etiket">Voor leerkrachten in het lager</p>
+          <h2 id="titel-lager">Leerlichtjes: AI ontdekken met je klas</h2>
+          <p>
+            Kinderen horen thuis en op tv over AI. Met <strong>Leerlichtjes</strong> verken je samen
+            op het digibord een wereld vol korte opdrachten: hoe een computer leert, waarom een
+            antwoord fout kan zijn, en wat eerlijk is. Zonder chatbot, zonder account en zonder
+            gegevens van kinderen.
+          </p>
+          <ul class="vinkjes">
+            <li>Per graad een eigen wereld: De klas van de juf, Het dorp en De stad van morgen</li>
+            <li>Twee lessen van 50 minuten, of losse stations voor een kort moment</li>
+            <li>Met een handleiding voor jou en een paspoort om af te drukken</li>
+            <li>Werkt op het digibord, een tablet of een Chromebook</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="lager/index.html">Naar Leerlichtjes</a>
+            <a class="knop zacht" href="lager/voor-leerkrachten.html">Handleiding voor de leerkracht</a>
+          </div>
+        </section>
+      </div>
     </div>
+
+    <section class="begin" aria-labelledby="titel-begin">
+      <h2 id="titel-begin">Zo begin je</h2>
+      <ol class="stappen">
+        <li><strong>Kies je verdieping</strong><span>Directie, leerkracht, leerling of het lager: elk heeft een eigen ingang.</span></li>
+        <li><strong>Lees in je eigen tempo</strong><span>Of volg samen met je team een workshop van drie uur.</span></li>
+        <li><strong>Probeer het meteen</strong><span>Met een voorbeeld uit je eigen klas. Zo leer je het snelst.</span></li>
+      </ol>
+      <ul class="gerust">
+        <li>Gratis en zonder account</li>
+        <li>Je voortgang blijft op je eigen toestel</li>
+        <li>Geschreven voor Vlaamse scholen</li>
+      </ul>
+    </section>
   </main>
-  <footer id="voet">
-    <p>
-      Opleidingsmateriaal voor leerkrachten lager en secundair onderwijs.
-      Spoor A werkt met ChatGPT of Claude, spoor B (vibe coden) met Claude.
-      Je kan alles zelfstandig doornemen, en er zelf een sessie uit samenstellen.
-      Voor je leerlingen is er <a href="leerlingen/index.html">AI-wijs op school</a>, een gratis cursus voor de tweede en derde graad.
-    </p>
-    <p class="klein">
-      Je voortgang en instellingen blijven in deze browser bewaard — er wordt niets verstuurd.
-    </p>
+
+  <footer class="voet">
+    <img src="gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
+    <p>GO! scholengroep Het leercollectief</p>
+    <nav class="voet-nav" aria-label="Alles op deze site">
+      <a href="leeromgeving/#/">De leeromgeving</a>
+      <a href="aiwijs-start/index.html">AI-wijs Start</a>
+      <a href="leerlingen/index.html">AI-wijs op school</a>
+      <a href="lager/index.html">Leerlichtjes</a>
+    </nav>
+    <button type="button" class="zaal-knop">Zaalmodus voor de beamer</button>
   </footer>
-  <script type="module" src="js/app.js"></script>
 </body>
 </html>
