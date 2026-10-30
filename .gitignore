@@ -13,3 +13,7 @@ _testharnas.js
 
 # Uitvoer van de testloper, geen broncode.
 test/uitslag-node.json
+
+# De losse beelden en de muziek van een teaser-opname: tussenwerk, telkens opnieuw te maken.
+teaser/uit/beelden/
+teaser/uit/muziek.wav

@@ -6,6 +6,13 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["test/server.py", "8000"],
       "port": 8000
+    },
+    {
+      "name": "teaser-opname",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["teaser/opname.py", "8010"],
+      "port": 8010,
+      "url": "http://127.0.0.1:8010"
     }
   ]
 }
