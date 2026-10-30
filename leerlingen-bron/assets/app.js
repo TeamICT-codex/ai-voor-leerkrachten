@@ -190,7 +190,10 @@
         const opt = q.opties.find(o => o.id === sel) || {};
         const goed = q.opties.find(o => o.id === q.juist) || {};
         fb.hidden = false; fb.className = 'quiz-feedback ' + (juist ? 'is-correct' : 'is-wrong');
-        fb.innerHTML = `<strong>${juist ? 'Juist.' : 'Niet de beste keuze.'}</strong><p>${esc(opt.feedback || '')}</p>${juist ? '' : `<p><strong>Het beste antwoord was ${esc(q.juist)}.</strong> ${esc(goed.feedback || '')}</p>`}`;
+        // De feedback van een juist antwoord begint vaak zelf met "Juist."; het vette
+        // label staat er al boven, dus zonder die herhaling.
+        const zonderJuist = (t) => String(t || '').replace(/^\s*Juist\b[.!:]?\s*/i, '');
+        fb.innerHTML = `<strong>${juist ? 'Juist.' : 'Niet de beste keuze.'}</strong><p>${esc(juist ? zonderJuist(opt.feedback) : opt.feedback || '')}</p>${juist ? '' : `<p><strong>Het beste antwoord was ${esc(q.juist)}.</strong> ${esc(zonderJuist(goed.feedback))}</p>`}`;
         confirm.hidden = true; next.hidden = false; next.textContent = i + 1 < vragen.length ? 'Volgende vraag' : 'Bekijk je resultaat'; next.focus();
       });
       next.addEventListener('click', () => { i++; renderQ(); window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); });

@@ -1,10 +1,11 @@
 // Controleert interne links (href en src) in de uitvoermap uit cursus.config.json,
-// vandaag ../leerlingen. Draai dit na een build. Gebruik: node build/links.mjs
+// vandaag ../leerlingen (AI-wijs) of ../aiwijs-start (Start). Draai dit na een build.
+// Gebruik: node build/links.mjs [--cursus start] [--extern]
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const DIST = path.resolve(ROOT, JSON.parse(fs.readFileSync(path.join(ROOT, 'cursus.config.json'), 'utf8')).uitvoermap || 'dist');
+import { kiesCursus } from './cursus.mjs';
+const { DIST } = kiesCursus();
+if (!fs.existsSync(DIST)) { console.log(`✗ ${DIST} bestaat niet: bouw eerst.`); process.exit(1); }
 const walk = (d) => fs.readdirSync(d).flatMap(f => { const p = path.join(d, f); return fs.statSync(p).isDirectory() ? walk(p) : [p]; });
 const files = walk(DIST).filter(f => f.endsWith('.html'));
 let broken = 0, extern = new Set();

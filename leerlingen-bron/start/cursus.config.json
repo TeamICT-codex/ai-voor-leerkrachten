@@ -1,0 +1,40 @@
+{
+  "naam": "AI-wijs Start",
+  "ondertitel": "De AI-cursus voor de eerste graad van GO! scholengroep Het leercollectief",
+  "korteBeschrijving": "Waarom zie jij dit filmpje? Is die foto echt? Wat vertel je beter niet aan een chatbot? In twee lesuren ontdek je hoe AI meedraait in je online leven. En hoe jij zelf het stuur houdt.",
+  "doelgroep": "1ste graad secundair, A- en B-stroom",
+  "organisatie": "Het leercollectief",
+  "organisatieUrl": "https://www.hetleercollectief.be",
+  "organisatieVoluit": "GO! scholengroep Het leercollectief",
+  "motto": "samen is beter",
+  "regio": "Dendermonde – Hamme – Lokeren – Moerbeke – Wetteren – Zele",
+  "taal": "nl-BE",
+  "contactMail": "",
+  "basisUrl": "",
+  "uitvoermap": "../../aiwijs-start",
+  "opslagsleutel": "aiwijs-start.v1",
+  "bordmodus": true,
+  "voorpaginaUrl": "../",
+  "leerkrachtenpagina": "leerkrachten.md",
+  "personages": "docs/personages.md",
+  "lesnummering": "doorlopend",
+  "benaming": { "enkel": "deel", "meervoud": "delen", "kort": "" },
+  "stappen": false,
+  "domeinen": false,
+  "voetHerkomst": "",
+  "voorbeeldVoet": "Verzonnen voorbeeld.",
+  "indexTitel": "AI in je online leven",
+  "kicker": "Gratis cursus voor de klas · 1ste graad",
+  "heroTitel": "Ontdek wat AI doet in *jouw online leven*",
+  "psst": "Psst. Je hebt geen account nodig en je typt niets in een chatbot. Je leerkracht toont, jij denkt mee en kiest. Want ook met AI geldt: **samen is beter**.",
+  "studietijd": "twee lesuren",
+  "inhoudSub": "Twee lesuren en een afronding, in deze volgorde. Je leerkracht kan ook één les apart geven.",
+  "over": "AI-wijs Start is een gratis, open cursus van [GO! scholengroep Het leercollectief](https://www.hetleercollectief.be) voor de eerste graad van het secundair, in de A- en de B-stroom. Je volgt ze samen met je klas: je leerkracht toont op het digibord, jij doet mee in de browser. Je hebt geen account en geen chatbot nodig. Elke andere Vlaamse school mag de cursus gebruiken. In de tweede graad ga je verder met [AI-wijs op school](../leerlingen/index.html). Leerkrachten vinden [hier](voor-leerkrachten.html) hoe ze de cursus in de klas geven.",
+  "startCta": {
+    "titel": "Begin bij lesuur 1",
+    "tekst": "Waarom je feed er zo uitziet, welke beelden je kunt geloven en wat je een chatbot vertelt."
+  },
+  "check": {
+    "minWoorden": 150
+  }
+}

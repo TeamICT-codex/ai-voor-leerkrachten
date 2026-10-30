@@ -1,11 +1,21 @@
 // Controleert de inhoud in content/: format, verplichte blokken, quizzen en Nederlands-Nederlandse woorden.
-// Gebruik: node build/check.mjs   (exit code 1 bij fouten)
+// Gebruik: node build/check.mjs                  AI-wijs op school
+//          node build/check.mjs --cursus start   AI-wijs Start
+// (exit code 1 bij fouten)
+//
+// Wat per cursus kan verschillen, staat onder "check" in haar config:
+//   minWoorden (standaard 300)  waarschuwing voor een kortere gewone les; Start: 150,
+//                               want een klassikale les is korter
+//   maxWoorden (standaard 1300) waarschuwing voor een langere gewone les
+//   quizVragen (standaard 10)   zoveel vragen moet een quiz.json tellen
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { kiesCursus } from './cursus.mjs';
+import { leesKeuze, leesSorteer } from './blokken.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CONTENT = path.join(ROOT, 'content');
+const { BRON, CONTENT, config } = kiesCursus();
+const INSTELLING = Object.assign({ minWoorden: 300, maxWoorden: 1300, quizVragen: 10 }, config.check);
+const TYPES = ['les', 'quiz', 'certificaat', 'paspoort'];
 const fouten = []; const waarschuwingen = [];
 
 // Woorden die in Vlaanderen niet gebruikelijk zijn (zie docs/schrijfwijzer.md). Hoofdletterongevoelig, hele woorden.
@@ -25,8 +35,40 @@ function parseFrontmatter(raw) {
   return { data, body: m[2] };
 }
 
+// Blokken: netjes geopend en gesloten, niet genest, en voor keuze en sorteer ook
+// de schrijfwijze binnenin (zie build/blokken.mjs). Geeft de bloktypes terug.
+function controleerBlokken(id, body) {
+  const lines = body.split(/\r?\n/); let open = null; const types = [];
+  lines.forEach((line, i) => {
+    const o = line.match(/^:::\s*([a-zA-Z]+)(?:\s+(.*))?\s*$/);
+    if (o && !open) { open = { type: o[1].toLowerCase(), line: i + 1, inhoud: [] }; types.push(open.type); return; }
+    if (/^:::\s*$/.test(line)) {
+      if (!open) fouten.push(`${id}:${i + 1}: sluitend ::: zonder open blok`);
+      else if (open.type === 'keuze') leesKeuze(open.inhoud.join('\n')).problemen.forEach(p => fouten.push(`${id}:${open.line}: keuze: ${p}`));
+      else if (open.type === 'sorteer') leesSorteer(open.inhoud.join('\n')).problemen.forEach(p => fouten.push(`${id}:${open.line}: sorteer: ${p}`));
+      open = null; return;
+    }
+    if (o && open) fouten.push(`${id}:${i + 1}: blok "${o[1]}" geopend binnen blok "${open.type}" (nesten kan niet)`);
+    if (open) open.inhoud.push(line);
+  });
+  if (open) fouten.push(`${id}: blok "${open.type}" (regel ${open.line}) niet gesloten`);
+  return types;
+}
+function controleerWoorden(id, raw) {
+  const hits = {};
+  const tekst = raw.replace(/\[[^\]]*\]\([^)]*\)/g, '');
+  let m; while ((m = nlRegex.exec(tekst))) { hits[m[1].toLowerCase()] = (hits[m[1].toLowerCase()] || 0) + 1; }
+  for (const [w, n] of Object.entries(hits)) { waarschuwingen.push(`${id}: woord "${w}" (${n}x) – zie schrijfwijzer`); nWoorden += n; }
+}
+
+if (!fs.existsSync(CONTENT)) { console.log(`✗ De inhoudsmap ${CONTENT} bestaat niet.`); process.exit(1); }
 const dirs = fs.readdirSync(CONTENT).filter(d => fs.statSync(path.join(CONTENT, d)).isDirectory()).sort();
 let nLes = 0, nQuiz = 0, nWoorden = 0;
+// Vooraf: welke lessen bestaan er (een slotquiz mag naar elk hoofdstuk wijzen), en
+// heeft de cursus een paspoort (dan draagt elke gewone les een paspoortzin)?
+const lesMd = d => fs.existsSync(path.join(CONTENT, d)) ? fs.readdirSync(path.join(CONTENT, d)).filter(f => f.endsWith('.md')).sort() : [];
+const alleSlugs = new Map(dirs.map(d => [d, lesMd(d).map(x => x.replace(/^\d+-/, '').replace(/\.md$/, ''))]));
+const heeftPaspoort = dirs.some(d => lesMd(d).some(f => /^type:\s*paspoort\s*$/m.test((fs.readFileSync(path.join(CONTENT, d, f), 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/) || ['', ''])[1])));
 for (const dir of dirs) {
   const hp = path.join(CONTENT, dir, 'hoofdstuk.json');
   if (!fs.existsSync(hp)) { fouten.push(`${dir}: hoofdstuk.json ontbreekt`); continue; }
@@ -43,31 +85,22 @@ for (const dir of dirs) {
     if (data.duur && !/^\d+$/.test(String(data.duur))) fouten.push(`${id}: duur moet een geheel getal zijn`);
     if (!/^\d{2}-[a-z0-9-]+\.md$/.test(f)) fouten.push(`${id}: bestandsnaam niet volgens NN-slug.md`);
     if (/^#\s/m.test(body)) fouten.push(`${id}: #-kop in de body (gebruik ## of ###)`);
-    // blokken
-    const lines = body.split(/\r?\n/); let open = null; const types = [];
-    lines.forEach((line, i) => {
-      const o = line.match(/^:::\s*([a-zA-Z]+)(?:\s+(.*))?\s*$/);
-      if (o && !open) { open = { type: o[1].toLowerCase(), line: i + 1 }; types.push(open.type); return; }
-      if (/^:::\s*$/.test(line)) { if (!open) fouten.push(`${id}:${i + 1}: sluitend ::: zonder open blok`); open = null; return; }
-      if (o && open) fouten.push(`${id}:${i + 1}: blok "${o[1]}" geopend binnen blok "${open.type}" (nesten kan niet)`);
-    });
-    if (open) fouten.push(`${id}: blok "${open.type}" (regel ${open.line}) niet gesloten`);
+    const types = controleerBlokken(id, body);
     const type = data.type || 'les';
+    if (!TYPES.includes(type)) fouten.push(`${id}: onbekend type "${type}" (kies uit ${TYPES.join(', ')})`);
     if (type === 'les') {
       if (!types.includes('kernpunten')) fouten.push(`${id}: ::: kernpunten ontbreekt`);
       if (!types.includes('nadenken')) fouten.push(`${id}: ::: nadenken ontbreekt`);
-      if (!types.some(t => ['prompt', 'opdracht', 'promptbouwer', 'checklist', 'stappen'].includes(t))) waarschuwingen.push(`${id}: geen prompt, opdracht, stappen of checklist`);
+      if (!types.some(t => ['prompt', 'opdracht', 'promptbouwer', 'checklist', 'stappen', 'keuze', 'sorteer'].includes(t))) waarschuwingen.push(`${id}: geen prompt, opdracht, stappen of checklist`);
       const woorden = body.split(/\s+/).length;
-      if (woorden < 300) waarschuwingen.push(`${id}: kort (${woorden} woorden)`);
-      if (woorden > 1300) waarschuwingen.push(`${id}: lang (${woorden} woorden)`);
+      if (woorden < INSTELLING.minWoorden) waarschuwingen.push(`${id}: kort (${woorden} woorden)`);
+      if (woorden > INSTELLING.maxWoorden) waarschuwingen.push(`${id}: lang (${woorden} woorden)`);
+      if (heeftPaspoort && (!data.paspoortzin || Array.isArray(data.paspoortzin))) waarschuwingen.push(`${id}: frontmatter mist "paspoortzin" (de zin bij de stempel op het paspoort)`);
       nLes++;
     }
     if (type === 'quiz') heeftQuizLes = true;
     // Nederlands-Nederlandse woorden
-    const hits = {};
-    const tekst = raw.replace(/\[[^\]]*\]\([^)]*\)/g, '');
-    let m; while ((m = nlRegex.exec(tekst))) { hits[m[1].toLowerCase()] = (hits[m[1].toLowerCase()] || 0) + 1; }
-    for (const [w, n] of Object.entries(hits)) { waarschuwingen.push(`${id}: woord "${w}" (${n}x) – zie schrijfwijzer`); nWoorden += n; }
+    controleerWoorden(id, raw);
   }
   const qp = path.join(CONTENT, dir, 'quiz.json');
   if (heeftQuizLes) {
@@ -75,8 +108,15 @@ for (const dir of dirs) {
     else {
       try {
         const q = JSON.parse(fs.readFileSync(qp, 'utf8'));
-        if (!Array.isArray(q.vragen) || q.vragen.length !== 10) fouten.push(`${dir}/quiz.json: ${q.vragen ? q.vragen.length : 0} vragen in plaats van 10`);
+        if (!Array.isArray(q.vragen) || q.vragen.length !== INSTELLING.quizVragen) fouten.push(`${dir}/quiz.json: ${q.vragen ? q.vragen.length : 0} vragen in plaats van ${INSTELLING.quizVragen}`);
         const slugs = files.map(x => x.replace(/^\d+-/, '').replace(/\.md$/, ''));
+        // Een slotquiz wijst naar lessen in andere hoofdstukken: met de slug alleen
+        // (de build zet het pad ervoor) of met "../map/slug".
+        const bestaatElders = (les) => {
+          const m = les.match(/^\.\.\/([^/]+)\/([^/]+)$/);
+          if (m) return (alleSlugs.get(m[1]) || []).includes(m[2]);
+          return [...alleSlugs.values()].some(s => s.includes(les));
+        };
         (q.vragen || []).forEach((v, i) => {
           const n = `${dir}/quiz.json vraag ${i + 1}`;
           if (!v.vraag) fouten.push(`${n}: geen vraag`);
@@ -85,7 +125,7 @@ for (const dir of dirs) {
             if (!v.opties.some(o => o.id === v.juist)) fouten.push(`${n}: "juist" (${v.juist}) komt niet overeen met een optie-id`);
             v.opties.forEach(o => { if (!o.feedback) fouten.push(`${n}: optie ${o.id} zonder feedback`); });
           }
-          if (v.les && !slugs.includes(v.les)) waarschuwingen.push(`${n}: les "${v.les}" bestaat niet in dit hoofdstuk`);
+          if (v.les && !slugs.includes(v.les) && !bestaatElders(v.les)) waarschuwingen.push(`${n}: les "${v.les}" bestaat niet in deze cursus`);
           const tekst = JSON.stringify(v); let m; const hits = new Set();
           while ((m = nlRegex.exec(tekst))) hits.add(m[1].toLowerCase());
           hits.forEach(w => waarschuwingen.push(`${n}: woord "${w}" – zie schrijfwijzer`));
@@ -93,6 +133,19 @@ for (const dir of dirs) {
         nQuiz++;
       } catch (e) { fouten.push(`${dir}/quiz.json: ongeldige JSON (${e.message})`); }
     }
+  }
+}
+// De leerkrachtenpagina in Markdown (Start): dezelfde blokken en woorden als een les.
+if (config.leerkrachtenpagina) {
+  const lp = path.join(BRON, config.leerkrachtenpagina);
+  const id = path.relative(BRON, lp).split(path.sep).join('/');
+  if (!fs.existsSync(lp)) waarschuwingen.push(`${id}: ontbreekt nog (de leerkrachtenpagina toont een placeholder)`);
+  else {
+    const raw = fs.readFileSync(lp, 'utf8');
+    const fm = parseFrontmatter(raw);
+    controleerBlokken(id, fm ? fm.body : raw);
+    if (/^#\s/m.test(fm ? fm.body : raw)) fouten.push(`${id}: #-kop in de tekst (de pagina heeft al een titel; gebruik ## of ###)`);
+    controleerWoorden(id, raw);
   }
 }
 console.log(`Gecontroleerd: ${dirs.length} hoofdstukken, ${nLes} gewone lessen, ${nQuiz} quizzen.`);

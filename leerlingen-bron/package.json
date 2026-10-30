@@ -9,7 +9,11 @@
     "check": "node build/check.mjs && node build/personages.mjs",
     "serve": "node build/serve.mjs",
     "personages": "node build/personages.mjs",
-    "links": "node build/links.mjs"
+    "links": "node build/links.mjs",
+    "build:start": "node build/build.mjs --cursus start",
+    "check:start": "node build/check.mjs --cursus start && node build/personages.mjs --cursus start",
+    "serve:start": "node build/serve.mjs --cursus start",
+    "links:start": "node build/links.mjs --cursus start"
   },
   "dependencies": {
     "marked": "^15.0.0"

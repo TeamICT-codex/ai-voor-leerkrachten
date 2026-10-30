@@ -1,0 +1,135 @@
+{
+  "slaagpercentage": 80,
+  "vragen": [
+    {
+      "id": "start-01",
+      "les": "waarom-zie-jij-dit-filmpje",
+      "onderwerp": "Een feed vol voetbal",
+      "vraag": "Rayan ziet sinds gisteren bijna alleen filmpjes over één voetbalploeg. Wat is de waarschijnlijkste verklaring?",
+      "juist": "c",
+      "opties": [
+        { "id": "a", "tekst": "Iemand van de app kiest elk filmpje met de hand voor hem.", "feedback": "Er werken mensen bij de app, dat klopt. Maar zij kiezen niet elk filmpje. Een algoritme doet dat, op basis van wat Rayan doet." },
+        { "id": "b", "tekst": "Het is toeval. De app toont filmpjes in een willekeurige volgorde.", "feedback": "Een feed lijkt soms toevallig. Maar de app kiest bewust, op basis van signalen zoals kijktijd en delen." },
+        { "id": "c", "tekst": "Hij keek gisteren een paar filmpjes van die ploeg helemaal uit.", "feedback": "Juist. Uitkijken is een sterk signaal. Het algoritme geeft hem meer van hetzelfde, want zo blijft hij kijken." },
+        { "id": "d", "tekst": "De ploeg betaalde de app om alleen aan Rayan te verschijnen.", "feedback": "Reclame bestaat, dat is waar. Maar een ploeg betaalt niet om alleen aan Rayan te verschijnen. Zijn eigen kijkgedrag verklaart het beter." }
+      ]
+    },
+    {
+      "id": "start-02",
+      "les": "waarom-zie-jij-dit-filmpje",
+      "onderwerp": "Zelf het stuur nemen",
+      "vraag": "De feed van Kato gaat bijna alleen nog over paarden. Ze wil ook andere dingen zien. Wat helpt het meest?",
+      "juist": "a",
+      "opties": [
+        { "id": "a", "tekst": "Ze duidt \"niet interessant\" aan en zoekt zelf iets anders op.", "feedback": "Juist. Zo geeft ze de app nieuwe signalen. Ze kan ook een feed kiezen die niet op haar afgestemd is." },
+        { "id": "b", "tekst": "Ze blijft de paardenfilmpjes uitkijken, maar ze liket ze niet meer.", "feedback": "Goed dat ze iets wil veranderen. Maar kijktijd is ook een signaal. Uitkijken zegt de app: meer hiervan." },
+        { "id": "c", "tekst": "Ze wacht gewoon af. Na een tijd verandert de feed vanzelf.", "feedback": "Een feed verandert wel, maar vooral als je gedrag verandert. Zonder nieuwe signalen blijft het vooral paarden." },
+        { "id": "d", "tekst": "Ze kijkt de paardenfilmpjes heel snel, zodat de app het niet merkt.", "feedback": "Slim bedacht, maar de app merkt ook dat ze blijft kijken. Wegswipen of \"niet interessant\" aanduiden werkt beter." }
+      ]
+    },
+    {
+      "id": "start-03",
+      "les": "echt-gemaakt-of-misleidend",
+      "onderwerp": "Een foto in de klasgroep",
+      "vraag": "In de klasgroep gaat een foto rond van een overstroomde markt, met \"vandaag\" erbij. Wat doe je eerst?",
+      "juist": "d",
+      "opties": [
+        { "id": "a", "tekst": "Je stuurt hem meteen door, zodat iedereen gewaarschuwd is.", "feedback": "Je wilt anderen helpen, en dat is goed. Maar klopt de foto niet, dan maak je mensen voor niets ongerust." },
+        { "id": "b", "tekst": "Je zoekt in de foto naar foutjes, zoals rare letters.", "feedback": "Dat kan iets opleveren. Maar in een echte foto met een valse uitleg vind je geen foutjes. Kijk eerst naar herkomst en context." },
+        { "id": "c", "tekst": "Je gelooft hem, want het ziet eruit als een echte foto.", "feedback": "Hij kan best echt zijn. Maar ook een echte foto kan liegen. Misschien komt hij uit een ander jaar." },
+        { "id": "d", "tekst": "Je gaat na wie hem eerst deelde en of hij echt van vandaag is.", "feedback": "Juist. Eerst herkomst en context. Omgekeerd zoeken toont of de foto al eerder online stond." }
+      ]
+    },
+    {
+      "id": "start-04",
+      "les": "echt-gemaakt-of-misleidend",
+      "onderwerp": "Geen foutjes te zien",
+      "vraag": "Selin ziet een beeld van een vreemd dier. Ze vindt geen enkel foutje in het beeld. Wat besluit ze het best?",
+      "juist": "b",
+      "opties": [
+        { "id": "a", "tekst": "Het beeld is echt. Er zijn geen foutjes, dus niemand heeft ermee geknoeid.", "feedback": "Goed dat ze zo nauwkeurig keek. Maar veel gemaakte beelden hebben geen foutjes meer. Geen foutjes bewijst dus niets." },
+        { "id": "b", "tekst": "Dat zegt nog niet genoeg. Ze gaat na wie het deelde en waar het vandaan komt.", "feedback": "Juist. Foutjes zoeken werkt steeds minder. Herkomst en context nagaan werkt beter." },
+        { "id": "c", "tekst": "Het beeld is gemaakt, want zo'n dier heeft ze nog nooit gezien.", "feedback": "Twijfelen is goed. Maar er bestaan veel dieren die je niet kent. Ga liever na waar het beeld vandaan komt." },
+        { "id": "d", "tekst": "Ze vraagt het aan wie het deelde. Dan weet ze het zeker.", "feedback": "Vragen kan geen kwaad. Maar wie het deelde, weet het misschien ook niet. Zoek zelf waar het beeld eerst opdook." }
+      ]
+    },
+    {
+      "id": "start-05",
+      "les": "wat-vertel-je-een-chatbot",
+      "onderwerp": "Een tekst over je opa",
+      "vraag": "Je wilt met een chatbot hulp bij een tekst over je opa. Hij is ziek. Wat doe je het best?",
+      "juist": "c",
+      "opties": [
+        { "id": "a", "tekst": "Je typt zijn naam, zijn ziekte en zijn ziekenhuis. Dan is de hulp beter.", "feedback": "Je wilt goede hulp, dat snap je. Maar zo deel je gegevens over je opa die hij misschien niet wil delen." },
+        { "id": "b", "tekst": "Je typt alles en vraagt de chatbot om het daarna te vergeten.", "feedback": "Goed dat je erover nadenkt. Maar wat je typt, kan toch bewaard worden. Laat de gegevens liever weg." },
+        { "id": "c", "tekst": "Je laat zijn naam en details weg. Je vraagt hulp bij de opbouw van je tekst.", "feedback": "Juist. Zo krijg je hulp, zonder gegevens over je opa te delen. Namen en details vul je zelf in." },
+        { "id": "d", "tekst": "Je schrijft niets over hem, want over familie schrijven mag nooit.", "feedback": "Voorzichtig zijn is goed. Maar je mag best over je opa schrijven. Laat alleen zijn naam en details weg." }
+      ]
+    },
+    {
+      "id": "start-06",
+      "les": "wat-vertel-je-een-chatbot",
+      "onderwerp": "De leeftijdsgrens",
+      "vraag": "Kato hoort van een vriendin: \"Chatbots hebben een leeftijdsgrens, want kinderen snappen ze nog niet.\" Wat klopt?",
+      "juist": "a",
+      "opties": [
+        { "id": "a", "tekst": "De grens gaat over je gegevens en je bescherming, niet over hoe slim je bent.", "feedback": "Juist. In België mag je vanaf 13 jaar zelf toestemming geven voor je gegevens. Ben je jonger, dan doet een ouder dat." },
+        { "id": "b", "tekst": "De vriendin heeft gelijk. Onder 13 is een chatbot te moeilijk.", "feedback": "Een chatbot is niet moeilijk om te gebruiken. De grens gaat over je gegevens en je bescherming." },
+        { "id": "c", "tekst": "De grens geldt alleen voor wie een betaald account neemt.", "feedback": "Nee, ook gratis chatbots hebben een minimumleeftijd. Die grens gaat over je gegevens." },
+        { "id": "d", "tekst": "In België geldt die grens niet, alleen in andere landen.", "feedback": "Toch wel. In België mag je vanaf 13 jaar zelf toestemming geven voor je gegevens. Ben je jonger, dan doet een ouder dat." }
+      ]
+    },
+    {
+      "id": "start-07",
+      "les": "een-chatbot-als-vriend",
+      "onderwerp": "Een vriendin en haar chatbot",
+      "vraag": "Een vriendin praat elke avond een uur met een chatbot-personage. Ze zegt dat alleen dat personage haar begrijpt. Wat doe je als vriend het best?",
+      "juist": "d",
+      "opties": [
+        { "id": "a", "tekst": "Je lacht haar uit. Dan stopt ze er wel mee.", "feedback": "Misschien wil je haar wakker schudden. Maar uitlachen doet pijn. Dan vertelt ze je misschien niets meer." },
+        { "id": "b", "tekst": "Je zegt niets. Het is haar zaak.", "feedback": "Je respecteert haar keuze, dat is goed. Maar ze zegt dat alleen een chatbot haar begrijpt. Dan kan een vriend helpen." },
+        { "id": "c", "tekst": "Je zegt dat ze de app moet wissen, anders ben je geen vriend meer.", "feedback": "Je maakt je zorgen, en dat is goed. Maar dreigen helpt haar niet. Luisteren helpt meer." },
+        { "id": "d", "tekst": "Je luistert en vraagt hoe het gaat. Ze kan ook bij jou of een volwassene terecht.", "feedback": "Juist. Je oordeelt niet en je bent er voor haar. Ze kan ook Awel bellen op 102." }
+      ]
+    },
+    {
+      "id": "start-08",
+      "les": "jouw-beeld-is-van-jou",
+      "onderwerp": "Een dreigbericht",
+      "vraag": "Een klasgenoot krijgt dit bericht: \"Betaal 50 euro, of ik verspreid deze foto.\" Wat is de beste eerste stap voor die klasgenoot?",
+      "juist": "b",
+      "opties": [
+        { "id": "a", "tekst": "Snel betalen. Dan is het meteen voorbij en weet niemand het.", "feedback": "Wie dit overkomt, wil dat het stopt. Dat begrijpt iedereen. Maar betalen helpt niet: wie betaalt, krijgt meestal nog meer eisen. Praat eerst met een volwassene." },
+        { "id": "b", "tekst": "Niet betalen, niets sturen en praten met een vertrouwde volwassene.", "feedback": "Juist. Niemand hoeft dit alleen op te lossen. Ook Child Focus helpt, op het gratis nummer 116 000." },
+        { "id": "c", "tekst": "Terugschrijven dat je naar de politie stapt.", "feedback": "Je wilt je verdedigen, en dat is moedig. Maar reageer liever niet meer op de afperser. Praat eerst met een volwassene. Samen beslis je wat je doet." },
+        { "id": "d", "tekst": "Alle berichten meteen wissen, zodat niemand ze ziet.", "feedback": "Je wilt het weg hebben, dat snap je. Maar neem eerst screenshots van de berichten en het account. Dat is bewijs." }
+      ]
+    },
+    {
+      "id": "start-09",
+      "les": "leren-of-laten-doen",
+      "onderwerp": "Tien zinnen in het Frans",
+      "vraag": "Je moet tegen morgen tien zinnen in het Frans maken. Welke hulp laat jou het meest leren?",
+      "juist": "a",
+      "opties": [
+        { "id": "a", "tekst": "Je maakt de zinnen zelf. Daarna laat je ze nakijken, met uitleg bij elke fout.", "feedback": "Juist. Jij doet het denkwerk. Met de uitleg vermijd je de fout de volgende keer." },
+        { "id": "b", "tekst": "Een chatbot maakt de tien zinnen en jij schrijft ze over.", "feedback": "Dan is je taak snel af. Maar je oefent niet zelf. Op de toets moet je het wel zelf kunnen." },
+        { "id": "c", "tekst": "Je schrijft de zinnen in het Nederlands en laat ze vertalen.", "feedback": "Je bedenkt zelf de inhoud, dat is een begin. Maar het Frans doe je niet zelf, en daar draait het om." },
+        { "id": "d", "tekst": "Je zoekt tien zinnen op het internet en past telkens één woord aan.", "feedback": "Slim gezocht, maar zo oefen je amper. En het is niet echt jouw werk." }
+      ]
+    },
+    {
+      "id": "start-10",
+      "les": "leren-of-laten-doen",
+      "onderwerp": "Een oefenprompt kiezen",
+      "vraag": "Febe zit in 2A. Volgende week heeft haar klas een toets aardrijkskunde over het weer. De klas kiest een oefenprompt, en de leerkracht typt hem in. Welke prompt helpt het meest om te leren?",
+      "juist": "c",
+      "opties": [
+        { "id": "a", "tekst": "\"Schrijf een samenvatting over het weer die we kunnen leren.\"", "feedback": "Een samenvatting kan helpen. Maar zelf samenvatten is net een deel van het leren. En ze klopt misschien niet met de cursus." },
+        { "id": "b", "tekst": "\"Geef ons de antwoorden van de toets over het weer.\"", "feedback": "Een chatbot kent die toets niet. En zo leert niemand iets bij." },
+        { "id": "c", "tekst": "\"Stel ons vijf vragen over het weer, één per keer. Wacht op ons antwoord.\"", "feedback": "Juist. Zo doet de klas het denkwerk zelf. Daarna kijkt ze de antwoorden na in de cursus." },
+        { "id": "d", "tekst": "\"Vertel ons alles over het weer in één lange tekst.\"", "feedback": "Dan krijgt de klas veel uitleg. Maar niemand oefent zelf. En alles nakijken in de cursus duurt lang." }
+      ]
+    }
+  ]
+}

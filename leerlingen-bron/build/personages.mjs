@@ -1,5 +1,7 @@
 // Controleert de vaste personages in content/ tegen de tabel in docs/leercollectief.md.
-// Gebruik: node build/personages.mjs   (exit code 1 bij fouten)
+// Gebruik: node build/personages.mjs                  AI-wijs op school
+//          node build/personages.mjs --cursus start   AI-wijs Start, tegen start/docs/personages.md
+// (exit code 1 bij fouten). Een cursus kiest haar contextblad met "personages" in haar config.
 //
 // Waarom dit bestaat: elf fictieve leerlingen lopen door negen hoofdstukken, elk met
 // één school, één jaar en één richting. Zet één les Senne in het vijfde jaar of Lotte
@@ -10,13 +12,16 @@
 // De controle is bewust voorzichtig: ze kijkt per alinea, en alleen wanneer er precies
 // één personage in staat. Een alinea met twee namen is dubbelzinnig en wordt geteld als
 // "niet gecontroleerd" in plaats van als fout.
+//
+// AI-wijs Start heeft geen echte scholen: daar staat in de schoolkolom "een
+// middenschool" en draagt de jaarkolom ook de klas ("1ste jaar, A-stroom (1A)").
+// Dan controleert het script ook de klas (1A, 1B, 2A, 2B) per alinea.
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { kiesCursus } from './cursus.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CONTENT = path.join(ROOT, 'content');
-const CONTEXTBLAD = path.join(ROOT, 'docs', 'leercollectief.md');
+const { BRON, CONTENT, config } = kiesCursus();
+const CONTEXTBLAD = path.join(BRON, config.personages || path.join('docs', 'leercollectief.md'));
 
 const JAARWOORD = {
   eerste: 1, tweede: 2, derde: 3, vierde: 4, vijfde: 5, zesde: 6, zevende: 7,
@@ -28,6 +33,11 @@ function jaarUit(tekst) {
   for (const m of tekst.matchAll(/\b(eerste|tweede|derde|vierde|vijfde|zesde|zevende)\s+jaar\b/gi))
     uit.add(JAARWOORD[m[1].toLowerCase()]);
   return [...uit];
+}
+
+// Klassen uit de eerste graad: 1A, 1B, 2A, 2B.
+function klassenUit(tekst) {
+  return [...new Set([...tekst.matchAll(/\b([12][AB])\b/g)].map(m => m[1]))];
 }
 
 // De twee tabellen uit het contextblad lezen: eerst de scholen, dan de personages.
@@ -50,16 +60,19 @@ function leesContextblad() {
     // Personagerij: | **Noor** | GO! atheneum Dendermonde | 5de jaar, humane wetenschappen (doorstroom) | ... |
     // De schoolkolom draagt er soms de gemeente of de vestiging bij ("GO! atheneum MiRA,
     // Hamme"); de officiële naam is wat er in de scholentabel hierboven staat.
+    // In Start: | **Kato** | een middenschool | 1ste jaar, A-stroom (1A) | ... |
     const jaren = jaarUit(derde);
-    if (!tweede.startsWith('GO!') || jaren.length !== 1) continue;
+    if (!tweede || jaren.length !== 1) continue;
     const officieel = scholen
       .filter((s) => tweede.startsWith(s))
       .sort((a, b) => b.length - a.length)[0];
+    const klassen = klassenUit(derde);
     personages.push({
       naam,
       school: officieel || tweede,
       schoolVoluit: tweede,
       jaar: jaren[0],
+      klas: klassen.length === 1 ? klassen[0] : null,
       richting: derde,
     });
   }
@@ -71,7 +84,7 @@ const fouten = [];
 const waarschuwingen = [];
 
 if (personages.length < 5) {
-  console.log('✗ de personagetabel in docs/leercollectief.md is niet gelezen (' + personages.length + ' rijen)');
+  console.log(`✗ de personagetabel in ${path.relative(BRON, CONTEXTBLAD).split(path.sep).join('/')} is niet gelezen (${personages.length} rijen)`);
   process.exit(1);
 }
 
@@ -120,12 +133,17 @@ for (const bestand of bestanden(CONTENT).sort()) {
     const p = opNaam.get(namen[0]);
     const jaren = jaarUit(alinea);
     const gevonden = scholenUit(alinea);
-    if (!jaren.length && !gevonden.length) continue;
+    // De klas telt alleen voor een personage dat er een heeft in de tabel (Start).
+    const klassen = p.klas ? klassenUit(alinea) : [];
+    if (!jaren.length && !gevonden.length && !klassen.length) continue;
     gecontroleerd++;
 
     for (const j of jaren)
       if (j !== p.jaar)
         fouten.push(`${id}: ${p.naam} staat in het ${j}de jaar, de tabel zegt het ${p.jaar}de jaar`);
+    for (const k of klassen)
+      if (k !== p.klas)
+        fouten.push(`${id}: ${p.naam} zit in ${k}, de tabel zegt ${p.klas}`);
     for (const s of gevonden)
       if (s !== p.school)
         fouten.push(`${id}: ${p.naam} staat op ${s}, de tabel zegt ${p.school}`);

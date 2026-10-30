@@ -1,15 +1,21 @@
-// Generator: zet content/ om in een statische site in dist/.
-// Gebruik: node build/build.mjs
+// Generator: zet de inhoud van een cursus om in een statische site in haar uitvoermap.
+// Gebruik: node build/build.mjs                  AI-wijs op school (content/ → ../leerlingen)
+//          node build/build.mjs --cursus start   AI-wijs Start (start/content/ → ../aiwijs-start)
+// Welke cursus waar staat, regelt build/cursus.mjs.
+//
+// Wat AI-wijs Start anders doet, staat in start/cursus.config.json. Elk veld dat daar
+// staat en niet in de config van AI-wijs, valt hier terug op de tekst of het gedrag
+// van AI-wijs zoals het altijd was: zonder parameter bouwt de generator AI-wijs
+// teken voor teken zoals voorheen.
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
+import { BRONROOT, ASSETS, kiesCursus, andereUitvoermappen } from './cursus.mjs';
+import { leesKeuze, leesSorteer } from './blokken.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CONTENT = path.join(ROOT, 'content');
-const config = JSON.parse(fs.readFileSync(path.join(ROOT, 'cursus.config.json'), 'utf8'));
-const DIST = path.resolve(ROOT, config.uitvoermap || 'dist');
-const ASSETS = path.join(ROOT, 'assets');
+const CURSUS = kiesCursus();
+const ROOT = BRONROOT;
+const { BRON, CONTENT, config, DIST } = CURSUS;
 
 marked.setOptions({ gfm: true, breaks: false });
 
@@ -25,11 +31,24 @@ const DOMEINEN = {
   beheren: 'AI beheren',
   ontwerpen: 'AI ontwerpen',
 };
-const STAPPEN = {
+// De drie stappen van het overzicht, met de keuzeroute in stap 2. Een cursus zonder
+// keuzeroute zet "stappen": false in haar config en toont haar hoofdstukken dan
+// gewoon na elkaar.
+const STAPPEN = config.stappen || {
   1: { titel: 'De basis', tekst: 'Begrijp wat AI is, leer goed samenwerken en houd zelf de regie.' },
   2: { titel: 'Kies je route', tekst: 'Kies de hoofdstukken die passen bij wat jij wilt leren, maken of bereiken.' },
   3: { titel: 'Afronding', tekst: 'Kijk terug op wat je hebt geleerd en haal je certificaat.' },
 };
+// Hoe een hoofdstuk heet: in AI-wijs "Hoofdstuk 3" en "H3", in Start "Deel 2" en "2".
+const BENAMING = Object.assign({ enkel: 'hoofdstuk', meervoud: 'hoofdstukken', kort: 'H' }, config.benaming);
+const hoofdletter = (s = '') => s.charAt(0).toUpperCase() + s.slice(1);
+// Uitbreidingen in assets/extra.js en extra.css (oefenblokken, bordmodus, paspoort,
+// de knop naar de voorpagina). Een cursus die er niets van gebruikt, krijgt die
+// bestanden niet mee: zo blijft de uitvoer van AI-wijs gelijk. Wordt gezet na het inlezen.
+let EXTRA = false;
+const OPTIONELE_ASSETS = new Set(['extra.js', 'extra.css']);
+// Het huisje van de knop "AI op school", hetzelfde als in de leeromgeving en Leerlichtjes.
+const HUISJE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5.5 10.5V20h5v-5.5h3V20h5v-9.5L12 5z" fill="currentColor"/><path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 function parseFrontmatter(raw) {
   const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
@@ -55,10 +74,17 @@ const BLOCK_LABELS = {
   prompt: 'Prompt', voorbeeld: 'Voorbeeld van een antwoord', tip: 'Tip', letop: 'Let op',
   opdracht: 'Aan de slag', stappen: 'Stappenplan', kernpunten: 'Kernpunten', nadenken: 'Denk even na',
   checklist: 'Checklist', vergelijk: 'Vergelijk', tabs: 'Kies een voorbeeld', promptbouwer: 'Promptbouwer',
+  keuze: 'Wat kies jij?', sorteer: 'Sorteer de kaartjes',
 };
+// De zin onder elk voorbeeld-blok. In AI-wijs gebruiken leerlingen hun eigen chatbot;
+// in Start niet, dus daar zet de config "voorbeeldVoet" op een eigen zin, of op ""
+// om hem weg te laten. Inline Markdown.
+const VOORBEELD_VOET = config.voorbeeldVoet === undefined
+  ? 'Ingekort voorbeeld. In jouw chatbot kan het antwoord anders zijn.'
+  : (config.voorbeeldVoet ? mdInline(config.voorbeeldVoet) : '');
 const ICONS = {
   prompt: '✦', voorbeeld: '💬', tip: '💡', letop: '⚠', opdracht: '🎯', stappen: '→', kernpunten: '★',
-  nadenken: '?', checklist: '☑', promptbouwer: '🛠',
+  nadenken: '?', checklist: '☑', promptbouwer: '🛠', keuze: '👆', sorteer: '🗂',
 };
 
 function renderBlock(type, title, inner, ctx) {
@@ -70,7 +96,7 @@ function renderBlock(type, title, inner, ctx) {
     case 'prompt':
       return `<div class="blk blk-prompt"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span><button type="button" class="btn btn-small js-copy" data-copy-target="pre">Kopieer de prompt</button></div><pre class="prompt-text">${esc(inner.trim())}</pre></div>`;
     case 'voorbeeld':
-      return `<div class="blk blk-voorbeeld"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span></div><div class="blk-body">${md(inner)}</div><p class="blk-foot">Ingekort voorbeeld. In jouw chatbot kan het antwoord anders zijn.</p></div>`;
+      return `<div class="blk blk-voorbeeld"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span></div><div class="blk-body">${md(inner)}</div>${VOORBEELD_VOET ? `<p class="blk-foot">${VOORBEELD_VOET}</p>` : ''}</div>`;
     case 'tip': case 'letop': case 'opdracht':
       return `<div class="blk blk-${t}"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span></div><div class="blk-body">${md(inner)}</div></div>`;
     case 'stappen':
@@ -113,6 +139,40 @@ function renderBlock(type, title, inner, ctx) {
       const fields = velden.map((v, i) => `<label class="pb-field"><span>${esc(v.vraag)}</span><input type="text" data-veld="${attr(v.naam)}" placeholder="${attr(v.vb)}"></label>`).join('');
       return `<div class="blk blk-promptbouwer js-promptbouwer" data-sjabloon="${attr(sjabloon)}"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span></div>${rest.length ? `<div class="blk-body">${md(rest.join('\n'))}</div>` : ''}<div class="pb-fields">${fields}</div><div class="pb-result"><div class="blk-head"><span class="blk-label">Jouw prompt</span><button type="button" class="btn btn-small js-copy" data-copy-target="pre">Kopieer de prompt</button></div><pre class="prompt-text js-pb-output">${esc(sjabloon)}</pre></div></div>`;
     }
+    // Eén vraag of een reeks vragen met antwoorden om aan te klikken. Na een klik
+    // verschijnt de feedback; een ander antwoord kiezen mag altijd. Zonder * is er
+    // geen goed of fout en krijgt de feedback een neutrale stijl. Gedrag: extra.js.
+    case 'keuze': {
+      const { intro, vragen, problemen } = leesKeuze(inner);
+      problemen.forEach(p => ctx.warnings.push(`keuze: ${p}`));
+      if (!vragen.length) return md(inner);
+      const nr = ctx.blockIndex;
+      const reeks = vragen.length > 1;
+      const html = vragen.map((v, vi) => {
+        const metJuist = v.opties.some(o => o.juist);
+        const qid = `keuze-${nr}-${vi + 1}`;
+        const opts = v.opties.map((o, oi) => `<li><button type="button" class="quiz-opt keuze-opt"${metJuist ? ` data-juist="${o.juist ? 'ja' : 'nee'}"` : ''} aria-pressed="false"><span class="opt-id">${'abcdefghij'[oi] || oi + 1}</span><span>${mdInline(o.tekst)}</span></button><template class="keuze-uitleg">${mdInline(o.feedback)}</template></li>`).join('');
+        return `<div class="keuze-vraag" data-soort="${metJuist ? 'juist' : 'open'}">${reeks ? `<p class="quiz-topic">Vraag ${vi + 1} van ${vragen.length}</p>` : ''}<p class="quiz-q" id="${qid}">${mdInline(v.vraag)}</p><ul class="quiz-opts keuze-opts" aria-labelledby="${qid}">${opts}</ul><div class="keuze-fb" aria-live="polite"></div></div>`;
+      }).join('');
+      return `<div class="blk blk-keuze js-keuze"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span></div>${intro.length ? `<div class="blk-body">${md(intro.join('\n'))}</div>` : ''}${html}</div>`;
+    }
+    // Kaartjes in bakken leggen, zonder slepen: elk kaartje krijgt een knop per bak.
+    // Na een keuze zie je of het klopt en waarom; op het einde een samenvatting en
+    // een knop "Opnieuw". De bakken staan onder de kaartjes: zo schuiven de kaartjes
+    // niet weg terwijl de bakken vollopen. Gedrag: extra.js.
+    case 'sorteer': {
+      const { intro, bakken, kaarten, problemen } = leesSorteer(inner);
+      problemen.forEach(p => ctx.warnings.push(`sorteer: ${p}`));
+      if (bakken.length < 2 || !kaarten.length) return md(inner);
+      const nr = ctx.blockIndex;
+      const bakkenHtml = bakken.map((b, bi) => `<div class="sorteer-bak sorteer-bak-${bi + 1}"><p class="sorteer-bak-naam">${mdInline(b)} <span class="sorteer-bak-tel" aria-hidden="true"></span></p><ul class="sorteer-bak-inhoud"></ul></div>`).join('');
+      const kaartenHtml = kaarten.map((k, ki) => {
+        const kid = `sorteer-${nr}-${ki + 1}`;
+        const knoppen = bakken.map((b, bi) => `<button type="button" class="sorteer-knop sorteer-knop-${bi + 1}" data-bak="${bi + 1}" aria-pressed="false">${mdInline(b)}</button>`).join('');
+        return `<li class="sorteer-kaart" data-bak="${k.bak}"><p class="sorteer-tekst" id="${kid}">${mdInline(k.tekst)}</p><div class="sorteer-knoppen" role="group" aria-labelledby="${kid}">${knoppen}</div><template class="sorteer-uitleg">${mdInline(k.feedback)}</template><div class="sorteer-fb" aria-live="polite"></div></li>`;
+      }).join('');
+      return `<div class="blk blk-sorteer js-sorteer"><div class="blk-head">${ico}<span class="blk-label">${esc(label)}</span></div>${intro.length ? `<div class="blk-body">${md(intro.join('\n'))}</div>` : ''}<p class="sorteer-opdracht">Kies bij elk kaartje in welke bak het hoort.</p><ol class="sorteer-kaarten">${kaartenHtml}</ol><p class="sorteer-bakken-h">In de bakken</p><div class="sorteer-bakken">${bakkenHtml}</div><div class="sorteer-slot" aria-live="polite"></div></div>`;
+    }
     default:
       return `<div class="blk blk-generic"><div class="blk-head"><span class="blk-label">${esc(label)}</span></div><div class="blk-body">${md(inner)}</div></div>`;
   }
@@ -135,6 +195,7 @@ function renderBody(body, ctx) {
 
 // ---------- inlezen ----------
 function loadCourse() {
+  if (!fs.existsSync(CONTENT)) { console.error(`De inhoudsmap ${CONTENT} bestaat niet.`); process.exit(1); }
   const dirs = fs.readdirSync(CONTENT).filter(d => fs.statSync(path.join(CONTENT, d)).isDirectory()).sort();
   const hoofdstukken = [];
   for (const dir of dirs) {
@@ -159,11 +220,52 @@ function loadCourse() {
     hoofdstukken.push(h);
   }
   hoofdstukken.sort((a, b) => a.nummer - b.nummer);
+  // Doorlopende lesnummers (Start: les 1 tot 6 over twee lesuren). Alleen gewone
+  // lessen tellen mee; een quiz of het paspoort krijgt geen nummer.
+  let volgnummer = 0;
+  for (const h of hoofdstukken) for (const l of h.lessen) if (l.type === 'les') l.volgnummer = ++volgnummer;
+  // Een quizvraag wijst met "les" naar de les waar het antwoord staat. Een
+  // hoofdstukquiz wijst naar lessen in hetzelfde hoofdstuk; een slotquiz (Start)
+  // naar lessen in andere hoofdstukken. Die krijgen hier het pad erbij, zodat de
+  // link "bekijk de les" in app.js ook dan klopt.
+  for (const h of hoofdstukken) for (const l of h.lessen) {
+    if (!l.quiz || !Array.isArray(l.quiz.vragen)) continue;
+    for (const v of l.quiz.vragen) {
+      if (!v.les || v.les.includes('/') || h.lessen.some(x => x.slug === v.les)) continue;
+      const elders = hoofdstukken.find(x => x.lessen.some(y => y.slug === v.les));
+      if (elders) v.les = `../${elders.map}/${v.les}`;
+    }
+  }
   return hoofdstukken;
 }
 
+// Het nummer van een les zoals de leerling het ziet: "3.2" in AI-wijs, "5" in Start
+// (doorlopend), en leeg voor een quiz of paspoort in een doorlopende nummering.
+function lesNummer(les) {
+  if (config.lesnummering === 'doorlopend') return les.volgnummer ? String(les.volgnummer) : '';
+  return `${les.hoofdstuk.nummer}.${les.nummer}`;
+}
+
 // ---------- templates ----------
-function layout({ title, description, base, body, bodyClass = '', extraHead = '' }) {
+// Bordmodus (Start): een klein script in de kop zet de klasse al vóór de pagina
+// getekend wordt, anders springt de pagina eerst in gewone letters op het bord.
+// ?bord in het adres zet de modus aan (?bord=uit weer af) en onthoudt dat per
+// cursus; de knop bij elke les doet hetzelfde (zie extra.js).
+function bordScript() {
+  const sleutel = JSON.stringify((config.opslagsleutel || 'aiwijs.v1') + '.bord');
+  return `<script>(function(){var k=${sleutel},q=new URLSearchParams(location.search).get('bord'),aan=null;if(q!==null)aan=!/^(0|uit|nee)$/i.test(q);try{if(aan===null)aan=localStorage.getItem(k)==='1';else if(aan)localStorage.setItem(k,'1');else localStorage.removeItem(k);}catch(e){}if(aan)document.documentElement.classList.add('bordmodus');})();</script>\n`;
+}
+
+// Herkomst van de opbouw, onderaan elke pagina. Geldt voor AI-wijs; een cursus
+// zet "voetHerkomst": "" om de zin weg te laten.
+const VOET_HERKOMST = ' De opbouw is geïnspireerd op het concept van een gratis Nederlandse AI-cursus voor leerlingen; alle teksten, voorbeelden en quizvragen zijn opnieuw geschreven voor het Vlaamse secundair onderwijs.';
+
+function layout({ title, description, base, body, bodyClass = '', extraHead = '', naarVoorpagina = '' }) {
+  const kop = (EXTRA ? `<link rel="stylesheet" href="${base}assets/extra.css">\n` : '') + (config.bordmodus ? bordScript() : '');
+  const opslag = config.opslagsleutel ? ` data-opslag="${attr(config.opslagsleutel)}"` : '';
+  const voorpagina = naarVoorpagina ? `\n      <a class="naar-voorpagina" href="${attr(naarVoorpagina)}" aria-label="AI op school, de voorpagina" title="Naar de voorpagina">${HUISJE}<span>AI op school</span></a>` : '';
+  const herkomst = config.voetHerkomst === undefined ? VOET_HERKOMST : (config.voetHerkomst ? ' ' + esc(config.voetHerkomst) : '');
+  const extraScript = EXTRA ? `\n<script src="${base}assets/extra.js" defer></script>` : '';
   return `<!doctype html>
 <html lang="nl-BE">
 <head>
@@ -175,9 +277,9 @@ function layout({ title, description, base, body, bodyClass = '', extraHead = ''
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="${base}assets/style.css">
-${extraHead}
+${kop}${extraHead}
 </head>
-<body class="${bodyClass}" data-base="${base}">
+<body class="${bodyClass}" data-base="${base}"${opslag}>
 <a class="skip" href="#inhoud">Naar de inhoud</a>
 <header class="site-head">
   <div class="wrap site-head-in">
@@ -185,7 +287,7 @@ ${extraHead}
     <nav class="site-nav" aria-label="Hoofdnavigatie">
       <a href="${base}index.html#cursusinhoud"><span class="lang">Cursusinhoud</span><span class="kort">Inhoud</span></a>
       <a href="${base}index.html#voortgang"><span class="lang">Mijn voortgang</span><span class="kort">Voortgang</span></a>
-      <a class="nav-leerkrachten" href="${base}voor-leerkrachten.html">Voor leerkrachten</a>
+      <a class="nav-leerkrachten" href="${base}voor-leerkrachten.html">Voor leerkrachten</a>${voorpagina}
     </nav>
   </div>
 </header>
@@ -196,12 +298,12 @@ ${body}
   <div class="wrap">
     <div class="foot-brand"><a href="${attr(config.organisatieUrl)}" rel="noopener"><img src="${base}assets/logo-leercollectief.svg" alt="${attr(config.organisatie)}" width="170" height="44"></a><p class="foot-motto"><em>${esc(config.motto || 'samen is beter')}</em></p></div>
     <p><strong>${esc(config.naam)}</strong> · ${esc(config.ondertitel)}. Voor de leerlingen van onze scholen in ${esc(config.regio || 'de regio')}, en voor elke andere school die ze wil gebruiken.</p>
-    <p>Een initiatief van <a href="${attr(config.organisatieUrl)}" rel="noopener">${esc(config.organisatieVoluit || config.organisatie)}</a>. De opbouw is geïnspireerd op het concept van een gratis Nederlandse AI-cursus voor leerlingen; alle teksten, voorbeelden en quizvragen zijn opnieuw geschreven voor het Vlaamse secundair onderwijs.</p>
+    <p>Een initiatief van <a href="${attr(config.organisatieUrl)}" rel="noopener">${esc(config.organisatieVoluit || config.organisatie)}</a>.${herkomst}</p>
     <p>Je voortgang wordt alleen in deze browser op dit toestel bewaard. Er worden geen gegevens naar een server gestuurd.</p>
     <p>Ben je leerkracht? Lees <a href="${base}voor-leerkrachten.html">hoe je de cursus in de klas gebruikt</a>.</p>
   </div>
 </footer>
-<script src="${base}assets/app.js" defer></script>
+<script src="${base}assets/app.js" defer></script>${extraScript}
 </body>
 </html>`;
 }
@@ -209,8 +311,32 @@ ${body}
 function lesUrl(les, base) { return `${base}${les.hoofdstuk.map}/${les.slug}.html`; }
 
 function sidebar(h, actief, base) {
-  const items = h.lessen.map(l => `<li class="${l === actief ? 'is-current' : ''}"><a href="${lesUrl(l, base)}" data-les-id="${attr(l.id)}"><span class="side-num">${h.nummer}.${l.nummer}</span><span class="side-title">${esc(l.data.title)}</span><span class="side-check" aria-hidden="true"></span></a></li>`).join('');
-  return `<aside class="side"><details class="side-details" open><summary><span class="side-h">Hoofdstuk ${h.nummer}</span><strong>${esc(h.titel)}</strong></summary><ol class="side-list">${items}</ol><p class="side-foot"><a href="${base}index.html#cursusinhoud">Alle hoofdstukken</a></p></details></aside>`;
+  const items = h.lessen.map(l => `<li class="${l === actief ? 'is-current' : ''}"><a href="${lesUrl(l, base)}" data-les-id="${attr(l.id)}"><span class="side-num">${lesNummer(l)}</span><span class="side-title">${esc(l.data.title)}</span><span class="side-check" aria-hidden="true"></span></a></li>`).join('');
+  return `<aside class="side"><details class="side-details" open><summary><span class="side-h">${esc(hoofdletter(BENAMING.enkel))} ${h.nummer}</span><strong>${esc(h.titel)}</strong></summary><ol class="side-list">${items}</ol><p class="side-foot"><a href="${base}index.html#cursusinhoud">Alle ${esc(BENAMING.meervoud)}</a></p></details></aside>`;
+}
+
+// Het paspoort (Start): een afdrukbaar blad met een stempel per gewone les. Een
+// stempel kleurt als die les in deze browser afgevinkt is (extra.js); anders is het
+// een lege cirkel om met de hand af te stempelen. De naam schrijft de leerling er
+// zelf op: er is geen naamveld en er wordt geen naam bewaard.
+function paspoort(all, ctx) {
+  const lessen = all.flatMap(h => h.lessen).filter(l => l.type === 'les');
+  if (!lessen.length) ctx.warnings.push('het paspoort heeft nog geen stempels: er zijn nog geen gewone lessen');
+  const stempels = lessen.map(l => {
+    if (!l.data.paspoortzin) ctx.warnings.push(`stempel zonder zin: ${l.id} mist "paspoortzin" in de frontmatter`);
+    const nr = lesNummer(l);
+    return `<li class="pp-stempel" data-stempel="${attr(l.id)}"><span class="pp-cirkel" aria-hidden="true"><span class="pp-vink">✓</span></span><span class="pp-tekst"><span class="pp-les">Les ${esc(nr)}</span><strong class="pp-titel">${esc(l.data.title)}</strong>${l.data.paspoortzin ? `<span class="pp-zin">${mdInline(l.data.paspoortzin)}</span>` : ''}<span class="sr-only js-pp-status">Nog niet afgevinkt.</span></span></li>`;
+  }).join('');
+  return `<div class="paspoort js-paspoort">
+<div class="pp-acties"><button type="button" class="btn btn-primary js-pp-print">Paspoort afdrukken</button><p class="pp-telling js-pp-telling" aria-live="polite"></p></div>
+<div class="pp-blad">
+<div class="pp-kop"><img class="pp-logo" src="../assets/logo-leercollectief.svg" alt="${attr(config.organisatie)}" width="150" height="38"><div><p class="pp-kicker">Paspoort</p><h2 class="pp-naam-cursus">${esc(config.naam)}</h2></div></div>
+<p class="pp-naam"><span>Naam</span><span class="pp-lijn" aria-hidden="true"></span></p>
+<p class="pp-uitleg">Na elke les krijg je een stempel. Gekleurd: je vinkte de les af. Leeg: je leerkracht stempelt af.</p>
+<ol class="pp-stempels">${stempels}</ol>
+<p class="pp-voet">${esc(config.organisatieVoluit || config.organisatie)} · <em>${esc(config.motto || 'samen is beter')}</em></p>
+</div>
+</div>`;
 }
 
 function lesPage(les, all) {
@@ -239,19 +365,23 @@ function lesPage(les, all) {
 <div class="cert-paper js-cert-paper" aria-hidden="true"><div class="cert-paper-in"><p class="cp-kicker">Certificaat</p><h2 class="cp-title">${esc(config.naam)}</h2><p class="cp-sub">${esc(config.ondertitel)}</p><p class="cp-lead">Dit certificaat is behaald door</p><p class="cp-naam js-cp-naam">…</p><p class="cp-school js-cp-school"></p><p class="cp-lead">met de volgende afgeronde hoofdstukken</p><ul class="cp-list js-cp-list"></ul><p class="cp-date">Datum: <span class="js-cp-date"></span></p><p class="cp-org">${esc(config.organisatie)}</p></div></div>
 </div>`;
   }
+  if (les.type === 'paspoort') extra = paspoort(all, ctx);
   const done = les.type === 'quiz'
     ? `<p class="done-hint">Beantwoord alle vragen. Vanaf ${(les.quiz && les.quiz.slaagpercentage) || 80} % wordt deze les automatisch afgevinkt.</p>`
     : `<button type="button" class="btn btn-done js-done" data-les-id="${attr(les.id)}"><span class="done-off">Markeer als voltooid</span><span class="done-on">Voltooid ✓ (ongedaan maken)</span></button>`;
   const nav = `<nav class="les-nav" aria-label="Vorige en volgende les">${prev ? `<a class="les-prev" href="${lesUrl(prev, base)}"><span>Vorige les</span><strong>${esc(prev.data.title)}</strong></a>` : '<span></span>'}${next ? `<a class="les-next" href="${lesUrl(next, base)}"><span>Volgende les</span><strong>${esc(next.data.title)}</strong></a>` : `<a class="les-next" href="${base}index.html#cursusinhoud"><span>Terug naar</span><strong>het cursusoverzicht</strong></a>`}</nav>`;
   const domein = DOMEINEN[h.domein] || '';
+  const nr = lesNummer(les);
+  // De knop staat verborgen tot extra.js hem tot leven wekt: zonder script doet hij niets.
+  const bordKnop = config.bordmodus ? `<button type="button" class="btn btn-small bord-knop js-bord" aria-pressed="false" title="Grote letters en geen zijbalk, voor het digibord" hidden>Bordmodus</button>` : '';
   const content = `
 <div class="wrap les-wrap">
 ${sidebar(h, les, base)}
 <article class="les" data-les-id="${attr(les.id)}">
-  <p class="crumbs"><a href="${base}index.html#cursusinhoud">Cursus</a> › Hoofdstuk ${h.nummer} · Les ${h.nummer}.${les.nummer}${domein ? ` <span class="pill pill-${attr(h.domein)}">${esc(domein)}</span>` : ''}</p>
+  <p class="crumbs"><a href="${base}index.html#cursusinhoud">Cursus</a> › ${esc(hoofdletter(BENAMING.enkel))} ${h.nummer}${nr ? ` · Les ${nr}` : ''}${domein ? ` <span class="pill pill-${attr(h.domein)}">${esc(domein)}</span>` : ''}</p>
   <h1>${esc(les.data.title)}</h1>
   <p class="les-intro">${mdInline(les.data.intro || '')}</p>
-  <p class="les-meta"><span>⏱ ongeveer ${esc(les.data.duur || '?')} min</span></p>
+  <p class="les-meta"><span>⏱ ongeveer ${esc(les.data.duur || '?')} min</span>${bordKnop}</p>
   ${video}
   ${doelen}
   <div class="les-body">${body}</div>
@@ -260,7 +390,16 @@ ${sidebar(h, les, base)}
   ${nav}
 </article>
 </div>`;
-  return { html: layout({ title: les.data.title, description: les.data.intro, base, body: content, bodyClass: 'page-les' }), warnings: ctx.warnings };
+  return { html: layout({ title: les.data.title, description: les.data.intro, base, body: content, bodyClass: les.type === 'paspoort' ? 'page-les page-paspoort' : 'page-les' }), warnings: ctx.warnings };
+}
+
+// Een hoofdstukkaart op het overzicht.
+function hcard(h, base, open = false) {
+  const min = h.lessen.reduce((m, l) => m + (parseInt(l.data.duur, 10) || 0), 0);
+  const lessen = h.lessen.map(l => `<li><a href="${lesUrl(l, base)}" data-les-id="${attr(l.id)}"><span class="side-num">${lesNummer(l)}</span> ${esc(l.data.title)}<span class="side-check" aria-hidden="true"></span></a></li>`).join('');
+  const route = h.route ? `<label class="route-toggle"><input type="checkbox" class="js-route" data-hoofdstuk="${attr(h.map)}"> <span>In mijn route</span></label>` : '';
+  const pill = h.domein ? `<span class="pill pill-${attr(h.domein)}">${esc(DOMEINEN[h.domein] || '')}</span>` : '';
+  return `<details class="hcard" data-hoofdstuk="${attr(h.map)}" data-lessen="${h.lessen.length}"${open ? ' open' : ''}><summary><span class="hcard-num">${esc(BENAMING.kort)}${h.nummer}</span><span class="hcard-main"><strong>${esc(h.titel)}</strong><span class="hcard-intro">${esc(h.intro)}</span><span class="hcard-meta"><span>${h.lessen.length} lessen</span><span>${min} min</span>${pill}</span><span class="hcard-progress"><span class="bar"><span class="bar-in js-h-bar" style="width:0%"></span></span><span class="js-h-count">0/${h.lessen.length}</span></span></span></summary><ol class="hcard-lessen">${lessen}</ol>${route}${h.lessen[0] ? `<p class="hcard-start"><a class="btn btn-small" href="${lesUrl(h.lessen[0], base)}">Start ${esc(BENAMING.enkel)} ${h.nummer}</a></p>` : `<p class="hcard-start small">Dit ${esc(BENAMING.enkel)} is nog in opbouw.</p>`}</details>`;
 }
 
 function indexPage(all) {
@@ -268,38 +407,34 @@ function indexPage(all) {
   const totaalLessen = all.reduce((n, h) => n + h.lessen.length, 0);
   const totaalMin = all.reduce((n, h) => n + h.lessen.reduce((m, l) => m + (parseInt(l.data.duur, 10) || 0), 0), 0);
   const uur = Math.round(totaalMin / 60);
-  const stappen = [1, 2, 3].map(s => {
-    const hs = all.filter(h => h.stap === s);
-    const cards = hs.map(h => {
-      const min = h.lessen.reduce((m, l) => m + (parseInt(l.data.duur, 10) || 0), 0);
-      const lessen = h.lessen.map(l => `<li><a href="${lesUrl(l, base)}" data-les-id="${attr(l.id)}"><span class="side-num">${h.nummer}.${l.nummer}</span> ${esc(l.data.title)}<span class="side-check" aria-hidden="true"></span></a></li>`).join('');
-      const route = h.route ? `<label class="route-toggle"><input type="checkbox" class="js-route" data-hoofdstuk="${attr(h.map)}"> <span>In mijn route</span></label>` : '';
-      return `<details class="hcard" data-hoofdstuk="${attr(h.map)}" data-lessen="${h.lessen.length}"><summary><span class="hcard-num">H${h.nummer}</span><span class="hcard-main"><strong>${esc(h.titel)}</strong><span class="hcard-intro">${esc(h.intro)}</span><span class="hcard-meta"><span>${h.lessen.length} lessen</span><span>${min} min</span><span class="pill pill-${attr(h.domein)}">${esc(DOMEINEN[h.domein] || '')}</span></span><span class="hcard-progress"><span class="bar"><span class="bar-in js-h-bar" style="width:0%"></span></span><span class="js-h-count">0/${h.lessen.length}</span></span></span></summary><ol class="hcard-lessen">${lessen}</ol>${route}${h.lessen[0] ? `<p class="hcard-start"><a class="btn btn-small" href="${lesUrl(h.lessen[0], base)}">Start hoofdstuk ${h.nummer}</a></p>` : '<p class="hcard-start small">Dit hoofdstuk is nog in opbouw.</p>'}</details>`;
+  // Met keuzeroute (AI-wijs): drie stappen, elk met haar hoofdstukken. Zonder
+  // (Start, "stappen": false): de hoofdstukken na elkaar, opengeklapt.
+  const stappen = config.stappen === false
+    ? `<div class="hcards hcards-lijst">${all.map(h => hcard(h, base, true)).join('')}</div>`
+    : [1, 2, 3].map(s => {
+      const hs = all.filter(h => h.stap === s);
+      const cards = hs.map(h => hcard(h, base)).join('');
+      const nL = hs.reduce((n, h) => n + h.lessen.length, 0);
+      const nM = hs.reduce((n, h) => n + h.lessen.reduce((m, l) => m + (parseInt(l.data.duur, 10) || 0), 0), 0);
+      return `<section class="stap" id="stap-${s}"><div class="stap-head"><p class="kicker">Stap ${s}</p><h3>${esc(STAPPEN[s].titel)}</h3><p>${esc(STAPPEN[s].tekst)}</p><p class="stap-meta">${hs.length} ${hs.length === 1 ? esc(BENAMING.enkel) : esc(BENAMING.meervoud)} · ${nL} lessen · ${s === 2 ? 'tot ' : ''}${nM} min</p></div><div class="hcards">${cards}</div></section>`;
     }).join('');
-    const nL = hs.reduce((n, h) => n + h.lessen.length, 0);
-    const nM = hs.reduce((n, h) => n + h.lessen.reduce((m, l) => m + (parseInt(l.data.duur, 10) || 0), 0), 0);
-    return `<section class="stap" id="stap-${s}"><div class="stap-head"><p class="kicker">Stap ${s}</p><h3>${esc(STAPPEN[s].titel)}</h3><p>${esc(STAPPEN[s].tekst)}</p><p class="stap-meta">${hs.length} ${hs.length === 1 ? 'hoofdstuk' : 'hoofdstukken'} · ${nL} lessen · ${s === 2 ? 'tot ' : ''}${nM} min</p></div><div class="hcards">${cards}</div></section>`;
-  }).join('');
-  const body = `
-<section class="hero"><div class="wrap hero-in">
-  <div class="hero-text">
-    <p class="kicker">Gratis cursus voor leerlingen · 2de en 3de graad</p>
-    <h1>Ontdek hoe je slim leert en werkt <em>mét AI</em></h1>
-    <p class="lead">${esc(config.korteBeschrijving)}</p>
-    <p class="hero-cta"><a class="btn btn-primary" href="${lesUrl(all[0].lessen[0], base)}">Start de cursus</a> <a class="btn" href="#cursusinhoud">Bekijk de inhoud</a></p>
-    <p class="hero-psst">Psst. Deze cursus is echt voor leerlingen geschreven. Geen opgeheven vingertje. Je leert hoe AI je helpt bij het leren én hoe je het inzet voor taken, papers en presentaties die van jou blijven. Want ook met AI geldt: <strong>samen is beter</strong>.</p>
-  </div>
-  <aside class="hero-card">
-    <h2>Cursus in het kort</h2>
-    <dl class="facts"><div><dt>Hoofdstukken</dt><dd>${all.length}</dd></div><div><dt>Lessen</dt><dd>${totaalLessen}</dd></div><div><dt>Studietijd</dt><dd>ongeveer ${uur} uur</dd></div><div><dt>Voor wie</dt><dd>${esc(config.doelgroep)}</dd></div></dl>
-    <div class="hero-progress" id="voortgang"><h3>Mijn voortgang</h3><p class="js-total-text">Je bent nog niet gestart.</p><span class="bar"><span class="bar-in js-total-bar" style="width:0%"></span></span><p class="small">Je voortgang staat in deze browser op dit toestel. Wissel je van toestel, exporteer dan je voortgangscode hieronder.</p><p class="hero-progress-actions"><button type="button" class="btn btn-small js-export">Voortgangscode exporteren</button> <button type="button" class="btn btn-small js-import">Importeren</button></p></div>
-  </aside>
-</div></section>
-<section class="wrap" id="cursusinhoud">
-  <h2 class="section-h">Cursusinhoud</h2>
-  <p class="section-sub">Eerst de basis. Daarna kies je jouw route.</p>
-  ${stappen}
-</section>
+  // Zolang er nog geen enkele les is (Start in opbouw), wijst "Start de cursus" naar de inhoud.
+  const eerste = all.flatMap(h => h.lessen)[0];
+  const startUrl = eerste ? lesUrl(eerste, base) : '#cursusinhoud';
+  // De vaste teksten van AI-wijs; een andere cursus zet de hare in cursus.config.json.
+  // Velden met opmaak (heroTitel, psst, over) zijn inline Markdown.
+  const kicker = esc(config.kicker || 'Gratis cursus voor leerlingen · 2de en 3de graad');
+  const heroTitel = config.heroTitel ? mdInline(config.heroTitel) : 'Ontdek hoe je slim leert en werkt <em>mét AI</em>';
+  const psst = config.psst === undefined
+    ? '\n    <p class="hero-psst">Psst. Deze cursus is echt voor leerlingen geschreven. Geen opgeheven vingertje. Je leert hoe AI je helpt bij het leren én hoe je het inzet voor taken, papers en presentaties die van jou blijven. Want ook met AI geldt: <strong>samen is beter</strong>.</p>'
+    : (config.psst ? `\n    <p class="hero-psst">${mdInline(config.psst)}</p>` : '');
+  const studietijd = config.studietijd ? esc(config.studietijd) : `ongeveer ${uur} uur`;
+  const inhoudSub = esc(config.inhoudSub || 'Eerst de basis. Daarna kies je jouw route.');
+  const over = config.over
+    ? `<p>${mdInline(config.over)}</p>`
+    : `<p>${esc(config.naam)} is een gratis, open cursus van <a href="${attr(config.organisatieUrl)}" rel="noopener">${esc(config.organisatieVoluit || config.organisatie)}</a> voor de leerlingen van de tweede en derde graad van onze secundaire scholen in ${esc(config.regio || 'de regio')}, in alle finaliteiten. Elke andere Vlaamse school mag ze gebruiken. Je hebt geen account en geen betaalde chatbot nodig. De voorbeelden komen uit onze eigen scholen: van een GIP elektromechanica in Lokeren tot een spreekbeurt in Hamme. Leerkrachten vinden <a href="${base}voor-leerkrachten.html">hier</a> hoe ze de cursus in de klas gebruiken.</p>`;
+  const cta = Object.assign({ titel: 'Begin gewoon bij het begin', tekst: 'Hoofdstuk 1 duurt ongeveer een uur en legt de basis voor alles wat volgt.' }, config.startCta);
+  const domeinen = config.domeinen === false ? '' : `
 <section class="wrap domeinen">
   <h2 class="section-h">Vier domeinen van AI-geletterdheid</h2>
   <p class="section-sub">Elk hoofdstuk hoort bij een domein uit het Europese kader voor AI-geletterdheid (Europese Commissie en OESO). Zo zie je wat je leert.</p>
@@ -309,17 +444,64 @@ function indexPage(all) {
     <div class="domein-card pill-beheren"><h3>AI beheren</h3><p>Weten welke taken je aan AI geeft, duidelijke instructies geven en zelf de controle houden.</p></div>
     <div class="domein-card pill-ontwerpen"><h3>AI ontwerpen</h3><p>Begrijpen hoe AI werkt en wat keuzes in data en ontwerp betekenen voor mensen.</p></div>
   </div>
-</section>
+</section>`;
+  const body = `
+<section class="hero"><div class="wrap hero-in">
+  <div class="hero-text">
+    <p class="kicker">${kicker}</p>
+    <h1>${heroTitel}</h1>
+    <p class="lead">${esc(config.korteBeschrijving)}</p>
+    <p class="hero-cta"><a class="btn btn-primary" href="${startUrl}">Start de cursus</a> <a class="btn" href="#cursusinhoud">Bekijk de inhoud</a></p>${psst}
+  </div>
+  <aside class="hero-card">
+    <h2>Cursus in het kort</h2>
+    <dl class="facts"><div><dt>${esc(hoofdletter(BENAMING.meervoud))}</dt><dd>${all.length}</dd></div><div><dt>Lessen</dt><dd>${totaalLessen}</dd></div><div><dt>Studietijd</dt><dd>${studietijd}</dd></div><div><dt>Voor wie</dt><dd>${esc(config.doelgroep)}</dd></div></dl>
+    <div class="hero-progress" id="voortgang"><h3>Mijn voortgang</h3><p class="js-total-text">Je bent nog niet gestart.</p><span class="bar"><span class="bar-in js-total-bar" style="width:0%"></span></span><p class="small">Je voortgang staat in deze browser op dit toestel. Wissel je van toestel, exporteer dan je voortgangscode hieronder.</p><p class="hero-progress-actions"><button type="button" class="btn btn-small js-export">Voortgangscode exporteren</button> <button type="button" class="btn btn-small js-import">Importeren</button></p></div>
+  </aside>
+</div></section>
+<section class="wrap" id="cursusinhoud">
+  <h2 class="section-h">Cursusinhoud</h2>
+  <p class="section-sub">${inhoudSub}</p>
+  ${stappen}
+</section>${domeinen}
 <section class="wrap over">
   <h2 class="section-h">Over deze cursus</h2>
-  <p>${esc(config.naam)} is een gratis, open cursus van <a href="${attr(config.organisatieUrl)}" rel="noopener">${esc(config.organisatieVoluit || config.organisatie)}</a> voor de leerlingen van de tweede en derde graad van onze secundaire scholen in ${esc(config.regio || 'de regio')}, in alle finaliteiten. Elke andere Vlaamse school mag ze gebruiken. Je hebt geen account en geen betaalde chatbot nodig. De voorbeelden komen uit onze eigen scholen: van een GIP elektromechanica in Lokeren tot een spreekbeurt in Hamme. Leerkrachten vinden <a href="${base}voor-leerkrachten.html">hier</a> hoe ze de cursus in de klas gebruiken.</p>
+  ${over}
 </section>
-<section class="wrap start-cta"><div class="cta-box"><h2>Begin gewoon bij het begin</h2><p>Hoofdstuk 1 duurt ongeveer een uur en legt de basis voor alles wat volgt.</p><a class="btn btn-primary" href="${lesUrl(all[0].lessen[0], base)}">Start de cursus</a></div></section>
+<section class="wrap start-cta"><div class="cta-box"><h2>${esc(cta.titel)}</h2><p>${esc(cta.tekst)}</p><a class="btn btn-primary" href="${startUrl}">Start de cursus</a></div></section>
 <dialog class="dlg js-dlg-progress"><form method="dialog"><h2 class="js-dlg-title">Voortgangscode</h2><p class="js-dlg-text"></p><textarea class="js-dlg-code" rows="5" spellcheck="false"></textarea><p class="js-dlg-status"></p><menu><button type="button" class="btn btn-small js-dlg-copy">Kopieer</button><button type="button" class="btn btn-small btn-primary js-dlg-apply" hidden>Importeren</button><button type="submit" class="btn btn-small">Sluiten</button></menu></form></dialog>`;
-  return layout({ title: 'AI leren gebruiken', base, body, bodyClass: 'page-index' });
+  return layout({ title: config.indexTitel || 'AI leren gebruiken', base, body, bodyClass: 'page-index' });
+}
+
+// De leerkrachtenpagina van AI-wijs staat hieronder vast in de code. Een cursus die
+// "leerkrachtenpagina" in haar config zet (Start: "leerkrachten.md"), schrijft de
+// hare in Markdown met dezelfde :::-blokken als een les. Zolang dat bestand er niet
+// is, toont de pagina een placeholder en waarschuwt de build.
+function leerkrachtenPageUitMarkdown() {
+  const base = './';
+  const bestand = path.join(BRON, config.leerkrachtenpagina);
+  const warnings = [];
+  let titel = 'Voor leerkrachten', lead, inhoud;
+  if (fs.existsSync(bestand)) {
+    const { data, body } = parseFrontmatter(fs.readFileSync(bestand, 'utf8'));
+    titel = data.title || titel;
+    lead = data.intro || '';
+    inhoud = renderBody(body, { lesId: 'voor-leerkrachten', blockIndex: 0, warnings });
+  } else {
+    warnings.push(`${path.relative(ROOT, bestand)} ontbreekt nog: de leerkrachtenpagina toont een placeholder`);
+    lead = 'Deze pagina is nog in opbouw.';
+    inhoud = '<p>Hier komt de handleiding voor de leerkracht: het lesverloop, wat je vooraf klaarzet en hoe je de gevoelige lessen begeleidt.</p>';
+  }
+  const body = `<div class="wrap page-text">
+<h1>${esc(titel)}</h1>
+${lead ? `<p class="lead">${mdInline(lead)}</p>\n` : ''}${inhoud}
+<p><a class="btn" href="${base}index.html">Terug naar het overzicht</a></p>
+</div>`;
+  return { html: layout({ title: titel, base, body, bodyClass: 'page-text', naarVoorpagina: config.voorpaginaUrl }), warnings };
 }
 
 function leerkrachtenPage(all) {
+  if (config.leerkrachtenpagina) return leerkrachtenPageUitMarkdown();
   const base = './';
   const rows = all.map(h => `<tr><td>H${h.nummer}</td><td>${esc(h.titel)}</td><td>${esc(DOMEINEN[h.domein] || '')}</td><td>${h.lessen.length}</td><td>${h.lessen.reduce((m, l) => m + (parseInt(l.data.duur, 10) || 0), 0)} min</td></tr>`).join('');
   const body = `<div class="wrap page-text">
@@ -340,30 +522,61 @@ function leerkrachtenPage(all) {
 <p>Alle lessen werken met een gratis chatbot. De cursus noemt ChatGPT, Gemini, Microsoft Copilot, Claude en Vibe (vroeger Le Chat), telkens met de opmerking dat de school bepaalt wat toegelaten is. Leerlingen jonger dan dertien kunnen de meeste chatbots niet gebruiken; onder de achttien is toestemming van de ouders nodig voor een privéaccount. Een schoolaccount (Microsoft 365 of Google Workspace) valt onder de afspraken van de school.</p>
 ${config.leerkrachtenUrl ? `<h2>De cursus in je klas</h2>
 <p>In de leeromgeving <em>AI voor leerkrachten</em> staat een module over het inzetten van deze cursus: wat erin zit, hoe je ze gebruikt in een lesuur, een GWP of als huiswerk, welke klasafspraken je maakt en hoe je opvolgt. <a href="${attr(config.leerkrachtenUrl)}">Open de module "De leerlingencursus in je klas"</a>.</p>` : ''}
+${config.eersteGraadUrl ? `<p>Voor de eerste graad is er <a href="${attr(config.eersteGraadUrl)}">AI-wijs Start</a>: zes korte lessen die je klassikaal geeft, zonder dat je leerlingen een account nodig hebben. Zo komen ze voorbereid in deze cursus.</p>` : ''}
 <h2>Zelf aanpassen</h2>
 <p>De cursus is open: de lessen zijn gewone tekstbestanden en de site wordt met één commando gebouwd. Je kunt lessen aanpassen aan je school, eigen video's toevoegen of hoofdstukken weglaten. Zie het bestand README.md in de projectmap.</p>
 <p><a class="btn" href="${base}index.html">Terug naar het overzicht</a></p>
 </div>`;
-  return layout({ title: 'Voor leerkrachten', base, body, bodyClass: 'page-text' });
+  return { html: layout({ title: 'Voor leerkrachten', base, body, bodyClass: 'page-text' }), warnings: [] };
 }
 
 // ---------- build ----------
-function copyDir(src, dst) {
+function copyDir(src, dst, overslaan = new Set()) {
   fs.mkdirSync(dst, { recursive: true });
   for (const f of fs.readdirSync(src)) {
+    if (overslaan.has(f)) continue;
     const s = path.join(src, f), d = path.join(dst, f);
     if (fs.statSync(s).isDirectory()) copyDir(s, d); else fs.copyFileSync(s, d);
   }
 }
 
 const all = loadCourse();
-// Veiligheid: de uitvoermap wordt leeggemaakt, dus nooit de bronmap of haar ouder.
-if (DIST === ROOT || ROOT.startsWith(DIST + path.sep) || [CONTENT, ASSETS].some(d => d.startsWith(DIST + path.sep))) {
+// Veiligheid: de uitvoermap wordt leeggemaakt, dus nooit de bronmap of haar ouder,
+// en nooit een map in of boven de uitvoer van de andere cursus.
+if ([ROOT, BRON, CONTENT, ASSETS].some(d => d === DIST || d.startsWith(DIST + path.sep))) {
   console.error(`Weiger te bouwen: uitvoermap ${DIST} overlapt met de bronmap.`); process.exit(1);
 }
+for (const ander of andereUitvoermappen(CURSUS)) {
+  if (DIST === ander.DIST || DIST.startsWith(ander.DIST + path.sep) || ander.DIST.startsWith(DIST + path.sep)) {
+    console.error(`Weiger te bouwen: uitvoermap ${DIST} overlapt met de uitvoer van cursus "${ander.naam}" (${ander.DIST}).`); process.exit(1);
+  }
+}
+// Heeft deze cursus iets uit extra.js en extra.css nodig? Dan gaan ze mee en laadt
+// elke pagina ze; anders niet, en verandert er aan de uitvoer niets.
+const BLOK_UIT_EXTRA = /^:::\s*(keuze|sorteer)\b/im;
+const leerkrachtenMd = config.leerkrachtenpagina && path.join(BRON, config.leerkrachtenpagina);
+EXTRA = !!(config.bordmodus || config.voorpaginaUrl
+  || all.some(h => h.lessen.some(l => l.type === 'paspoort' || BLOK_UIT_EXTRA.test(l.body)))
+  || (leerkrachtenMd && fs.existsSync(leerkrachtenMd) && BLOK_UIT_EXTRA.test(fs.readFileSync(leerkrachtenMd, 'utf8'))));
 fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
-copyDir(ASSETS, path.join(DIST, 'assets'));
+copyDir(ASSETS, path.join(DIST, 'assets'), EXTRA ? new Set() : OPTIONELE_ASSETS);
+// app.js draagt de opslagsleutel van AI-wijs letterlijk in zich ('aiwijs.v1'), en zo
+// blijft het voor AI-wijs: wie voortgang heeft, verliest ze niet. Een cursus met een
+// eigen "opslagsleutel" (Start: aiwijs-start.v1) krijgt die bij het kopiëren in de plaats,
+// zodat de voortgang van de twee cursussen in dezelfde browser niet door elkaar loopt.
+if (config.opslagsleutel && config.opslagsleutel !== 'aiwijs.v1') {
+  if (!/^[a-z0-9.-]+$/i.test(config.opslagsleutel)) { console.error(`Ongeldige opslagsleutel "${config.opslagsleutel}": alleen letters, cijfers, punten en koppeltekens.`); process.exit(1); }
+  const appJs = path.join(DIST, 'assets', 'app.js');
+  const bron = fs.readFileSync(appJs, 'utf8');
+  const VAST = "const KEY = 'aiwijs.v1';";
+  if (bron.split(VAST).length !== 2) { console.error(`Kan de opslagsleutel niet zetten: assets/app.js bevat de regel ${VAST} niet precies één keer.`); process.exit(1); }
+  fs.writeFileSync(appJs, bron.replace(VAST, `const KEY = '${config.opslagsleutel}';`));
+}
+// Beelden bij de lessen: een map media/ naast de inhoud gaat mee naar <uitvoer>/media/.
+// Vanuit een les: ![wat je ziet](../media/foto.jpg)
+const MEDIA = path.join(BRON, 'media');
+if (fs.existsSync(MEDIA)) copyDir(MEDIA, path.join(DIST, 'media'));
 let nLes = 0; const warnings = [];
 for (const h of all) {
   fs.mkdirSync(path.join(DIST, h.map), { recursive: true });
@@ -375,7 +588,9 @@ for (const h of all) {
   }
 }
 fs.writeFileSync(path.join(DIST, 'index.html'), indexPage(all));
-fs.writeFileSync(path.join(DIST, 'voor-leerkrachten.html'), leerkrachtenPage(all));
+const leerkrachten = leerkrachtenPage(all);
+fs.writeFileSync(path.join(DIST, 'voor-leerkrachten.html'), leerkrachten.html);
+leerkrachten.warnings.forEach(x => warnings.push(`voor-leerkrachten: ${x}`));
 // structuur als JSON voor app.js (lesvolgorde, hoofdstukken)
 const structuur = all.map(h => ({ map: h.map, nummer: h.nummer, titel: h.titel, stap: h.stap, route: !!h.route, lessen: h.lessen.map(l => ({ id: l.id, slug: l.slug, titel: l.data.title, type: l.type })) }));
 fs.writeFileSync(path.join(DIST, 'assets', 'structuur.json'), JSON.stringify(structuur));

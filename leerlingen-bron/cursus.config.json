@@ -19,5 +19,6 @@
   "motto": "samen is beter",
   "regio": "Dendermonde – Hamme – Lokeren – Moerbeke – Wetteren – Zele",
   "uitvoermap": "../leerlingen",
-  "leerkrachtenUrl": "../#/module/leerlingencursus"
+  "leerkrachtenUrl": "../leeromgeving/#/module/leerlingencursus",
+  "eersteGraadUrl": "../aiwijs-start/voor-leerkrachten.html"
 }
