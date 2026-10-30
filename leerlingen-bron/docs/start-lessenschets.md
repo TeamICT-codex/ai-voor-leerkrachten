@@ -342,7 +342,8 @@ krijgt een zin voor de eerste graad. `CLAUDE.md` en de README's gaan mee.
 5. **Les 5.** Klassikaal voor de hele klas, met de leerlingenbegeleiding en het CLB
    vooraf verwittigd. Thomas leest les 5 en het stuk in de handleiding zelf na
    vóór ze live gaan, ook de raad over screenshots en bewijs. (Bijgestuurd op
-   30 oktober 2026: Thomas liet alles al online zetten en leest daarna na.)
+   30 oktober 2026: Thomas liet alles al online zetten, las les 5 en de
+   handleiding daarna na en vond ze in orde.)
 6. **Quiz.** Eén slotquiz van tien situaties.
 7. **Bordmodus.** Ja: grote letters en geen zijbalk, voor het digibord.
 
