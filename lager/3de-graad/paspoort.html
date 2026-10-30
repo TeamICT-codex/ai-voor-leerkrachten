@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ons paspoort · De stad van morgen</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../lager.css">
+  <script type="module">
+    import { STATIONS } from './stations.js';
+    import { vulPaspoort } from '../paspoort.js';
+    vulPaspoort(STATIONS, 'leerlichtjes.3de-graad.stempels');
+  </script>
+</head>
+<body class="ll-pagina">
+  <header class="ll-kop">
+    <a class="ll-merk" href="../index.html"><span class="ll-lichtje" aria-hidden="true"></span>Leerlichtjes</a>
+    <p class="ll-kop-titel"><span>3de graad</span> Ons paspoort</p>
+    <div class="ll-kopknoppen"><a class="ll-kopknop" href="index.html">Terug naar de stad</a></div>
+  </header>
+  <main>
+    <article class="ll-paspoort">
+      <p class="ll-etiket">Leerlichtjes · De stad van morgen</p>
+      <h1>Mijn AI-paspoort</h1>
+      <p>Ik bezocht de vijf stations van de stad. Dit weet ik nu:</p>
+      <p class="ll-paspoort-naam">Naam: <span></span></p>
+      <div class="ll-paspoort-lijst"></div>
+    </article>
+    <div class="ll-paspoort-knoppen">
+      <button type="button" class="ll-knop ll-druk">Druk het paspoort af</button>
+      <a class="ll-knop zacht" href="index.html">Terug naar de stad</a>
+    </div>
+  </main>
+</body>
+</html>
