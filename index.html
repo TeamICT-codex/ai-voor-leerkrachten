@@ -34,6 +34,8 @@
       <div class="podium">
         <div class="lucht ochtend" aria-hidden="true"></div>
         <div class="lucht dag" aria-hidden="true"></div>
+        <!-- Schemer, bewolking, nacht en mist: getekend door sfeer.js. -->
+        <canvas class="lucht-doek" aria-hidden="true"></canvas>
 
         <!-- Staat er meteen, ook zonder 3D: een vlakke schets van hetzelfde tafereel. -->
         <svg class="schets" viewBox="0 0 640 460" role="img" aria-label="Een school met drie verdiepingen: de directie, een klas en een computerlokaal">
@@ -92,11 +94,16 @@
             <button type="button" class="uitleg-volgende">Volgende →</button>
           </div>
         </section>
-        <button type="button" class="toon-toch" hidden>Toon het tafereel in 3D (± 160 kB)</button>
+        <button type="button" class="toon-toch" hidden>Toon het tafereel in 3D (± 190 kB)</button>
 
         <div class="zaalbord" aria-hidden="true">
           <p class="zaal-titel">AI op school</p>
           <p class="zaal-adres"></p>
+        </div>
+        <div class="weerbord" aria-hidden="true">
+          <p class="weer-klok"></p>
+          <p class="weer-meting"></p>
+          <p class="weer-bron" hidden>Weer: Open-Meteo.com</p>
         </div>
       </div>
 

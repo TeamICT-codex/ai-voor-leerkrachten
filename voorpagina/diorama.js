@@ -623,12 +623,13 @@ function bouwSchool(g) {
     gloed(l, 0, 1.24, 0, 0.9);
   }
   // grassprietjes in één tekenbeurt
+  let gras;
   {
     const spriet = new T.ConeGeometry(0.035, 0.13, 5);
     spriet.translate(0, 0.065, 0);
     const n = 80;
     // Wit materiaal: de kleur per sprietje komt erbovenop en zou anders vermengen.
-    const gras = levend(new T.InstancedMesh(spriet, new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true }), n));
+    gras = levend(new T.InstancedMesh(spriet, new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true }), n));
     const m = new T.Matrix4();
     const kleur = new T.Color();
     let i = 0;
@@ -650,15 +651,24 @@ function bouwSchool(g) {
   }
   const wandelaar = speel(figuur(buiten, { x: 0, y: 0, z: 1.75, draai: Math.PI / 2, shirt: K.groen, huid: HUID[3], haar: HAAR[0] }), s => { s.t = tijd(); });
   blok(wandelaar, 0.24, 0.28, 0.12, K.perzik, 0, 0.42, -0.16, { r: 0.05 });
-  // wolken en vogels
-  const wolken = [[7.0, -4.6, 0.9, 0], [6.4, -5.2, 0.7, 0.45], [7.6, -4.2, 0.6, 0.75]].map(([y, z, s, start]) => {
+  // wolken en vogels. De wolken hebben een eigen materiaal: bij regen worden ze grijs.
+  const wolkMat = new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
+  function maakWolk(y, z, s, start) {
     const w = levend(groepje(wereld, 0, y, z));
     for (const [x, yy, zz, rr] of [[0, 0, 0, 0.42], [-0.45, -0.1, 0.05, 0.3], [0.45, -0.08, 0, 0.33], [0.15, 0.2, 0.1, 0.28]]) {
-      const b = new T.Mesh(new T.IcosahedronGeometry(rr * s, 1), mat(0xffffff, true));
+      const b = new T.Mesh(new T.IcosahedronGeometry(rr * s, 1), wolkMat);
       b.position.set(x * s, yy * s, zz * s);
       w.add(b);
     }
     w.userData.start = start;
+    return w;
+  }
+  const wolken = [[7.0, -4.6, 0.9, 0], [6.4, -5.2, 0.7, 0.45], [7.6, -4.2, 0.6, 0.75]].map(a => maakWolk(...a));
+  // Extra wolken die er pas bij komen als het bewolkt is.
+  const extraWolken = [[6.7, -3.6, 1.0, 0.2], [7.9, -5.0, 0.8, 0.6], [6.0, -4.0, 0.75, 0.88], [7.3, -3.2, 0.65, 0.35]].map(a => {
+    const w = maakWolk(...a);
+    w.scale.setScalar(0.001);
+    w.visible = false;
     return w;
   });
   const vogels = [0, 1, 2].map(i => {
@@ -672,6 +682,294 @@ function bouwSchool(g) {
     v.userData.fase = i * 2.1;
     return v;
   });
+
+  // ── seizoenen en weer ──
+  // Het seizoen loopt van 0 tot 4: 0,5 is volle lente, 1,5 zomer, 2,5 herfst en
+  // 3,5 winter; ertussen kleurt alles geleidelijk over. Het weer bestaat uit
+  // regen, sneeuw, mist, wind en onweer, elk van 0 tot 1. Alles schuift zacht naar
+  // zijn doel. Wie minder beweging vraagt, krijgt de kleuren wel, de neerslag niet.
+  const weerDoel = { regen: 0, sneeuw: 0, mist: 0, wind: 0.15, onweer: 0 };
+  const weer = { ...weerDoel, sneeuwlaag: 0 };
+  let seizoen = 1.5, doelSeizoen = 1.5, seizoenGetekend = -1;
+  let tempo = 1, vlagFase = 0, wolkFase = 0, volgendeFlits = 4, laagVast = null;
+  const rw = toeval(31);
+  const SEIZOENEN = ['lente', 'zomer', 'herfst', 'winter'];
+  // Per seizoen drie tinten, van licht naar donker; de zomer houdt de eigen kleuren.
+  const PALET = {
+    lente: [0xb8e290, 0x8fd07c, 0x6cbb6a],
+    herfst: [0xf4c64f, 0xf08a3c, 0xc9563f],
+    winter: [0xeef3f0, 0xd8e3df, 0xbfcec9],
+  };
+  // Hoeveel van elk seizoen er nu in zit: vier gewichten die samen 1 zijn.
+  function seizoenGewichten(s) {
+    const w = [0, 0, 0, 0];
+    const p = ((s - 0.5) % 4 + 4) % 4, i = Math.floor(p), f = p - i;
+    // Rond het midden van een seizoen blijft het even stil staan; de overgang
+    // valt in het midden tussen twee seizoenen.
+    const t = klem((f - 0.2) / 0.6, 0, 1), m = t * t * (3 - 2 * t);
+    w[i] = 1 - m; w[(i + 1) % 4] += m;
+    return w;
+  }
+  // Licht, midden of donker: zo kiezen we de tint uit het palet. De kleuren in
+  // de vormen zijn lineair, vandaar de lage grenzen.
+  const tintVan = (r, gr, b) => { const l = 0.2126 * r + 0.7152 * gr + 0.0722 * b; return l > 0.4 ? 0 : l > 0.2 ? 1 : 2; };
+  const kleurHulp = new T.Color();
+  // Een kleurlaag die van seizoen kan wisselen: een gewone vorm (kleur per hoek)
+  // of de grassprietjes (kleur per sprietje).
+  const kleurLagen = [];
+  function kleurLaag(attr) {
+    const orig = attr.array.slice();
+    const doel = { zomer: orig };
+    for (const naam of ['lente', 'herfst', 'winter']) {
+      const uit = new Float32Array(orig.length);
+      for (let i = 0; i < orig.length; i += 3) {
+        kleurHulp.setHex(PALET[naam][tintVan(orig[i], orig[i + 1], orig[i + 2])]);
+        uit[i] = kleurHulp.r; uit[i + 1] = kleurHulp.g; uit[i + 2] = kleurHulp.b;
+      }
+      doel[naam] = uit;
+    }
+    kleurLagen.push({ attr, doel });
+  }
+  let kleurLagenKlaar = false;
+  function zoekKleurLagen() {
+    // Pas na het samenvoegen bestaan de vormen van de kruinen: elke boom en
+    // struik heeft er één met platte schaduw, naast die van de stam of de rozen.
+    kleurLagenKlaar = true;
+    for (const groep of [...bomen, ...struiken]) {
+      groep.traverse(o => {
+        if (o.isMesh && !o.isInstancedMesh && o.material.vertexColors && o.material.flatShading) kleurLaag(o.geometry.attributes.color);
+        if (o.isMesh && !o.isInstancedMesh && o.material.vertexColors && !o.material.flatShading && struiken.includes(groep)) groep.userData.rozen = o;
+      });
+    }
+    if (gras.instanceColor) kleurLaag(gras.instanceColor);
+  }
+  // bloesem in de lente: roze en witte bolletjes op de kruinen
+  const bloesemGeo = new T.IcosahedronGeometry(0.034, 0);
+  const bloesems = bomen.map((b, bi) => {
+    const s = [1.1, 0.7, 1.1, 0.8][bi];
+    const kruinen = [[0, 0.95, 0, 0.5], [0.22, 1.25, 0.1, 0.36], [-0.2, 1.18, -0.12, 0.3]];
+    const n = 22;
+    const m = levend(new T.InstancedMesh(bloesemGeo, new T.MeshLambertMaterial({ color: 0xffffff }), n));
+    m.userData.plekken = [];
+    for (let i = 0; i < n; i++) {
+      const [cx, cy, cz, cr] = kruinen[i % 3];
+      // Vooral aan de kant die naar de camera kijkt.
+      const hoek = -0.6 + rw() * 2.6, hoogte = -0.2 + rw() * 1.0;
+      const d = new T.Vector3(Math.sin(hoek), hoogte, Math.cos(hoek)).normalize();
+      m.userData.plekken.push(new T.Vector3(cx * s, cy * s, cz * s).addScaledVector(d, cr * s * 0.98));
+      m.setColorAt(i, kleurHulp.setHex([0xf7b6c8, 0xffffff, 0xf2a0b6][i % 3]));
+    }
+    m.castShadow = false;
+    m.visible = false;
+    b.add(m);
+    return m;
+  });
+  const hulpM = new T.Matrix4(), hulpQ = new T.Quaternion(), hulpE = new T.Euler(), hulpS = new T.Vector3(), hulpP = new T.Vector3();
+  function zetBloesem(hoeveel) {
+    for (const m of bloesems) {
+      m.visible = hoeveel > 0.02;
+      if (!m.visible) continue;
+      m.userData.plekken.forEach((p, i) => {
+        // Elk bolletje groeit op zijn eigen moment: zo loopt de boom vol.
+        const s = uitTerug(klem(hoeveel * 1.6 - (i % 7) * 0.09, 0, 1));
+        m.setMatrixAt(i, hulpM.compose(p, hulpQ.identity(), hulpS.setScalar(Math.max(s, 0.001))));
+      });
+      m.instanceMatrix.needsUpdate = true;
+    }
+  }
+  // Neerslag en vallende blaadjes: telkens één vorm met veel kopieën.
+  const BAK = { x0: -7, x1: 7, y0: -0.2, y1: 10, z0: -5, z1: 4.5 };
+  function deeltjes(geo, materiaal, n) {
+    const m = levend(new T.InstancedMesh(geo, materiaal, n));
+    m.frustumCulled = false;
+    m.castShadow = false;
+    m.visible = false;
+    const st = [];
+    for (let i = 0; i < n; i++) {
+      st.push({ x: BAK.x0 + rw() * (BAK.x1 - BAK.x0), y: BAK.y0 + rw() * (BAK.y1 - BAK.y0), z: BAK.z0 + rw() * (BAK.z1 - BAK.z0), f: rw() * 10, v: 0.8 + rw() * 0.4 });
+      m.setMatrixAt(i, hulpM.makeScale(0, 0, 0));
+    }
+    m.userData.st = st;
+    wereld.add(m);
+    return m;
+  }
+  const regenDruppels = deeltjes(new T.BoxGeometry(0.04, 0.46, 0.04),
+    new T.MeshBasicMaterial({ color: 0x8fb2c9, transparent: true, opacity: 0.8, depthWrite: false }), g.zwak ? 160 : 380);
+  const sneeuwVlokken = deeltjes(new T.IcosahedronGeometry(0.042, 0),
+    new T.MeshLambertMaterial({ color: 0xffffff, emissive: 0x8090a8, emissiveIntensity: 0.35 }), g.zwak ? 140 : 320);
+  const BLAD_N = 70;
+  const blaadjes = deeltjes(new T.PlaneGeometry(0.1, 0.065), new T.MeshLambertMaterial({ color: 0xffffff, side: 2 }), BLAD_N);
+  // Een blaadje begint in een van de kruinen en dwarrelt naar de grond.
+  const boomPlekken = [[-4.9, -3.0, 1.1], [-5.5, 0.85, 0.7], [4.9, -2.4, 1.1], [5.15, 2.45, 0.8]];
+  function nieuwBlaadje(st, i, lente) {
+    const [bx, bz, s] = boomPlekken[Math.floor(rw() * 4)];
+    st.x = bx + (rw() - 0.5) * s; st.z = bz + (rw() - 0.5) * s * 0.8; st.y = 0.9 * s + rw() * 0.6 * s;
+    st.lig = 0; st.v = 0.8 + rw() * 0.5;
+    blaadjes.setColorAt(i, kleurHulp.setHex(lente ? [0xf7b6c8, 0xffffff, 0xf2a0b6][i % 3] : [0xf4c64f, 0xf08a3c, 0xc9563f, 0xe0a33a][i % 4]));
+    blaadjes.instanceColor.needsUpdate = true;
+  }
+  blaadjes.userData.st.forEach((st, i) => { nieuwBlaadje(st, i, false); st.y = -1; st.lig = 99; });
+  // Sneeuw op de daken en op de sokkel, die aangroeit zolang het sneeuwt.
+  const sneeuwMat = new T.MeshLambertMaterial({ color: 0xfbfdff, transparent: true, opacity: 0, depthWrite: false });
+  const sneeuwDekens = [];
+  {
+    const dek = levend(new T.Mesh(new T.PlaneGeometry(BREED + 0.12, DIEP + 0.12), sneeuwMat));
+    dek.rotation.x = -Math.PI / 2;
+    dek.position.set(0, 0.168, MIDZ);
+    dek.receiveShadow = true;
+    dak.add(dek);
+    sneeuwDekens.push(dek);
+    // de grond: een vlak met afgeronde hoeken, net als de sokkel
+    const c = document.createElement('canvas'); c.width = 512; c.height = 344;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; rond(ctx, 0, 0, 512, 344, 12); ctx.fill();
+    const grondMat = sneeuwMat.clone();
+    grondMat.alphaMap = new T.CanvasTexture(c);
+    const grond = levend(new T.Mesh(new T.PlaneGeometry(11.9, 7.9), grondMat));
+    grond.rotation.x = -Math.PI / 2;
+    grond.position.set(0, 0.009, -0.6);
+    grond.receiveShadow = true;
+    sokkel.add(grond);
+    sneeuwDekens.push(grond);
+    // het puntdak van de kleine school, een tikje groter
+    const kap = groepje(lager, 0, LAGER.h + 0.01, 0);
+    kap.rotation.y = Math.PI / 2;
+    const k = levend(new T.Mesh(new T.CylinderGeometry(1, 1, LAGER.b + 0.3, 3, 1), sneeuwMat));
+    k.rotation.x = -Math.PI / 2;
+    k.scale.set((LAGER.d + 0.3) / Math.sqrt(3), 1, 0.66 / 1.5);
+    k.position.y = 0.66 / 3;
+    kap.add(k);
+    sneeuwDekens.push(k);
+  }
+  // Mist: in de verte vervaagt het tafereel. De mist staat altijd aan, maar
+  // ver genoeg weg zolang het helder is: aan- en uitzetten laat het beeld haperen.
+  g.scene.fog = new T.Fog(0xdfe4e3, 100, 200);
+  const mistDag = new T.Color(0xdfe4e3), mistNacht = new T.Color(0x3b4566);
+  const wolkWit = new T.Color(0xffffff), wolkGrijs = new T.Color(0x8e98a3);
+
+  function tekenSeizoen(s) {
+    if (!kleurLagenKlaar) zoekKleurLagen();
+    seizoenGetekend = s;
+    const w = seizoenGewichten(s);
+    for (const { attr, doel } of kleurLagen) {
+      const a = attr.array;
+      const bronnen = SEIZOENEN.map(n => doel[n]);
+      for (let i = 0; i < a.length; i++) a[i] = bronnen[0][i] * w[0] + bronnen[1][i] * w[1] + bronnen[2][i] * w[2] + bronnen[3][i] * w[3];
+      attr.needsUpdate = true;
+    }
+    zetBloesem(w[0]);
+    // De rozen bloeien van de late lente tot de vroege herfst.
+    for (const st of struiken) if (st.userData.rozen) st.userData.rozen.visible = w[3] < 0.5 && w[0] + w[1] + w[2] * 0.6 > 0.5;
+  }
+
+  // Waar geen neerslag mag verschijnen: in de school en de kleine school, en
+  // bij een verdieping in beeld ook niet tussen de camera en de open voorkant.
+  let deeltjesSchaal = 1, voorkantVrij = false;
+  function verborgen(x, y, z) {
+    if (Math.abs(x) < BREED / 2 + 0.12 && z > ACHTER - 0.12 && z < VOOR + 0.12 && y < 3 * VH + 0.35) return true;
+    if (Math.abs(x - LAGER.x) < LAGER.b / 2 + 0.2 && Math.abs(z - LAGER.z) < LAGER.d / 2 + 0.2 && y < LAGER.h + 0.75) return true;
+    return voorkantVrij && Math.abs(x) < BREED / 2 + 0.7 && z > ACHTER;
+  }
+  function werkWeerBij(dt, nu, nacht, bewolking, open = null) {
+    // Ingezoomd lijken druppels anders dikke strepen: dan worden ze fijner.
+    voorkantVrij = !!open || VERDIEPINGEN.includes(focus);
+    deeltjesSchaal += ((focus === 'overzicht' && !open ? 1 : 0.42) - deeltjesSchaal) * (1 - Math.exp(-dt * 3));
+    const z = 1 - Math.exp(-dt * 1.5);
+    for (const k of Object.keys(weerDoel)) weer[k] += (weerDoel[k] - weer[k]) * z;
+    // Sneeuw blijft liggen: ze groeit traag aan en smelt nog trager. Een film
+    // of tijdreis kan de laag ook zelf vastzetten.
+    if (laagVast != null) weer.sneeuwlaag = laagVast;
+    else weer.sneeuwlaag = klem(weer.sneeuwlaag + (weer.sneeuw > 0.25 ? dt / 12 : -dt / 25), 0, 1);
+    if (Math.abs(seizoen - doelSeizoen) > 0.0005) {
+      const verschil = ((doelSeizoen - seizoen + 6) % 4) - 2;
+      seizoen = ((seizoen + verschil * (1 - Math.exp(-dt * 0.8))) % 4 + 4) % 4;
+    }
+    if (Math.abs(seizoen - seizoenGetekend) > 0.002) tekenSeizoen(seizoen);
+
+    sneeuwMat.opacity = weer.sneeuwlaag * 0.92;
+    for (const d of sneeuwDekens) { d.material.opacity = sneeuwMat.opacity; d.visible = sneeuwMat.opacity > 0.01; }
+    const fog = g.scene.fog;
+    // De camera staat 40 ver: bij dichte mist begint ze net voor het tafereel.
+    fog.near = 100 - weer.mist * 76;
+    fog.far = 200 - weer.mist * 160;
+    fog.color.lerpColors(mistDag, mistNacht, nacht);
+    // wolken: meer en grijzer naarmate het bewolkter of natter is
+    wolkMat.color.lerpColors(wolkWit, wolkGrijs, klem(weer.regen * 0.7 + weer.onweer + weer.sneeuw * 0.3 + bewolking * 0.25, 0, 1));
+    const extra = klem(bewolking * 1.3 + weer.regen * 0.5, 0, 1);
+    wolkFase += dt * (1 + weer.wind * 3);
+    extraWolken.forEach((w, i) => {
+      const s = klem(extra * 4 - i, 0, 1);
+      w.visible = s > 0.01;
+      w.scale.setScalar(Math.max(uitTerug(s), 0.001));
+    });
+    for (const w of [...wolken, ...extraWolken]) w.position.x = -9 + ((wolkFase / 70 + w.userData.start) % 1) * 18;
+    if (g.stil) return;
+    // onweer: af en toe een bliksem
+    if (weer.onweer > 0.3 && nu > volgendeFlits) { g.bliksem(); volgendeFlits = nu + 5 + rw() * 9; }
+
+    const windX = weer.wind * 2.6;
+    // regen
+    {
+      const st = regenDruppels.userData.st, actief = Math.round(st.length * weer.regen);
+      regenDruppels.visible = actief > 0;
+      if (actief > 0) {
+        hulpQ.setFromEuler(hulpE.set(0, 0, Math.atan2(windX, 9)));
+        for (let i = 0; i < st.length; i++) {
+          const d = st[i];
+          d.y -= dt * 9 * d.v; d.x += dt * windX * d.v;
+          if (d.y < BAK.y0) { d.y += BAK.y1 - BAK.y0; d.x = BAK.x0 + rw() * (BAK.x1 - BAK.x0); }
+          if (d.x > BAK.x1) d.x -= BAK.x1 - BAK.x0;
+          const zicht = i < actief && !verborgen(d.x, d.y, d.z);
+          regenDruppels.setMatrixAt(i, zicht ? hulpM.compose(hulpP.set(d.x, d.y, d.z), hulpQ, hulpS.set(deeltjesSchaal, 0.5 + deeltjesSchaal * 0.5, deeltjesSchaal)) : hulpM.makeScale(0, 0, 0));
+        }
+        regenDruppels.instanceMatrix.needsUpdate = true;
+      }
+    }
+    // sneeuw
+    {
+      const st = sneeuwVlokken.userData.st, actief = Math.round(st.length * weer.sneeuw);
+      sneeuwVlokken.visible = actief > 0;
+      if (actief > 0) {
+        for (let i = 0; i < st.length; i++) {
+          const d = st[i];
+          d.y -= dt * 0.75 * d.v; d.x += dt * (windX * 0.5 + Math.sin(nu * 1.3 + d.f) * 0.25);
+          if (d.y < BAK.y0) { d.y += BAK.y1 - BAK.y0; d.x = BAK.x0 + rw() * (BAK.x1 - BAK.x0); }
+          if (d.x > BAK.x1) d.x -= BAK.x1 - BAK.x0;
+          if (d.x < BAK.x0) d.x += BAK.x1 - BAK.x0;
+          const zicht = i < actief && !verborgen(d.x, d.y, d.z);
+          sneeuwVlokken.setMatrixAt(i, zicht ? hulpM.compose(hulpP.set(d.x, d.y, d.z), hulpQ.identity(), hulpS.setScalar((0.7 + (i % 5) * 0.12) * (0.4 + deeltjesSchaal * 0.6))) : hulpM.makeScale(0, 0, 0));
+        }
+        sneeuwVlokken.instanceMatrix.needsUpdate = true;
+      }
+    }
+    // blaadjes in de herfst, bloesemblaadjes in de lente
+    {
+      const w = seizoenGewichten(seizoen);
+      const lente = w[0] > w[2];
+      const actief = Math.round(BLAD_N * klem(w[2] * (0.55 + weer.wind * 0.6) + w[0] * 0.3, 0, 1));
+      const st = blaadjes.userData.st;
+      blaadjes.visible = actief > 0 || st.some(d => d.lig < 6);
+      if (blaadjes.visible) {
+        for (let i = 0; i < st.length; i++) {
+          const d = st[i];
+          if (d.y > 0.02) {
+            d.y -= dt * 0.45 * d.v;
+            d.x += dt * (windX * 0.6 + Math.sin(nu * 1.7 + d.f) * 0.35);
+            hulpQ.setFromEuler(hulpE.set(nu * 2 + d.f, nu * 1.3 + d.f, Math.sin(nu * 3 + d.f) * 0.6));
+          } else {
+            d.lig += dt;
+            hulpQ.setFromEuler(hulpE.set(-Math.PI / 2, d.f, 0));
+            // Na een tijdje op de grond begint het opnieuw in een kruin, zolang
+            // het seizoen duurt; niet allemaal tegelijk, anders valt er een hoop ineens.
+            if (d.lig > 6 && i < actief && rw() < dt * 1.5) nieuwBlaadje(d, i, lente);
+          }
+          const zicht = d.y > 0.02 || d.lig < 6;
+          blaadjes.setMatrixAt(i, zicht ? hulpM.compose(hulpP.set(d.x, Math.max(d.y, 0.012), d.z), hulpQ, hulpS.setScalar(1)) : hulpM.makeScale(0, 0, 0));
+        }
+        blaadjes.instanceMatrix.needsUpdate = true;
+      }
+    }
+  }
 
   // ── de AI-assistent ──
   const lichtje = maakLichtje();
@@ -744,6 +1042,8 @@ function bouwSchool(g) {
   const VOLGORDE = ['klas', 'leerling', 'directie'];
   let focus = 'overzicht';
   let actief = null;
+  // Waar het lichtje begint als het overzicht in beeld is; een film kiest dat zelf.
+  let eersteVerhaal = 'klas';
   function gaNaar(naam) {
     actief = naam;
     const v = verhalen[naam];
@@ -805,23 +1105,47 @@ function bouwSchool(g) {
       }
     },
     bijPlek(id) { if (id === 'lichtje') lichtje.sprong = tijd(); },
+    api: {
+      // Het seizoen van 0 tot 4 (zie bij seizoenen en weer). direct: zonder overgang.
+      seizoen(s, { direct = false } = {}) {
+        doelSeizoen = ((s % 4) + 4) % 4;
+        if (direct || g.stil) { seizoen = doelSeizoen; tekenSeizoen(seizoen); }
+      },
+      // { regen, sneeuw, mist, wind, onweer }, elk van 0 tot 1; wat je weglaat, blijft.
+      // sneeuwlaag: een getal zet de laag vast, null laat ze weer vanzelf groeien.
+      weer(w = {}, { direct = false } = {}) {
+        for (const k of Object.keys(weerDoel)) if (w[k] != null) weerDoel[k] = klem(w[k], 0, 1);
+        if (w.sneeuwlaag !== undefined) laagVast = w.sneeuwlaag == null ? null : klem(w.sneeuwlaag, 0, 1);
+        if (direct || g.stil) {
+          Object.assign(weer, weerDoel);
+          weer.sneeuwlaag = laagVast ?? (weer.sneeuw > 0.25 ? 1 : 0);
+          werkWeerBij(0, tijd(), 0, 0);
+        }
+      },
+      tempo(x) { tempo = x; },
+      eersteVerhaal(naam) { if (verhalen[naam]) eersteVerhaal = naam; },
+      weerNu: () => ({ ...weer }),
+    },
     stil() {
       for (const v of Object.values(verhalen)) zetKlaar(v);
       lichtje.stilZetten(verhalen.klas.plek);
     },
-    werkBij(dt, nu, { nacht, speels }) {
+    werkBij(dt, nu, { nacht, speels, bewolking, open }) {
+      werkWeerBij(dt, nu, nacht, bewolking, open);
+      // De verhaaltjes kunnen sneller lopen, zodat een film in een paar seconden een heel antwoord toont.
+      const vdt = dt * tempo;
       if (nu > 1.75 && !lichtje.aan) {
         // Begint de bezoeker halverwege de pagina, dan verschijnt het lichtje
         // meteen op de verdieping die in beeld is. De andere verdiepingen tonen
         // al een afgewerkt antwoord: zo is het overzicht meteen vol.
-        const eerste = verhalen[focus] ? focus : 'klas';
+        const eerste = verhalen[focus] ? focus : eersteVerhaal;
         lichtje.zetAan(verhalen[eerste].plek, nu);
         for (const v of Object.values(verhalen)) if (v.naam !== eerste) zetKlaar(v);
         gaNaar(eerste);
       }
       const v = verhalen[actief];
-      lichtje.werkBij(dt, nu, { denkt: v?.fase === 'denken', typt: v?.fase === 'typen', nacht });
-      for (const w of Object.values(verhalen)) if (w.fase !== 'leeg' && w.fase !== 'wachten') werkVerhaalBij(w, dt);
+      lichtje.werkBij(vdt, nu, { denkt: v?.fase === 'denken', typt: v?.fase === 'typen', nacht });
+      for (const w of Object.values(verhalen)) if (w.fase !== 'leeg' && w.fase !== 'wachten') werkVerhaalBij(w, vdt);
       if (actief && verhalen[actief].klaar && !lichtje.vliegt()) gaNaar(volgende());
 
       // kleine dingen die leven
@@ -844,10 +1168,13 @@ function bouwSchool(g) {
         s.material.opacity = 0.7 * Math.sin(p * Math.PI);
       });
       {
+        // Hoe harder het waait, hoe sneller en wilder de vlag wappert.
+        vlagFase += dt * 4 * (0.7 + weer.wind * 1.2);
+        const uitslag = 0.05 * (0.6 + weer.wind * 1.4);
         const pos = vlag.geometry.attributes.position;
         for (let i = 0; i < pos.count; i++) {
           const x = vlagBasis[i * 3];
-          pos.array[i * 3 + 2] = Math.sin(x * 9 - nu * 4) * 0.05 * (x / 0.58);
+          pos.array[i * 3 + 2] = Math.sin(x * 9 - vlagFase) * uitslag * (x / 0.58);
         }
         pos.needsUpdate = true;
         vlag.geometry.computeVertexNormals();
@@ -866,11 +1193,11 @@ function bouwSchool(g) {
         l.rotation.x = springt ? 0 : Math.sin(nu * 7) * 0.35; rr.rotation.x = -l.rotation.x;
         wandelaar.userData.armen[1].rotation.z = springt ? 2.6 + Math.sin(sinds * 14) * 0.35 : 0.12;
       }
-      for (const b of bomen) {
+      bomen.forEach((b, i) => {
         const sinds = nu - speels[b.userData.speel].t;
-        b.rotation.z = sinds < 2 ? Math.sin(sinds * 16) * 0.1 * Math.exp(-sinds * 2.5) : 0;
-      }
-      wolken.forEach(w => { w.position.x = -9 + ((nu / 70 + w.userData.start) % 1) * 18; });
+        const wiebel = sinds < 2 ? Math.sin(sinds * 16) * 0.1 * Math.exp(-sinds * 2.5) : 0;
+        b.rotation.z = wiebel + Math.sin(nu * (1.1 + weer.wind) + i * 1.7) * 0.035 * weer.wind;
+      });
       vogels.forEach((v, i) => {
         const hoek = nu * 0.45 + v.userData.fase;
         const straalV = 2.8 + i * 0.35;

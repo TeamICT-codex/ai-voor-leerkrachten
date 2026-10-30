@@ -307,10 +307,13 @@ export async function maakPodium(canvas, opties, bouw) {
   const {
     stil = false, zwak = false, labels = {}, pinnen = {},
     onKamer = () => {}, onHover = () => {}, onPlek = () => {}, onPlekHover = () => {}, onFout = () => {},
+    // opname: { breedte, hoogte } — een vaste beeldmaat zonder eigen lus. Wie
+    // opneemt, zet zelf elk beeld met stap() en teken(), zodat geen beeld hapert.
+    opname = null,
   } = opties;
 
-  const renderer = new T.WebGLRenderer({ canvas, antialias: !zwak, alpha: true, powerPreference: 'default' });
-  let pixelRatio = Math.min(window.devicePixelRatio || 1, zwak ? 1.25 : 2);
+  const renderer = new T.WebGLRenderer({ canvas, antialias: !zwak, alpha: true, powerPreference: 'default', preserveDrawingBuffer: !!opname });
+  let pixelRatio = opname ? 1 : Math.min(window.devicePixelRatio || 1, zwak ? 1.25 : 2);
   renderer.setPixelRatio(pixelRatio);
   renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true;
@@ -479,7 +482,13 @@ export async function maakPodium(canvas, opties, bouw) {
     T, scene, wereld, zwak, stil, kamerLamp, lampMat, glasBuiten, glasBinnen,
     gloed, hanglamp, raamBinnen, raamBuiten, maakLichtje, plek, speel, statischeTekening,
     tijd: () => tijd,
+    bliksem: () => bliksem(),
   };
+  function bliksem() {
+    if (stil) return;
+    flitsT = tijd;
+    opties.onBliksem?.();
+  }
   const s = bouw(gereedschap);
   const kamers = s.kamers || {};
   const KADERS = s.kaders;
@@ -609,7 +618,7 @@ export async function maakPodium(canvas, opties, bouw) {
   }
   let gestart = false;
   function maatBij() {
-    const vak = canvas.parentElement.getBoundingClientRect();
+    const vak = opname ? { width: opname.breedte, height: opname.hoogte } : canvas.parentElement.getBoundingClientRect();
     breedte = Math.max(1, Math.round(vak.width));
     hoogte = Math.max(1, Math.round(vak.height));
     aspect = breedte / hoogte;
@@ -657,14 +666,14 @@ export async function maakPodium(canvas, opties, bouw) {
   // ── muis, vinger, slepen en kantelen ──
   const kijk = { yaw: 0, pitch: 0, doelYaw: 0, doelPitch: 0, laatst: -10, sleepYaw: 0, gesleept: -10 };
   function bijWijzer(e) {
-    if (e.pointerType === 'touch') return;
+    if (e.pointerType === 'touch' || opname) return;
     kijk.doelYaw = (e.clientX / innerWidth - 0.5) * 0.24;
     kijk.doelPitch = (e.clientY / innerHeight - 0.5) * 0.06;
     kijk.laatst = tijd;
   }
   let nulKanteling = null;
   function bijKantelen(e) {
-    if (e.gamma == null) return;
+    if (e.gamma == null || opname) return;
     if (nulKanteling == null) nulKanteling = e.beta ?? 0;
     kijk.doelYaw = klem(e.gamma / 35, -1, 1) * 0.16;
     kijk.doelPitch = klem(((e.beta ?? 0) - nulKanteling) / 40, -1, 1) * 0.05;
@@ -760,22 +769,29 @@ export async function maakPodium(canvas, opties, bouw) {
     }
   }
 
-  // ── dag en avond ──
-  let nacht = 0, doelNacht = 0;
+  // ── dag en avond, schemer en bewolking ──
+  // Elke waarde loopt van 0 tot 1 en schuift zacht naar haar doel. nacht: hoe ver
+  // de avond gevorderd is; schemer: de zon staat laag en kleurt oranje;
+  // bewolking: minder zon, een grijzere hemel en vagere schaduwen.
+  let nacht = 0, doelNacht = 0, schemer = 0, doelSchemer = 0, bewolking = 0, doelBewolking = 0;
+  let flitsT = -10, flits = 0;
   const DAG = { lucht: new T.Color(0xfffaf0), grond: new T.Color(0xb9dcc4), vul: 0.45 };
   const AVOND = { lucht: new T.Color(0x8394d0), grond: new T.Color(0x27304a), hemel: 0.45, vul: 0.12, zonPos: new T.Vector3(-6, 9, 7), zonKleur: new T.Color(0xb3c3ff), zon: 0.55 };
   const ZON_VAN = { pos: new T.Vector3(11, 1.6, 5), kleur: new T.Color(0xffad6b), sterkte: 0.8, hemel: 0.45 };
   const ZON_NAAR = { pos: new T.Vector3(6, 10, 9), kleur: new T.Color(0xfff1dc), sterkte: 2.6, hemel: 1.1 };
+  const SCHEMER = { pos: new T.Vector3(10, 2.6, 6), kleur: new T.Color(0xff9a5c), lucht: new T.Color(0xffd6b8) };
+  const GRIJS = new T.Color(0xe2e6e8);
   const kleurDag = new T.Color(0xf2efe6), kleurAvond = new T.Color(0xffe29a);
   const glasDag = new T.Color(0xcfe9f2), glasAvond = new T.Color(0x2d3b66);
   function werkLichtBij(zp) {
-    // zp: hoe ver de zon al opgekomen is; nacht: hoe ver de avond gevorderd is.
-    const n = nacht;
-    zon.position.lerpVectors(ZON_VAN.pos, ZON_NAAR.pos, zp).lerp(AVOND.zonPos, n);
-    zon.color.lerpColors(ZON_VAN.kleur, ZON_NAAR.kleur, zp).lerp(AVOND.zonKleur, n);
-    zon.intensity = (ZON_VAN.sterkte + (ZON_NAAR.sterkte - ZON_VAN.sterkte) * zp) * (1 - n) + AVOND.zon * n;
-    hemel.intensity = (ZON_VAN.hemel + (ZON_NAAR.hemel - ZON_VAN.hemel) * zp) * (1 - n) + AVOND.hemel * n;
-    hemel.color.lerpColors(DAG.lucht, AVOND.lucht, n);
+    // zp: hoe ver de zon al opgekomen is bij het laden.
+    const n = nacht, dag = 1 - n, sch = schemer * dag, bw = bewolking;
+    zon.position.lerpVectors(ZON_VAN.pos, ZON_NAAR.pos, zp).lerp(SCHEMER.pos, sch).lerp(AVOND.zonPos, n);
+    zon.color.lerpColors(ZON_VAN.kleur, ZON_NAAR.kleur, zp).lerp(SCHEMER.kleur, sch).lerp(AVOND.zonKleur, n);
+    zon.intensity = (ZON_VAN.sterkte + (ZON_NAAR.sterkte - ZON_VAN.sterkte) * zp) * dag * (1 - 0.4 * sch) * (1 - 0.6 * bw) + AVOND.zon * n * (1 - 0.5 * bw);
+    if ('intensity' in zon.shadow) zon.shadow.intensity = 1 - 0.65 * bw;
+    hemel.intensity = (ZON_VAN.hemel + (ZON_NAAR.hemel - ZON_VAN.hemel) * zp) * dag * (1 + 0.15 * bw) + AVOND.hemel * n + flits * 1.6;
+    hemel.color.copy(DAG.lucht).lerp(SCHEMER.lucht, sch).lerp(GRIJS, bw * 0.8).lerp(AVOND.lucht, n);
     hemel.groundColor.lerpColors(DAG.grond, AVOND.grond, n);
     vul.intensity = DAG.vul * (1 - n) + AVOND.vul * n;
     for (const { l, sterkte } of kamerLampen) l.intensity = n * sterkte;
@@ -789,10 +805,18 @@ export async function maakPodium(canvas, opties, bouw) {
   // ── per beeld ──
   let zaal = false, zaalT = 0, zaalIndex = 0;
   const zaalVolgorde = s.zaalVolgorde || Object.keys(KADERS);
+  // Een eigen drift van de kijkhoek, voor wie filmt; null volgt de gewone stand.
+  let drift = null;
   function werkBij(dt) {
     tijd += dt;
     werkIntroBij(tijd);
-    nacht += (doelNacht - nacht) * (1 - Math.exp(-dt * 2.2));
+    const zs = 1 - Math.exp(-dt * 2.2);
+    nacht += (doelNacht - nacht) * zs;
+    schemer += (doelSchemer - schemer) * zs;
+    bewolking += (doelBewolking - bewolking) * zs;
+    // Bliksem: een korte, zachte opheldering in twee tikken, geen stroboscoop.
+    const ft = tijd - flitsT;
+    flits = ft < 0 ? 0 : ft < 0.12 ? 0.9 : ft < 0.22 ? 0.25 : ft < 0.32 ? 0.7 : Math.max(0, 0.7 * Math.exp(-(ft - 0.32) * 7));
     werkLichtBij(inUit(klem(tijd / 3, 0, 1)));
 
     if (zaal && !open) {
@@ -802,8 +826,8 @@ export async function maakPodium(canvas, opties, bouw) {
     // kijkhoek: volgt de muis of het kantelen, en drijft zachtjes als niemand
     // iets doet. Wie gesleept heeft, ziet het tafereel even zo blijven staan.
     const rust = tijd - kijk.laatst > 2.5;
-    const drijf = zaal ? 0.32 : 0.07;
-    const yawDoel = rust ? Math.sin(tijd * (zaal ? 0.12 : 0.35)) * drijf : kijk.doelYaw;
+    const drijf = drift ? drift.amplitude : zaal ? 0.32 : 0.07;
+    const yawDoel = rust ? Math.sin(tijd * (drift ? drift.snelheid : zaal ? 0.12 : 0.35)) * drijf : kijk.doelYaw;
     const pitchDoel = rust ? 0 : kijk.doelPitch;
     if (!sleep?.bezig && tijd - kijk.gesleept > 5) kijk.sleepYaw *= Math.exp(-dt * 1.2);
     const z = 1 - Math.exp(-dt * 2.5);
@@ -818,7 +842,7 @@ export async function maakPodium(canvas, opties, bouw) {
     cam.hoek += (cam.doelHoek - cam.hoek) * zc;
     cam.opzij += (cam.doelOpzij - cam.opzij) * zc;
 
-    s.werkBij?.(dt, tijd, { focus, open, nacht, speels });
+    s.werkBij?.(dt, tijd, { focus, open, nacht, speels, schemer, bewolking });
 
     if (wijzerNieuw || (tijd * 10 | 0) % 3 === 0) { zoekHover(); wijzerNieuw = false; }
     zetOplichten(false, dt);
@@ -839,7 +863,9 @@ export async function maakPodium(canvas, opties, bouw) {
   }
   function beeld(nu) {
     if (!loopt) return;
-    const dt = Math.min(0.05, (nu - vorig) / 1000 || 0.016);
+    // Het eerste beeld kan een tijdstip krijgen van net vóór start(): dan zou de
+    // tijd even negatief zijn, en dat breekt elk tafereel dat ermee rekent.
+    const dt = Math.min(0.05, Math.max(0, (nu - vorig) / 1000) || 0.016);
     vorig = nu;
     werkBij(dt);
     teken1();
@@ -859,7 +885,7 @@ export async function maakPodium(canvas, opties, bouw) {
     else if (zon.castShadow) zon.castShadow = false;
   }
   function start() {
-    if (loopt || stil || !zichtbaar || document.hidden) return;
+    if (loopt || stil || opname || !zichtbaar || document.hidden) return;
     loopt = true;
     vorig = performance.now();
     rafId = requestAnimationFrame(beeld);
@@ -927,6 +953,28 @@ export async function maakPodium(canvas, opties, bouw) {
       doelNacht = aan ? 1 : 0;
       if (stil) { nacht = doelNacht; werkLichtBij(1); zetOplichten(true); teken1(); }
     },
+    // Het licht traploos zetten: { nacht, schemer, bewolking }, elk van 0 tot 1.
+    // Wat je weglaat, blijft staan. direct: meteen, zonder overgang.
+    sfeer(w = {}, { direct = false } = {}) {
+      if (w.nacht != null) doelNacht = klem(w.nacht, 0, 1);
+      if (w.schemer != null) doelSchemer = klem(w.schemer, 0, 1);
+      if (w.bewolking != null) doelBewolking = klem(w.bewolking, 0, 1);
+      if (direct || stil) {
+        nacht = doelNacht; schemer = doelSchemer; bewolking = doelBewolking;
+        werkLichtBij(tijd > 3 || stil ? 1 : inUit(klem(tijd / 3, 0, 1)));
+        zetOplichten(true);
+        if (!loopt && gestart) teken1();
+      }
+    },
+    bliksem,
+    // Het licht zoals het nu is, met de bliksem erbij: voor een hemel buiten de 3D.
+    licht: () => ({ nacht, schemer, bewolking, flits }),
+    // De kijkhoek zelf laten drijven: amplitude in radialen, snelheid per seconde.
+    drift(amplitude, snelheid = 0.3) { drift = amplitude == null ? null : { amplitude, snelheid }; },
+    // Voor een opname: één stap vooruit in de tijd, en dan het beeld tekenen.
+    stap(dt) { werkBij(dt); },
+    teken() { teken1(); return canvas; },
+    tijd: () => tijd,
     // Na een wijziging buiten de lus (bv. een stempel) in de stille stand opnieuw tekenen.
     herteken() { if (!loopt) teken1(); },
     plekken: Object.values(plekken).map(p => ({ id: p.id, kamer: p.kamer })),

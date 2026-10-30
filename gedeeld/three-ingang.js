@@ -6,8 +6,8 @@ export {
   BoxGeometry, CylinderGeometry, SphereGeometry, ConeGeometry, CapsuleGeometry,
   TorusGeometry, PlaneGeometry, IcosahedronGeometry, CircleGeometry,
   DirectionalLight, HemisphereLight, PointLight,
-  Color, Vector2, Vector3, Matrix4, Box3, Raycaster, CanvasTexture, BufferAttribute,
-  SRGBColorSpace, PCFShadowMap, MathUtils,
+  Color, Vector2, Vector3, Matrix4, Quaternion, Euler, Box3, Raycaster, CanvasTexture, BufferAttribute,
+  SRGBColorSpace, PCFShadowMap, MathUtils, Fog,
 } from 'three';
 export { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 export { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';

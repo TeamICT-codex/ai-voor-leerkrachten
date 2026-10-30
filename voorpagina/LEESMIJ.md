@@ -23,11 +23,22 @@ Wat je ermee kunt doen:
   licht op.
 - **Slepen** (of op de gsm opzij vegen) draait de school. Ze veert na een paar
   seconden terug.
-- **De avondknop** doet het licht in de lokalen aan, met sterren en een maan.
+- **Dag en nacht** volgen het uur in Dendermonde. De zon komt op en gaat onder
+  met een gouden uur ertussen. 's Avonds gaan de lampen in de lokalen aan, met
+  sterren en een maan. De avondknop wint het van de klok tot je de pagina
+  opnieuw laadt.
+- **De seizoenen** volgen de datum, zoals het KMI ze telt. In de lente staan er
+  bloesems in de bomen, in de herfst kleuren ze oranje en vallen er blaadjes,
+  in de winter zijn ze berijpt. De rozen bloeien van de late lente tot de
+  vroege herfst.
 - **Kleine verrassingen:** de leerling op de speelplaats springt en zwaait als
   je erop klikt, een boom wiebelt, het lichtje maakt een sprongetje.
 - **Zaalmodus:** met de pijltjestoetsen ga je door de kaartjes, groot genoeg
   voor een beamer. Escape sluit eerst het kaartje en daarna de zaalmodus.
+  Rechtsonder staan het uur en het weer van Dendermonde, in graden Celsius. Het
+  tafereel speelt dat weer na: regen, sneeuw die blijft liggen, mist, wind in
+  de vlag en de bomen, onweer met een zachte bliksem. Om de vier minuten volgt
+  een tijdreis: een jaar in een halve minuut, daarna terug naar nu.
 
 ## Bekijken
 
@@ -42,7 +53,8 @@ Om te testen kun je achter het adres zetten:
 | `?stil` | doet alsof je toestel om minder beweging vraagt: het tafereel staat af en stil |
 | `?schets` | doet alsof je toestel geen 3D kan: je ziet de vlakke schets |
 | `?zwak` | gedraagt zich zoals op een traag toestel: minder pixels, kleinere schaduwen |
-| `?debug` | zet `window.dio` klaar, met `dio._test.spoel(sec)` en `dio._test.meet()` |
+| `?debug` | zet `window.dio` klaar, met `dio._test.spoel(sec)` en `dio._test.meet()`; met `dio.sfeer({ nacht, schemer, bewolking })`, `dio.weer({ regen, sneeuw, mist, wind, onweer })` en `dio.seizoen(0 tot 4)` probeer je elk weer uit |
+| `?film` | de film voor de teaser (zie `../teaser/LEESMIJ.md`) |
 
 ## Bestanden
 
@@ -50,7 +62,10 @@ Om te testen kun je achter het adres zetten:
 index.html           de pagina; de tekst en de knoppen staan er meteen, zonder 3D
 startpagina.css      de huisstijl van Het leercollectief: Poppins, groen en mint
 startpagina.js       laadt het tafereel pas na de pagina, koppelt de camera aan het scrollen
-diorama.js           het tafereel zelf: de school en het basisschooltje van Leerlichtjes
+diorama.js           het tafereel zelf: de school en het basisschooltje van Leerlichtjes,
+                     met de seizoenen en het weer
+sfeer.js             het uur, de zon, het seizoen en het weer in Dendermonde, en de hemel
+film.js              de film voor de teaser
 plekken.js           de teksten van de kaartjes, met hun link
 logo-leercollectief.svg
 
@@ -60,9 +75,15 @@ en de werelden van Leerlichtjes (zie ../../lager/LEESMIJ.md).
 
 ## Waarom het zo gebouwd is
 
-- **Geen externe verbindingen.** three.js en Poppins staan in de map zelf. De
-  belofte dat de site niets naar een andere server stuurt, blijft zo kloppen.
-- **Licht om te laden.** De 3D-bundel weegt gezipt 140 kB, de eigen code 37 kB.
+- **Geen externe verbindingen, op één na.** three.js en Poppins staan in de map
+  zelf, en het uur en het seizoen rekent `sfeer.js` zelf uit. Alleen de
+  zaalmodus haalt het weer op bij Open-Meteo, een gratis weerdienst zonder
+  account. Daarbij gaan alleen de coördinaten van Dendermonde mee, zonder
+  cookies of verwijzer. Een gewone bezoeker van de voorpagina stuurt dus niets
+  naar een andere server. Open-Meteo vraagt een bronvermelding: die staat in
+  het weerbordje. Lukt het ophalen niet, dan blijft het bij uur en seizoen.
+- **Licht om te laden.** De 3D-bundel weegt gezipt 140 kB, de eigen code 47 kB
+  (sinds de seizoenen en het weer; de film laadt alleen met `?film`).
   Alles in het tafereel wordt in code gemaakt; er zijn geen 3D-bestanden. De pagina toont
   eerst de tekst en een vlakke schets, en haalt de 3D-code pas op als de rest
   er staat.

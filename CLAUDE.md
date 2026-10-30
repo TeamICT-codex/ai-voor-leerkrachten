@@ -70,7 +70,19 @@ gedeeld/            wat alles deelt: Poppins (fonts/), het logo, en de 3D-motor
                     (diorama-kern.js bovenop een uitgedunde bundel van three.js)
 lager/              Leerlichtjes, het aanbod voor het lager: één 3D-wereld per graad
                     (zie lager/LEESMIJ.md en lager/TESTLIJST.md)
+teaser/             de promofilm van een halve minuut: opname.py neemt de filmmodus
+                    van de voorpagina beeld per beeld op, muziek.py rekent het
+                    deuntje uit (zie teaser/LEESMIJ.md)
 ```
+
+**De sfeer op de voorpagina.** Dag en nacht volgen het uur in Dendermonde en
+de seizoenen de datum (`voorpagina/sfeer.js`). Dat rekent de pagina zelf uit.
+Alleen de zaalmodus haalt het weer op bij Open-Meteo, met enkel de coördinaten
+van Dendermonde. Zo stuurt een gewone bezoeker niets naar een andere server.
+Hou dat zo, en zet nooit een weerverzoek buiten de zaalmodus. De motor in
+`gedeeld/diorama-kern.js` draagt ook de werelden van Leerlichtjes. Elke
+uitbreiding daar staat standaard uit, en na een wijziging test je de drie
+werelden mee.
 
 De app draait in `leeromgeving/index.html`, maar haar code staat nog altijd in
 `js/` en `css/` in de root. Een link in de inhoud naar iets buiten de app

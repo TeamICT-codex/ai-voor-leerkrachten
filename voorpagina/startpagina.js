@@ -1,8 +1,11 @@
 // De startpagina: laadt het tafereel pas als de tekst al leesbaar is, koppelt
 // de camera aan wat je aan het lezen bent, en valt terug op de vlakke schets
 // als het toestel geen 3D kan of databesparing vraagt. Daarnaast: de spelden
-// bij de aanklikbare plekken, het uitlegkaartje, de avondknop en de zaalmodus.
+// bij de aanklikbare plekken, het uitlegkaartje, de avondknop en de zaalmodus,
+// en de sfeer: dag en nacht volgens het uur in Dendermonde, het seizoen, en in de
+// zaalmodus ook het weer van vandaag.
 import { PLEKKEN, KAMERS } from './plekken.js';
+import { zonnehoogte, lichtVanZon, seizoenOp, klokInDendermonde, haalWeer, weerZin, TIJDREIS, TIJDREIS_DUUR, sleutelwaarden, tekenLucht } from './sfeer.js';
 
 const podium = document.querySelector('.podium');
 const canvas = podium.querySelector('.tafereel');
@@ -76,6 +79,8 @@ async function laadTafereel() {
     for (const id of inTafereel) if (!pinnen[id]) console.warn('Voorwerp zonder tekst in plekken.js:', id);
 
     podium.classList.add('klaar');
+    pasSfeerToe({ direct: true });
+    if (!stil) requestAnimationFrame(hemelLus);
     if (vraag.has('debug')) window.dio = dio;
     if (!stil && !zwak) podium.classList.add('rijk');
     hint.textContent = aanraak
@@ -195,23 +200,121 @@ kaart.querySelector('.uitleg-sluit').addEventListener('click', () => sluitPlek()
 kaartDelen.vorige.addEventListener('click', () => stap(-1));
 kaartDelen.volgende.addEventListener('click', () => stap(1));
 
-// ── dag en avond ──
+// ── de sfeer: dag en nacht, het seizoen en het weer ──
+// Het licht volgt het uur in Dendermonde en het seizoen de datum. De avondknop
+// wint het van de klok tot je de pagina opnieuw laadt.
+const luchtDoek = podium.querySelector('.lucht-doek');
+const luchtCtx = luchtDoek.getContext('2d');
 const avondKnop = podium.querySelector('.avond-knop');
+const weerbord = podium.querySelector('.weerbord');
+let avondKeuze = null;  // null: volg de klok; true of false: zelf gekozen
+let weerNu = null;      // het weer van daarnet, enkel in de zaalmodus
+let tijdreis = null;    // { start } terwijl een tijdreis loopt
+const RUSTIG_WEER = { regen: 0, sneeuw: 0, mist: 0, onweer: 0, wind: 0.15 };
+
+function tekenHemel(licht) {
+  const r = podium.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio || 1, 1.5);
+  const b = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
+  if (luchtDoek.width !== b || luchtDoek.height !== h) { luchtDoek.width = b; luchtDoek.height = h; }
+  tekenLucht(luchtCtx, b, h, licht);
+  podium.classList.toggle('nacht', licht.nacht > 0.5);
+}
+function lichtNu() { return { ...dio.licht(), mist: dio.weerNu?.().mist ?? 0 }; }
+// De motor laat het licht zacht overlopen; de hemel volgt beeld per beeld, en
+// tekent alleen opnieuw als er iets veranderd is.
+let hemelHandtekening = '';
+function hemelLus() {
+  if (dio && !document.hidden) {
+    const licht = lichtNu();
+    const h = [licht.nacht, licht.schemer, licht.bewolking, licht.mist, licht.flits].map(x => x.toFixed(3)).join('|');
+    if (h !== hemelHandtekening) { hemelHandtekening = h; tekenHemel(licht); }
+  }
+  requestAnimationFrame(hemelLus);
+}
+new ResizeObserver(() => { hemelHandtekening = ''; if (stil && dio) tekenHemel(lichtNu()); }).observe(podium);
+
+function zetAvondKnop(avond) {
+  avondKnop.setAttribute('aria-pressed', String(avond));
+  avondKnop.querySelector('.avond-tekst').textContent = avond ? 'Dag' : 'Avond';
+}
+function pasSfeerToe({ direct = false } = {}) {
+  if (!dio || tijdreis) return;
+  const licht = lichtVanZon(zonnehoogte(new Date()));
+  if (avondKeuze != null) { licht.nacht = avondKeuze ? 1 : 0; licht.schemer = 0; }
+  dio.sfeer({ ...licht, bewolking: weerNu ? weerNu.bewolking : 0.1 }, { direct });
+  dio.weer({ ...(weerNu ? weerNu.weer : RUSTIG_WEER), sneeuwlaag: null }, { direct });
+  dio.seizoen(seizoenOp(), { direct });
+  zetAvondKnop(licht.nacht > 0.5);
+  if (stil) { dio.herteken(); tekenHemel(lichtNu()); }
+}
 avondKnop.addEventListener('click', () => {
-  const aan = avondKnop.getAttribute('aria-pressed') !== 'true';
-  avondKnop.setAttribute('aria-pressed', String(aan));
-  avondKnop.querySelector('.avond-tekst').textContent = aan ? 'Dag' : 'Avond';
-  podium.classList.toggle('nacht', aan);
-  dio?.avond(aan);
+  avondKeuze = avondKnop.getAttribute('aria-pressed') !== 'true';
+  pasSfeerToe();
 });
+// Elke vijf minuten bijwerken: de zon schuift traag genoeg.
+setInterval(() => { if (!document.body.classList.contains('zaal')) pasSfeerToe(); }, 5 * 60e3);
 
 // ── zaalmodus voor de beamer ──
 const adres = new URL('./', location.href);
 podium.querySelector('.zaal-adres').textContent = (adres.host + adres.pathname).replace(/\/$/, '');
+const wekkers = [];
+function toonWeerbord() {
+  weerbord.querySelector('.weer-klok').textContent = `Dendermonde · ${klokInDendermonde()}`;
+  weerbord.querySelector('.weer-meting').textContent = tijdreis ? 'Een jaar in een halve minuut' : weerZin(weerNu);
+  weerbord.querySelector('.weer-bron').hidden = !weerNu || !!tijdreis;
+}
+async function werkWeerBij() {
+  const w = await haalWeer();
+  if (!document.body.classList.contains('zaal')) return;
+  weerNu = w;
+  toonWeerbord();
+  pasSfeerToe();
+}
+// Een tijdreis: een jaar in een halve minuut, om de vier minuten, zodat er op de
+// beamer altijd iets beweegt terwijl de zaal binnenloopt. Daarna terug naar nu.
+function startTijdreis() {
+  if (stil || !dio || tijdreis) return;
+  tijdreis = { start: performance.now() };
+  toonWeerbord();
+  requestAnimationFrame(tijdreisStap);
+}
+function stopTijdreis() {
+  if (!tijdreis) return;
+  tijdreis = null;
+  toonWeerbord();
+  pasSfeerToe();
+}
+function tijdreisStap(nu) {
+  if (!tijdreis) return;
+  const t = (nu - tijdreis.start) / 1000;
+  if (t > TIJDREIS_DUUR) { stopTijdreis(); return; }
+  const v = sleutelwaarden(TIJDREIS, t);
+  dio.sfeer({ nacht: v.nacht, schemer: v.schemer, bewolking: v.bewolking });
+  dio.weer({ regen: v.regen, sneeuw: v.sneeuw, mist: v.mist, wind: v.wind, onweer: v.onweer, sneeuwlaag: v.sneeuwlaag });
+  dio.seizoen(v.seizoen % 4);
+  requestAnimationFrame(tijdreisStap);
+}
 function zetZaal(aan) {
   document.body.classList.toggle('zaal', aan);
   dio?.zaal(aan);
-  if (!aan) { huidige = null; bepaalFocus(); }
+  while (wekkers.length) clearInterval(wekkers.pop());
+  if (aan) {
+    toonWeerbord();
+    werkWeerBij();
+    wekkers.push(setInterval(werkWeerBij, 15 * 60e3));
+    wekkers.push(setInterval(() => { toonWeerbord(); pasSfeerToe(); }, 60e3));
+    if (!stil) {
+      wekkers.push(setTimeout(startTijdreis, 60e3));
+      wekkers.push(setInterval(startTijdreis, 4 * 60e3));
+    }
+  } else {
+    // Buiten de zaal geen weer meer: dan haalt de pagina ook niets meer op.
+    weerNu = null;
+    stopTijdreis();
+    pasSfeerToe();
+    huidige = null; bepaalFocus();
+  }
 }
 document.querySelector('.zaal-knop').addEventListener('click', async () => {
   zetZaal(true);
@@ -239,7 +342,10 @@ addEventListener('keydown', e => {
 // ── starten ──
 bepaalFocus();
 requestAnimationFrame(() => podium.classList.add('dag'));
-if (vraag.has('schets') || !kanWebGL2()) {
+if (vraag.has('film') && kanWebGL2()) {
+  // De filmmodus voor de teaser: zie film.js.
+  import('./film.js').then(m => m.draaiFilm({ opname: vraag.has('opname'), formaat: vraag.get('film') || 'breed' }));
+} else if (vraag.has('schets') || !kanWebGL2()) {
   podium.classList.add('zonder-3d');
 } else if (spaarstand) {
   podium.classList.add('zonder-3d');
