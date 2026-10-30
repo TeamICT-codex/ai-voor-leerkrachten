@@ -114,6 +114,9 @@ a { color: var(--groen); }
 .label::after { content: '→'; color: var(--groen); margin-left: .1rem; }
 .podium.klaar .label { opacity: 1; }
 .podium.klaar .label.weg { opacity: 0; pointer-events: none; }
+/* Zolang het tafereel er niet staat (laden, of de schets zonder 3D), zijn de
+   labels onzichtbaar: dan mogen ze ook geen focus krijgen met Tab. */
+.podium:not(.klaar) .labels { visibility: hidden; }
 .label:hover, .label.actief { background: var(--mint-zacht); box-shadow: 0 4px 18px rgba(13, 74, 27, .26); }
 .label.gekozen { background: var(--groen); color: var(--wit); }
 .label.gekozen::after { color: var(--wit); }
