@@ -44,6 +44,8 @@ export const MODULES_BELEID = [
         id: 'waar-het-over-gaat',
         titel: 'Waar het eigenlijk over gaat',
         minuten: 10,
+        intro: 'Je ontdekt waarom het meeste wat je met AI wil doen gewoon mag, en hoe je herkent wat gevoelig ligt.',
+        onthoud: 'Wat je niet op het prikbord in de leraarskamer zou hangen, zet je niet zomaar in een AI-assistent. En een naam weghalen maakt iets nog niet anoniem.',
         blokken: [
           {
             type: 'tekst',
@@ -81,6 +83,8 @@ export const MODULES_BELEID = [
         id: 'wie-beslist-wat',
         titel: 'Wie beslist wat',
         minuten: 25,
+        intro: 'Je leert wat jij beslist, wat de school beslist, bij wie je terechtkan, en toetst je eigen geval aan vier vragen.',
+        onthoud: 'Twijfel je, vraag het dan na in plaats van zelf te beslissen. Liep er iets mis, meld het nog diezelfde dag bij je aanspreekpunt informatieveiligheid of je directie.',
         blokken: [
           {
             type: 'tekst',
@@ -179,6 +183,8 @@ export const MODULES_BELEID = [
         id: 'gdpr-mensentaal',
         titel: 'GDPR: gegevens van mensen',
         minuten: 15,
+        intro: 'Je leert wat de privacywetgeving (GDPR) echt zegt: wie verantwoordelijk is, wanneer toestemming telt en wat je doet bij een datalek.',
+        onthoud: 'De beste bescherming is weglaten: niet "Lotte uit 4A", wel "een leerling van het vierde jaar". En in een tool zonder contract met je school blijven persoonsgegevens eruit.',
         blokken: [
           {
             type: 'tekst',
@@ -227,7 +233,7 @@ export const MODULES_BELEID = [
           {
             type: 'opdracht',
             titel: 'Herschrijf je laatste prompt',
-            inhoud: 'De beste bescherming is weglaten: negen van de tien keer is <em>"een leerling van het tweede jaar"</em> even bruikbaar als <em>"Lotte uit 4A"</em>. Vijf minuten, en je hebt er geen tool voor nodig.',
+            inhoud: 'De beste bescherming is weglaten: negen van de tien keer is <em>"een leerling van het vierde jaar"</em> even bruikbaar als <em>"Lotte uit 4A"</em>. Vijf minuten, en je hebt er geen tool voor nodig.',
             stappen: [
               'Neem de laatste prompt waarin iets over een leerling, een ouder of een collega stond, of de prompt die je deze week wil typen.',
               'Streep alles weg wat naar één persoon wijst: naam, klas, een leerjaar in combinatie met een kenmerk, de thuissituatie, een diagnose.',
@@ -241,6 +247,8 @@ export const MODULES_BELEID = [
         id: 'ai-verordening',
         titel: 'De Europese AI-verordening',
         minuten: 10,
+        intro: 'Je ziet wat de Europese AI-verordening vandaag al van je school vraagt, wat verboden is en wat pas in 2027 komt.',
+        onthoud: 'AI die jou helpt voorbereiden is geen hoog risico, AI die mee beslist over een leerling wel. De zware regels daarvoor zijn opgeschoven naar december 2027, niet geschrapt.',
         blokken: [
           {
             type: 'tekst',
@@ -308,6 +316,8 @@ export const MODULES_BELEID = [
         id: 'auteursrecht-en-delen',
         titel: 'Auteursrecht en wat je deelt',
         minuten: 10,
+        intro: 'Je leert wat je met werk van anderen mag doen in je klas, op Smartschool, op KlasCement en in een AI-assistent.',
+        onthoud: 'Smartschool is je klaslokaal; het open internet, KlasCement en je AI-assistent zijn dat niet. Zet onder alles wat je overneemt de auteur en de bron.',
         blokken: [
           {
             type: 'tekst',
@@ -376,6 +386,8 @@ export const MODULES_BELEID = [
         id: 'leerlingdata-minderjarigen',
         titel: 'Leerlingdata en minderjarigen',
         minuten: 15,
+        intro: 'Je leert wat je school moet regelen rond gegevens van minderjarigen, en wat er nodig is voordat leerlingen een eigen account krijgen.',
+        onthoud: 'Er bestaat geen wettelijke minimumleeftijd voor AI: wat leerlingen mogen, hangt af van de gebruiksvoorwaarden van de tool en de afspraken van je school. Zorggegevens blijven buiten algemene AI-toepassingen.',
         blokken: [
           {
             type: 'tekst',
@@ -423,6 +435,8 @@ export const MODULES_BELEID = [
         id: 'personeelsdata',
         titel: 'Personeelsdata, het vergeten stuk',
         minuten: 10,
+        intro: 'Je overloopt wat wel en niet kan met AI bij sollicitaties, evaluaties en afwezigheden, en welk overleg je vooraf voert.',
+        onthoud: 'Een handtekening van je personeel telt alleen als nee zeggen echt kan. Een AI-assistent helpt hoogstens met de vorm van een evaluatie: zonder naam of herkenbare details, in een tool met schoolafspraken. De vaststellingen doe je zelf.',
         blokken: [
           {
             type: 'tekst',
@@ -479,6 +493,8 @@ export const MODULES_BELEID = [
         id: 'afsprakenkader',
         titel: 'Van losse regels naar een afsprakenkader',
         minuten: 25,
+        intro: 'Je zet op een rij wat in een AI-afsprakenkader hoort, en maakt er in één vergadering een eerste versie van.',
+        onthoud: 'Schrijf bij elk verbod meteen wat je dan wél doet, anders onthoudt niemand het. En zet er namen en een herzieningsdatum bij.',
         blokken: [
           {
             type: 'tekst',
@@ -496,7 +512,7 @@ export const MODULES_BELEID = [
               '<strong>Wie beslist wat.</strong> Een leerkracht kiest haar werkwijze, de school kiest de toepassingen, het bestuur draagt de verantwoordelijkheid. Zet er namen bij.',
               '<strong>Hoe je een nieuwe tool binnenhaalt.</strong> Eén beoordelingsstap vóór ingebruikname: wie ze doet, en waar het antwoord landt.',
               '<strong>Wat leerlingen mogen.</strong> Per leerjaar of graad, of ze eigen accounts krijgen, en hoe je ouders informeert — zie de eerste les.',
-              '<strong>Wat er met zelfgebouwde dingen gebeurt.</strong> Dit vergeet zowat elke school. Het kader hieronder geeft je de grens in één zin.',
+              '<strong>Wat er met zelfgebouwde dingen gebeurt.</strong> Dit vergeet zowat elke school, terwijl er vandaag al gebouwd wordt, ook in directies. Spreek af dat iedereen bouwt en test met verzonnen gegevens, en dat wie echte gegevens nodig heeft de scholengroep erbij haalt. Het kader hieronder geeft je de grens.',
               '<strong>Wat er gebeurt als het misloopt, en wanneer jullie het herbekijken.</strong> Eén meldpunt, één procedure, een plek voor incidenten, en een datum: zonder herzieningsmoment klopt jullie tekst over twee jaar niet meer en geldt ze toch nog.',
             ],
           },
@@ -504,7 +520,7 @@ export const MODULES_BELEID = [
             type: 'kader',
             variant: 'letop',
             titel: 'Zelf bouwen voelt veiliger dan het is',
-            inhoud: 'Een leerkracht die met AI een oefentool bouwt, kiest gevoelsmatig de veilige weg: geen leverancier, geen gegevens die het huis verlaten. Twee bedenkingen. Zo\'n tool draait zelden op één laptop: er zit bijna altijd een hostingdienst in de keten. En zit er in het eindproduct zélf nog AI die iets bedenkt, dan is jullie school niet enkel gebruiker maar ook maker, en komt het zware deel bij jullie; software die je mét AI liet bouwen maar die daarna gewoon rekent, valt daarbuiten. Zet dus geen verbod maar een grens: bouwen mag, testen met verzonnen gegevens, en niets dat over een leerling beslist — geen punten, geen toelating, geen oefenpad, geen toezicht tijdens een toets.',
+            inhoud: 'Wie met AI zelf iets bouwt — een leerkracht een oefentool, een directeur een vervangingsrooster of een afwezigheidsoverzicht — kiest gevoelsmatig de veilige weg: geen leverancier, geen gegevens die het huis verlaten. Twee bedenkingen. Zo\'n tool draait zelden op één laptop: er zit bijna altijd een hostingdienst in de keten, een dienst die hem online zet en de gegevens bewaart. En zit er in het eindproduct zélf nog AI die iets bedenkt, dan is jullie school niet enkel gebruiker maar ook maker, en komt het zware deel bij jullie; software die je mét AI liet bouwen maar die daarna gewoon rekent, valt daarbuiten. Zet dus geen verbod maar een grens: bouwen mag, testen met verzonnen gegevens, niets dat over een leerling of collega beslist — geen punten toekennen, geen toelating, geen oefenpad, geen toezicht tijdens een toets, niet wie welke taak krijgt en geen beoordeling van personeel — en zodra er echte gegevens in moeten, bouw je verder samen met de scholengroep. De module <em>Zelf bouwen met schoolgegevens</em> werkt dat uit.',
           },
           {
             type: 'kader',
@@ -544,6 +560,8 @@ export const MODULES_BELEID = [
         id: 'dit-kader-geven',
         titel: 'Dit kader geven aan je team',
         minuten: 15,
+        intro: 'Je leert hoe je dit kader aan je team geeft, in een halfuur tot anderhalf uur, en wat je nooit overslaat.',
+        onthoud: 'Zeg vroeg hoe je meldt dat er iets misliep, en dat zorggegevens eruit blijven. Weet je iets niet, leg het voor aan de DPO en kom erop terug.',
         verdieping: true,
         blokken: [
           {
@@ -574,11 +592,187 @@ export const MODULES_BELEID = [
             type: 'kader',
             variant: 'tip',
             titel: 'Zet je sessie in elkaar met de sessiebouwer',
-            inhoud: 'Zet begeleidersmodus aan en open de sessiebouwer op <code>#/sessie</code>. Je kiest daar hele modules van dit spoor of losse blokken uit een bestaand draaiboek, je zet er een onthaal, een pauze en een afronding bij, en je geeft elk onderdeel het aantal minuten dat jij echt hebt. De app rekent de kloktijden uit vanaf je startuur en maakt er een deelnemersbundel bij met de prompts en opdrachten van wat je koos. Je sessie zit in de link: mail hem naar jezelf en naar wie meekijkt, want zonder die link ben je hem kwijt. De begeleidersgids werkt dat uit onder <em>Een kortere sessie geven</em>.',
+            inhoud: 'Open de sessiebouwer op <code>#/sessie</code>; begeleidersmodus heb je daar niet voor nodig. Je kiest daar hele modules van dit spoor of losse blokken uit een bestaand draaiboek, je zet er een onthaal, een pauze en een afronding bij, en je geeft elk onderdeel het aantal minuten dat jij echt hebt. De app rekent de kloktijden uit vanaf je startuur en maakt er een deelnemersbundel bij met de prompts en opdrachten van wat je koos. Je sessie zit in de link: mail hem naar jezelf en naar wie meekijkt. Dezelfde browser onthoudt alleen je laatste sessie, en op een andere laptop staat er niets klaar. De begeleidersgids werkt dat uit onder <em>Een kortere sessie geven</em>.',
           },
           {
             type: 'tekst',
             inhoud: 'Stuur de link van deze leeromgeving diezelfde dag door, met één zin over wat je niet behandelde. Wie met een concrete twijfel blijft zitten, leest zelf verder in <em>De wet in mensentaal</em>. En noteer één datum voor je de zaal verlaat: wanneer komen jullie hierop terug? Zonder die datum blijft het bij een goed gesprek.',
+          },
+        ],
+      },
+    ],
+  },
+  // Voor directies en beleidsmedewerkers die zelf tools bouwen met AI, vaak
+  // met gegevens van leerlingen of personeel. Toon: de hand uitsteken, niet
+  // afremmen. Het gebeurt al, en dat zegt iets goeds; de scholengroep staat er
+  // als partner, niet als poortwachter. Juridisch zegt deze module niets wat
+  // de drie modules hierboven niet al zeggen; ze verwijst ernaar.
+  {
+    id: 'beleid-zelfbouw',
+    icoon: '🛠️',
+    titel: 'Zelf bouwen met schoolgegevens',
+    ondertitel: 'Wat je met AI voor je school bouwt, welke gegevens erin mogen, en hoe je samen met je scholengroep van een handige proefversie naar een echte schooltool gaat.',
+    niveau: 'Essentieel',
+    doelen: [
+      'Je herkent welke gegevens je zelfgebouwde tool raakt, en in welke van drie zones hij daardoor valt.',
+      'Je bouwt en test met verzonnen gegevens, en je weet waarom een echte export die je tijdens het bouwen in je AI-assistent plakt al telt.',
+      'Je weet waarom en wanneer je je scholengroep erbij haalt, en je stapt naar dat gesprek met een projectfiche van één blad.',
+    ],
+    klaarzetten: [
+      'Eén ding dat je zelf bouwde of wil bouwen, of dat je in je school ziet draaien: een rooster, een overzicht, een rekenblad met een knop eraan. De opdracht achteraan vertrekt daarvan.',
+      'Een lijstje van de gegevens die erin zitten of erin zouden moeten. De namen van de kolommen volstaan; echte rijen heb je voor deze module nergens nodig.',
+      'Wie bij het ICT-team van je scholengroep je aanspreekpunt is, via wie de DPO loopt, en wie in je school het aanspreekpunt informatieveiligheid is.',
+      'Wil je de prompt uitproberen, hou dan een AI-assistent bij de hand op je scherm.',
+    ],
+    lessen: [
+      {
+        id: 'wat-je-bouwt',
+        titel: 'Wat je bouwt, en met welke gegevens',
+        minuten: 13,
+        intro: 'Je zet wat je bouwt in een van drie zones, en ontdekt waarom je bouwt en test met verzonnen gegevens, niet met een echte export.',
+        onthoud: 'Bouw en test met verzonnen gegevens, ook in je AI-assistent. Heeft je tool echte gegevens nodig, bouw dan verder met je scholengroep; zorg-, CLB- en gezondheidsgegevens blijven in de schoolsystemen.',
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'Ergens in je school draait vandaag een tool die iemand op een avond zelf in elkaar zette. Een toezichtsrooster dat zichzelf invult, een overzicht van de afwezigheden per klas, een rekenblad dat toont hoeveel plaatsen er volgend schooljaar nog vrij zijn. Met een AI-assistent kan dat zonder dat je kan programmeren: je beschrijft in gewone taal wat je wil, en de assistent schrijft de code. Dat heet <strong>vibe coden</strong>, en het spoor <em>Vibe coden</em> leert het je stap voor stap. Dat het ook in directies gebeurt, zegt iets goeds: er is een echte nood, en iemand die er werk van maakt. Deze module wil dat niet afremmen. Ze helpt je zien welke gegevens je tool raakt, wat je daar zelf mee kan, en wanneer je je scholengroep erbij haalt, zodat een goed idee ook een tool wordt die blijft werken.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Een toezichts- of vervangingsrooster.</strong> Wie staat er op de speelplaats, wie neemt het middagtoezicht, wie springt in als een collega afwezig is? In het lager en het secundair even herkenbaar. Erin zitten namen en uurroosters van collega\'s, en vaak hun afwezigheden.',
+              '<strong>Een afwezigheidsoverzicht.</strong> Per klas of per leerling, om op tijd te zien wie vaak ontbreekt. Dat zijn gegevens van leerlingen, en de reden van een afwezigheid is al snel een gezondheidsgegeven. Let op: in een export van afwezigheden staat die reden er meestal al in, als afwezigheidscode die bijvoorbeeld zegt of iemand ziek was. Laat die kolom weg. Heb je hem echt nodig, dan zit je in de derde zone: breng die nood dan naar je scholengroep.',
+              '<strong>Inschrijvingen en capaciteit.</strong> Hoeveel kleuters stappen er dit schooljaar nog in, hoeveel plaatsen zijn er nog vrij in het eerste jaar? Met aantallen alleen zit er niemand in; met de inschrijvingslijst eronder wel.',
+              '<strong>De voorbereiding van een klassenraad of MDO.</strong> In het secundair de klassenraad, in het lager het MDO (multidisciplinair overleg) of het zorgoverleg: een overzicht per leerling, met punten en opmerkingen. Daar komen punten en zorg samen, en daar ligt de lat het hoogst.',
+              '<strong>De taakbelasting van het personeel.</strong> Wie heeft hoeveel lestijden, toezichten en extra taken? Een eerlijke verdeling is een terechte zorg, en het zijn gegevens over collega\'s die raken aan hoe hun werk verdeeld wordt.',
+              '<strong>Iets bovenop een export uit Smartschool.</strong> Een lijst met leerlingen en klassen, of een export van afwezigheden, met een handig overzicht erbovenop. Ook als dat overzicht zelf geen namen toont, zitten ze in de export eronder.',
+            ],
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Al die voorbeelden zijn nuttig, en bij geen enkel zit het moeilijke deel in de code. De vraag die telt, is dezelfde als in de rest van dit spoor: zit er iets van of over een herkenbare persoon in? Alleen stel je ze hier twee keer: één keer over je tool zoals hij straks werkt, en één keer over het bouwen zelf. Eerst de tool. Naargelang de gegevens die hij nodig heeft, valt hij in een van drie zones. Los van de zone geldt één grens: bouw alles wat <em>jou</em> helpt, maar niets dat in jouw plaats beslist over een leerling of collega — een attest, een oriëntering, wie een plaats krijgt, wie welke taak krijgt. Een rooster dat een voorstel berekent volgens regels die jij koos, en dat jij nog aanpast waar nodig, is gewone software; een tool waarin zelf weer een AI oordeelt, is iets anders. Waarom dat verschil telt, staat in het kader <em>Zelf bouwen voelt veiliger dan het is</em>, in de module <em>Voor directies en schoolbeleid</em>.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Dit kan.</strong> Alles waar geen echte persoon in zit. Een sjabloon voor het toezichtsrooster met verzonnen namen, een rekenblad dat uit aantallen per leerjaar de capaciteit berekent, een planner voor de opendeurdag, een vaste structuur voor de agenda van de klassenraad. En elke proefversie, van welk idee ook, zolang ze met verzonnen gegevens werkt. Bouw, test en toon het gerust aan je collega\'s: de privacywetgeving houdt je hier niet tegen.',
+              '<strong>Dit doe je samen met je scholengroep.</strong> Zodra je tool echte gegevens van leerlingen of collega\'s nodig heeft om te werken: namen en uurroosters, wie wanneer afwezig is (zonder de code die zegt waarom), inschrijvingen, punten, de taakverdeling per personeelslid, een export uit Smartschool. Dat kan, maar niet op eigen houtje. Zo\'n tool heeft een veilige plek nodig, afspraken met de dienst waar hij draait en iemand die hem mee beheert — en precies daarbij kan je scholengroep helpen. Verdeelt je tool werk onder collega\'s, breng hem dan ook op het overleg met het personeel.',
+              '<strong>Dit hoort in de schoolsystemen.</strong> Zorg-, CLB- en gezondheidsgegevens, verslagen van het zorgoverleg of het MDO, de reden van een afwezigheid, de thuissituatie van een leerling. Die horen in de systemen die daarvoor gemaakt en beveiligd zijn, met de afspraken die erbij horen: het leerlingvolgsysteem van de school, en voor het CLB zijn eigen dossier. Daar bouw je niets naast. Heb je een nood die het schoolsysteem niet oplost, breng die nood dan naar je scholengroep. Soms kan het systeem het al en weet niemand het, soms kan de scholengroep het bij de leverancier vragen, en soms blijkt dat meer scholen met dezelfde vraag zitten.',
+            ],
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Dan het bouwen zelf, en de valkuil die bijna iedereen mist. Je werkt aan een afwezigheidsoverzicht, en om te zien of de berekening klopt, plak je de export van vorige maand in je AI-assistent. Even maar, om te testen. Op dat moment zijn die gegevens al vertrokken naar de dienst achter je assistent. Dat is al een <strong>verwerking van persoonsgegevens</strong> — zo noemt de privacywetgeving alles wat je met gegevens over mensen doet, ook kopiëren en doorsturen — en zonder afspraken tussen je school en die dienst horen ze daar niet. Waar je tool later draait, verandert daar niets meer aan. Het goede nieuws: je hebt die echte rijen niet nodig. Wat werkt met dertig verzonnen leerlingen in dezelfde kolommen, werkt meestal ook met de echte. En wat dan nog hapert, los je op met het ICT-team, op de plek waar de echte gegevens wél mogen staan.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Zo bouw je met verzonnen gegevens',
+            inhoud: 'Plak enkel de <strong>kopregel</strong> van je export: de namen van de kolommen, zonder één rij eronder. Vraag dan iets als <em>"Maak dertig verzonnen rijen in precies deze kolommen, met duidelijk verzonnen namen, en zet er een paar lastige gevallen tussen: een lege cel, twee leerlingen met dezelfde naam, iemand die halverwege van klas wisselde."</em> Zo test je je tool zelfs beter dan met de echte export, want je kiest zelf de gevallen waar het misloopt. Ook met een schoolaccount waar afspraken achter zitten, heb je die echte rijen om te bouwen niet nodig. En gebeurde het al? Meld het dan nog diezelfde dag bij je aanspreekpunt informatieveiligheid, zoals elke andere vergissing met gegevens, en wis het gesprek niet voor zij zeggen dat het mag. Jij hoeft niet in te schatten hoe erg het is; dat bekijken zij, met de DPO.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Zonder namen is nog niet anoniem',
+            inhoud: 'Een overzicht zonder namen voelt veilig, maar de toets uit <em>Het kader in het kort</em> blijft dezelfde: zou een collega meteen weten over wie het gaat? In een school is dat sneller zo dan je denkt, omdat de groepen klein zijn. Een afwezigheidsoverzicht per klas zonder namen, met een klas van vijf leerlingen. Een overzicht van de taakbelasting per vakwerkgroep, met een vakwerkgroep van twee. In een kleine basisschool is "de leerkracht van het tweede leerjaar" gewoon één persoon. En staat er per rij nog altijd één leerling of collega, met een nummer in plaats van een naam, en kan jij met de originele lijst terugvinden wie het is? Dan blijven het persoonsgegevens: beter afgeschermd, maar niet anoniem. Wat wel helpt: kleine groepen samennemen, per graad of voor de hele school, en kleine aantallen niet apart tonen. Twijfel je, dan is dat net een vraag voor de DPO.',
+          },
+        ],
+      },
+      {
+        id: 'samen-met-je-scholengroep',
+        titel: 'Van proefversie naar schooltool: samen met je scholengroep',
+        minuten: 12,
+        intro: 'Je ontdekt waarom je je scholengroep tijdig betrekt, wat die kan bieden, en hoe je het gesprek voorbereidt met een projectfiche van één blad.',
+        onthoud: 'Betrek je scholengroep vóór er echte gegevens in je tool gaan. Draait er al iets met echte gegevens, plan dan een gesprek met het ICT-team en de DPO; staat het op een open link of zitten er zorggegevens in, sluit het eerst af en meld het nog dezelfde dag.',
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'Je hebt een proefversie die werkt, met verzonnen gegevens, en je collega\'s willen er morgen mee aan de slag. Dan komt de stap die het verschil maakt tussen een handig bestand op jouw laptop en een tool waar de school op kan bouwen: de echte gegevens erin. Die stap zet je niet alleen, maar samen met je scholengroep — niet om je idee af te remmen, wel om het verder te helpen. Hoe vroeger je aanklopt, hoe minder je achteraf moet ombouwen. Vier redenen waarom het loont, en geen ervan is een formaliteit.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Het schoolbestuur is verantwoordelijk voor de gegevens.</strong> In het GO! is dat de scholengroep, elders de vzw of het gemeente- of provinciebestuur. Werkt een tool met gegevens van leerlingen of collega\'s, dan is het juridisch het bestuur dat die gegevens gebruikt, ook al bouwde jij hem op een avond thuis. Die verantwoordelijkheid kan het alleen dragen als het weet dat de tool bestaat. De DPO adviseert daarbij, het bestuur beslist en tekent; meer daarover in <em>De wet in mensentaal</em>.',
+              '<strong>Een tool met echte gegevens heeft een veilige plek nodig.</strong> Hij draait zelden alleen op jouw laptop: meestal zit er een dienst tussen die hem online zet en de gegevens bewaart. Met die dienst horen schriftelijke afspraken te bestaan over wat hij met jullie gegevens mag doen — een <strong>verwerkersovereenkomst</strong> — en die sluit het bestuur af, niet jij. Kies ook bij voorkeur een server in de Europese Unie. Daarbuiten kan het wettelijk ook, maar dan gaat de school eerst na of die doorgifte gedekt is: omdat de Europese Commissie het land of de regeling als voldoende veilig erkend heeft, of door bijkomende afspraken. Die vraag stelt zich ook bij een Europese server van een dienst van buiten Europa, en ze is voor de DPO, niet voor jou.',
+              '<strong>Iemand moet hem onderhouden.</strong> Een export die van vorm verandert, een nieuw schooljaar met nieuwe klassen, een fout die pas in juni opduikt. En wat als jij van school verandert of een tijd uitvalt? Een tool die alleen jij kan openen, valt dan stil, met de gegevens erin. Samen met het ICT-team zorg je dat iemand mee beheert, en dat over twee jaar nog iemand weet waar alles staat.',
+              '<strong>Wat je in je functie voor de school bouwt, kan de school blijven gebruiken.</strong> Bij lesmateriaal ben je in principe zelf de auteur, maar voor software ligt het omgekeerd: schrijf je een programma bij de uitoefening van je taak of in opdracht van je schoolbestuur, dan gaan de rechten om het te gebruiken, aan te passen en te verspreiden automatisch naar het bestuur, tenzij daar iets anders over is afgesproken. Waar en wanneer je het schreef, beslist dat niet op zich; wel of het bij je opdracht hoort. En code die je AI-assistent zelf schreef, heeft waarschijnlijk helemaal geen auteur. Zie de les <em>Auteursrecht en wat je deelt</em>. Voor een tool die je als directie voor de werking van je school bouwt, is dat eerder een geruststelling dan een verlies: de school mag hem verder gebruiken, laten aanpassen en delen, ook als jij er niet meer bent.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Waarmee je scholengroep je kan helpen',
+            inhoud: 'Wie aanklopt met een werkende proefversie, komt niet met een probleem maar met een voorstel. Je scholengroep kan op vier manieren meehelpen. <strong>Meedenken vóór je verder bouwt</strong>: welke gegevens heb je echt nodig, en bestaat er al iets dat dit doet? <strong>Technische en pedagogische expertise</strong>: iemand die naar de opbouw en de beveiliging kijkt, en iemand die meedenkt of het je leerlingen en collega\'s echt vooruithelpt. <strong>Een veilige plek</strong> om de tool te laten draaien, met de afspraken die erbij horen. En <strong>wat goed werkt beschikbaar maken voor meer dan één school</strong>: de nood die jij voelt, voelt de directeur van de school verderop waarschijnlijk ook. Hoe dat bij jullie concreet loopt, verschilt per scholengroep; vraag het na bij het ICT-team.',
+          },
+          {
+            type: 'kader',
+            variant: 'privacy',
+            titel: 'Draait er al iets met echte gegevens?',
+            inhoud: 'Dan ben je niet de enige, en het zegt vooral dat je een echte nood hebt opgelost. Wel is dit het moment voor een volgende stap. Stilletjes wissen helpt niemand, gewoon doorgaan evenmin. Plan een gesprek met het ICT-team en de DPO van je scholengroep, en bekijk samen hoe het veilig verder kan: waar de tool draait, wie erbij kan, welke gegevens er echt in moeten, en wat er gebeurt met de kopieën die tijdens het bouwen ontstonden. Vaak blijft het idee overeind en verandert vooral de plek waar het draait. Eén uitzondering: staat de tool op een link die iedereen kan openen, of zitten er zorg- of gezondheidsgegevens in, zorg dan eerst dat niemand er nog bij kan, en meld het nog dezelfde dag bij je aanspreekpunt informatieveiligheid. Wis zelf nog niets; zij bekijken met de DPO wat er moet gebeuren.',
+          },
+          {
+            type: 'tekst',
+            inhoud: 'Zo\'n gesprek hoeft niet lang te duren, maar het werkt het best vooraf en met iets op tafel. Breng je proefversie mee, met de verzonnen gegevens erin: een tool die je kan tonen, zegt meer dan drie bladzijden uitleg. En zet op één blad wat het ICT-team en de DPO nodig hebben: wat de tool doet, voor wie, welke gegevens hij gebruikt, waar hij draait, wat je al hebt en wat je vraagt. Je AI-assistent helpt je dat blad op te stellen, zonder één echte naam of rij in je prompt.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Een projectfiche voor het gesprek met je scholengroep',
+            tekst: 'Ik ben [DIRECTEUR, ADJUNCT-DIRECTEUR OF BELEIDSMEDEWERKER] van een Vlaamse [BASISSCHOOL OF SECUNDAIRE SCHOOL] met ongeveer [AANTAL] leerlingen. Ik heb met een AI-assistent zelf een kleine tool gebouwd, en ik wil die bespreken met het ICT-team en de DPO van onze scholengroep, om samen te bekijken hoe hij veilig en duurzaam verder kan. Help me daarvoor een projectfiche van één blad op te stellen.\n\nWat de tool doet: [IN EEN OF TWEE ZINNEN, ZONDER NAMEN].\nVoor wie: [WIE ERMEE WERKT, BIJVOORBEELD HET DIRECTIETEAM OF HET SECRETARIAAT].\nWelke gegevens hij nodig heeft: [ENKEL DE SOORTEN GEGEVENS OF DE NAMEN VAN DE KOLOMMEN, GEEN ECHTE GEGEVENS].\nWaar hij nu draait: [BIJVOORBEELD ENKEL OP MIJN LAPTOP, IN EEN GEDEELDE MAP, OF VIA EEN GRATIS DIENST].\nWat ik al heb: [BIJVOORBEELD EEN WERKENDE DEMO MET VERZONNEN GEGEVENS].\nWat ik van de scholengroep zou willen: [BIJVOORBEELD MEEKIJKEN, EEN VEILIGE PLEK OM HEM TE LATEN DRAAIEN, OF HEM DELEN MET ANDERE SCHOLEN].\n\nSchrijf één blad met zes kopjes: wat de tool doet, voor wie, welke gegevens, waar hij draait, wat er al is, en wat ik vraag. Formuleer onder het laatste kopje drie concrete vragen aan het ICT-team en de DPO.\n\nZet daaronder een korte lijst met wat ik zelf nog niet weet, bijvoorbeeld wie de tool onderhoudt als ik er niet ben of hoelang de gegevens bewaard blijven. Vul niets in wat ik je niet gaf: weet je iets niet, zet er dan een vraagteken.\n\nGewone taal, geen technische termen, korte zinnen, Vlaamse schooltermen.',
+            uitleg: 'Vul de haakjes in met <strong>soorten</strong> gegevens, nooit met de gegevens zelf: "naam, klas, datum van afwezigheid", niet de lijst. De vraagtekens die de assistent laat staan, zijn geen gebrek maar je agenda voor het gesprek: daar kunnen het ICT-team en de DPO je net mee helpen. Lees het blad na voor je het doorstuurt. De assistent kent jullie scholengroep niet, dus wat hij over een concrete dienst of een contract zegt, controleer je zelf.',
+          },
+        ],
+      },
+      {
+        id: 'van-casus-naar-eigen-bouwsel',
+        titel: 'Van casus naar je eigen bouwsel',
+        minuten: 10,
+        intro: 'Je oefent op de vervangingsplanner van een adjunct-directeur, test jezelf met één vraag, en zet daarna je eigen bouwsel in de juiste zone.',
+        onthoud: 'Een goed bouwsel met echte gegevens hoeft niet weg: het krijgt samen met je scholengroep een veilige plek, afspraken en een beheerder. Wat over zorg of gezondheid gaat, ook de reden van een afwezigheid, blijft erbuiten.',
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud: 'Tot hier de principes. Eén casus legt ze naast elkaar, en daarna ben jij aan zet met je eigen bouwsel. De casus werkt het best in een directieteam: lees de situatie, beslis samen wat jullie ervan vinden, en toon pas dan het oordeel.',
+          },
+          {
+            type: 'casus',
+            titel: 'De vervangingsplanner van de adjunct',
+            situatie: 'De adjunct-directeur van een secundaire school met zo\'n negentig personeelsleden is elke ochtend een halfuur kwijt aan vervangingen. Op een avond bouwt ze met een AI-assistent een planner. Om te testen plakt ze de echte uurroosters van alle collega\'s erin, met hun namen. De planner toont bij elke afwezigheid wie een vrij uur heeft, en stelt voor wie die week het minst vervangen heeft. Ze bewaart hem in een gedeelde map van het directieteam, en drie weken later werkt het hele team ermee. Nu vraagt het secretariaat of de reden van een afwezigheid er ook in kan, "dan weten we hoelang het duurt", en wil een directeur van een andere school van de scholengroep hem ook.',
+            oordeel: 'hangt-ervan-af',
+            toelichting: 'Eerst wat goed is: dit lost een echte nood op, en de planner stelt voor in plaats van te beslissen — wie vervangt, kiest de directie nog altijd zelf. Namen en uurroosters van collega\'s zijn persoonsgegevens, maar niet van de strengste soort: dit is de middelste zone, niet de derde. Het kan dus, samen met de scholengroep. Waar het van afhangt, zijn vier dingen. Het testen met de echte roosters in haar AI-assistent is al gebeurd; dat meldt ze nu meteen bij het aanspreekpunt informatieveiligheid, zonder eerst zelf iets te wissen. Dat aanspreekpunt bekijkt met de DPO of er iets moet gebeuren, en voortaan test ze met verzonnen collega\'s. De reden van een afwezigheid blijft erbuiten: dat is al snel een gezondheidsgegeven, en de planner hoeft enkel te weten dat iemand afwezig is en tot wanneer. Omdat de planner werk verdeelt onder collega\'s, brengt ze hem alsnog op het overleg met het personeel, en blijft "het minst vervangen" een regel die zij zelf koos en kan uitleggen. Zou er in de planner zelf een AI bedenken wie aan de beurt is, dan schuift hij op naar wat de Europese AI-verordening hoog risico noemt: niet verboden, wel aan strenge voorwaarden gebonden. En omdat de planner al drie weken met echte roosters draait, stapt ze nu met een projectfiche naar het ICT-team en de DPO van de scholengroep; dat een andere school hem ook wil, maakt dat gesprek alleen maar sterker. Dan krijgt hij één veilige plek, afspraken met de dienst waar hij draait, en iemand die hem onderhoudt als zij er niet meer is.',
+            discussie: 'De adjunct zegt: "het zijn mijn eigen collega\'s, en die kennen elkaars uurrooster toch al." Verandert dat iets aan waar die roosters mogen staan? En wie in jullie school zou haar planner kunnen openen of aanpassen als zij morgen een tijd uitvalt?',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Een directeur bouwt een overzicht van de afwezigheden per klas. Om te zien of de berekening klopt, wil hij de export van vorige maand in zijn AI-assistent plakken. Wat doet hij best?',
+            opties: [
+              {
+                tekst: 'Eerst de kolom met namen wissen: dan is de export anoniem en mag het.',
+                juist: false,
+                feedback: 'Nee. Met de klas en de datums erbij is een leerling in een school vaak nog herkenbaar, zeker in een kleine klas. En hij heeft die echte rijen om te bouwen niet eens nodig.',
+              },
+              {
+                tekst: 'Enkel de kolomnamen plakken en de assistent er verzonnen rijen bij laten maken.',
+                juist: true,
+                feedback: 'Juist. Zo test hij met dezelfde kolommen als de echte export en kiest hij zelf de lastige gevallen, zonder dat er één echt gegeven vertrekt. De echte export komt pas in beeld op de plek die hij samen met zijn scholengroep kiest.',
+              },
+              {
+                tekst: 'Het mag, zolang de afgewerkte tool straks op een veilige plek van de school draait.',
+                juist: false,
+                feedback: 'Die veilige plek is belangrijk, maar ze komt hier te laat: wat hij tijdens het bouwen in zijn assistent plakt, is op dat moment al vertrokken naar de dienst erachter.',
+              },
+            ],
+          },
+          {
+            type: 'opdracht',
+            titel: 'Je eigen bouwsel in de juiste zone',
+            inhoud: 'Neem één ding dat je zelf bouwde of wil bouwen, of iets dat je in je school ziet draaien. Dat kan alleen of met je directieteam. Je eindigt met één zone en één volgende stap, met een datum erbij. Ook "verder bouwen met verzonnen gegevens" is een volwaardige volgende stap.',
+            stappen: [
+              'Schrijf in één zin wat je bouwsel doet en voor wie. Niet "iets voor de vervangingen", wel "een overzicht dat bij elke afwezigheid toont welke collega\'s een vrij uur hebben".',
+              'Som op welke gegevens het nodig heeft om echt te werken, en zet bij elk gegeven of het over een herkenbare persoon gaat. Denk ook aan kleine groepen: een klas van vijf, of de enige leerkracht van een vak.',
+              'Kies de zone. Geen echte persoon: dit kan. Echte gegevens van leerlingen of collega\'s: samen met je scholengroep. Zorg, CLB, gezondheid, de reden van een afwezigheid of de thuissituatie: de schoolsystemen.',
+              'Kijk terug op het bouwen. Plakte je ooit echte gegevens in je AI-assistent? Meld dat nog vandaag bij je aanspreekpunt informatieveiligheid, wis het gesprek niet voor zij zeggen dat het mag, en test voortaan met verzonnen gegevens.',
+              'Schrijf je volgende stap op, met een datum. Eerste zone: verder bouwen met verzonnen gegevens. Tweede zone, of al in gebruik met echte gegevens: een projectfiche met de prompt uit de vorige les en een gesprek met het ICT-team en de DPO van je scholengroep; verdeelt je tool werk onder collega\'s, zet dan ook het overleg met het personeel op je lijst. Derde zone: schrijf de nood op die je wilde oplossen, en breng die naar je scholengroep.',
+            ],
+            klaar: 'je bouwsel in één zone staat, met een volgende stap en een datum ernaast.',
           },
         ],
       },

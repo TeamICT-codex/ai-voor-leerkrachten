@@ -33,10 +33,11 @@ het harnas, en laad het in de pagina:
 
 ```bash
 python test/bouw-harnas.py test/tests.json .
-python3 -m http.server 8000
+python test/server.py
 ```
 
-Daarna in de console van de pagina:
+Open daarna <http://localhost:8000/leeromgeving/> (de leeromgeving, niet de
+voorpagina) en tik in de console van die pagina:
 
 ```js
 const m = await import('/_testharnas.js');
@@ -48,7 +49,7 @@ console.log(r.geslaagd, 'van', r.gedraaid, '| gezakt:', r.mislukt);
 draaien. **`_testharnas.js` hoort niet in een commit** — het staat in
 `.gitignore` noch in de repo; verwijder het als je klaar bent.
 
-## Twee dingen om te weten
+## Drie dingen om te weten
 
 **Het harnas plant met een MessageChannel, niet met `setTimeout`.** In een
 verborgen tabblad knijpt de browser timers af tot ongeveer één per seconde, en
@@ -60,6 +61,11 @@ halve testronde voor het gevonden was.
 reden zakken. T064 was zo'n test — die zette het klembord enkel terug als hij
 helemaal uitliep — en staat sinds 27 oktober 2026 in een `try/finally`. Vervang
 je zelf iets globaals, doe dat dan ook; T050, T051, T052 en T153 tonen hoe.
+
+Een derde, kleiner: **de pagina scrolt vloeiend** (`scroll-behavior: smooth` op
+`html`). Een test die `window.scrollTo(0, 300)` doet en daarna meet, meet een
+animatie die nog loopt. T031 zakte daar af en toe op en scrolt sinds 30 oktober
+2026 met `{ top: 300, behavior: 'instant' }`; doe dat ook in een nieuwe test.
 
 Wat daarna overblijft, is een traagheid die zich opstapelt: draai je meerdere
 reeksen na elkaar in dezelfde pagina, dan beginnen de laatste tests te zakken op
@@ -85,3 +91,11 @@ inhoudsbestanden — handig wanneer een schrijfronde haar resultaat als data
 oplevert in plaats van als tekst. `bouw-beleid.py` schrijft een volledig
 `js/inhoud-beleid.js`, `voeg-lessen-toe.py` voegt losse lessen in bestaande
 modules in. Beide nemen het JSON-bestand en de repo-root als argument.
+
+`zet-lesregels.py` zet de velden `intro` en `onthoud` bij bestaande lessen,
+vanuit één of meer JSON-bestanden van de vorm
+`{"moduleId/lesId": {"intro": "...", "onthoud": "..."}}`. Het draait vanuit de
+repo-root (`python test/zet-lesregels.py regels.json`), zoekt de les zelf op in
+de vier inhoudsbestanden, en volgt de aanhalingstekens van elk bestand. Het mag
+gerust twee keer draaien: bestaande velden worden vervangen, niet verdubbeld.
+Zo kwamen in oktober 2026 de afsluiters van alle vijftig lessen erin.

@@ -30,6 +30,8 @@ export const MODULES_VIBE = [
         id: 'klaarzetten',
         titel: 'Wat je klaarzet vóór je begint',
         minuten: 10,
+        intro: 'Je zet klaar wat je nodig hebt: een laptop, een Claude-account, één projectmap en één zin over een stroef lesmoment.',
+        onthoud: 'Voorziet je school of scholengroep een Claude-account, werk dan daarmee en niet met je privéaccount. Zet alles in één projectmap; andere accounts maak je pas aan wanneer een module erom vraagt.',
         blokken: [
           {
             type: 'tekst',
@@ -59,6 +61,8 @@ export const MODULES_VIBE = [
         id: 'wat-is-vibe-coden',
         titel: 'Wat is vibe coden?',
         minuten: 15,
+        intro: 'Je leert wat vibe coden is, welke kleine dingen je ermee bouwt en waar de grens ligt.',
+        onthoud: 'Jij beschrijft en test, Claude schrijft de code. Een goed eerste project is klein: een oefenapp op één leerstofonderdeel die geen leerlinggegevens bijhoudt.',
         blokken: [
           {
             type: 'tekst',
@@ -89,7 +93,7 @@ export const MODULES_VIBE = [
             items: [
               '<strong>Goed haalbaar:</strong> oefengenerator, quiz met directe feedback, woordenschattrainer, tijdlijn, rekenhulp, beurtroulette, groepsverdeler, visuele timer.',
               '<strong>Kan, maar later:</strong> iets dat resultaten bijhoudt over meerdere lessen, of dat leerlingen laat inloggen.',
-              '<strong>Doe dit niet:</strong> punten of zorggegevens opslaan in een zelfgebouwde tool. Daar bestaan schoolsystemen voor, met de nodige afspraken errond.',
+              '<strong>Niet op eigen houtje:</strong> punten die meetellen bijhouden in een zelfgebouwde tool. Daar bestaan schoolsystemen voor, met de nodige afspraken errond; zoiets doe je enkel samen met je scholengroep. Zorggegevens, CLB-verslagen en thuissituaties blijven sowieso in de schoolsystemen. Mis je daar iets, breng die nood dan naar je scholengroep.',
             ],
           },
           {
@@ -136,6 +140,8 @@ export const MODULES_VIBE = [
         id: 'onderwijsprobleem-eerst',
         titel: 'Begin bij het probleem, niet bij de tool',
         minuten: 25,
+        intro: 'Je vertrekt van een lesmoment dat telkens stroef loopt, laat drie bouwideeën voorstellen en kiest je project.',
+        onthoud: 'Begin niet bij wat je wil bouwen, maar bij wat in je les knelt. Twijfel je tussen ideeën, kies dan het kleinste.',
         blokken: [
           {
             type: 'tekst',
@@ -205,6 +211,8 @@ export const MODULES_VIBE = [
         id: 'eerste-versie',
         titel: 'De eerste versie',
         minuten: 30,
+        intro: 'Je laat Claude met een herbruikbare bouwprompt een eerste oefenpagina maken: één HTML-bestand dat je meteen kan uitproberen.',
+        onthoud: 'Eén bestand houdt alles simpel: vraag er altijd om. Loopt de eerste versie stuk, beschrijf dan wat je ziet en laat het oplossen.',
         blokken: [
           {
             type: 'tekst',
@@ -239,6 +247,8 @@ export const MODULES_VIBE = [
         id: 'testen-bijsturen',
         titel: 'Testen en bijsturen',
         minuten: 30,
+        intro: 'Je test je pagina als drie verschillende leerlingen en op het echte toestel, en verzamelt alle fouten vóór je bijstuurt.',
+        onthoud: 'Zeg altijd wat je deed, wat je zag en wat er had moeten gebeuren. Bewaar een kopie zodra iets werkt, vóór je een grote wijziging vraagt.',
         blokken: [
           {
             type: 'tekst',
@@ -319,6 +329,8 @@ export const MODULES_VIBE = [
         id: 'stijl-en-bruikbaarheid',
         titel: 'Stijl en bruikbaarheid',
         minuten: 15,
+        intro: 'Je maakt je eerste versie klaar voor de klas: leesbaar op het smartboard, met grote knoppen, zonder de werking te veranderen.',
+        onthoud: 'Eindig een vraag over het uitzicht altijd met "Verander niets aan hoe de oefening werkt". Juist of fout toon je nooit enkel met kleur.',
         blokken: [
           {
             type: 'tekst',
@@ -346,6 +358,8 @@ export const MODULES_VIBE = [
         id: 'afbeeldingen-bestanden',
         titel: 'Afbeeldingen, bestanden en downloads',
         minuten: 40,
+        intro: 'Je krijgt beeld in je pagina zonder dat het losvalt, en je bouwt een knop waarmee de leerling zijn werk meeneemt.',
+        onthoud: 'Een schema of tekening die in je pagina zelf getekend is, gaat overal mee. Laat leerlingen hun werk downloaden of afdrukken; inleveren gaat via de weg van je school.',
         verdieping: true,
         blokken: [
           {
@@ -407,6 +421,8 @@ export const MODULES_VIBE = [
         id: 'grotere-projecten',
         titel: 'Als het chatvenster te klein wordt',
         minuten: 25,
+        intro: 'Je herkent wanneer een gesprek te lang wordt en verhuist je project met een overdrachtsbriefje naar een nieuw gesprek.',
+        onthoud: 'Wacht niet tot je vastzit: vraag een overdrachtsbriefje bij het eerste signaal. Een bouwomgeving loont pas als je gesprek beheren meer tijd kost dan je pagina verbeteren.',
         verdieping: true,
         blokken: [
           {
@@ -473,6 +489,8 @@ export const MODULES_VIBE = [
         id: 'ai-als-tester',
         titel: 'Laat de AI je app testen',
         minuten: 35,
+        intro: 'Je laat Claude een testlijst maken door de ogen van een leerling en werkt de vijf bovenste punten zelf af.',
+        onthoud: 'Vraag niet of je pagina goed is, maar waar ze stukloopt. Wat Claude vindt, is een tip die je zelf natrekt, geen conclusie.',
         verdieping: true,
         blokken: [
           {
@@ -562,6 +580,8 @@ export const MODULES_VIBE = [
         id: 'publiceren',
         titel: 'Online zetten',
         minuten: 15,
+        intro: 'Je leert drie manieren om je app te delen, en wat er wel en niet op een publieke link mag.',
+        onthoud: 'Kies de eenvoudigste manier van delen die volstaat. Een link via een gratis dienst kan iedereen openen die hem heeft: geen leerlingnamen, geen toets die je nog moet afnemen.',
         blokken: [
           {
             type: 'tekst',
@@ -597,6 +617,8 @@ export const MODULES_VIBE = [
         id: 'in-de-klas',
         titel: 'Gebruiken in de klas',
         minuten: 20,
+        intro: 'Je zet je app online, maakt hem klaar voor de klas en laat een collega hem uitproberen zonder jouw uitleg.',
+        onthoud: 'Een link die thuis werkt, werkt niet altijd op school: test hem op de toestellen van je leerlingen en hou een plan B op papier klaar.',
         blokken: [
           {
             type: 'tekst',
@@ -617,7 +639,7 @@ export const MODULES_VIBE = [
             variant: 'tip',
             titel: 'Deel het met je vakwerkgroep',
             inhoud:
-              'Wat jij bouwt, kan een collega meestal meteen gebruiken. Deel het in je vakwerkgroep, of zet het op KlasCement zodat andere Vlaamse leerkrachten er iets aan hebben. Vraag Claude gerust om er een korte beschrijving en gebruiksaanwijzing bij te schrijven.',
+              'Wat jij bouwt, kan een collega meestal meteen gebruiken. Deel het in je vakwerkgroep, of zet het op KlasCement zodat andere Vlaamse leerkrachten er iets aan hebben. Vraag Claude gerust om er een korte beschrijving en gebruiksaanwijzing bij te schrijven. Eén uitzondering: een tool die gegevens bijhoudt in een database, deel je niet via KlasCement. Vraag je ICT-coördinator hoe je hem via je scholengroep kan delen: daar kan hij een veilige plek krijgen, ook voor collega\'s in andere scholen.',
           },
           {
             type: 'opdracht',
@@ -663,6 +685,8 @@ export const MODULES_VIBE = [
         id: 'app-op-telefoon',
         titel: 'Als app op de telefoon',
         minuten: 40,
+        intro: 'Je zet je oefenpagina als pictogram op het startscherm, zodat ze met één tik opent, en test wat er zonder netwerk werkt.',
+        onthoud: 'Zonder netwerk werkt je pictogram alleen als je de pagina daarvoor liet aanpassen, en dan enkel wat al geladen was. Geef ze pas mee naar huis als dezelfde oefening ook op papier bestaat.',
         verdieping: true,
         blokken: [
           {
@@ -746,6 +770,8 @@ export const MODULES_VIBE = [
         id: 'wanneer-data',
         titel: 'Heb je opslag echt nodig?',
         minuten: 10,
+        intro: 'Je beslist of je app iets moet onthouden, en zo ja, waar: in de browser of in een echte database.',
+        onthoud: 'Vraag je eerst af of het echt moet, en voor wie. Is dat enkel de leerling op hetzelfde toestel, dan volstaat opslag in zijn browser.',
         blokken: [
           {
             type: 'tekst',
@@ -778,21 +804,23 @@ export const MODULES_VIBE = [
         id: 'leerlingdata-veilig',
         titel: 'Leerlinggegevens: de Vlaamse spelregels',
         minuten: 15,
+        intro: 'Je leert welke spelregels gelden zodra je zelfgebouwde app gegevens van leerlingen bijhoudt, en wat er nooit in hoort.',
+        onthoud: 'Bouw zonder echte namen: een klasnummer of bijnaam volstaat meestal. Kan iemand, ook jij, die nog aan een leerling koppelen, leg het dan eerst voor aan de DPO van je scholengroep.',
         blokken: [
           {
             type: 'tekst',
             inhoud:
-              'Zodra je gegevens van leerlingen bijhoudt in iets dat je zelf bouwde, is dat een verwerking van persoonsgegevens onder de <strong>GDPR</strong>, de Europese privacywetgeving die ook voor scholen geldt. Dat is geen reden om niets te doen, maar wel om het juist aan te pakken — en niet in je eentje.',
+              'Zodra je gegevens van leerlingen bijhoudt in iets dat je zelf bouwde, is dat een verwerking van persoonsgegevens onder de <strong>GDPR</strong>, de Europese privacywetgeving die ook voor scholen geldt. Dat is geen reden om niets te doen, maar wel om het juist aan te pakken — en niet in je eentje. Ben je directeur of beleidsmedewerker en bouw je iets met gegevens van leerlingen of personeel voor de hele school, lees dan ook de module <em>Zelf bouwen met schoolgegevens</em> in het spoor <em>Het kader</em>.',
           },
           {
             type: 'lijst',
             items: [
-              '<strong>Praat met de DPO van je scholengroep</strong> vóór je iets met leerlinggegevens in gebruik neemt. Dat is precies waarvoor die functie bestaat, en het is een gesprek van tien minuten.',
-              '<strong>Kies een server in Europa.</strong> Vraag in je prompt expliciet om een regio binnen de EU, en controleer het achteraf bij de dienst zelf. Buiten Europa kán wettelijk, maar er hangen dan afspraken aan vast die de school maakt en niet jij — nog een reden om het eerst met je DPO te bespreken.',
+              '<strong>Praat met de DPO van je scholengroep</strong> vóór er echte leerlinggegevens in je tool gaan, niet pas als hij al draait. Dat is precies waarvoor die functie bestaat: meedenken over hoe het wél kan. Kort mag, als het maar vooraf is.',
+              '<strong>Kies een server in Europa.</strong> Vraag in je prompt expliciet om een regio binnen de EU, en controleer het achteraf bij de dienst zelf. Buiten de EU kán het wettelijk, maar dan moet de school nagaan of die doorgifte gedekt is, en soms komen er afspraken bij die de school maakt en niet jij — nog een reden om het eerst met je DPO te bespreken.',
               '<strong>Check je schoolbeleid.</strong> Veel scholen hebben afspraken over welke tools mogen — die gelden ook voor wat je zelf bouwt.',
               '<strong>Verzamel zo weinig mogelijk.</strong> Heb je een naam nodig, of volstaat een klasnummer of zelfverzonnen bijnaam? Meestal het laatste.',
               '<strong>Zorg dat je kan wissen.</strong> Je moet gegevens kunnen verwijderen als iemand daarom vraagt.',
-              '<strong>Nooit in een zelfbouwtool:</strong> punten die meetellen, zorg- of medische gegevens, verslagen van het CLB, thuissituaties.',
+              '<strong>Blijft in de schoolsystemen:</strong> zorg- of medische gegevens, verslagen van het CLB, thuissituaties. <strong>Niet op eigen houtje:</strong> punten die meetellen; die hou je enkel samen met je scholengroep bij in een zelfbouwtool. Lost het schoolsysteem jouw nood niet op, breng die dan naar je scholengroep in plaats van er alleen iets naast te bouwen.',
             ],
           },
           {
@@ -816,7 +844,7 @@ export const MODULES_VIBE = [
                 tekst: 'Leerlingen een klasnummer of bijnaam laten kiezen.',
                 juist: true,
                 feedback:
-                  'Juist, dit is de werkbare middenweg. Eén nuance: zolang jij weet wie nummer 12 is, blijven het persoonsgegevens — goed afgeschermd, maar niet anoniem. Wat je wint, is dat er geen naam meer in je tool staat en dat wie toevallig meekijkt er niets aan heeft. Dat gesprek van tien minuten met de DPO van je scholengroep blijft dus staan.',
+                  'Juist, dit is de werkbare middenweg. Eén nuance: zolang jij weet wie nummer 12 is, blijven het persoonsgegevens — goed afgeschermd, maar niet anoniem. Wat je wint, is dat er geen naam meer in je tool staat en dat wie toevallig meekijkt er niets aan heeft. Dat gesprek vooraf met de DPO van je scholengroep blijft dus staan.',
               },
               {
                 tekst: 'Niets bijhouden en rondlopen in de klas.',
@@ -832,6 +860,8 @@ export const MODULES_VIBE = [
         id: 'versiebeheer',
         titel: 'Versiebeheer zonder gedoe',
         minuten: 40,
+        intro: 'Je leert versies bijhouden, met genummerde bestanden of met GitHub, en beslist bewust wat je app onthoudt.',
+        onthoud: 'Bewaar elke versie met een nummer erin. Op GitHub hoort niets wat niet openbaar mag: ook wat je later weghaalt, blijft in een vorige versie staan.',
         blokken: [
           {
             type: 'tekst',
@@ -868,7 +898,7 @@ export const MODULES_VIBE = [
               "Duid bij wat overblijft aan waar het thuishoort: nergens, in de browser van de leerling, of in een echte database. Kom je bij een echte database uit, hou dat dan voor een aparte werksessie — dat is een halve dag werk op zich. Lees eerst de verdiepingsles \"Een echte database koppelen\" verderop in deze module: die zegt je of je er echt een nodig hebt.",
               "Blijft er iets over? Vervang elke verwijzing naar een leerling door een klasnummer of een zelfgekozen bijnaam. Blijft er niets over? Vraag Claude te bevestigen dat je pagina echt nergens iets wegschrijft, en waar je dat in je bestand ziet.",
               "Bewaar je iets, vraag Claude dan om je app zo aan te passen, met een knop waarmee de leerling zijn eigen gegevens wist — en klik die knop meteen zelf aan. Bewaar in beide gevallen het resultaat onder een nieuw versienummer, zodat je terug kan als er iets stukgaat.",
-              "Vat in vijf regels samen wat je bewaart, waar het staat en hoe het verdwijnt. Staat er iets in dat naar een leerling verwijst, dan is dat blaadje je vertrekpunt voor een gesprek van tien minuten met de DPO van je scholengroep.",
+              "Vat in vijf regels samen wat je bewaart, waar het staat en hoe het verdwijnt. Staat er iets in dat naar een leerling verwijst, dan is dat blaadje je vertrekpunt voor een gesprek met de DPO van je scholengroep: vooraf, om mee te denken, en vóór je app in de klas iets bijhoudt.",
             ],
           },
         ],
@@ -877,6 +907,8 @@ export const MODULES_VIBE = [
         id: 'echte-database',
         titel: 'Een echte database koppelen',
         minuten: 30,
+        intro: 'Je zoekt uit of je echt een database nodig hebt, en wat je vooraf regelt rond regio, codes en toegangsregels.',
+        onthoud: 'Probeer eerst zonder database. Blijft er toch een nodig, praat dan met de DPO van je scholengroep en je ICT-coördinator vóór er één leerlinggegeven in gaat.',
         verdieping: true,
         blokken: [
           {
@@ -915,8 +947,8 @@ export const MODULES_VIBE = [
           {
             type: 'kader',
             variant: 'privacy',
-            titel: 'Vanaf hier beslis je dit niet meer alleen',
-            inhoud: 'Zolang je pagina niets doorstuurt en niets bewaart, beslis je zelf — binnen het ICT-beleid van je school. Van zodra er gegevens van leerlingen in een database buiten de school terechtkomen, niet meer: dan hoort dit besproken met de <strong>DPO van je scholengroep</strong> én de <strong>ICT-coördinator</strong>, vóór er één leerlinggegeven in gaat. Dat is geen formaliteit. Voor zo\'n dienst horen er ook schriftelijke afspraken te zijn over wat die met de gegevens mag doen — een <strong>verwerkersovereenkomst</strong>, een contract tussen de school en de leverancier. Dat sluit de school af, niet jij persoonlijk, en de DPO weet welke er al zijn en welke niet. De ICT-coördinator weet dan weer of het schoolnetwerk zo\'n dienst doorlaat, en wie er nog bij kan als jij er niet bent. Hou daarnaast de vuistregel van deze module overeind: <strong>bouw zonder namen, tenzij het echt niet anders kan.</strong> Een klasnummer of een zelfgekozen bijnaam volstaat didactisch bijna altijd. Kan jij die bijnaam nog aan een leerling koppelen, dan blijven het leerlinggegevens — dat mag, maar het is net dát wat je één keer voorlegt in plaats van er zelf over te oordelen.',
+            titel: 'Vanaf hier bouw je dit niet meer alleen',
+            inhoud: 'Zolang je pagina niets doorstuurt en niets bewaart, bouw je zelf — binnen het ICT-beleid van je school. Van zodra er gegevens van leerlingen in een database buiten de school terechtkomen, haal je er mensen bij: de <strong>DPO van je scholengroep</strong> én de <strong>ICT-coördinator</strong>, vóór er één leerlinggegeven in gaat. Niet om je idee af te remmen, wel omdat zij dingen kunnen regelen die jij alleen niet kan. Voor zo\'n dienst horen er schriftelijke afspraken te zijn over wat die met de gegevens mag doen — een <strong>verwerkersovereenkomst</strong>, een contract tussen de school en de leverancier. Dat sluit de school af, niet jij persoonlijk, en de DPO weet welke er al zijn en welke niet. De ICT-coördinator weet dan weer of het schoolnetwerk zo\'n dienst doorlaat, en wie er nog bij kan als jij er niet bent. En werkt je tool goed, dan kan je scholengroep helpen om hem ook voor andere klassen of scholen beschikbaar te maken. Hou daarnaast de vuistregel van deze module overeind: <strong>bouw zonder namen, tenzij het echt niet anders kan.</strong> Een klasnummer of een zelfgekozen bijnaam volstaat didactisch bijna altijd. Kan jij die bijnaam nog aan een leerling koppelen, dan blijven het leerlinggegevens — dat mag, maar het is net dát wat je één keer voorlegt in plaats van er zelf over te oordelen.',
           },
           {
             type: 'prompt',
@@ -942,6 +974,8 @@ export const MODULES_VIBE = [
         id: 'projectgeheugen',
         titel: 'Geef je project een geheugen',
         minuten: 30,
+        intro: 'Je maakt een projectblad van een half A4, zodat je in een nieuw gesprek niet alles opnieuw hoeft uit te leggen.',
+        onthoud: 'Plak je projectblad bovenaan elk nieuw gesprek, en werk het bij op het einde van elke werksessie. Een verouderd blad is lastiger dan geen blad.',
         verdieping: true,
         blokken: [
           {
@@ -1024,6 +1058,8 @@ export const MODULES_VIBE = [
         id: 'wanneer-ai-inbouwen',
         titel: 'Wanneer is het de moeite?',
         minuten: 10,
+        intro: 'Je leert wanneer een AI-functie in je app de moeite loont, en wat je regelt voor je eraan begint.',
+        onthoud: 'Gebruik AI enkel waar het antwoord niet voorspelbaar is. Regel vooraf wie betaalt en een uitgavenlimiet, en leg de app voor aan je ICT-coördinator en DPO: wat leerlingen typen, gaat naar de AI-dienst.',
         blokken: [
           {
             type: 'tekst',
@@ -1065,6 +1101,8 @@ export const MODULES_VIBE = [
         id: 'modellen-en-kosten',
         titel: 'Modellen en kosten',
         minuten: 20,
+        intro: 'Je leert wat een model is en hoe je per gebruik betaalt, en rekent uit wat jouw klassen op een maand kosten.',
+        onthoud: 'Kies voor eenvoudig werk een klein, snel model (het model is de motor achter de AI). Zet een uitgavenlimiet vóór de eerste leerling de link krijgt, en kijk na of ze je echt stopt.',
         blokken: [
           {
             type: 'tekst',
@@ -1105,6 +1143,8 @@ export const MODULES_VIBE = [
         id: 'sleutels-en-veiligheid',
         titel: 'Sleutels en veiligheid',
         minuten: 40,
+        intro: 'Je leert waarom je API-sleutel op een server hoort en nooit in je webpagina, en controleert dat vóór je deelt.',
+        onthoud: 'Je sleutel hoort op een server, nooit in je pagina: zeg dat elke keer in je prompt. Lekt hij toch, trek hem meteen in en maak een nieuwe aan.',
         blokken: [
           {
             type: 'tekst',
@@ -1184,6 +1224,8 @@ export const MODULES_VIBE = [
         id: 'meer-dan-tekst',
         titel: 'Meer dan tekst: beeld, spraak en geluid',
         minuten: 30,
+        intro: 'Je beslist wanneer inspreken, voorlezen of een afbeelding laten beschrijven je leerlingen helpt, en wanneer het je leerdoel omzeilt.',
+        onthoud: 'Zet spraak of beeld in om een drempel weg te nemen, nooit om het leerdoel te omzeilen. Een stem of foto naar een AI-dienst sturen beslis je niet alleen.',
         verdieping: true,
         blokken: [
           {
@@ -1269,6 +1311,8 @@ export const MODULES_VIBE = [
         id: 'voorbeeld',
         titel: 'Van idee tot werkende versie',
         minuten: 25,
+        intro: 'Je volgt één volledig project, een oefenpagina Franse woordenschat, van het idee via de bouwprompt tot twee bijsturingen.',
+        onthoud: 'Hou je idee klein en maak de oefening eerst zelf zoals een leerling. Stuur dan bij met concrete voorbeelden en zeg erbij dat verder niets mag veranderen.',
         verdieping: true,
         blokken: [
           {
@@ -1326,6 +1370,8 @@ export const MODULES_VIBE = [
         id: 'voorbeeld-in-de-klas',
         titel: 'Van werkende versie tot in de klas',
         minuten: 40,
+        intro: 'Je volgt het voorbeeld van de testronde tot in de klas, en haalt daarna je eigen idee door dezelfde weg.',
+        onthoud: 'Test als drie verschillende leerlingen en op het echte toestel, niet enkel op je laptop. Kijk ook wat er in je pagina zit dat je nooit vroeg.',
         verdieping: true,
         blokken: [
           {

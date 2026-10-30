@@ -32,6 +32,7 @@ import {
   bouwSessieWorkshop,
 } from './cursus.js';
 import { GIDS_SECTIES, FAQ_GROEPEN } from './gids.js';
+import { moduleBeeld, ICOON } from './beelden.js';
 
 // ───────────────────────────── opslag ─────────────────────────────
 // Alles in een try/catch: in een privévenster of met geblokkeerde cookies
@@ -198,6 +199,13 @@ function totaleVoortgang() {
 // leeromgeving staat. We verzinnen geen adres maar lezen af waar de pagina
 // echt draait — dan klopt het ook nadat de site verhuist. Leeg bij file://
 // en bij een lokale testserver: dan drukken we liever niets af dan onzin.
+// Een adres dat vanaf de root van de site rekent (leerlingen/, lager/), omgezet
+// naar een adres vanaf deze pagina in leeromgeving/. Volledige adressen en
+// adressen binnen de app (#/...) blijven zoals ze zijn.
+function naarSite(href) {
+  return /^([a-z]+:|#|\/|\.\.\/)/i.test(href) ? href : '../' + href;
+}
+
 function leeromgevingAdres() {
   try {
     const host = location.host;
@@ -242,6 +250,7 @@ function route() {
 
 function navigeer() {
   stopTikker();
+  lesWachter?.disconnect();
   const r = route();
   const hoofd = document.getElementById('hoofd');
 
@@ -261,6 +270,7 @@ function navigeer() {
   } else if (r.naam === 'module') {
     const m = vindModule(r.id);
     hoofd.innerHTML = m ? toonModule(m) : toonNietGevonden();
+    if (m) volgLessen();
   } else if (r.naam === 'bundel') {
     const w = vindWorkshop(r.id);
     hoofd.innerHTML = w ? toonBundel(w) : toonNietGevonden();
@@ -301,13 +311,16 @@ function tekenKop() {
   document.getElementById('kop').innerHTML = `
     <div class="kop-binnen">
       <a class="merk" href="#/">
-        <span class="merk-teken">AI</span>
+        <img class="merk-teken" src="../gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="110" height="28">
         <span class="merk-tekst">
           <strong>AI voor leerkrachten</strong>
           <small>Workshops voor lager &amp; secundair onderwijs</small>
         </span>
       </a>
       <div class="kop-rechts">
+        <a class="naar-voorpagina" href="../" aria-label="AI op school, de voorpagina" title="Naar de voorpagina">
+          ${ICOON.huis}<span>AI op school</span>
+        </a>
         <div class="voortgang-mini" title="${klaar} van ${totaal} lessen afgewerkt">
           <div class="balk"><div class="balk-vul" style="width:${pct}%"></div></div>
           <span>${klaar}/${totaal}</span>
@@ -324,13 +337,48 @@ function tekenKop() {
 
 // ───────────────────────────── home ─────────────────────────────
 
+// Waar een deelnemer verder kan: de eerste module (in de volgorde van de
+// sporen) die begonnen is maar niet af. Is er geen, dan de eerste module na
+// een afgewerkte. Wie nog niets afvinkte, krijgt niets: daar staat "Begin hier".
+function verderWaarJeWas() {
+  const reeks = SPOREN.flatMap((sp) => modulesVanSpoor(sp.id));
+  const stand = reeks.map((m) => ({ m, ...moduleVoortgang(m) }));
+  if (!stand.some((x) => x.klaar > 0)) return null;
+  const bezig = stand.find((x) => x.klaar > 0 && x.klaar < x.totaal);
+  const doel = bezig || stand.find((x, i) => x.klaar === 0 && i > 0 && stand[i - 1].klaar === stand[i - 1].totaal) || stand.find((x) => x.klaar < x.totaal);
+  if (!doel) return { alles: true };
+  const les = doel.m.lessen.find((l) => !staat.afgewerkt.has(lesSleutel(doel.m.id, l.id)));
+  return { ...doel, les, nr: doel.m.lessen.indexOf(les) + 1 };
+}
+
+function toonVerderKaart() {
+  const v = verderWaarJeWas();
+  if (!v) return '';
+  if (v.alles) {
+    return `<div class="verder-kaart klaar-alles">
+      <span class="verder-stempel" aria-hidden="true">✓</span>
+      <div><strong>Alles afgewerkt</strong><span>Je doorliep alle lessen. Hou de promptkaart bij de hand voor elke dag.</span></div>
+    </div>`;
+  }
+  const spoor = vindSpoor(v.m.spoor) || SPOOR_ONBEKEND;
+  return `<a class="verder-kaart ${spoor.kleur}" href="#/module/${v.m.id}">
+      <span class="verder-beeld" aria-hidden="true">${moduleBeeld(v.m)}</span>
+      <span class="verder-tekst">
+        <small>Verder waar je was · ${esc(spoor.naam)}</small>
+        <strong>${esc(v.m.titel)}</strong>
+        <span>${v.les ? `Les ${v.nr}: ${esc(v.les.titel)}` : ''} · ${v.klaar}/${v.totaal} afgewerkt</span>
+      </span>
+      <span class="verder-pijl" aria-hidden="true">${ICOON.verder}</span>
+    </a>`;
+}
+
 function toonHome() {
   // Het kader is het beginpunt van het traject. Staat dat spoor er (nog) niet,
   // dan begint een deelnemer zoals vroeger bij het eerste gesprek.
   const kader = modulesVanSpoor('beleid')[0];
   const start = kader
-    ? { id: kader.id, icoon: kader.icoon, tagline: 'Wat mag wel, wat mag niet, en wie beslist wat.' }
-    : { id: 'kennismaking', icoon: '🚀', tagline: 'Nog nooit met AI gewerkt? Start met je eerste gesprek.' };
+    ? { id: kader.id, tagline: 'Wat mag wel, wat mag niet, en wie beslist wat.' }
+    : { id: 'kennismaking', tagline: 'Nog nooit met AI gewerkt? Start met je eerste gesprek.' };
 
   return `
     <section class="onthaal">
@@ -354,6 +402,7 @@ function toonHome() {
         <div><strong>${MODULES.length}</strong><span>modules</span></div>
         <div><strong>${TOTAAL_LESSEN}</strong><span>lessen</span></div>
       </div>
+      ${staat.begeleider ? '' : toonVerderKaart()}
       ${
         staat.begeleider
           ? `<div class="melding">
@@ -370,26 +419,34 @@ function toonHome() {
           staat.begeleider
             ? ''
             : `<a class="snel" href="#/module/${esc(start.id)}">
-                 <span class="snel-icoon" aria-hidden="true">${start.icoon}</span>
+                 <span class="snel-icoon" aria-hidden="true">${ICOON.begin}</span>
                  <span><strong>Begin hier</strong><small>${esc(start.tagline)}</small></span>
                </a>`
         }
         <a class="snel" href="#/prompts">
-          <span class="snel-icoon" aria-hidden="true">📇</span>
+          <span class="snel-icoon" aria-hidden="true">${ICOON.prompts}</span>
           <span><strong>Promptkaart</strong><small>Alle prompts op één plek</small></span>
         </a>
         <a class="snel" href="#/sessie">
-          <span class="snel-icoon" aria-hidden="true">🧩</span>
+          <span class="snel-icoon" aria-hidden="true">${ICOON.sessie}</span>
           <span><strong>Stel je eigen sessie samen</strong><small>Een uur, een halve dag of één module</small></span>
         </a>
-        <a class="snel" href="leerlingen/index.html">
-          <span class="snel-icoon" aria-hidden="true">🎒</span>
+        <a class="snel" href="../leerlingen/index.html">
+          <span class="snel-icoon" aria-hidden="true">${ICOON.leerlingen}</span>
           <span><strong>Voor je leerlingen: AI-wijs op school</strong><small>Gratis cursus voor de 2de en 3de graad, met een module voor jou</small></span>
+        </a>
+        <a class="snel" href="../aiwijs-start/index.html">
+          <span class="snel-icoon" aria-hidden="true">${ICOON.start}</span>
+          <span><strong>Voor de eerste graad: AI-wijs Start</strong><small>Zes korte lessen voor in de klas, zonder account</small></span>
+        </a>
+        <a class="snel" href="../lager/index.html">
+          <span class="snel-icoon" aria-hidden="true">${ICOON.lichtje}</span>
+          <span><strong>Voor het lager: Leerlichtjes</strong><small>Samen met je klas op het digibord ontdekken hoe AI werkt</small></span>
         </a>
         ${
           staat.begeleider
             ? `<a class="snel" href="#/gids">
-                 <span class="snel-icoon" aria-hidden="true">🧭</span>
+                 <span class="snel-icoon" aria-hidden="true">${ICOON.gids}</span>
                  <span><strong>Begeleidersgids</strong><small>Voorbereiding, zaal lezen, lastige vragen</small></span>
                </a>`
             : ''
@@ -405,12 +462,23 @@ function toonSpoor(spoor) {
   const workshops = workshopsVanSpoor(spoor.id);
   const modules = modulesVanSpoor(spoor.id);
   if (!workshops.length && !modules.length) return '';
+  const stand = modules.map(moduleVoortgang);
+  const klaar = stand.reduce((t, x) => t + x.klaar, 0);
+  const totaal = stand.reduce((t, x) => t + x.totaal, 0);
   return `
     <section class="spoor ${spoor.kleur}">
       <div class="spoor-kop">
         <div>
           <h2>${esc(spoor.naam)}</h2>
           <p>${spoor.omschrijving}</p>
+          ${
+            totaal
+              ? `<div class="spoor-voortgang" style="--deel: ${(klaar / totaal).toFixed(3)}">
+                   <span class="spoor-balk" aria-hidden="true"></span>
+                   <span>${klaar} van ${totaal} lessen afgewerkt</span>
+                 </div>`
+              : ''
+          }
         </div>
         <span class="tool-vlag">${esc(spoor.tools)}</span>
       </div>
@@ -454,12 +522,13 @@ function toonModuleKaart(m) {
   const af = klaar === totaal;
   return `
     <a class="kaart module ${af ? 'af' : ''}" href="#/module/${m.id}">
+      <span class="kaart-beeld" aria-hidden="true">${moduleBeeld(m)}</span>
       <div class="kaart-kop">
-        <span class="icoon" aria-hidden="true">${m.icoon}</span>
         <span class="niveau">${esc(m.niveau)}</span>
       </div>
       <h3>${esc(m.titel)}</h3>
       <p>${esc(m.ondertitel)}</p>
+      <span class="kaart-balk" style="--deel: ${totaal ? (klaar / totaal).toFixed(3) : 0}" aria-hidden="true"></span>
       <div class="kaart-voet">
         <span>${esc(moduleDuurTekst(m))}</span>
         <span class="${af ? 'klaar' : ''}">${klaar}/${totaal} lessen${af ? ' <span aria-hidden="true">✓</span>' : ''}</span>
@@ -626,7 +695,7 @@ function toonBlok(b, i) {
         ${
           blokModule
             ? `<a class="module-link" href="#/module/${blokModule.id}">
-                 <span aria-hidden="true">${blokModule.icoon}</span> Inhoud: ${esc(blokModule.titel)}
+                 Inhoud: ${esc(blokModule.titel)}
                  <span aria-hidden="true">→</span>
                </a>`
             : ''
@@ -755,11 +824,11 @@ function toonModule(m) {
   return `
     <nav class="kruimels" aria-label="Kruimelpad"><a href="#/">Overzicht</a> <span>›</span> ${esc(spoor.naam)}</nav>
 
-    <header class="titelblok ${spoor.kleur}">
-      <span class="code groot icoongroot" aria-hidden="true">${m.icoon}</span>
-      <div>
+    <header class="titelblok module-held ${spoor.kleur}">
+      <div class="held-tekst">
+        <p class="etiket">${esc(spoor.naam)}${i >= 0 ? ` · module ${i + 1} van ${reeks.length}` : ''}</p>
         <h1>${esc(m.titel)}</h1>
-        <p>${esc(m.ondertitel)}</p>
+        <p class="held-ondertitel">${esc(m.ondertitel)}</p>
         <div class="etiketten">
           ${
             duur.kern
@@ -768,25 +837,62 @@ function toonModule(m) {
               : `<span class="etiket-klein">${duur.verdieping} min verdieping</span>`
           }
           <span class="etiket-klein">${esc(m.niveau)}</span>
-          <span class="etiket-klein" id="module-teller">${klaar}/${totaal} afgewerkt</span>
           ${bij
             .map((w) => `<a class="etiket-klein link" href="#/workshop/${w.id}">${esc(w.code)}</a>`)
             .join('')}
           ${
             // Een module kan naar iets buiten de app wijzen (de leerlingencursus
             // in leerlingen/). De inhoudsvelden zelf mogen geen <a> bevatten.
-            m.link ? `<a class="etiket-klein link" href="${esc(m.link.href)}">${esc(m.link.tekst)} <span aria-hidden="true">↗</span></a>` : ''
+            // Zo'n adres rekent vanaf de root van de site; de app zelf staat
+            // een map dieper, in leeromgeving/.
+            m.link ? `<a class="etiket-klein link" href="${esc(naarSite(m.link.href))}">${esc(m.link.tekst)} <span aria-hidden="true">↗</span></a>` : ''
           }
         </div>
       </div>
+      <div class="held-beeld" aria-hidden="true">${moduleBeeld(m)}</div>
+      <div class="held-voortgang" style="--deel: ${totaal ? (klaar / totaal).toFixed(3) : 0}">
+        <span class="ring" aria-hidden="true"></span>
+        <span id="module-teller">${klaar}/${totaal} afgewerkt</span>
+      </div>
     </header>
 
-    <div class="kaart doelen">
-      <h2>Na deze module</h2>
-      <ul class="vinkjes">${m.doelen.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
-    </div>
+    <div class="module-lijf ${spoor.kleur} ${totaal && klaar === totaal ? 'alles-af' : ''}">
+      <nav class="lesnav" aria-label="De lessen van deze module">
+        <p class="lesnav-kop">In deze module</p>
+        <ol>
+          ${m.lessen
+            .map((les, n) => {
+              const af = staat.afgewerkt.has(lesSleutel(m.id, les.id));
+              return `<li><button type="button" class="lesnav-knop ${af ? 'af' : ''}" data-actie="naar-les" data-les="${esc(les.id)}">
+                <span class="lesnav-nr" aria-hidden="true">${n + 1}</span>
+                <span class="lesnav-tekst">${esc(les.titel)}<small>${les.minuten} min${les.verdieping ? ' · verdieping' : ''}</small></span>
+                <span class="enkel-vo">${af ? ', afgewerkt' : ''}</span>
+              </button></li>`;
+            })
+            .join('')}
+        </ol>
+      </nav>
 
-    ${m.lessen.map((les, i) => toonLes(m, les, i)).join('')}
+      <div class="module-lessen">
+        <div class="kaart doelen">
+          <h2>Na deze module</h2>
+          <ul class="vinkjes">${m.doelen.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>
+        </div>
+
+        ${m.lessen.map((les, n) => toonLes(m, les, n, m.lessen[n + 1])).join('')}
+
+        <section class="module-slot" aria-live="polite">
+          <div class="slot-af">
+            <span class="slot-stempel" aria-hidden="true">✓</span>
+            <div>
+              <h2>Module afgewerkt</h2>
+              <p>${volgende ? `Goed bezig! Klaar voor de volgende module: <strong>${esc(volgende.titel)}</strong>?` : 'Goed bezig! Daarmee heb je dit spoor helemaal doorlopen.'}</p>
+            </div>
+          </div>
+          <p class="slot-open">Vink een les af zodra je ze doorliep. Zo zie je in het overzicht hoe ver je staat.</p>
+        </section>
+      </div>
+    </div>
 
     <nav class="verder" aria-label="Verder in dit spoor">
       ${
@@ -805,25 +911,72 @@ function toonModule(m) {
   `;
 }
 
+// De inhoudstafel naast de lessen toont waar je aan het lezen bent. Die wachter
+// moet weg bij elke paginawissel, anders kijkt hij naar lessen die er niet meer zijn.
+let lesWachter = null;
+function volgLessen() {
+  const knoppen = [...document.querySelectorAll('.lesnav [data-les]')];
+  if (!knoppen.length || !('IntersectionObserver' in window)) return;
+  lesWachter = new IntersectionObserver(
+    (items) => {
+      for (const it of items) {
+        if (!it.isIntersecting) continue;
+        const id = it.target.id.replace(/^les-/, '');
+        for (const k of knoppen) {
+          const hier = k.dataset.les === id;
+          k.classList.toggle('hier', hier);
+          if (hier) k.setAttribute('aria-current', 'step');
+          else k.removeAttribute('aria-current');
+        }
+      }
+    },
+    // Een les telt als "hier" zodra ze het middenstuk van het scherm vult.
+    { rootMargin: '-30% 0px -60% 0px' }
+  );
+  document.querySelectorAll('.les').forEach((l) => lesWachter.observe(l));
+}
+
 // Het vinkje is versiering: een schermlezer hoort "Afgewerkt", niet "vinkje".
 // De knop wordt ook bij een klik opnieuw gevuld, vandaar deze twee constanten.
 const VINK_AF = '<span aria-hidden="true">✓</span> Afgewerkt';
 const VINK_OPEN = 'Markeer als afgewerkt';
 
-function toonLes(module, les, index) {
+// Een les heeft een kop met nummer en leestijd, een zin over wat je leert,
+// de blokken, en onderaan wat je onthoudt, het vinkje en de weg naar de volgende les.
+function toonLes(module, les, index, volgende) {
   const sleutel = lesSleutel(module.id, les.id);
   const af = staat.afgewerkt.has(sleutel);
   return `
     <article class="les ${af ? 'af' : ''}" id="les-${les.id}">
-      <div class="les-kop">
-        <h2><span class="lesnr">${index + 1}</span> ${esc(les.titel)}
-          ${les.verdieping ? '<span class="verdieping-vlag">Verdieping</span>' : ''}</h2>
-        <button class="vink ${af ? 'aan' : ''}" data-actie="vink" data-sleutel="${sleutel}"
-                aria-pressed="${af}">
-          ${af ? VINK_AF : VINK_OPEN}
-        </button>
-      </div>
+      <header class="les-kop">
+        <span class="lesnr" aria-hidden="true">${index + 1}</span>
+        <div>
+          <p class="les-meta">Les ${index + 1} van ${module.lessen.length} · ${les.minuten} min</p>
+          <h2 tabindex="-1">${esc(les.titel)}
+            ${les.verdieping ? '<span class="verdieping-vlag">Verdieping</span>' : ''}</h2>
+        </div>
+      </header>
+      ${les.intro ? `<p class="les-intro">${les.intro}</p>` : ''}
       ${les.blokken.map(toonInhoudsblok).join('')}
+      <footer class="les-voet">
+        ${
+          les.onthoud
+            ? `<div class="les-onthoud"><p class="les-onthoud-kop">Onthoud</p><p>${les.onthoud}</p></div>`
+            : ''
+        }
+        <div class="les-afronden">
+          <button class="vink ${af ? 'aan' : ''}" data-actie="vink" data-sleutel="${sleutel}"
+                  aria-pressed="${af}">
+            ${af ? VINK_AF : VINK_OPEN}
+          </button>
+          ${
+            volgende
+              ? `<button type="button" class="knop stil" data-actie="naar-les" data-les="${esc(volgende.id)}">Naar les ${index + 2}: ${esc(volgende.titel)} <span aria-hidden="true">↓</span></button>`
+              : ''
+          }
+          <span class="les-stempel" aria-hidden="true">✓</span>
+        </div>
+      </footer>
     </article>`;
 }
 
@@ -882,11 +1035,17 @@ function toonInhoudsblok(blok) {
         </div>`;
 
     case 'opdracht':
+      // De vinkjes bij de stappen zijn een hulpje voor wie meedoet: ze worden
+      // niet bewaard. "Je bent klaar als" staat bij een deel van de opdrachten.
       return `
         <section class="opdracht">
+          <span class="blok-label">Doe-opdracht</span>
           <h3>${esc(blok.titel)}</h3>
           <p>${blok.inhoud}</p>
-          <ol>${blok.stappen.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
+          <ol class="stappen">${blok.stappen
+            .map((s) => `<li><label><input type="checkbox"><span>${esc(s)}</span></label></li>`)
+            .join('')}</ol>
+          ${blok.klaar ? `<p class="opdracht-klaar"><strong>Je bent klaar als</strong> ${esc(blok.klaar)}</p>` : ''}
         </section>`;
 
     case 'casus': {
@@ -896,6 +1055,7 @@ function toonInhoudsblok(blok) {
       // wegleggen, en zodat je met het toetsenbord je plaats niet kwijtraakt.
       return `
         <section class="casus" data-casus>
+          <span class="blok-label">Casus</span>
           <h3>${esc(blok.titel)}</h3>
           <p class="casus-situatie">${esc(blok.situatie)}</p>
           <button class="knop mini casus-knop" data-actie="casus" aria-expanded="false">Toon het oordeel</button>
@@ -915,6 +1075,7 @@ function toonInhoudsblok(blok) {
       const qid = `quizvraag-${++quizTeller}`;
       return `
         <section class="quiz" data-quiz>
+          <span class="blok-label">Test jezelf</span>
           <h3 id="${qid}">${esc(blok.vraag)}</h3>
           <div class="opties" role="group" aria-labelledby="${qid}">
             ${blok.opties
@@ -965,8 +1126,8 @@ const VUISTREGELS = {
     `Online is publiek. Wie de link heeft, ziet alles op je pagina — ook de tekst die
      enkel in de code zit, zoals de juiste antwoorden. Geen leerlingnamen, geen
      antwoordsleutels, geen toets die je nog moet afnemen. Dezelfde regel geldt voor
-     wat je in het gesprek typt. Bouw anoniem, tenzij het écht niet anders kan: een
-     klasnummer of een zelfgekozen bijnaam volstaat bijna altijd.`,
+     wat je in het gesprek typt. Bouw zonder echte namen, tenzij het écht niet anders kan:
+     een klasnummer of een zelfgekozen bijnaam volstaat bijna altijd.`,
     `De eerste versie is een <strong>ontwerp</strong>, geen eindproduct. Klik ze zelf
      kapot — lege velden, rare invoer, en op het toestel waarop je leerlingen werken.
      Loopt er iets mis, beschrijf dan wat je deed, wat er gebeurde en wat er had moeten
@@ -988,6 +1149,16 @@ function toonBundel(w, opties = {}) {
   const prompts = blokkenVanType(modules, 'prompt', bundelOpties);
   const opdrachten = blokkenVanType(modules, 'opdracht', bundelOpties);
   const casussen = blokkenVanType(modules, 'casus', bundelOpties);
+  // Wat je onthoudt: de afsluiter van elke les die in deze bundel thuishoort,
+  // met dezelfde keuze van lessen als de prompts en de opdrachten hierboven.
+  const onthoud = [];
+  for (const m of modules) {
+    const toegelaten = lessenKaart ? lessenKaart.get(m.id) : null;
+    for (const les of m.lessen) {
+      if (les.verdieping || (toegelaten && !toegelaten.has(les.id)) || !les.onthoud) continue;
+      onthoud.push({ les, module: m });
+    }
+  }
   const adres = leeromgevingAdres();
   const doelen = w.doelen || [];
   // Doelen staan op de module, niet op de les. Neemt een sessie maar een deel
@@ -1066,6 +1237,20 @@ function toonBundel(w, opties = {}) {
       </section>
 
       ${
+        onthoud.length
+          ? `
+      <section class="bundel-blok">
+        <h2>Wat je onthoudt</h2>
+        <ul class="bundel-onthoud">
+          ${onthoud
+            .map(({ les }) => `<li><strong>${esc(les.titel)}</strong> ${les.onthoud}</li>`)
+            .join('')}
+        </ul>
+      </section>`
+          : ''
+      }
+
+      ${
         prompts.length
           ? `
       <section class="bundel-blok">
@@ -1079,7 +1264,7 @@ function toonBundel(w, opties = {}) {
           <figure class="promptblok bundel-prompt">
             <figcaption>
               <span>${esc(blok.titel)}</span>
-              <span class="herkomst"><span aria-hidden="true">${module.icoon}</span> ${esc(module.titel)}</span>
+              <span class="herkomst">${esc(module.titel)}</span>
             </figcaption>
             <pre><code>${esc(blok.tekst)}</code></pre>
             ${blok.uitleg ? `<p class="promptuitleg">${blok.uitleg}</p>` : ''}
@@ -1102,6 +1287,7 @@ function toonBundel(w, opties = {}) {
             <h3>${esc(blok.titel)}</h3>
             <p>${blok.inhoud}</p>
             <ol>${blok.stappen.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
+            ${blok.klaar ? `<p class="opdracht-klaar"><strong>Je bent klaar als</strong> ${esc(blok.klaar)}</p>` : ''}
           </section>`
           )
           .join('')}
@@ -1148,7 +1334,7 @@ function toonBundel(w, opties = {}) {
         <ul class="bundel-modules">
           ${modules
             .map(
-              (m) => `<li><a href="#/module/${m.id}"><span aria-hidden="true">${m.icoon}</span> ${esc(m.titel)}</a>
+              (m) => `<li><a href="#/module/${m.id}">${esc(m.titel)}</a>
                        — ${esc(m.ondertitel)}</li>`
             )
             .join('')}
@@ -1904,7 +2090,7 @@ function toonPromptkaart() {
             <figcaption>
               <span>${esc(blok.titel)}</span>
               <span class="kaart-acties">
-                <span class="herkomst"><span aria-hidden="true">${module.icoon}</span> ${esc(module.titel)}${esc(bij)}</span>
+                <span class="herkomst">${esc(module.titel)}${esc(bij)}</span>
                 <a class="herkomst-link schermonly" href="#/module/${module.id}">openen</a>
                 <button class="knop mini schermonly" data-actie="kopieer">Kopieer</button>
               </span>
@@ -1947,7 +2133,20 @@ document.addEventListener('click', (e) => {
     knop.classList.toggle('aan', wordtAf);
     knop.setAttribute('aria-pressed', String(wordtAf));
     knop.innerHTML = wordtAf ? VINK_AF : VINK_OPEN;
-    knop.closest('.les')?.classList.toggle('af', wordtAf);
+    const les = knop.closest('.les');
+    les?.classList.toggle('af', wordtAf);
+    // Een stempel, net als in Leerlichtjes: kort, en alleen bij het afvinken.
+    if (les && wordtAf) {
+      les.classList.add('net-af');
+      setTimeout(() => les.classList.remove('net-af'), 900);
+    }
+    const lesId = les?.id.replace(/^les-/, '');
+    if (lesId) {
+      const navKnop = document.querySelector(`.lesnav [data-les="${CSS.escape(lesId)}"]`);
+      navKnop?.classList.toggle('af', wordtAf);
+      const vo = navKnop?.querySelector('.enkel-vo');
+      if (vo) vo.textContent = wordtAf ? ', afgewerkt' : '';
+    }
 
     // De teller in de modulekop telt gewoon opnieuw wat er op het scherm staat.
     const teller = document.getElementById('module-teller');
@@ -1955,9 +2154,24 @@ document.addEventListener('click', (e) => {
       const totaal = document.querySelectorAll('.les').length;
       const klaar = document.querySelectorAll('.les.af').length;
       teller.textContent = `${klaar}/${totaal} afgewerkt`;
+      document.querySelector('.held-voortgang')?.style.setProperty('--deel', totaal ? (klaar / totaal).toFixed(3) : 0);
+      document.querySelector('.module-lijf')?.classList.toggle('alles-af', totaal > 0 && klaar === totaal);
     }
 
     tekenKop(); // de voortgangsbalk bovenaan
+    return;
+  }
+
+  if (actie === 'naar-les') {
+    // Een sprong binnen de module, zonder het adres te wijzigen: het hekje is
+    // van de router. De kop van de les krijgt de focus, voor wie met het
+    // toetsenbord werkt.
+    const doel = document.getElementById('les-' + knop.dataset.les);
+    if (doel) {
+      const stil = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      doel.scrollIntoView({ behavior: stil ? 'auto' : 'smooth', block: 'start' });
+      doel.querySelector('h2')?.focus({ preventScroll: true });
+    }
     return;
   }
 

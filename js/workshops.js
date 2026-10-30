@@ -612,7 +612,7 @@ export const WORKSHOPS = [
     ],
     doelen: [
       'Je kan beslissen of je app opslag nodig heeft.',
-      'Je kent de spelregels rond leerlinggegevens en past de anonieme standaard toe.',
+      'Je kent de spelregels rond leerlinggegevens en past de veilige standaard toe: bouwen zonder echte namen.',
       'Je hebt je project op GitHub staan met automatische publicatie.',
     ],
     draaiboek: [
@@ -658,13 +658,13 @@ export const WORKSHOPS = [
         soort: 'gesprek',
         minuten: 25,
         titel: 'Leerlinggegevens: de spelregels',
-        wat: 'GDPR in de praktijk, de rol van de DPO, en de anonieme standaard.',
+        wat: 'GDPR in de praktijk, de rol van de DPO, en de veilige standaard: bouwen zonder echte namen.',
         module: 'vibe-data',
         lessen: ['leerlingdata-veilig'],
         tips: [
           'Als de DPO aansluit: laat die vooral vertellen wat wél kan en hoe je iets aanmeldt.',
-          'De kern in één zin: bouw anoniem, tenzij het echt niet anders kan.',
-          'Wees stellig over wat niet in een zelfbouwtool hoort: punten die meetellen, zorggegevens, CLB-verslagen.',
+          'De kern in één zin: bouw zonder echte namen, tenzij het echt niet anders kan.',
+          'Wees stellig over twee lijnen: zorggegevens en CLB-verslagen blijven in de schoolsystemen, en punten die meetellen hou je niet op eigen houtje bij in een zelfbouwtool, maar enkel samen met je scholengroep.',
         ],
       },
       { id: 'pauze', soort: 'pauze', minuten: 15, titel: 'Pauze', wat: 'Koffie.' },

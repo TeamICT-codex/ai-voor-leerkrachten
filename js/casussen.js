@@ -41,6 +41,8 @@ export const MODULE_CASUSSEN = {
       id: "casus-privacy",
       titel: "Persoonsgegevens en privacy",
       minuten: 30,
+      intro: "Je beoordeelt situaties uit de praktijk rond privacy en persoonsgegevens: mag dit, mag dit niet, of hangt het ervan af?",
+      onthoud: "Hou de situatie en laat de persoon weg: voor de toon of de vorm die je zoekt, heeft je AI-assistent zelden een naam of herkenbaar detail nodig.",
       blokken: [
         {
           type: "tekst",
@@ -116,6 +118,8 @@ export const MODULE_CASUSSEN = {
       id: "casus-leerlingen",
       titel: "Leerlingen, grenzen en beoordelen",
       minuten: 30,
+      intro: "Je beoordeelt situaties over wat je uit handen geeft en wat leerlingen met AI mogen, en schrijft je eigen grensgeval op.",
+      onthoud: "Raak je er bij een twijfelgeval niet uit, dan is dat geen falen maar het antwoord: leg het voor op het teamoverleg of de vakwerkgroep, of aan je directie.",
       blokken: [
         {
           type: "tekst",

@@ -13,6 +13,9 @@
 //   { type: 'vergelijk', zwak, sterk, uitleg }          — zwakke vs. sterke prompt
 //   { type: 'opdracht',  titel, inhoud, stappen: [] }   — doe-opdracht
 //   { type: 'quiz',      vraag, opties: [{tekst, juist, feedback}] }
+//
+// Een les heeft daarnaast twee korte zinnen: intro ("In deze les", bovenaan)
+// en onthoud (de afsluiter onderaan). Allebei mogen ze opmaak bevatten.
 
 export const MODULES_AI = [
   {
@@ -35,6 +38,8 @@ export const MODULES_AI = [
         id: 'wat-is-ai-assistent',
         titel: 'Wat is een AI-assistent?',
         minuten: 15,
+        intro: 'Je leert wat ChatGPT en Claude zijn, waar ze goed in zijn en waar je moet opletten.',
+        onthoud: 'Een AI-assistent is een belezen stagiair: snel en handig, maar hij kent jouw klas niet en kan overtuigd iets fout zeggen. Jij blijft de leerkracht die nakijkt.',
         blokken: [
           {
             type: 'tekst',
@@ -98,6 +103,8 @@ export const MODULES_AI = [
         id: 'eerste-gesprek',
         titel: 'Je eerste gesprek',
         minuten: 25,
+        intro: 'Je meldt je aan bij een AI-assistent, start een gesprek en stuurt het antwoord bij tot je er iets mee kunt.',
+        onthoud: 'Het eerste antwoord is een ontwerp. Stuur bij met korte opdrachten, zoals "korter" of "voor 10-jarigen": daar zit de winst.',
         blokken: [
           {
             type: "tekst",
@@ -190,6 +197,8 @@ export const MODULES_AI = [
         id: 'vier-knoppen',
         titel: 'De vier knoppen',
         minuten: 30,
+        intro: 'Je leert de vier knoppen waarmee een vage vraag een scherpe opdracht wordt: rol, context, vorm en voorbeeld.',
+        onthoud: 'Hoe meer knoppen je indrukt, hoe scherper het resultaat. De sterkste is een voorbeeld: plak een stuk van je eigen materiaal en vraag om meer "in deze stijl".',
         blokken: [
           {
             type: 'tekst',
@@ -256,6 +265,8 @@ export const MODULES_AI = [
         id: 'bijsturen',
         titel: 'Bijsturen in plaats van opnieuw beginnen',
         minuten: 40,
+        intro: 'Je oefent in drie rondes hoe je een antwoord bijstuurt binnen hetzelfde gesprek, en je bewaart een sjabloon voor later.',
+        onthoud: 'Stuur bij in hetzelfde gesprek, want de assistent weet al waar je mee bezig bent. Begin pas opnieuw als het helemaal ontspoort, en plak dan het goede stuk mee.',
         blokken: [
           {
             type: 'tekst',
@@ -325,6 +336,8 @@ export const MODULES_AI = [
         id: 'lesopbouw',
         titel: 'Een lesopbouw laten maken',
         minuten: 30,
+        intro: 'Je laat je AI-assistent een lesopbouw maken die past bij jouw tijdsindeling, jouw klas en het leerplandoel waar je naartoe werkt.',
+        onthoud: 'Eén zin over jouw klas maakt van een algemeen lesplan jouw lesplan. Plak ook het leerplandoel letterlijk mee, dan kan je de les verantwoorden.',
         blokken: [
           {
             type: 'tekst',
@@ -352,6 +365,8 @@ export const MODULES_AI = [
         id: 'differentiatie',
         titel: 'Differentiëren zonder drie keer werk',
         minuten: 35,
+        intro: 'Je maakt van één eigen oefening drie niveaus en beslist zelf welke leerling met welke versie aan de slag gaat.',
+        onthoud: 'Zeg zelf waarin de niveaus verschillen, anders krijg je gewoon "korter" en "langer". Hou de opmaak gelijk, zodat het in de klas niet opvalt wie welke versie heeft.',
         blokken: [
           {
             type: 'tekst',
@@ -436,6 +451,8 @@ export const MODULES_AI = [
         id: 'toetsvragen',
         titel: 'Toetsvragen op het juiste niveau',
         minuten: 15,
+        intro: 'Je laat toetsvragen maken op het juiste denkniveau, met punten en modelantwoord, en laat je eigen toets kritisch nakijken.',
+        onthoud: 'Wie enkel "maak tien vragen" typt, krijgt tien weetvragen. Zeg welk denkniveau je wil en vraag het modelantwoord meteen mee.',
         blokken: [
           {
             type: 'tekst',
@@ -463,6 +480,8 @@ export const MODULES_AI = [
         id: 'feedback',
         titel: 'Feedback formuleren',
         minuten: 35,
+        intro: 'Je zet kladnotities met je AI-assistent om in vlotte feedback en licht een eigen toets door, terwijl het oordeel bij jou blijft.',
+        onthoud: 'Jij beoordeelt, de assistent verwoordt. Het herformuleren mag je uitbesteden, het punt bepaal je altijd zelf.',
         blokken: [
           {
             type: 'tekst',
@@ -547,6 +566,8 @@ export const MODULES_AI = [
         id: 'oudercommunicatie',
         titel: 'Communicatie met ouders',
         minuten: 15,
+        intro: 'Je schrijft met hulp van je AI-assistent een gevoelige mail aan ouders, in vier versies en zonder namen in het gesprek.',
+        onthoud: 'Typ [LEERLING] waar de naam hoort en vul die pas in bij het versturen in Smartschool. Een versie in eenvoudig Nederlands wordt vaak net wél gelezen.',
         blokken: [
           {
             type: 'tekst',
@@ -574,6 +595,8 @@ export const MODULES_AI = [
         id: 'verslagen',
         titel: 'Verslagen en planningen',
         minuten: 20,
+        intro: 'Je verwerkt losse vergaderingsnotities tot een helder verslag met afspraken, zonder namen en met de zin "verzin niets bij".',
+        onthoud: '"Verzin niets bij" hoort in elke vraag waar juistheid telt. Namen vervang je eerst door [LEERLING 1]; wat over zorg, gezondheid of de thuissituatie gaat, laat je eruit.',
         blokken: [
           {
             type: 'tekst',
@@ -649,6 +672,8 @@ export const MODULES_AI = [
         id: 'privacy',
         titel: 'Privacy: de korte versie',
         minuten: 20,
+        intro: 'Je leert welke gegevens nooit in een AI-gesprek horen, hoe je een leerling onherkenbaar beschrijft en wat je doet als het misgaat.',
+        onthoud: 'Zet in een AI-gesprek niets dat je niet op het prikbord in de leraarskamer zou hangen. En vraag je af: kan een collega raden over wie dit gaat?',
         blokken: [
           {
             type: 'tekst',
@@ -684,6 +709,8 @@ export const MODULES_AI = [
         id: 'betrouwbaarheid',
         titel: 'Als het overtuigd fout is',
         minuten: 15,
+        intro: 'Je ziet waar een AI-assistent overtuigd iets kan verzinnen en hoe je jaartallen, citaten en bronnen zelf nacheckt.',
+        onthoud: 'Wat een leerling of ouder als feit te zien krijgt, check je in een bron die je vertrouwt. Een link is nog geen gelezen bron: open hem en lees na.',
         blokken: [
           {
             type: 'tekst',
@@ -736,6 +763,8 @@ export const MODULES_AI = [
         id: 'leerlingen',
         titel: 'Leerlingen die zelf AI gebruiken',
         minuten: 25,
+        intro: 'Je bepaalt per opdracht wat leerlingen met AI mogen en schrijft daarover een klasafspraak die je maandag kan uitdelen.',
+        onthoud: 'Geen algemeen verbod, maar per opdracht twee zinnen over wat met AI mag. Is het schrijven of denken zelf het leerdoel, dan zeg je gerust: hier geen AI.',
         blokken: [
           {
             type: 'tekst',
@@ -794,7 +823,7 @@ export const MODULES_AI = [
     icoon: '🎒',
     titel: 'De leerlingencursus in je klas',
     ondertitel:
-      'AI-wijs op school is een gratis cursus voor je leerlingen van de tweede en derde graad. Zo zet je ze in, zonder er zelf een expert voor te moeten zijn.',
+      'AI-wijs op school is een gratis cursus voor je leerlingen van de tweede en derde graad, AI-wijs Start de klassikale instap voor de eerste graad. Zo zet je ze in, zonder er zelf een expert voor te moeten zijn.',
     niveau: 'Verdieping',
     // Een module mag geen <a> in haar tekst (zie T122/T130); de ingang naar de
     // subsite hangt daarom als link aan de module zelf. toonModule() toont hem.
@@ -803,9 +832,10 @@ export const MODULES_AI = [
       'Je weet wat er in AI-wijs op school zit en welke hoofdstukken voor jouw vak en je klas interessant zijn.',
       'Je kiest een manier om de cursus in te zetten: als huiswerk, in één lesuur, in een GWP of als begeleiding bij een taak of GIP.',
       'Je maakt klasafspraken die kloppen met wat de cursus de leerlingen zelf aanleert, en je weet hoe je opvolgt zonder controletools.',
+      'Je weet hoe AI-wijs Start de eerste graad klassikaal en zonder account op weg helpt, en wat je vooraf regelt.',
     ],
     klaarzetten: [
-      'Open de leerlingencursus zelf eens via de knop bovenaan deze module (of via <code>leerlingen/</code> op de startpagina). Een half uur bladeren volstaat om te zien wat je leerlingen te zien krijgen.',
+      'Open de leerlingencursus zelf eens via de knop bovenaan deze module (of via de voorpagina). Een half uur bladeren volstaat om te zien wat je leerlingen te zien krijgen.',
       'De afspraken over AI in het schoolreglement van je school en, als die er zijn, de afspraken van je vakwerkgroep.',
     ],
     lessen: [
@@ -813,6 +843,8 @@ export const MODULES_AI = [
         id: 'wat-zit-erin',
         titel: 'Wat zit er in AI-wijs op school?',
         minuten: 10,
+        intro: 'Je ontdekt hoe AI-wijs op school is opgebouwd, wat je leerlingen er doen en wat de cursus wel en niet bewaart.',
+        onthoud: 'Voortgang en antwoorden blijven in de browser van de leerling: jij krijgt geen overzicht. Wat ze eruit haalde, hoor je in een klasgesprek.',
         blokken: [
           {
             type: 'tekst',
@@ -882,6 +914,8 @@ export const MODULES_AI = [
         id: 'zo-zet-je-ze-in',
         titel: 'Vier manieren om de cursus in te zetten',
         minuten: 15,
+        intro: 'Je kiest uit vier manieren om de leerlingencursus in te zetten en maakt een concreet plan voor één klas.',
+        onthoud: 'Geef een afgebakende opdracht, zoals één les of één hoofdstuk, met een vast moment in de klas om erover te praten. "Doe de cursus" verzandt, net als elk zelfstudiepakket.',
         blokken: [
           {
             type: 'tekst',
@@ -972,6 +1006,8 @@ export const MODULES_AI = [
         id: 'afspraken-en-opvolging',
         titel: 'Afspraken, opvolging en het certificaat',
         minuten: 10,
+        intro: 'Je stemt je klasafspraken af op wat de cursus je leerlingen leert, en je volgt op zonder dashboard of detector.',
+        onthoud: 'Zeg per opdracht welke AI-hulp mag, met de vier soorten hulp uit de leerlingencursus. Twijfel je over een tekst, vraag dan naar het proces, niet naar de score van een AI-detector.',
         blokken: [
           {
             type: 'tekst',
@@ -1049,6 +1085,39 @@ export const MODULES_AI = [
                   'Dat straft ook wie eerlijk werkte, en je weet nog altijd niet wat er gebeurd is. Eerst het gesprek.',
               },
             ],
+          },
+        ],
+      },
+      {
+        id: 'start-in-de-eerste-graad',
+        titel: 'AI-wijs Start in de eerste graad',
+        minuten: 8,
+        intro: 'Je leert hoe AI-wijs Start de eerste graad klassikaal op weg helpt, zonder account, en wat je vooraf regelt.',
+        onthoud: 'Start geef je klassikaal en leerlingen hebben geen account nodig. Een stap met een chatbot gebeurt alleen op school, onder jouw begeleiding; verwittig voor les 5 de leerlingenbegeleiding.',
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              'Een deel van je leerlingen in het eerste jaar is nog geen dertien, en de meeste chatbots laten pas vanaf die leeftijd een eigen account toe. Daarom is er voor de eerste graad <strong>AI-wijs Start</strong>: zes korte lessen die je <em>klassikaal</em> geeft. Jij toont op het digibord, je leerlingen doen mee in de browser, zonder account en zonder chatbot. Start bouwt verder op wat leerlingen in het lager met Leerlichtjes deden, en maakt de brug naar AI-wijs op school in de tweede graad. Je geeft de zes lessen in twee lesuren, of elke les los. Er is een bordmodus met grote letters, een slotquiz van tien situaties en een paspoort om af te drukken.',
+          },
+          {
+            type: 'lijst',
+            geordend: true,
+            items: [
+              '<strong>Waarom zie jij dit filmpje?</strong> Hoe een app kiest wat je ziet, en hoe je zelf het stuur neemt.',
+              '<strong>Echt, gemaakt of misleidend?</strong> Drie vragen voor je een beeld gelooft of doorstuurt.',
+              '<strong>Wat vertel je een chatbot?</strong> Welke gegevens je niet intypt, en waarom er een leeftijdsgrens is.',
+              '<strong>Een chatbot als vriend?</strong> Wat een vriend kan en een chatbot niet.',
+              '<strong>Jouw beeld is van jou.</strong> Over nagemaakte naaktbeelden en afpersing: wat je doet en waar je hulp vindt.',
+              '<strong>Leren of laten doen.</strong> Welke hulp je laat leren, met een eerste prompt die jij intypt.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Twee dingen die je vooraf regelt',
+            inhoud:
+              'Les 5 gaat over <strong>deepnudes</strong>, nagemaakte naaktbeelden van echte mensen, en <strong>sextortion</strong>, afpersing met zo\'n beeld. Verwittig vooraf de leerlingenbegeleiding en het CLB; ze kunnen erbij zijn. En de stap <em>Probeer het zelf</em> bij sommige lessen is voor wie dertien is. Ze gebeurt alleen op school, onder jouw begeleiding, met de chatbot die je school aanbiedt en volgens haar afspraken: nooit thuis, nooit als huiswerk. De volledige handleiding, met een variant zonder computer per les en een brief voor de ouders, staat op de pagina <em>Voor leerkrachten</em> van AI-wijs Start. Je vindt Start via het overzicht van deze leeromgeving en op de voorpagina.',
           },
         ],
       },
