@@ -130,20 +130,21 @@ export const PLEKKEN = [
 // volgorde is het pad van de camera, van laag naar hoog: het platform, de motor,
 // de verdiepingen en de lading. kamer: waar de camera kijkt; plek: wat er oplicht.
 // De zes stations in de motor kunnen een storing krijgen; hun uitval-zin komt
-// uit het overzicht van Team ICT.
+// uit het overzicht van Team ICT. actie: wat je zelf doet, als dat meer is dan
+// melden via de helpdesk.
 export const STATIONS = [
   { id: 'grondploeg', kort: 'Grondploeg', kamer: 'platform', plek: 'grondploeg', go: 'De lokale ICT-mensen staan klaar op hun school.' },
   { id: 'helpdesk', kort: 'Helpdesk', kamer: 'platform', plek: 'helpdesk', go: 'Elke vraag komt op één plek binnen.' },
-  { id: 'vorming', kort: 'Vorming', kamer: 'platform', plek: 'vorming', go: 'Wie hulp nodig heeft bij een tool, krijgt begeleiding.' },
+  { id: 'vorming', kort: 'Vorming', kamer: 'platform', plek: 'vorming', go: 'Er zijn workshops, materiaal in je eigen tempo en begeleiding in de klas.' },
   { id: 'net', kort: 'NET-01', naam: 'Netwerk en telefonie', kamer: 'motor', plek: 'net', go: 'Wifi en internet werken op elke campus.', uitval: 'Zonder netwerk geen online oefenapp, geen cursus en geen gedeelde documenten.' },
   { id: 'id', kort: 'ID-02', naam: 'Identiteit en aanmelding', kamer: 'motor', plek: 'id', go: 'Iedereen kan zich aanmelden.', uitval: 'Zonder werkende aanmelding geraak je niet in je apps, ook al werken ze zelf perfect.' },
   { id: 'tst', kort: 'TST-03', naam: 'Toestellen en printers', kamer: 'motor', plek: 'tst', go: 'De toestellen zijn klaar voor gebruik.', uitval: 'Zonder werkend toestel geen digitale les, hoe goed de app ook is.' },
   { id: 'plat', kort: 'PLT-04', naam: 'Platformen', kamer: 'motor', plek: 'plat', go: 'Classroom, Microsoft 365 en Smartschool zijn bereikbaar.', uitval: 'Zonder platform geen Classroom, geen gedeelde mappen en geen berichten naar ouders.' },
-  { id: 'veilig', kort: 'SEC-05', naam: 'Veiligheid en privacy', kamer: 'motor', plek: 'veilig', go: 'Beveiliging en back-ups staan goed.', uitval: 'Een geslaagde aanval kan accounts, bestanden en apps tegelijk platleggen.' },
+  { id: 'veilig', kort: 'SEC-05', naam: 'Veiligheid en privacy', kamer: 'motor', plek: 'veilig', go: 'Er is geen aanval of datalek gemeld.', uitval: 'Een geslaagde aanval kan accounts, bestanden en apps tegelijk platleggen.', actie: 'Kreeg je een verdachte mail of vermoed je een datalek? Klik niets aan en meld het meteen via de helpdesk.' },
   { id: 'srv', kort: 'SRV-06', naam: 'Servers en eigen toepassingen', kamer: 'motor', plek: 'srv', go: 'Onze eigen toepassingen draaien.', uitval: 'Zonder servers vallen onze eigen toepassingen stil.' },
   { id: 'kleuter', kort: 'Kleuter', kamer: 'kleuter', go: 'De kleuterklas is klaar.' },
   { id: 'lager', kort: 'Lager', kamer: 'lager', go: 'De klassen in het lager zijn klaar.' },
   { id: 'secundair', kort: 'Secundair', kamer: 'secundair', go: 'De klassen in het secundair zijn klaar.' },
-  { id: 'beleid', kort: 'Beleid', kamer: 'beleid', go: 'Het ICT-beleidsplan wijst de richting.' },
+  { id: 'beleid', kort: 'Beleid', kamer: 'beleid', go: 'Elke school werkt aan haar ICT-beleidsplan, met ICTCheck.' },
   { id: 'lading', kort: 'Lading', kamer: 'neus', plek: 'kompas', go: 'Kwaliteitsvol onderwijs aan boord.' },
 ];

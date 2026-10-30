@@ -178,7 +178,7 @@ const SCHERM_KLEUR = { go: '#5bd48a', nogo: '#ff5a4f', bezig: '#ffcf3a', wacht: 
 function tekenLeidingScherm({ ctx, c }, stand = { fase: 'rust', toestand: {} }) {
   const W = c.width, H = c.height;
   ctx.fillStyle = '#16202b'; ctx.fillRect(0, 0, W, H);
-  const titel = { rust: 'Alle systemen', ronde: 'Go/no-go-ronde', hold: 'Hold', go: 'Go voor lancering', aftellen: 'Aftellen', vlucht: 'In vlucht' }[stand.fase] || 'Alle systemen';
+  const titel = { rust: 'Alle systemen', ronde: 'Go/no-go-ronde', hold: 'No-go', go: 'Go voor lancering', aftellen: 'Aftellen', vlucht: 'In vlucht' }[stand.fase] || 'Alle systemen';
   ctx.fillStyle = stand.fase === 'hold' ? '#ff8a80' : '#c2e3cc'; ctx.font = F(700, 40); ctx.fillText(titel, 40, 66);
   DIENSTEN.forEach((d, i) => {
     const kol = i % 3, rij = Math.floor(i / 3), x = 40 + kol * 220, y = 118 + rij * 92;
@@ -236,6 +236,10 @@ function stilFiguur(f, { hoofd = false } = {}) {
 const boog = (hoek, r) => [r * Math.sin(hoek), r * Math.cos(hoek)];
 // Naar een punt kijken: figuurtjes kijken langs hun +z.
 const kijkNaar = (x, z, nx, nz) => Math.atan2(nx - x, nz - z);
+// De zes kasten in de motor, als hoek op de cirkel (0 is vooraan). De buitenste
+// staan niet verder dan 1,12 van de achterwand: anders verdwijnen ze achter de
+// rand van de opening zodra de kijkhoek wat draait.
+const KAST_HOEKEN = [-1.12, -0.78, -0.4, 0.4, 0.78, 1.12];
 
 function bouwRaket(g, canvas) {
   const { wereld, kamerLamp, gloed, plek, speel, statischeTekening } = g;
@@ -365,7 +369,7 @@ function bouwRaket(g, canvas) {
     cilinder(voet, 0.34, 0.38, 0.42, K.groen, 0, PLAAT, 0, { seg: 24 });
     cilinder(voet, 0.36, 0.36, 0.05, 0, 0, PLAAT + 0.42, 0, { seg: 24, materiaal: pulsMat, schaduw: false });
     DIENSTEN.forEach((d, k) => {
-      const hoek = Math.PI + [-1.26, -0.84, -0.42, 0.42, 0.84, 1.26][k];
+      const hoek = Math.PI + KAST_HOEKEN[k];
       const kast = plek(d.id, 'motor', aanWand(motor, hoek, RW - 0.22));
       blok(kast, 0.44, 0.98, 0.34, 0xdde2e6, 0, PLAAT, 0, { r: 0.03 });
       blok(kast, 0.46, 0.06, 0.36, parseInt(d.kleur.slice(1), 16), 0, PLAAT + 0.98, 0, { r: 0.02 });
@@ -378,7 +382,7 @@ function bouwRaket(g, canvas) {
       lampjes.push(lampje);
       lampjeVan[d.id] = lampje;
     });
-    const technicus = medewerker(motor, 0.5, 0.05, 0.75, -1.4, { shirt: K.groen, huid: 0, haar: 3 });
+    const technicus = medewerker(motor, 0.25, 0.1, 0.75, -1.4, { shirt: K.groen, huid: 0, haar: 3 });
     blok(technicus, 0.2, 0.14, 0.02, K.inkt, 0, 0.5, 0.17, { r: 0.01 }).rotation.x = -0.5;
     for (const arm of technicus.userData.armen) arm.rotation.x = -0.9;
     koppen.push(technicus);
@@ -388,6 +392,10 @@ function bouwRaket(g, canvas) {
   cilinder(motor, R, R * 0.8, 0.46, K.wit, 0, -0.46, 0, { seg: 40, schaduw: false });
   cilinder(motor, R * 0.8 + 0.01, R * 0.8 + 0.01, 0.06, K.groen, 0, -0.46, 0, { seg: 40, schaduw: false });
   const vlamMat = new T.MeshBasicMaterial({ color: 0xa8dcff, transparent: true, opacity: 0.8, depthWrite: false });
+  const WAAKVLAM = new T.Color(0xa8dcff), VUUR = new T.Color(0xffb347);
+  // Waar de vlammen aan de motoren hangen, in de wereld, als de raket op het platform staat.
+  const VLAM_TOP = BASIS - 1.06;
+  let vlamLengte = 0;
   const vlammen = [];
   for (let k = 0; k < 6; k++) {
     const [x, z] = boog(k / 6 * Math.PI * 2 + Math.PI / 6, 0.95);
@@ -745,7 +753,7 @@ function bouwRaket(g, canvas) {
     statischeTekening({ c, ctx: c.getContext('2d'), tex }, ({ ctx }) => {
       ctx.clearRect(0, 0, 256, 112);
       rond(ctx, 8, 8, 240, 96, 48); ctx.fillStyle = kleur; ctx.fill();
-      ctx.fillStyle = '#ffffff'; ctx.font = F(700, 54); ctx.textAlign = 'center'; ctx.fillText(tekst, 128, 75); ctx.textAlign = 'left';
+      ctx.fillStyle = '#ffffff'; ctx.font = F(700, 60); ctx.textAlign = 'center'; ctx.fillText(tekst, 128, 77); ctx.textAlign = 'left';
     });
     return new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
   }
@@ -763,9 +771,15 @@ function bouwRaket(g, canvas) {
   }
   // De raket staat op DRAAI; het overzicht kijkt op 0,31. Bordjes in de raket
   // kijken naar de camera van de kamer, bordjes buiten naar die van het overzicht.
+  // In de motor hangt elk bordje op de voorkant van zijn eigen kast, net voor de
+  // hoek die het dichtst bij de camera staat. Bij de vier middelste bovenaan, bij
+  // de twee buitenste onderaan: die staan maar 0,3 opzij van hun buur, en zo
+  // overlappen hun bordjes niet. Het scherm met de naam blijft vrij.
   DIENSTEN.forEach((d, k) => {
-    const [x, z] = boog(Math.PI + [-1.26, -0.84, -0.42, 0.42, 0.84, 1.26][k], 1.15);
-    bordje(d.id, motor, x, PLAAT + 1.2, z, 0, 0.9);
+    const hoek = Math.PI + KAST_HOEKEN[k];
+    const [x, z] = boog(hoek, RW - 0.39);
+    const buiten = k === 0 || k === 5;
+    bordje(d.id, motor, x, PLAAT + (buiten ? 0.36 : 0.93), z + Math.abs(Math.sin(hoek)) * 0.22 + 0.06, 0, 0.9);
   });
   [kleuter, lager, secundair, beleid].forEach((v, i) => bordje(NIVEAUS[i + 1], v, 0, VH - 0.5, 1.0, 0, 1.5));
   bordje('lading', neus, 0, 1.5, 1.42, 0.31 - DRAAI, 1.4);
@@ -779,8 +793,10 @@ function bouwRaket(g, canvas) {
     b.m.material = toestand === 'nogo' ? nogoMat : goMat;
     b.aan = true;
     b.sinds = tijd();
-    if (g.stil) { b.m.visible = true; b.m.scale.setScalar(b.schaal); }
+    if (g.stil) { b.m.visible = true; b.m.scale.setScalar(b.schaal * bordjeMaat()); }
   }
+  // Op een smal scherm een maat groter, anders lees je GO niet meer.
+  const bordjeMaat = () => (canvas.clientWidth < 600 ? 1.3 : 1);
   function zetLampje(id, toestand) {
     const l = lampjeVan[id];
     if (!l) return;
@@ -806,6 +822,9 @@ function bouwRaket(g, canvas) {
     motorblok.add(m);
     return m;
   })();
+  // Zolang de raket laag hangt, schuift de gloed mee omhoog en wordt ze
+  // platter: onder de sokkel (die stopt op -0,78) komt geen licht uit.
+  const GLOED_LAAGST = 0.55, GLOED_BODEM = -0.7;
   const rook = Array.from({ length: 10 }, (_, i) => {
     const b = levend(bol(wereld, 0.4, 0, 0, 0, 0, { materiaal: new T.MeshLambertMaterial({ color: 0xf4f1ec, transparent: true, opacity: 0, depthWrite: false }), seg: 10, schaduw: false }));
     b.visible = false;
@@ -851,7 +870,8 @@ function bouwRaket(g, canvas) {
     tekenScherm();
   }
   // Eén stap van de ronde: eerst de vraag (de camera gaat kijken), daarna het
-  // antwoord van het station.
+  // antwoord van het station. Dat blijft even staan, zodat je de zin kunt lezen.
+  // Zo duurt de hele ronde een kleine twintig seconden.
   function rondeStap() {
     const r = regie;
     if (r.stap === 'vraag') {
@@ -862,7 +882,7 @@ function bouwRaket(g, canvas) {
       r.toestand[st.id] = 'bezig';
       zetLampje(st.id, 'wacht');
       r.stap = 'antwoord';
-      r.volgende = r.t + (!vorige || vorige.kamer !== st.kamer ? 0.8 : 0.32);
+      r.volgende = r.t + (!vorige || vorige.kamer !== st.kamer ? 0.9 : 0.5);
       tekenScherm();
       meld('vraag', { id: st.id });
     } else {
@@ -872,7 +892,7 @@ function bouwRaket(g, canvas) {
       zetLampje(st.id, toestand);
       zetBordje(st.id, toestand);
       r.stap = 'vraag';
-      r.volgende = r.t + 0.12;
+      r.volgende = r.t + 0.55;
       if (toestand === 'nogo') {
         r.fase = 'hold';
         pulsMat.color.setHex(0x8a949c);
@@ -908,7 +928,9 @@ function bouwRaket(g, canvas) {
     } else if (r.fase === 'vlucht') {
       const t = r.t;
       [r.hoogte, r.snelheid] = baan(t);
-      r.vuur = t < 6 ? 1 : t < 8 ? 1 - 0.8 * (t - 6) / 2 : t < 12.5 ? 0 : t < VLUCHT_DUUR ? 0.75 : Math.max(0, 0.75 - (t - VLUCHT_DUUR) * 1.5);
+      // Het vuur loopt telkens zacht aan en uit, ook op de top en bij de landingsbrand.
+      r.vuur = t < 6 ? 1 : t < 8 ? 1 - 0.8 * (t - 6) / 2 : t < 8.6 ? 0.2 * (1 - glad((t - 8) / 0.6))
+        : t < 12 ? 0 : t < VLUCHT_DUUR ? 0.75 * glad((t - 12) / 0.6) : Math.max(0, 0.75 - (t - VLUCHT_DUUR) * 1.5);
       r.rook = t < 2.5 ? 1 : t < 6 ? 1 - (t - 2.5) / 3.5 : t < 13.5 ? 0 : t < 15.5 ? (t - 13.5) / 2 * 0.7 : Math.max(0, 0.7 - (t - 15.5) * 0.45);
       r.armen = t < 15.8 ? 1 : 1 - glad((t - 15.8) / 1.4);
       if (t >= 8) eenmaal('top', 'top');
@@ -927,7 +949,9 @@ function bouwRaket(g, canvas) {
     armen.rotation.y = r.armen * 1.15;
     vuurGloed.visible = r.vuur > 0.02;
     vuurGloed.material.opacity = Math.min(1, r.vuur * 1.1);
-    vuurGloed.scale.set(3.4 + r.vuur * 1.5, 2.6 + r.vuur * 2.5, 1);
+    const gloedY = Math.max(-1.55, GLOED_LAAGST - BASIS - r.hoogte);
+    vuurGloed.position.y = gloedY;
+    vuurGloed.scale.set(3.4 + r.vuur * 1.5, Math.min(2.6 + r.vuur * 2.5, 2 * (gloedY + BASIS + r.hoogte - GLOED_BODEM)), 1);
     for (const w of hogeWolken) w.visible = r.fase === 'vlucht';
   }
 
@@ -958,19 +982,20 @@ function bouwRaket(g, canvas) {
     },
     binnen: kamer => NIVEAUS.includes(kamer),
     // Bij een open kaartje iets meer ruimte errond: de kamers zijn rond en klein.
-    // Tijdens de vlucht kadert de camera de hele raket, en kijkt ze wat lager.
+    // Tijdens de vlucht kadert de camera de hele raket met haar vuur, en kijkt ze wat lager.
     // De motor leest beide waarden telkens opnieuw, dus een getter volstaat. Het
     // kader van een plek is breder dan hoog: op een breed scherm (de beamer) moet
     // de zoom dus kleiner, anders vallen de neus en het vuur uit beeld.
     get plekZoom() {
       if (regie.fase !== 'vlucht') return 1.2;
       const verhouding = canvas.clientWidth / Math.max(1, canvas.clientHeight);
-      return Math.min(9, 5.6 * verhouding);
+      return Math.min(9, 5.9 * verhouding);
     },
     get plekHoek() { return regie.fase === 'vlucht' ? 0.16 : undefined; },
-    // De plek 'vlucht' volgt het midden van de raket, met een voorsprong: de
-    // camera ijlt na (zie de demping in de motor), en zo blijft de raket in beeld.
-    plekAnker: id => (id === 'vlucht' ? vluchtAnker.set(0, MIDDEN_RAKET + regie.hoogte + regie.snelheid / 2.8, RZ) : undefined),
+    // De plek 'vlucht' volgt het midden van de raket en haar vlam, met een
+    // voorsprong: de camera ijlt na (zie de demping in de motor), en zo blijft de
+    // raket in beeld.
+    plekAnker: id => (id === 'vlucht' ? vluchtAnker.set(0, MIDDEN_RAKET - vlamLengte / 2 + regie.hoogte + regie.snelheid / 2.8, RZ) : undefined),
     pinGroep: f => (f === 'overzicht' ? 'platform' : f),
     samenvoegen: [sokkel, platform, pad, ...NIVEAUS.map(n => kamers[n].groep), motorblok, neus, toren, armen, lift, schotel, ...bomen, buiten, ...wolken, ...hogeWolken, ...hoofden],
     intro: [
@@ -995,11 +1020,16 @@ function bouwRaket(g, canvas) {
       // de motoren: een waakvlammetje, vol vuur als je erop klikt, en lang vuur bij de lancering
       const sinds = nu - speels[motorblok.userData.speel].t, vuur = sinds < 1.6 ? Math.sin(Math.min(1, sinds / 1.6) * Math.PI) : 0;
       const breed = Math.max(vuur, regie.vuur), lang = Math.max(vuur * 1.1, regie.vuur * 2.9);
-      vlamMat.color.setHex(breed > 0.05 ? 0xffb347 : 0xa8dcff);
+      vlamMat.color.lerpColors(WAAKVLAM, VUUR, klem(breed * 5, 0, 1));
+      // Het vuur reikt hoogstens tot op het platform: wat er niet onder past,
+      // spat opzij. Pas als de raket loskomt, wordt de vlam lang.
+      const plafond = (VLAM_TOP + regie.hoogte) / 0.9;
       vlammen.forEach((v, i) => {
         const flakker = 1 + Math.sin(nu * 23 + i * 1.7) * 0.08 + Math.sin(nu * 37 + i) * 0.05;
-        v.scale.set(0.45 + breed * 0.55, (0.22 + lang) * flakker, 0.45 + breed * 0.55);
+        const wil = (0.22 + lang) * flakker, mag = Math.min(wil, plafond), spat = Math.min(0.5, (wil - mag) * 0.25);
+        v.scale.set(0.45 + breed * 0.55 + spat, mag, 0.45 + breed * 0.55 + spat);
       });
+      vlamLengte = 0.9 * Math.min((0.22 + lang) * 1.13, plafond);
       motorblok.position.x = vuur * Math.sin(nu * 60) * 0.012;
       // rook die bij de start en de landing over het platform rolt
       rook.forEach(b => {
@@ -1011,10 +1041,11 @@ function bouwRaket(g, canvas) {
         b.material.opacity = Math.sin(q * Math.PI) * 0.75 * regie.rook;
       });
       // de bordjes poppen open als een station antwoordt
+      const groot = bordjeMaat();
       for (const b of Object.values(bordjes)) {
         b.k = b.aan ? uitTerug(klem((nu - b.sinds) / 0.35, 0, 1)) : Math.max(0, b.k - dt * 5);
         b.m.visible = b.k > 0.01;
-        b.m.scale.setScalar(Math.max(b.k, 0.001) * b.schaal);
+        b.m.scale.setScalar(Math.max(b.k, 0.001) * b.schaal * groot);
       }
       damp.forEach(b => {
         const q = (nu * 0.18 + b.userData.fase) % 1, hoek = b.userData.hoek + q * 0.6;

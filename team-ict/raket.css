@@ -115,6 +115,9 @@ a { color: var(--groen); }
 .label::after { content: '→'; color: var(--groen); margin-left: .1rem; }
 .podium.klaar .label { opacity: 1; }
 .podium.klaar .label.weg { opacity: 0; pointer-events: none; }
+/* Zolang het tafereel er niet staat (laden, of de schets zonder 3D), zijn de
+   labels onzichtbaar: dan mogen ze ook geen focus krijgen met Tab. */
+.podium:not(.klaar) .labels { visibility: hidden; }
 .label:hover, .label.actief { background: var(--mint-zacht); box-shadow: 0 4px 18px rgba(13, 74, 27, .26); }
 .label.gekozen { background: var(--groen); color: var(--wit); }
 .label.gekozen::after { color: var(--wit); }
@@ -152,8 +155,10 @@ a { color: var(--groen); }
 .podium.klaar .avond-knop { opacity: 1; }
 .podium.zonder-3d .avond-knop { display: none; }
 .avond-icoon { width: 1rem; height: 1rem; border-radius: 50%; box-shadow: inset -.32rem -.1rem 0 0 #34507a; transition: background-color .3s ease, box-shadow .3s ease; }
-.podium.nacht .avond-knop { background: rgba(28, 38, 69, .9); color: var(--wit); }
-.podium.nacht .avond-icoon { background: #ffcf3a; box-shadow: 0 0 0 3px rgba(255, 207, 58, .3); }
+/* De knop volgt de stand (aria-pressed), niet de hemel: tijdens de vlucht wordt
+   die ook overdag donker, en dan moeten icoon en tekst nog bij elkaar passen. */
+.avond-knop[aria-pressed="true"] { background: rgba(28, 38, 69, .9); color: var(--wit); }
+.avond-knop[aria-pressed="true"] .avond-icoon { background: #ffcf3a; box-shadow: 0 0 0 3px rgba(255, 207, 58, .3); }
 
 .hint {
   position: absolute; left: 50%; bottom: .8rem; transform: translateX(-50%);
@@ -448,12 +453,12 @@ body.zaal .klokbord {
 .lanceer-knop:hover { background: var(--groen-donker); }
 .raketje { width: 1.1rem; height: 1.1rem; color: var(--wit); }
 .podium.klaar .lanceer-knop { opacity: 1; }
-.podium.zonder-3d .lanceer-knop, .podium.lancering .lanceer-knop { display: none; }
+.podium.zonder-3d .lanceer-knop, .podium.lancering .lanceer-knop, .podium.bord-open .lanceer-knop { display: none; }
 body.zaal .lanceer-knop { display: none; }
 
 /* Tijdens de ronde en de vlucht: geen labels en spelden, want de regie stuurt de camera. */
 .podium.lancering .labels, .podium.lancering .pinnen { visibility: hidden; }
-.podium.lancering .hint { opacity: 0; }
+.podium.lancering .hint, .podium.bord-open .hint { opacity: 0; }
 
 .vluchtbord {
   position: absolute; left: 1rem; bottom: 1rem; z-index: 6;
@@ -479,9 +484,14 @@ body.zaal .lanceer-knop { display: none; }
 .stations .bezig { color: var(--inkt); background: var(--geel); }
 .stations .go { color: var(--groen-donker); background: var(--mint); }
 .stations .nogo { color: var(--wit); background: #b3261e; }
-/* Na "alle stations go": alleen nog wat de vluchtleiding zegt. */
-.vluchtbord.compact .stations { display: none; }
+/* Na "alle stations go": alleen nog wat de vluchtleiding zegt. Bij no-go zegt de
+   tekst welk station het is: dan maakt de lijst plaats voor de kast in beeld. */
+.vluchtbord.compact .stations, .vluchtbord.hold .stations { display: none; }
 .vlucht-tekst { margin: 0 0 .8rem; min-height: 3.1em; font-size: .92rem; line-height: 1.5; color: var(--inkt); }
+.vlucht-tekst p { margin: 0; }
+/* De vorige zin blijft nog even staan, wat kleiner en zachter. */
+.vlucht-tekst p:not(:last-child) { margin-bottom: .3rem; font-size: .86em; color: var(--inkt-zacht); }
+.verborgen-tekst { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .vlucht-knoppen { display: flex; flex-wrap: wrap; gap: .5rem; }
 .vlucht-knoppen [hidden] { display: none; }
 .vlucht-knoppen .knop { font-size: .86rem; padding: .6rem 1.05rem; }
@@ -492,20 +502,34 @@ button.knop { border: 0; cursor: pointer; font: inherit; font-weight: 600; }
   position: absolute; left: 50%; top: 42%; z-index: 4; margin: 0;
   transform: translate(-50%, -50%); pointer-events: none;
   font-size: clamp(4rem, 14vw, 9rem); font-weight: 700; line-height: 1; color: var(--wit);
+  /* Een donkere rand: zo blijft het witte cijfer leesbaar tegen de lichte raket overdag. */
+  -webkit-text-stroke: .045em var(--groen-donker); paint-order: stroke fill;
   text-shadow: 0 6px 30px rgba(13, 74, 27, .55), 0 2px 4px rgba(13, 74, 27, .4);
   opacity: 0;
 }
-.aftel.tel { animation: tel 1s ease-out; }
-@keyframes tel { 0% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); } 25% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -50%) scale(.85); } }
+/* Het cijfer blijft staan tot het volgende komt. De animatie loopt op de klok,
+   het aftellen op de tijd van het tafereel: op een traag toestel duurt een tel
+   langer dan een seconde. */
+.aftel.tel { opacity: 1; animation: tel .5s ease-out; }
+@keyframes tel { 0% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 
+@media (min-width: 900px) {
+  /* Na "alle stations go" schuift het paneel klein naar boven: onderaan staan de
+     motoren, het vuur en de rook, en bovenaan alleen de smalle neus. */
+  body:not(.zaal) .vluchtbord.compact { top: 1rem; bottom: auto; width: min(300px, calc(100% - 2rem)); padding: .9rem 1.1rem .8rem; }
+}
 @media (max-width: 899px) {
-  /* Op de gsm schuift het paneel onderaan het scherm in, zoals het kaartje. */
+  /* Op de gsm schuift het paneel onderaan het scherm in, zoals het kaartje. Het
+     blijft onder het podium, en de knoppen blijven altijd in beeld. */
   .vluchtbord {
     position: fixed; left: .6rem; right: .6rem; width: auto; z-index: 35;
     bottom: calc(.6rem + env(safe-area-inset-bottom, 0px));
-    max-height: 56svh; background: var(--wit);
+    max-height: max(9.5rem, calc(100svh - var(--kop) - var(--podium) - 1.2rem - env(safe-area-inset-bottom, 0px)));
+    padding-bottom: 0; background: var(--wit);
     box-shadow: 0 -4px 30px rgba(13, 74, 27, .18), 0 14px 44px rgba(13, 74, 27, .24);
   }
+  .vlucht-knoppen { position: sticky; bottom: 0; padding: .2rem 0 1rem; background: var(--wit); }
+  .vlucht-knoppen:not(:has(:not([hidden]))) { padding-bottom: .4rem; }
   .stations { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .lanceer-knop { top: .55rem; left: .55rem; padding: .4rem .8rem .4rem .6rem; }
 }

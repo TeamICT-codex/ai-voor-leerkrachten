@@ -580,6 +580,12 @@ export async function maakPodium(canvas, opties, bouw) {
     };
   }
   let breedte = 1, hoogte = 1, aspect = 1;
+  // Een paneel dat over het tafereel ligt, laat een vrije ruimte naast zich: elke
+  // keuze zegt welk deel van de breedte (links, rechts) en van de hoogte (boven,
+  // onder) bedekt is. Per kader neemt de camera de keuze waarin het tafereel het
+  // grootst staat. Standaard is alles vrij, en verandert er niets.
+  const ALLES_VRIJ = { links: 0, rechts: 0, boven: 0, onder: 0 };
+  let vrij = [ALLES_VRIJ];
   function pas(kader) {
     const midden = new T.Vector3((kader.min[0] + kader.max[0]) / 2, (kader.min[1] + kader.max[1]) / 2, (kader.min[2] + kader.max[2]) / 2);
     let er = 0, eu = 0;
@@ -590,9 +596,16 @@ export async function maakPodium(canvas, opties, bouw) {
       er = Math.max(er, Math.abs(hulp.dot(camRechts)));
       eu = Math.max(eu, Math.abs(hulp.dot(camOp)));
     }
-    const h = Math.max(2 * eu, 2 * er / aspect) * kader.marge;
+    let h = Infinity, v = ALLES_VRIJ;
+    for (const keuze of vrij) {
+      const hk = Math.max(2 * eu / (1 - keuze.boven - keuze.onder), 2 * er / (aspect * (1 - keuze.links - keuze.rechts))) * kader.marge;
+      if (hk < h) { h = hk; v = keuze; }
+    }
     // Ligt het kaartje onderaan over het beeld, dan schuift het voorwerp wat omhoog.
     if (kader.omhoog) midden.addScaledVector(camOp, -h * kader.omhoog);
+    // Het voorwerp staat in het midden van de vrije ruimte, niet van het beeld.
+    midden.addScaledVector(camRechts, (v.rechts - v.links) / 2 * h * aspect);
+    midden.addScaledVector(camOp, (v.boven - v.onder) / 2 * h);
     return { midden, hoogte: h, hoek: kader.hoek, opzij };
   }
   const o0 = KADERS.overzicht;
@@ -943,6 +956,16 @@ export async function maakPodium(canvas, opties, bouw) {
       s.bijPlek?.(open);
       zetDoel(stil);
       if (stil) { zetOplichten(true); teken1(); }
+    },
+    // Een paneel ligt over het tafereel: geef de vrije ruimte(s) ernaast, elk als
+    // { links, rechts, boven, onder }, het bedekte deel van de breedte of de
+    // hoogte. Ligt het paneel in een hoek, geef dan de ruimte ernaast én die
+    // eronder of erboven: de camera kiest per kader. Zonder keuze is alles vrij.
+    // Een plek met een eigen zoom (plekZoom) rekent zelf niet mee met de ruimte.
+    vrijeRuimte(...keuzes) {
+      vrij = keuzes.length ? keuzes.map(k => ({ ...ALLES_VRIJ, ...k })) : [ALLES_VRIJ];
+      zetDoel(stil);
+      if (stil && gestart) teken1();
     },
     // Licht een voorwerp op terwijl je met de muis over zijn speld gaat.
     markeer(id) {
