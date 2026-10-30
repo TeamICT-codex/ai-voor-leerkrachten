@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Team ICT · Het leercollectief</title>
+  <meta name="description" content="Wat Team ICT doet voor de scholen van Het leercollectief: de techniek die je niet ziet, de digitale projecten per onderwijsniveau, en waar je terechtkunt met een vraag.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../gedeeld/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../gedeeld/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="raket.css">
+  <script type="module" src="pagina.js"></script>
+</head>
+<body>
+  <a class="overslaan" href="#inhoud">Naar de inhoud</a>
+
+  <header class="kop">
+    <a class="merk" href="./">
+      <img src="../gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
+      <span>Team ICT</span>
+    </a>
+    <div class="kop-knoppen">
+      <a class="kop-link helpdesk-link" href="https://helpdesk.hetleercollectief.be">Helpdesk</a>
+      <a class="kop-link" href="../" title="Naar de voorpagina"><svg class="huisje" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 10.5V20h5v-5.5h3V20h5v-9.5L12 5z" fill="currentColor"/><path d="M3 11.5L12 4l9 7.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>AI op school</a>
+    </div>
+  </header>
+
+  <main id="inhoud">
+    <div class="verhaal">
+      <div class="podium">
+        <div class="lucht ochtend" aria-hidden="true"></div>
+        <div class="lucht dag" aria-hidden="true"></div>
+        <!-- Schemer en nacht: getekend door ../voorpagina/sfeer.js. -->
+        <canvas class="lucht-doek" aria-hidden="true"></canvas>
+
+        <!-- Staat er meteen, ook zonder 3D: een vlakke schets van dezelfde raket. -->
+        <svg class="schets" viewBox="0 0 640 520" role="img" aria-label="Een raket in doorsnede op een lanceerplatform. Onderaan de motor, daarboven de kleuters, het lager, het secundair en het beleid, en in de neus het pedagogisch project. Links een toren met de helpdesk, rechts de vluchtleiding van Team ICT.">
+          <circle cx="566" cy="70" r="28" fill="#fbf59b"/>
+          <g fill="#ffffff"><ellipse cx="110" cy="96" rx="46" ry="16"/><ellipse cx="140" cy="84" rx="30" ry="16"/><ellipse cx="520" cy="150" rx="38" ry="13"/></g>
+          <rect x="30" y="456" width="580" height="40" rx="20" fill="#126425"/>
+          <rect x="22" y="436" width="596" height="40" rx="20" fill="#c2e3cc"/>
+          <ellipse cx="330" cy="440" rx="150" ry="15" fill="#e9e4da"/>
+          <!-- de toren met de trap en de helpdesk -->
+          <g fill="#126425">
+            <rect x="150" y="104" width="6" height="336" rx="2"/><rect x="190" y="104" width="6" height="336" rx="2"/>
+            <rect x="150" y="164" width="46" height="5"/><rect x="150" y="216" width="46" height="5"/><rect x="150" y="268" width="46" height="5"/><rect x="150" y="320" width="46" height="5"/><rect x="150" y="372" width="46" height="5"/>
+            <rect x="196" y="186" width="70" height="6" rx="2"/><rect x="196" y="238" width="70" height="6" rx="2"/><rect x="196" y="290" width="70" height="6" rx="2"/><rect x="196" y="342" width="70" height="6" rx="2"/>
+          </g>
+          <path d="M156 372 L190 320 M156 320 L190 268 M156 268 L190 216 M156 216 L190 164" stroke="#c2e3cc" stroke-width="5" stroke-linecap="round"/>
+          <rect x="96" y="400" width="74" height="40" rx="4" fill="#fffaf3"/><rect x="90" y="392" width="86" height="10" rx="3" fill="#126425"/>
+          <rect x="104" y="418" width="58" height="12" rx="3" fill="#126425"/><circle cx="133" cy="410" r="6" fill="#2b3038"/>
+          <!-- de raket: wit omhulsel, gekleurde verdiepingen, de neus met het kompas -->
+          <path d="M262 112 C262 70 300 40 330 26 C360 40 398 70 398 112 Z" fill="#fffaf3" stroke="#126425" stroke-width="3"/>
+          <circle cx="330" cy="80" r="15" fill="#ccefd5" stroke="#126425" stroke-width="5"/>
+          <rect x="262" y="112" width="136" height="268" rx="6" fill="#fffaf3"/>
+          <rect x="272" y="116" width="116" height="46" rx="3" fill="#c2e3cc"/>
+          <rect x="272" y="168" width="116" height="46" rx="3" fill="#bfe3ed"/>
+          <rect x="272" y="220" width="116" height="46" rx="3" fill="#fbf59b"/>
+          <rect x="272" y="272" width="116" height="46" rx="3" fill="#fcc89b"/>
+          <rect x="272" y="324" width="116" height="50" rx="3" fill="#4f5b6b"/>
+          <g fill="#2b3038"><rect x="282" y="124" width="34" height="20" rx="2"/><rect x="282" y="176" width="34" height="20" rx="2"/><rect x="282" y="228" width="34" height="20" rx="2"/><rect x="282" y="280" width="30" height="20" rx="2"/></g>
+          <g fill="#2b3038"><circle cx="352" cy="146" r="6"/><circle cx="366" cy="198" r="6"/><circle cx="350" cy="250" r="6"/><circle cx="340" cy="302" r="5"/></g>
+          <g fill="#f08a3c"><rect x="372" y="138" width="10" height="16" rx="4"/><rect x="342" y="242" width="10" height="16" rx="4"/></g>
+          <g fill="#dde2e6"><rect x="280" y="334" width="14" height="32" rx="2"/><rect x="300" y="334" width="14" height="32" rx="2"/><rect x="346" y="334" width="14" height="32" rx="2"/><rect x="366" y="334" width="14" height="32" rx="2"/></g>
+          <rect x="324" y="330" width="12" height="44" rx="5" fill="#126425"/>
+          <rect x="262" y="160" width="136" height="6" fill="#126425"/><rect x="262" y="212" width="136" height="6" fill="#5fa9c9"/><rect x="262" y="264" width="136" height="6" fill="#ffcf3a"/><rect x="262" y="316" width="136" height="6" fill="#f2a76b"/>
+          <path d="M276 380 L384 380 L372 398 L288 398 Z" fill="#fffaf3"/>
+          <g fill="#9aa3a8"><path d="M292 398 h22 l6 22 h-34 Z"/><path d="M319 398 h22 l6 22 h-34 Z"/><path d="M346 398 h22 l6 22 h-34 Z"/></g>
+          <g fill="#126425"><path d="M262 330 L262 376 L230 440 L250 440 L280 392 Z"/><path d="M398 330 L398 376 L430 440 L410 440 L380 392 Z"/></g>
+          <!-- de vluchtleiding -->
+          <rect x="452" y="384" width="140" height="56" rx="4" fill="#fffaf3"/><rect x="446" y="376" width="152" height="10" rx="3" fill="#126425"/>
+          <rect x="474" y="394" width="96" height="24" rx="3" fill="#16202b"/>
+          <g fill="#5bd48a"><circle cx="490" cy="406" r="4"/><circle cx="508" cy="406" r="4"/><circle cx="526" cy="406" r="4"/><circle cx="544" cy="406" r="4"/></g>
+          <g fill="#2b3038"><circle cx="482" cy="428" r="6"/><circle cx="508" cy="428" r="6"/><circle cx="534" cy="428" r="6"/><circle cx="560" cy="428" r="6"/></g>
+          <path d="M556 376 a16 16 0 0 1 30 -8" stroke="#cfd2cf" stroke-width="6" fill="none"/>
+          <g fill="#f08a3c"><rect x="418" y="420" width="10" height="18" rx="4"/><rect x="432" y="424" width="10" height="16" rx="4"/></g>
+        </svg>
+
+        <canvas class="tafereel" aria-hidden="true"></canvas>
+        <div class="waas boven" aria-hidden="true"></div>
+        <div class="waas onder" aria-hidden="true"></div>
+
+        <div class="labels">
+          <button type="button" class="label" data-kamer="neus" style="--stip: #126425">Het doel</button>
+          <button type="button" class="label" data-kamer="beleid" style="--stip: #4e9a63">Beleid</button>
+          <button type="button" class="label" data-kamer="secundair" style="--stip: #5fa9c9">Secundair</button>
+          <button type="button" class="label" data-kamer="lager" style="--stip: #ffcf3a">Lager</button>
+          <button type="button" class="label" data-kamer="kleuter" style="--stip: #f2a76b">Kleuter</button>
+          <button type="button" class="label" data-kamer="motor" style="--stip: #4f5b6b">De motor</button>
+          <button type="button" class="label" data-kamer="platform" style="--stip: #f08a3c">Helpdesk</button>
+        </div>
+
+        <div class="pinnen"></div>
+
+        <button type="button" class="lanceer-knop">
+          <svg class="raketje" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c3 2.4 4.6 5.8 4.6 9.6V16H7.4v-4.4C7.4 7.8 9 4.4 12 2z" fill="currentColor"/><circle cx="12" cy="9.5" r="1.8" fill="#fff"/><path d="M7.4 12.5L4.5 16v2.5l2.9-1.4zM16.6 12.5l2.9 3.5v2.5l-2.9-1.4z" fill="currentColor"/><path d="M10 17.5h4l-.8 3.5h-2.4z" fill="#f08a3c"/></svg>
+          Lanceer
+        </button>
+
+        <button type="button" class="avond-knop" aria-pressed="false">
+          <span class="avond-icoon" aria-hidden="true"></span><span class="avond-tekst">Avond</span>
+        </button>
+
+        <p class="laadtekst" aria-hidden="true">De raket wordt opgebouwd…</p>
+        <p class="hint" aria-hidden="true"></p>
+
+        <section class="uitleg" hidden aria-labelledby="uitleg-titel">
+          <button type="button" class="uitleg-sluit" aria-label="Sluit de uitleg">×</button>
+          <p class="uitleg-waar"></p>
+          <h3 id="uitleg-titel" tabindex="-1"></h3>
+          <p class="uitleg-tekst"></p>
+          <a class="knop uitleg-link" href="#"></a>
+          <div class="uitleg-nav">
+            <button type="button" class="uitleg-vorige">← Vorige</button>
+            <span class="uitleg-teller" aria-live="polite"></span>
+            <button type="button" class="uitleg-volgende">Volgende →</button>
+          </div>
+        </section>
+        <button type="button" class="toon-toch" hidden>Toon de raket in 3D (± 180 kB)</button>
+
+        <div class="zaalbord" aria-hidden="true">
+          <p class="zaal-titel">Team ICT</p>
+          <p class="zaal-adres"></p>
+        </div>
+        <p class="klokbord" aria-hidden="true"></p>
+
+        <!-- De go/no-go-ronde: de stations, wat de vluchtleiding zegt, en een groot aftelcijfer. -->
+        <section class="vluchtbord" hidden aria-labelledby="vlucht-titel">
+          <button type="button" class="uitleg-sluit vlucht-sluit" aria-label="Stop de ronde en sluit">×</button>
+          <p class="uitleg-waar">In de vluchtleiding</p>
+          <h3 id="vlucht-titel" tabindex="-1">Go/no-go-ronde</h3>
+          <ol class="stations"></ol>
+          <p class="vlucht-tekst" role="status"></p>
+          <div class="vlucht-knoppen">
+            <button type="button" class="knop vlucht-opnieuw" hidden>Nog eens</button>
+            <a class="knop zacht vlucht-helpdesk" href="https://helpdesk.hetleercollectief.be" hidden>Naar de helpdesk</a>
+          </div>
+        </section>
+        <p class="aftel" aria-hidden="true"></p>
+      </div>
+
+      <div class="hoofdstukken">
+        <section class="hoofdstuk held" data-kamer="overzicht" aria-labelledby="titel">
+          <p class="etiket">Team ICT · GO! scholengroep Het leercollectief</p>
+          <h1 id="titel">ICT is de motor. <span class="markeer">Goed onderwijs</span> is de bestemming.</h1>
+          <p class="inleiding">
+            Achter elke digitale les zit techniek die je meestal niet ziet. Reis mee van de neus
+            naar de motor: wat er loopt voor jouw klas, wat eronder zit, en waar je terechtkunt
+            als iets niet werkt.
+          </p>
+          <nav class="ik-ben" aria-label="Kies wie je bent">
+            <a href="#kleuter" style="--stip: #f2a76b">Ik geef les aan kleuters</a>
+            <a href="#lager" style="--stip: #ffcf3a">Ik geef les in het lager</a>
+            <a href="#secundair" style="--stip: #5fa9c9">Ik geef les in het secundair</a>
+            <a href="#beleid" style="--stip: #4e9a63">Ik leid een school</a>
+            <a href="#helpdesk" style="--stip: #f08a3c">Er werkt iets niet</a>
+          </nav>
+          <p class="scrolhint"><span aria-hidden="true">↓</span> Scroll verder en kijk wat er op elke verdieping gebeurt</p>
+        </section>
+
+        <section class="hoofdstuk" id="neus" data-kamer="neus" aria-labelledby="titel-neus" style="--stip: #126425">
+          <p class="etiket">De lading</p>
+          <h2 id="titel-neus">Kwaliteit overal</h2>
+          <p>
+            Goed en kwaliteitsvol onderwijs, in elke school en elke klas: daarvoor bestaat deze
+            raket. Het pedagogisch project van het GO!, <strong>samen leren samenleven</strong>,
+            is ons kompas. ICT is daarvoor een randvoorwaarde: noodzakelijk, maar nooit het doel
+            op zich.
+          </p>
+          <blockquote class="citaat">
+            <p>"Digitalisering is dus geen doel, maar een middel."</p>
+            <footer>Tania De Smedt, algemeen directeur</footer>
+          </blockquote>
+          <ul class="vinkjes">
+            <li>Onderwijs eerst: elke technische keuze vertrekt van wat scholen nodig hebben</li>
+            <li>Centraal en gelijk: met vier mensen voor 27 scholen werkt alleen één standaard</li>
+            <li>Eén ingang: elke vraag komt binnen via de helpdesk</li>
+            <li>Veilig en privacybewust, als opdracht van het hele team</li>
+            <li>Zelf bouwen als er geen bruikbaar product bestaat</li>
+          </ul>
+        </section>
+
+        <section class="hoofdstuk" id="beleid" data-kamer="beleid" aria-labelledby="titel-beleid" style="--stip: #4e9a63">
+          <p class="etiket">Voor directies en beleid</p>
+          <h2 id="titel-beleid">Een ICT-beleidsplan dat je echt gebruikt</h2>
+          <p>
+            Sinds 1 september 2026 heeft elke school een ICT-beleidsplan nodig. In
+            <strong>ICTCheck</strong> doorloop je het stap voor stap met je ICT-werkgroep. Je logt
+            in met je GO!-account, en je leerkrachten werken mee via een bevragingslink.
+          </p>
+          <ul class="vinkjes">
+            <li>ICTCheck: van beginsituatie en visie tot actieplan en Digiplan-check</li>
+            <li>Een leerlijn digitale competenties over de graden heen</li>
+            <li>Doordachte keuzes rond AI, met licenties en afspraken</li>
+            <li>Op de lijst: tools tegen planlast, die gegevens hergebruiken</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="https://ictcheck.hetleercollectief.be">Open ICTCheck</a>
+            <a class="knop zacht" href="../">AI op school</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="secundair" data-kamer="secundair" aria-labelledby="titel-secundair" style="--stip: #5fa9c9">
+          <p class="etiket">Voor het secundair</p>
+          <h2 id="titel-secundair">Vaktaal en AI, samen met je leerlingen</h2>
+          <p>
+            Wie de woorden van een opdracht niet begrijpt, loopt achter in elk vak. Met
+            <strong>TALent voor Taal</strong> leren leerlingen de schooltaal van hun vakken. In
+            <strong>AI-wijs op school</strong> leren ze AI gebruiken om beter te leren, niet om het
+            werk over te laten.
+          </p>
+          <ul class="vinkjes">
+            <li>TALent voor Taal: woordenlijsten per OKAN-fase en per vakdomein, met een dashboard voor jou</li>
+            <li>Bruikbaar in elke graad, als de basis in orde is: een schoolaccount en een werkend toestel</li>
+            <li>AI-wijs op school: negen hoofdstukken voor de 2de en 3de graad, met een handleiding</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="https://talentvoortaal.vercel.app">Open TALent voor Taal</a>
+            <a class="knop zacht" href="../leerlingen/index.html">AI-wijs op school</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="lager" data-kamer="lager" aria-labelledby="titel-lager" style="--stip: #ffcf3a">
+          <p class="etiket">Voor het lager</p>
+          <h2 id="titel-lager">Tafels en bewerkingen die vanzelf gaan</h2>
+          <p>
+            Wie de tafels automatisch kent, heeft het hoofd vrij voor moeilijker rekenwerk. Het
+            <strong>Rekencollectief</strong> neemt het klaarzetten en verbeteren uit handen. Je
+            registreert je met het e-mailadres van je school, en je leerlingen hebben alleen een
+            code nodig.
+          </p>
+          <ul class="vinkjes">
+            <li>Maal- en deeltafels, plus- en minbewerkingen en de Getallenreis</li>
+            <li>De periodetoetsen van de kwaliteitsfiche 'Toetsen parate kennis'</li>
+            <li>Ook bruikbaar in de B-stroom en in het buitengewoon onderwijs</li>
+            <li>Nieuwe minimumdoelen in het 1ste tot en met 3de leerjaar, dit schooljaar al</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="https://rekencollectief.vercel.app">Open het Rekencollectief</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="kleuter" data-kamer="kleuter" aria-labelledby="titel-kleuter" style="--stip: #f2a76b">
+          <p class="etiket">Voor de kleuterklas</p>
+          <h2 id="titel-kleuter">Taalkansen vanaf de eerste dag</h2>
+          <p>
+            Taal is de basis van al het verdere leren. Daarom bouwen we samen met de scholen het
+            <strong>Taalappke</strong>, een eigen taalapp voor kleuters. En de nieuwe minimumdoelen
+            starten dit schooljaar al bij jou: we zorgen dat de digitale hulpmiddelen meegroeien.
+          </p>
+          <ul class="vinkjes">
+            <li>Het Taalappke, in ontwikkeling op onze eigen infrastructuur</li>
+            <li>Nieuwe minimumdoelen, voorlopig voor Nederlands, wiskunde en wetenschap en techniek</li>
+            <li>Vragen over digitale ondersteuning? Spreek Thomas of Stef aan</li>
+          </ul>
+        </section>
+
+        <section class="hoofdstuk" id="motor" data-kamer="motor" aria-labelledby="titel-motor" style="--stip: #4f5b6b">
+          <p class="etiket">De motor · de technische basis</p>
+          <h2 id="titel-motor">Wat je niet ziet, maar elke dag gebruikt</h2>
+          <p>
+            Als de motor draait, merk je er niets van. Valt één onderdeel uit, dan staat alles
+            erboven stil: zonder netwerk geen oefenapp, zonder werkende aanmelding geen Classroom,
+            zonder toestel geen digitale les. Door de ruggengraat van de raket stroomt die
+            energie naar elke verdieping.
+          </p>
+          <ul class="diensten" aria-label="De zes onderdelen van de motor">
+            <li data-code="NET-01">Netwerk en telefonie</li>
+            <li data-code="ID-02">Identiteit en aanmelding</li>
+            <li data-code="TST-03">Toestellen en printers</li>
+            <li data-code="PLT-04">Platformen</li>
+            <li data-code="SEC-05">Veiligheid en privacy</li>
+            <li data-code="SRV-06">Servers en eigen toepassingen</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="https://helpdesk.hetleercollectief.be">Meld een storing</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="helpdesk" data-kamer="platform" aria-labelledby="titel-helpdesk" style="--stip: #f08a3c">
+          <p class="etiket">Op het lanceerplatform</p>
+          <h2 id="titel-helpdesk">Hulp nodig? Eén ingang: de helpdesk</h2>
+          <p>
+            Elke vraag of storing meld je via de helpdesk. Het ticket gaat naar wie het domein
+            trekt. Waar het kan, lossen we het op afstand op. Lukt dat niet, dan komt iemand naar
+            je school. Je krijgt bericht zodra het geregeld is.
+          </p>
+          <ul class="vinkjes">
+            <li>Voor elk personeelslid van onze scholen en centrale diensten</li>
+            <li>Directies en secretariaten vragen er ook een account voor een nieuwe collega aan</li>
+            <li>Leerlingen melden een probleem aan hun leerkracht, die het doorgeeft</li>
+          </ul>
+          <div class="knoppen">
+            <a class="knop" href="https://helpdesk.hetleercollectief.be">Naar de helpdesk</a>
+          </div>
+        </section>
+
+        <section class="hoofdstuk" id="wie" data-kamer="platform" aria-labelledby="titel-wie" style="--stip: #126425">
+          <p class="etiket">Wie doet wat</p>
+          <h2 id="titel-wie">Een vluchtleiding en een grondploeg</h2>
+          <p>
+            Team ICT volgt de raket op voor de hele scholengroep. Elk domein heeft een trekker,
+            maar het werk is van het hele team. Op de scholen werken lokale ICT-mensen mee, soms
+            een dag of een paar dagen per week. Zonder hen vliegt er niets.
+          </p>
+          <ul class="ploeg">
+            <li style="--stip: #5fa9c9"><strong>Dries</strong><span>Technische infrastructuur en innovatie: netwerk, aanmelding, cyberveiligheid en centrale systemen</span></li>
+            <li style="--stip: #fcc89b"><strong>Gino</strong><span>Accounts, administratie en DPO: gebruikersrechten, Microsoft 365, bestellingen en telefonie</span></li>
+            <li style="--stip: #fbf59b"><strong>Stef</strong><span>Platformen en ondersteuning: de dagelijkse schoolplatformen en de brug naar de klaspraktijk</span></li>
+            <li style="--stip: #126425"><strong>Thomas</strong><span>Pedagogische ICT en innovatie: ICT-beleid, AI, vorming en eigen toepassingen</span></li>
+            <li style="--stip: #f08a3c"><strong>De grondploeg</strong><span>De lokale ICT-mensen op elke school: zij kennen hun school en zien een probleem vaak als eerste</span></li>
+          </ul>
+        </section>
+
+        <section class="hoofdstuk" id="lancering" data-kamer="overzicht" aria-labelledby="titel-lancering" style="--stip: #f08a3c">
+          <p class="etiket">Go voor lancering</p>
+          <h2 id="titel-lancering">Een digitale les vertrekt pas als alles go is</h2>
+          <p>
+            Voor een raket vertrekt, vraagt de vluchtleiding elk station: go of no-go? Een les met
+            een oefenapp of een Chromebook werkt net zo. Het netwerk, je account, je toestel en het
+            platform moeten allemaal go zijn. Zegt één station no-go, dan blijft de raket staan.
+          </p>
+          <form class="lancering-start">
+            <label for="storing">Wat als er iets stuk is?</label>
+            <select id="storing" name="storing">
+              <option value="">Niets: alles werkt vandaag</option>
+              <option value="net">NET-01 · Netwerk en telefonie</option>
+              <option value="id">ID-02 · Identiteit en aanmelding</option>
+              <option value="tst">TST-03 · Toestellen en printers</option>
+              <option value="plat">PLT-04 · Platformen</option>
+              <option value="veilig">SEC-05 · Veiligheid en privacy</option>
+              <option value="srv">SRV-06 · Servers en eigen toepassingen</option>
+            </select>
+            <button type="submit" class="knop">Start de go/no-go-ronde</button>
+          </form>
+          <p class="lancering-zonder-3d">
+            Op dit toestel tonen we de raket niet in 3D. De ronde gaat zo: eerst het platform (de
+            grondploeg, de helpdesk en de vorming), dan de zes onderdelen van de motor, dan elke
+            verdieping, en als laatste de lading. Pas als iedereen go zegt, vertrekt de raket.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="voet">
+    <img src="../gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
+    <p>Team ICT · GO! scholengroep Het leercollectief</p>
+    <nav class="voet-nav" aria-label="Verder op de site">
+      <a href="https://helpdesk.hetleercollectief.be">De helpdesk</a>
+      <a href="../">AI op school</a>
+    </nav>
+    <button type="button" class="zaal-knop">Zaalmodus voor de beamer</button>
+  </footer>
+</body>
+</html>

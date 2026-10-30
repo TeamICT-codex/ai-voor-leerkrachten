@@ -1,0 +1,1089 @@
+// Het tafereel van Team ICT: een raket in doorsnede op een lanceerplatform.
+// Onderaan zit de motor: de technische basis die je anders nooit ziet. Daarboven
+// liggen de verdiepingen voor de kleuters, het lager, het secundair en het
+// beleid, en in de neus zit de lading waarvoor de raket bestaat: kwaliteitsvol
+// onderwijs. Door de ruggengraat stroomt energie van de motor naar elke
+// verdieping. Naast de raket staat de toren (vorming en ondersteuning) met de
+// helpdesk aan de voet, en verderop de vluchtleiding van Team ICT. Op elke
+// verdieping en op het platform werkt de grondploeg mee: de lokale ICT-mensen,
+// in het oranje. Voorwerpen met een bolletje openen een kaartje (teksten in
+// plekken.js). De motor van het tafereel zit in gedeeld/diorama-kern.js.
+import {
+  T, K, HUID, HAAR, klem, uitTerug, toeval, blok, cilinder, bol, kruin, groepje, levend,
+  figuur, stoel, plant, laptop, boom, maakPodium, F, rond, vinkje, paneel, mat, zet,
+} from '../gedeeld/diorama-kern.js';
+
+// Maten van de raket. De raket staat met haar opening naar de camera: zo kijk
+// je in elke verdieping, zoals in een poppenhuis.
+const R = 2.0, VH = 1.9, PLAAT = 0.1, MUUR = 0.1, BASIS = 1.3, RZ = -0.9;
+const RW = R - MUUR;           // de binnenkant van de wand
+const OPEN = 1.05;             // de halve breedte van de opening, in radialen
+// De opening kijkt naar de camera zoals die in een kamer kijkt (0,12 in de
+// motor); in het overzicht kijkt ze er schuin op (0,31), zoals naar de school.
+const DRAAI = 0.12, BINNEN_OPZIJ = 0.12;
+const NIVEAUS = ['motor', 'kleuter', 'lager', 'secundair', 'beleid'];
+const TOP = BASIS + NIVEAUS.length * VH;
+const NEUS = 2.75;
+// Hoe hoog een bord tegen de achterwand mag reiken. De kamers zijn rond en diep:
+// wat hoger hangt, verdwijnt achter de voorrand van het plafond zodra de camera
+// een beetje van boven in de kamer kijkt.
+const BORD_TOP = 1.18;
+const TOREN = { x: -3.55, z: RZ };
+const LEIDING = { x: 4.6, z: 0.6, b: 2.5, d: 1.6, h: 1.2, draai: -0.25 };
+const HELPDESK = { x: -3.2, z: 0.75 };
+const OPLICHT = 0xfff1d6;
+// De grondploeg draagt oranje; Team ICT de kleur van elk teamlid.
+const ORANJE = K.oranje;
+const TEAM = [K.zee, K.perzik, K.geel, K.groen];
+
+// De zes diensten in de motor, met hun code en een eigen kleur.
+const DIENSTEN = [
+  { id: 'net', code: 'NET-01', naam: 'Netwerk', kleur: '#5fa9c9' },
+  { id: 'id', code: 'ID-02', naam: 'Aanmelding', kleur: '#fbf59b' },
+  { id: 'tst', code: 'TST-03', naam: 'Toestellen', kleur: '#fcc89b' },
+  { id: 'plat', code: 'PLT-04', naam: 'Platformen', kleur: '#c2e3cc' },
+  { id: 'veilig', code: 'SEC-05', naam: 'Veiligheid', kleur: '#ee7c8f' },
+  { id: 'srv', code: 'SRV-06', naam: 'Servers', kleur: '#bfe3ed' },
+];
+
+// ───────────────────────────── borden en schermen ─────────────────────────────
+
+function kopbalk(ctx, W, tekst, kleur = '#126425', inkt = '#ffffff', h = 86) {
+  ctx.fillStyle = kleur; ctx.fillRect(0, 0, W, h);
+  ctx.fillStyle = inkt; ctx.font = F(700, h * 0.44); ctx.fillText(tekst, 34, h * 0.64);
+}
+function luidspreker(ctx, x, y, s, kleur = '#126425') {
+  ctx.fillStyle = kleur;
+  ctx.beginPath(); ctx.moveTo(x, y - s * 0.3); ctx.lineTo(x + s * 0.35, y - s * 0.3); ctx.lineTo(x + s * 0.8, y - s * 0.7);
+  ctx.lineTo(x + s * 0.8, y + s * 0.7); ctx.lineTo(x + s * 0.35, y + s * 0.3); ctx.lineTo(x, y + s * 0.3); ctx.fill();
+  ctx.strokeStyle = kleur; ctx.lineWidth = s * 0.14; ctx.lineCap = 'round';
+  for (const r of [0.55, 0.95]) { ctx.beginPath(); ctx.arc(x + s * 0.9, y, s * r, -0.8, 0.8); ctx.stroke(); }
+}
+function tekenNaambord({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#fffaf0'; ctx.fillRect(0, 0, W, H);
+  ctx.font = F(700, 92); ctx.textAlign = 'center';
+  const tekst = 'Team ICT · Het leercollectief', b = ctx.measureText(tekst).width, links = W / 2 - b / 2;
+  ctx.fillStyle = '#c2e3cc'; ctx.fillRect(links - 6, H * 0.58, ctx.measureText('Team ICT').width + 12, H * 0.26);
+  ctx.fillStyle = '#126425'; ctx.fillText(tekst, W / 2, H * 0.72); ctx.textAlign = 'left';
+}
+function tekenMachine(d) {
+  return ({ ctx, c }) => {
+    const W = c.width, H = c.height;
+    ctx.fillStyle = '#1d2530'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = d.kleur; ctx.fillRect(0, 0, 12, H);
+    ctx.font = F(700, 54); ctx.fillText(d.code, 30, 70);
+    ctx.fillStyle = '#e8eef2'; ctx.font = F(600, 34); ctx.fillText(d.naam, 30, 124);
+  };
+}
+function tekenTaalappke({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  kopbalk(ctx, W, 'Taalappke', '#f2a76b', '#1a1a1a', 78);
+  // een appel, het woord en een luidsprekertje
+  ctx.fillStyle = '#d9534f'; ctx.beginPath(); ctx.arc(150, 205, 74, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#4e9a63'; ctx.beginPath(); ctx.ellipse(170, 122, 30, 13, -0.5, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#9c6f45'; ctx.fillRect(146, 116, 9, 28);
+  ctx.fillStyle = '#1a1a1a'; ctx.font = F(700, 84); ctx.fillText('appel', 262, 232);
+  rond(ctx, 262, 262, 210, 48, 24); ctx.fillStyle = '#ccefd5'; ctx.fill();
+  luidspreker(ctx, 282, 286, 26);
+  ctx.fillStyle = '#126425'; ctx.font = F(600, 26); ctx.fillText('luister', 340, 295);
+}
+function tekenDoelen(titel, sub) {
+  return ({ ctx, c }) => {
+    const W = c.width, H = c.height;
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#126425'; ctx.font = F(700, 40); ctx.fillText(titel, 30, 66);
+    ctx.fillStyle = '#4d4d4d'; ctx.font = F(600, 26); ctx.fillText(sub, 30, 104);
+    const vakken = [['Nederlands', 'abc', '#fbf59b'], ['Wiskunde', '1 2 3', '#bfe3ed'], ['Wetenschap', 'W&T', '#c2e3cc']];
+    vakken.forEach(([naam, teken, kleur], i) => {
+      const y = 132 + i * 104;
+      rond(ctx, 30, y, W - 60, 88, 22); ctx.fillStyle = kleur; ctx.fill();
+      ctx.fillStyle = '#126425'; ctx.font = F(700, 38); ctx.fillText(teken, 54, y + 58);
+      ctx.fillStyle = '#1a1a1a'; ctx.font = F(600, 32); ctx.fillText(naam, 160, y + 56);
+    });
+  };
+}
+function tekenReken({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  kopbalk(ctx, W, 'Rekencollectief', '#126425', '#ffffff', 84);
+  ctx.fillStyle = '#1a1a1a'; ctx.font = F(700, 132); ctx.textAlign = 'center'; ctx.fillText('7 × 8 = ?', W / 2, 262);
+  [54, 56, 58].forEach((n, i) => {
+    const x = W / 2 - 250 + i * 180;
+    rond(ctx, x, 304, 140, 84, 42); ctx.fillStyle = i === 1 ? '#c2e3cc' : '#f4f4f4'; ctx.fill();
+    ctx.fillStyle = '#126425'; ctx.font = F(700, 52); ctx.fillText(String(n), x + 70, 364);
+  });
+  ctx.textAlign = 'left';
+  rond(ctx, W - 300, 108, 268, 54, 27); ctx.fillStyle = '#fbf59b'; ctx.fill();
+  ctx.fillStyle = '#1a1a1a'; ctx.font = F(600, 28); ctx.fillText('code 482 913', W - 280, 145);
+}
+function tekenTalent({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  kopbalk(ctx, W, 'TALent voor Taal', '#5fa9c9', '#ffffff', 84);
+  rond(ctx, 40, 116, W - 80, 236, 30); ctx.fillStyle = '#eef7fa'; ctx.fill();
+  ctx.fillStyle = '#1a1a1a'; ctx.font = F(700, 86); ctx.fillText('de hypotenusa', 78, 232);
+  luidspreker(ctx, 84, 300, 30, '#126425');
+  ctx.fillStyle = '#4d4d4d'; ctx.font = F(600, 32); ctx.fillText('wiskunde · 2de graad', 150, 312);
+  [1, 1, 1, 0, 0].forEach((v, i) => { ctx.fillStyle = v ? '#126425' : '#d8e3e8'; ctx.beginPath(); ctx.arc(70 + i * 44, 390, 14, 0, Math.PI * 2); ctx.fill(); });
+}
+function tekenAiwijs({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#126425'; ctx.font = F(700, 46); ctx.fillText('AI-wijs', 32, 72);
+  ctx.fillText('op school', 32, 124);
+  ctx.fillStyle = '#c2e3cc'; ctx.fillRect(32, 140, 150, 10);
+  for (let i = 0; i < 9; i++) {
+    const x = 60 + (i % 3) * 92, y = 210 + Math.floor(i / 3) * 84;
+    ctx.fillStyle = i < 5 ? '#126425' : '#e2e2e2'; ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = i < 5 ? '#ffffff' : '#4d4d4d'; ctx.font = F(700, 28); ctx.textAlign = 'center'; ctx.fillText(String(i + 1), x, y + 10); ctx.textAlign = 'left';
+  }
+}
+function tekenIctcheck({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  kopbalk(ctx, W, 'ICTCheck · ons ICT-beleidsplan', '#126425', '#ffffff', 80);
+  const stappen = ['Beginsituatie', 'Visie', 'Prioriteiten', 'SWOT', 'Actieplan', 'Digitale thema\'s', 'Digiplan-check', 'Professionalisering'];
+  stappen.forEach((s, i) => {
+    const kol = i < 4 ? 0 : 1, rij = i % 4, x = 40 + kol * (W / 2), y = 132 + rij * 72;
+    if (i < 3) vinkje(ctx, x + 20, y, 20);
+    else { ctx.strokeStyle = '#c2e3cc'; ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(x + 20, y, 17, 0, Math.PI * 2); ctx.stroke(); }
+    ctx.fillStyle = i < 3 ? '#1a1a1a' : '#4d4d4d'; ctx.font = F(600, 32); ctx.fillText(s, x + 56, y + 11);
+  });
+}
+function tekenLeerlijn({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#126425'; ctx.font = F(700, 36); ctx.fillText('Leerlijn digitale', 30, 58); ctx.fillText('competenties', 30, 100);
+  const kleuren = ['#fcc89b', '#fbf59b', '#fbf59b', '#bfe3ed', '#bfe3ed', '#bfe3ed'];
+  kleuren.forEach((k, i) => {
+    const b = (W - 60) / 6, x = 30 + i * b, h = 60 + i * 34;
+    rond(ctx, x + 4, H - 30 - h, b - 8, h, 12); ctx.fillStyle = k; ctx.fill();
+  });
+  ctx.fillStyle = '#1a1a1a'; ctx.font = F(600, 22);
+  ctx.fillText('kleuter', 34, H - 8); ctx.fillText('lager', 140, H - 8); ctx.fillText('secundair', 300, H - 8);
+}
+function tekenHelpdesk({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#126425'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#ffffff'; ctx.font = F(700, 88); ctx.textAlign = 'center'; ctx.fillText('Helpdesk', W / 2 + 40, H * 0.7); ctx.textAlign = 'left';
+  ctx.fillStyle = '#c2e3cc'; rond(ctx, 44, 34, 96, 70, 20); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(70, 100); ctx.lineTo(62, 128); ctx.lineTo(96, 102); ctx.fill();
+  ctx.fillStyle = '#126425'; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(70 + i * 22, 69, 7, 0, Math.PI * 2); ctx.fill(); }
+}
+// Het grote scherm in de vluchtleiding. Buiten de ronde: alle systemen in orde.
+// Tijdens de ronde: per dienst wacht, bezig, go of no-go, en het aftellen.
+const SCHERM_KLEUR = { go: '#5bd48a', nogo: '#ff5a4f', bezig: '#ffcf3a', wacht: '#5c6878' };
+function tekenLeidingScherm({ ctx, c }, stand = { fase: 'rust', toestand: {} }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#16202b'; ctx.fillRect(0, 0, W, H);
+  const titel = { rust: 'Alle systemen', ronde: 'Go/no-go-ronde', hold: 'Hold', go: 'Go voor lancering', aftellen: 'Aftellen', vlucht: 'In vlucht' }[stand.fase] || 'Alle systemen';
+  ctx.fillStyle = stand.fase === 'hold' ? '#ff8a80' : '#c2e3cc'; ctx.font = F(700, 40); ctx.fillText(titel, 40, 66);
+  DIENSTEN.forEach((d, i) => {
+    const kol = i % 3, rij = Math.floor(i / 3), x = 40 + kol * 220, y = 118 + rij * 92;
+    const t = stand.fase === 'rust' ? 'go' : stand.toestand[d.id] || 'wacht';
+    rond(ctx, x, y, 200, 72, 18); ctx.fillStyle = t === 'nogo' ? '#4a2226' : '#223140'; ctx.fill();
+    ctx.fillStyle = d.kleur; ctx.font = F(700, 30); ctx.fillText(d.code, x + 18, y + 46);
+    ctx.fillStyle = SCHERM_KLEUR[t]; ctx.beginPath(); ctx.arc(x + 176, y + 36, 11, 0, Math.PI * 2); ctx.fill();
+  });
+  const rx = W - 130;
+  if (stand.tel != null) {
+    // het aftelcijfer in het groot
+    ctx.fillStyle = '#ffcf3a'; ctx.font = F(700, 150); ctx.textAlign = 'center'; ctx.fillText(String(stand.tel), rx, 220); ctx.textAlign = 'left';
+    return;
+  }
+  // de raket in het klein, met haar vijf verdiepingen
+  ['#c2e3cc', '#bfe3ed', '#fbf59b', '#fcc89b', '#5c6878'].forEach((k, i) => { ctx.fillStyle = k; ctx.fillRect(rx - 34, 96 + i * 34, 68, 30); });
+  ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.moveTo(rx - 34, 92); ctx.lineTo(rx, 30); ctx.lineTo(rx + 34, 92); ctx.fill();
+}
+function tekenLeidingBord({ ctx, c }) {
+  const W = c.width, H = c.height;
+  ctx.fillStyle = '#fffaf0'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#126425'; ctx.font = F(700, 70); ctx.textAlign = 'center'; ctx.fillText('Vluchtleiding', W / 2, H * 0.72); ctx.textAlign = 'left';
+}
+function tekenKompas({ ctx, c }) {
+  const W = c.width, m = W / 2;
+  const gr = ctx.createRadialGradient(m, m, 10, m, m, m);
+  gr.addColorStop(0, '#fffdf2'); gr.addColorStop(1, '#ccefd5');
+  ctx.fillStyle = gr; ctx.fillRect(0, 0, W, W);
+  ctx.save(); ctx.translate(m, m * 0.86);
+  for (let i = 0; i < 4; i++) {
+    ctx.rotate(Math.PI / 2);
+    ctx.fillStyle = i % 2 ? '#126425' : '#4e9a63';
+    ctx.beginPath(); ctx.moveTo(0, -W * 0.3); ctx.lineTo(W * 0.06, 0); ctx.lineTo(-W * 0.06, 0); ctx.fill();
+  }
+  ctx.fillStyle = '#fbf59b'; ctx.beginPath(); ctx.arc(0, 0, W * 0.05, 0, Math.PI * 2); ctx.fill();
+  ctx.restore();
+  ctx.fillStyle = '#126425'; ctx.font = F(700, W * 0.075); ctx.textAlign = 'center';
+  ctx.fillText('samen leren', m, W * 0.8); ctx.fillText('samenleven', m, W * 0.89); ctx.textAlign = 'left';
+}
+
+// ───────────────────────────── het tafereel ─────────────────────────────
+
+export function maakRaket(canvas, opties = {}) {
+  return maakPodium(canvas, opties, g => bouwRaket(g, canvas));
+}
+
+// Een figuurtje dat niet beweegt, wordt één vorm: dat scheelt zes tekenbeurten.
+// Met hoofd: true blijft het hoofd los, zodat het kan rondkijken.
+function stilFiguur(f, { hoofd = false } = {}) {
+  for (const deel of [...f.userData.armen, ...(f.userData.benen || [])]) deel.userData.levend = false;
+  if (!hoofd) f.userData.hoofd.userData.levend = false;
+  return f;
+}
+// Waar je op een cirkel staat: hoek 0 is vooraan, in de opening.
+const boog = (hoek, r) => [r * Math.sin(hoek), r * Math.cos(hoek)];
+// Naar een punt kijken: figuurtjes kijken langs hun +z.
+const kijkNaar = (x, z, nx, nz) => Math.atan2(nx - x, nz - z);
+
+function bouwRaket(g, canvas) {
+  const { wereld, kamerLamp, gloed, plek, speel, statischeTekening } = g;
+  const tijd = g.tijd;
+  const r = toeval(11);
+  // De lampen in de kamers vliegen mee met de raket (op een zwak toestel zijn er geen).
+  const raketLampen = [];
+  for (let i = 1; i < NIVEAUS.length; i++) {
+    const l = kamerLamp(0, BASIS + i * VH + 1.25, RZ + 0.2, 4);
+    if (l) raketLampen.push({ l, y: l.position.y });
+  }
+  kamerLamp(LEIDING.x, 0.95, LEIDING.z + 0.3, 3);
+
+  // ── sokkel met naambordje ──
+  const sokkel = groepje(wereld);
+  blok(sokkel, 13.2, 0.5, 9, K.mint, 0, -0.5, -0.9, { r: 0.22, schaduw: false });
+  blok(sokkel, 13.4, 0.3, 9.2, K.groen, 0, -0.78, -0.9, { r: 0.14, schaduw: false });
+  blok(sokkel, 3.3, 0.36, 0.04, K.groenDonker, 0, -0.43, 3.6, { r: 0.015, schaduw: false });
+  statischeTekening(paneel(sokkel, 3.2, 0.28, 1280, 0, -0.25, 3.625), tekenNaambord);
+
+  // ── het lanceerplatform ──
+  const platform = groepje(wereld);
+  cilinder(platform, 2.9, 3.0, 0.12, K.steen, 0, 0, RZ, { seg: 48, schaduw: false });
+  cilinder(platform, 1.25, 1.25, 0.012, 0x6b7480, 0, 0.12, RZ, { seg: 32, schaduw: false });
+  for (let i = 0; i < 20; i++) {
+    const [x, z] = boog(i / 20 * Math.PI * 2, 2.62);
+    const streep = blok(platform, 0.3, 0.012, 0.1, i % 2 ? K.geel : K.inkt, x, 0.12, RZ + z, { r: 0.004, schaduw: false });
+    streep.rotation.y = i / 20 * Math.PI * 2 + Math.PI / 2;
+  }
+  {
+    // Een zachte schaduw onder de raket. De wanden werpen zelf geen schaduw:
+    // anders zou de verdieping erboven de kamers donker maken.
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const ctx = c.getContext('2d');
+    const gr = ctx.createRadialGradient(64, 64, 10, 64, 64, 64);
+    gr.addColorStop(0, 'rgba(13,74,27,0.34)'); gr.addColorStop(1, 'rgba(13,74,27,0)');
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, 128, 128);
+    const vlek = new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ map: new T.CanvasTexture(c), transparent: true, depthWrite: false }));
+    vlek.rotation.x = -Math.PI / 2;
+    vlek.scale.set(6.2, 5.0, 1);
+    vlek.position.set(-0.8, 0.135, RZ - 0.6);
+    platform.add(vlek);
+  }
+  // paden naar de helpdesk en naar de vluchtleiding
+  const pad = groepje(wereld);
+  for (let i = 0; i < 6; i++) {
+    const t = i / 5;
+    blok(pad, 0.4, 0.04, 0.3, K.steen, 0.2 - t * 2.75 + (i % 2 ? 0.08 : -0.08), 0, 3.2 - t * 1.95, { r: 0.02, schaduw: false }).rotation.y = 0.9;
+  }
+  for (let i = 0; i < 2; i++) blok(pad, 0.32, 0.035, 0.28, K.steen, 2.75 + i * 0.32, 0, 0.0 + i * 0.12, { r: 0.02, schaduw: false }).rotation.y = -0.6;
+
+  // ── de raket ──
+  const raket = groepje(wereld, 0, 0, RZ);
+  raket.rotation.y = DRAAI;
+  const kamers = {};
+  // Een stuk wand rond de raket, met de opening vooraan.
+  function schil(ouder, straal, h, y, materiaal) {
+    const m = new T.Mesh(new T.CylinderGeometry(straal, straal, h, 40, 1, true, OPEN, Math.PI * 2 - 2 * OPEN), materiaal);
+    m.position.y = y + h / 2;
+    return zet(ouder, m, false);
+  }
+  // Een groepje tegen de binnenwand, met zijn +z naar het midden van de kamer.
+  function aanWand(ouder, hoek, straal = RW - 0.1) {
+    const [x, z] = boog(hoek, straal);
+    const w = groepje(ouder, x, 0, z);
+    w.rotation.y = hoek + Math.PI;
+    return w;
+  }
+  const pulsMat = new T.MeshBasicMaterial({ color: 0xb6f2c9 });
+  const pulsen = [], lampjes = [], lampjeVan = {};
+  function verdieping(naam, i, { wand, vloer, band }) {
+    const v = groepje(raket, 0, BASIS + i * VH, 0);
+    cilinder(v, R, R, PLAAT, K.wit, 0, 0, 0, { seg: 40, schaduw: false });
+    cilinder(v, RW - 0.04, RW - 0.04, 0.012, vloer, 0, PLAAT, 0, { seg: 40, schaduw: false });
+    const lip = new T.Mesh(new T.CylinderGeometry(R + 0.006, R + 0.006, 0.04, 24, 1, true, -OPEN, 2 * OPEN), mat(K.groen));
+    lip.position.y = 0.06;
+    zet(v, lip, false);
+    schil(v, R, VH - PLAAT, PLAAT, mat(K.wit));
+    schil(v, R + 0.008, 0.14, VH - 0.28, mat(band));
+    // Elke kamer krijgt een eigen materiaal voor de binnenwand: dat licht op
+    // als je er met de muis over gaat, en gloeit 's avonds een beetje. side 1
+    // is de binnenkant van de cilinder.
+    const wandMat = new T.MeshLambertMaterial({ color: wand, emissive: OPLICHT, emissiveIntensity: 0, side: 1 });
+    wandMat.userData.apart = true;
+    schil(v, RW, VH - PLAAT, PLAAT, wandMat);
+    // de randen van de doorsnede
+    for (const kant of [-1, 1]) {
+      const a = kant * OPEN;
+      const rib = blok(v, 0.05, VH - PLAAT, MUUR + 0.03, K.groen, 0, PLAAT, 0, { r: 0.012, schaduw: false });
+      rib.position.x = Math.sin(a) * (R - MUUR / 2);
+      rib.position.z = Math.cos(a) * (R - MUUR / 2);
+      rib.rotation.y = a;
+    }
+    // de ruggengraat: hier stroomt de energie van de motor naar boven
+    const rug = aanWand(v, Math.PI, RW - 0.16);
+    cilinder(rug, 0.1, 0.1, VH - PLAAT, K.mint, 0, PLAAT, 0, { seg: 16, schaduw: false });
+    for (const y of [0.35, VH - 0.3]) cilinder(rug, 0.13, 0.13, 0.05, K.groen, 0, y, 0, { seg: 16, schaduw: false });
+    const puls = levend(new T.Mesh(new T.TorusGeometry(0.12, 0.028, 6, 20), pulsMat));
+    puls.rotation.x = Math.PI / 2;
+    rug.add(puls);
+    pulsen.push(puls);
+    const raak = new T.Mesh(new T.CylinderGeometry(R, R, VH, 16), new T.MeshBasicMaterial({ visible: false }));
+    raak.position.y = VH / 2;
+    raak.userData.kamer = naam;
+    v.add(levend(raak));
+    kamers[naam] = { groep: v, wandMat, raak };
+    return v;
+  }
+  // Een bord of scherm tegen de wand, met een lijst errond. De bovenrand ligt vast (BORD_TOP).
+  function wandBord(ouder, hoek, b, h, px, teken, { lijst = K.wit, scherm = false } = {}) {
+    const y = BORD_TOP - h;
+    const w = aanWand(ouder, hoek);
+    blok(w, b + 0.08, h + 0.08, 0.04, lijst, 0, y - 0.04, 0, { r: 0.015 });
+    statischeTekening(paneel(w, b, h, px, 0, y + h / 2, 0.045, { scherm }), teken);
+    return w;
+  }
+  function medewerker(ouder, x, z, naarX, naarZ, { shirt = ORANJE, huid = 2, haar = 1, zit = false, schaal = 1, hoofd = true } = {}) {
+    return stilFiguur(figuur(ouder, { x, y: PLAAT, z, draai: kijkNaar(x, z, naarX, naarZ), shirt, huid: HUID[huid], haar: HAAR[haar], zit, schaal }), { hoofd });
+  }
+  const koppen = [];
+
+  // ── de motor: de technische basis ──
+  const motor = verdieping('motor', 0, { wand: 0x4f5b6b, vloer: 0x3a434f, band: K.inkt });
+  {
+    // de reactor onderaan de ruggengraat
+    const voet = aanWand(motor, Math.PI, RW - 0.16);
+    cilinder(voet, 0.34, 0.38, 0.42, K.groen, 0, PLAAT, 0, { seg: 24 });
+    cilinder(voet, 0.36, 0.36, 0.05, 0, 0, PLAAT + 0.42, 0, { seg: 24, materiaal: pulsMat, schaduw: false });
+    DIENSTEN.forEach((d, k) => {
+      const hoek = Math.PI + [-1.26, -0.84, -0.42, 0.42, 0.84, 1.26][k];
+      const kast = plek(d.id, 'motor', aanWand(motor, hoek, RW - 0.22));
+      blok(kast, 0.44, 0.98, 0.34, 0xdde2e6, 0, PLAAT, 0, { r: 0.03 });
+      blok(kast, 0.46, 0.06, 0.36, parseInt(d.kleur.slice(1), 16), 0, PLAAT + 0.98, 0, { r: 0.02 });
+      for (let j = 0; j < 3; j++) blok(kast, 0.34, 0.03, 0.01, 0x9aa3a8, 0, PLAAT + 0.18 + j * 0.08, 0.172, { r: 0, schaduw: false });
+      statischeTekening(paneel(kast, 0.34, 0.22, 256, 0, PLAAT + 0.7, 0.175, { scherm: true }), tekenMachine(d));
+      cilinder(kast, 0.03, 0.03, VH - 1.08 - PLAAT, K.inkt, 0, PLAAT + 1.04, -0.05, { seg: 8, schaduw: false });
+      const lampje = levend(bol(kast, 0.026, 0, 0.14, PLAAT + 0.48, 0.175, { materiaal: new T.MeshBasicMaterial({ color: 0x5bd48a }), seg: 8, schaduw: false }));
+      lampje.userData.fase = k * 1.3;
+      lampje.userData.toestand = 'rust';
+      lampjes.push(lampje);
+      lampjeVan[d.id] = lampje;
+    });
+    const technicus = medewerker(motor, 0.5, 0.05, 0.75, -1.4, { shirt: K.groen, huid: 0, haar: 3 });
+    blok(technicus, 0.2, 0.14, 0.02, K.inkt, 0, 0.5, 0.17, { r: 0.01 }).rotation.x = -0.5;
+    for (const arm of technicus.userData.armen) arm.rotation.x = -0.9;
+    koppen.push(technicus);
+  }
+  // de onderkant: een rok, zes motoren en drie vinnen
+  const motorblok = levend(groepje(motor, 0, 0, 0));
+  cilinder(motor, R, R * 0.8, 0.46, K.wit, 0, -0.46, 0, { seg: 40, schaduw: false });
+  cilinder(motor, R * 0.8 + 0.01, R * 0.8 + 0.01, 0.06, K.groen, 0, -0.46, 0, { seg: 40, schaduw: false });
+  const vlamMat = new T.MeshBasicMaterial({ color: 0xa8dcff, transparent: true, opacity: 0.8, depthWrite: false });
+  const vlammen = [];
+  for (let k = 0; k < 6; k++) {
+    const [x, z] = boog(k / 6 * Math.PI * 2 + Math.PI / 6, 0.95);
+    cilinder(motorblok, 0.14, 0.32, 0.58, 0x9aa3a8, x, -1.04, z, { seg: 18 });
+    cilinder(motorblok, 0.33, 0.33, 0.05, parseInt(DIENSTEN[k].kleur.slice(1), 16), x, -1.06, z, { seg: 18, schaduw: false });
+    // De vlam hangt met haar brede kant aan de motor en wijst naar beneden.
+    const vorm = new T.ConeGeometry(0.24, 0.9, 14, 1, true);
+    vorm.rotateX(Math.PI);
+    vorm.translate(0, -0.45, 0);
+    const vlam = levend(new T.Mesh(vorm, vlamMat));
+    vlam.position.set(x, -1.06, z);
+    vlam.scale.setScalar(0.001);
+    motorblok.add(vlam);
+    vlammen.push(vlam);
+  }
+  speel(motorblok, s => { s.t = tijd(); });
+  // De vinnen zijn ook de poten: ze staan schuin naar buiten op het platform.
+  const vinBodem = 0.12 - BASIS;
+  for (const hoek of [Math.PI / 2 + 0.35, -Math.PI / 2 - 0.35, Math.PI]) {
+    const [x, z] = boog(hoek, 1.55);
+    const vin = groepje(motor, x, 0, z);
+    vin.rotation.y = hoek;
+    // Een doos waarvan we de hoekpunten verleggen: boven tegen de raket, onder ver naar buiten.
+    const geo = new T.BoxGeometry(0.09, 1, 1);
+    const pos = geo.attributes.position;
+    for (let j = 0; j < pos.count; j++) {
+      const boven = pos.getY(j) > 0, buiten = pos.getZ(j) > 0;
+      pos.setY(j, boven ? 0.6 : vinBodem);
+      pos.setZ(j, boven ? (buiten ? 0.62 : 0) : (buiten ? 1.35 : 0.55));
+    }
+    geo.computeVertexNormals();
+    zet(vin, new T.Mesh(geo, mat(K.groen, true)));
+    blok(vin, 0.17, 0.06, 0.9, K.groenDonker, 0, vinBodem, 0.95, { r: 0.02 });
+  }
+
+  // ── de kleuters ──
+  const kleuter = verdieping('kleuter', 1, { wand: K.perzik, vloer: 0xf2dfc4, band: 0xf2a76b });
+  plek('taalkleuter', 'kleuter', wandBord(kleuter, Math.PI + 0.62, 0.92, 0.66, 512, tekenTaalappke));
+  plek('minimumdoelen', 'kleuter', wandBord(kleuter, Math.PI - 0.62, 0.66, 0.76, 384, tekenDoelen('Nieuwe doelen', 'kleuters · 2026-2027')));
+  {
+    const mx = -0.2, mz = -0.35;
+    cilinder(kleuter, 0.82, 0.82, 0.012, K.mint, mx, PLAAT + 0.012, mz, { seg: 36, schaduw: false });
+    cilinder(kleuter, 0.06, 0.09, 0.26, K.wit, mx, PLAAT, mz, { seg: 12 });
+    cilinder(kleuter, 0.36, 0.36, 0.03, K.hout, mx, PLAAT + 0.26, mz, { seg: 28 });
+    blok(kleuter, 0.24, 0.016, 0.17, K.inkt, mx + 0.05, PLAAT + 0.29, mz + 0.06, { r: 0.008 });
+    blok(kleuter, 0.2, 0.004, 0.13, 0xf2a76b, mx + 0.05, PLAAT + 0.306, mz + 0.06, { r: 0, schaduw: false });
+    for (const [x, z, k, h] of [[mx - 0.55, mz + 0.12, K.geel, 1], [mx + 0.5, mz + 0.22, K.blauw, 4]]) {
+      blok(kleuter, 0.16, 0.14, 0.16, K.groen, x, PLAAT, z, { r: 0.03 });
+      koppen.push(stilFiguur(figuur(kleuter, { x, y: PLAAT + 0.14 - 0.25 * 0.6, z, draai: kijkNaar(x, z, mx, mz), shirt: k, huid: HUID[h], haar: HAAR[h % 5], zit: true, schaal: 0.6 }), { hoofd: true }));
+    }
+    koppen.push(medewerker(kleuter, mx + 0.95, mz - 0.45, mx, mz, { huid: 5, haar: 0 }));
+    [[0.95, 0.35, K.geel], [1.08, 0.2, K.roos], [1.02, 0.28, K.zee]].forEach(([x, z, k], i) => blok(kleuter, 0.12, 0.12, 0.12, k, x, PLAAT + (i === 2 ? 0.12 : 0), z, { r: 0.02 }).rotation.y = i * 0.5);
+    plant(kleuter, -1.2, PLAAT, 0.35, 0.9);
+  }
+
+  // ── het lager ──
+  const lager = verdieping('lager', 2, { wand: K.geel, vloer: 0xe9d3a6, band: 0xffcf3a });
+  const digibord = plek('reken', 'lager', wandBord(lager, Math.PI + 0.55, 1.2, 0.72, 768, tekenReken, { lijst: K.grijs, scherm: true }));
+  plek('doelen-lager', 'lager', wandBord(lager, Math.PI - 0.64, 0.66, 0.76, 384, tekenDoelen('Nieuwe doelen', '1ste tot 3de leerjaar')));
+  {
+    const [bx, bz] = boog(Math.PI + 0.55, RW);
+    for (const [x, z, k, h] of [[-0.55, -0.1, K.perzik, 0], [0.35, -0.2, K.mint, 3]]) {
+      const draai = kijkNaar(x, z, bx, bz);
+      const bank = groepje(lager, x, PLAAT, z);
+      bank.rotation.y = draai;
+      blok(bank, 0.52, 0.03, 0.32, K.hout, 0, 0.32, 0.36, { r: 0.01 });
+      for (const lx of [-0.22, 0.22]) blok(bank, 0.03, 0.32, 0.28, K.wit, lx, 0, 0.36, { r: 0.008 });
+      laptop(bank, 0, 0.35, 0.36, Math.PI, K.inkt);
+      blok(bank, 0.24, 0.2, 0.24, K.groen, 0, 0, 0.0, { r: 0.03 });
+      koppen.push(stilFiguur(figuur(bank, { x: 0, y: 0.2 - 0.25 * 0.74, z: 0, draai: 0, shirt: k, huid: HUID[h], haar: HAAR[(h + 2) % 5], zit: true, schaal: 0.74 }), { hoofd: true }));
+    }
+    koppen.push(medewerker(lager, -1.45, 0.1, -0.2, -0.2, { shirt: K.blauw, huid: 1, haar: 4 }));
+    koppen.push(medewerker(lager, 0.95, -0.45, 0.35, -0.0, { huid: 3, haar: 0 }));
+    plant(lager, 1.3, PLAAT, 0.25, 0.9);
+  }
+
+  // ── het secundair ──
+  const secundair = verdieping('secundair', 3, { wand: K.blauw, vloer: 0xdbe7ea, band: K.zee });
+  plek('talent', 'secundair', wandBord(secundair, Math.PI + 0.55, 1.15, 0.72, 768, tekenTalent, { lijst: K.inkt, scherm: true }));
+  plek('aiwijs', 'secundair', wandBord(secundair, Math.PI - 0.62, 0.62, 0.8, 384, tekenAiwijs));
+  {
+    blok(secundair, 1.5, 0.04, 0.5, K.hout, -0.05, PLAAT + 0.42, -0.55, { r: 0.015 });
+    for (const x of [-0.7, 0.6]) blok(secundair, 0.04, 0.42, 0.44, K.wit, x, PLAAT, -0.55, { r: 0.01 });
+    for (const [x, k, h] of [[-0.45, K.geel, 2], [0.35, K.perzik, 5]]) {
+      laptop(secundair, x, PLAAT + 0.46, -0.6, 0, K.inkt);
+      stoel(secundair, x, PLAAT, -0.1, Math.PI, K.groen);
+      koppen.push(stilFiguur(figuur(secundair, { x, y: PLAAT, z: -0.1, draai: Math.PI, shirt: k, huid: HUID[h], haar: HAAR[h % 5], zit: true }), { hoofd: true }));
+    }
+    koppen.push(medewerker(secundair, -1.45, 0.2, 0, -0.6, { shirt: K.mint, huid: 4, haar: 2 }));
+    koppen.push(medewerker(secundair, 1.1, -0.35, 0.35, -0.6, { huid: 1, haar: 3 }));
+  }
+
+  // ── beleid en directie ──
+  const beleid = verdieping('beleid', 4, { wand: K.mint, vloer: 0xe8e4da, band: K.groen });
+  plek('ictcheck', 'beleid', wandBord(beleid, Math.PI + 0.55, 1.2, 0.72, 768, tekenIctcheck, { lijst: K.inkt, scherm: true }));
+  plek('leerlijn', 'beleid', wandBord(beleid, Math.PI - 0.55, 0.78, 0.7, 448, tekenLeerlijn));
+  {
+    const tx = -0.15, tz = -0.45;
+    cilinder(beleid, 0.06, 0.1, 0.42, K.wit, tx, PLAAT, tz, { seg: 12 });
+    cilinder(beleid, 0.5, 0.5, 0.035, K.hout, tx, PLAAT + 0.42, tz, { seg: 32 });
+    const ai = plek('ai', 'beleid', groepje(beleid, tx + 0.05, PLAAT + 0.455, tz + 0.12));
+    laptop(ai, 0, 0, 0, 0, K.zee);
+    blok(ai, 0.2, 0.1, 0.02, K.geel, 0.16, 0.3, -0.12, { r: 0.04 });
+    for (const [x, z, k, h, haar] of [[tx - 0.7, tz + 0.1, K.zee, 0, 1], [tx, tz - 0.72, K.perzik, 3, 3]]) {
+      stoel(beleid, x, PLAAT, z, kijkNaar(x, z, tx, tz), K.groen);
+      koppen.push(stilFiguur(figuur(beleid, { x, y: PLAAT, z, draai: kijkNaar(x, z, tx, tz), shirt: k, huid: HUID[h], haar: HAAR[haar], zit: true }), { hoofd: true }));
+    }
+    stoel(beleid, tx + 0.7, PLAAT, tz + 0.05, kijkNaar(tx + 0.7, tz + 0.05, tx, tz), K.groen);
+    koppen.push(stilFiguur(figuur(beleid, { x: tx + 0.7, y: PLAAT, z: tz + 0.05, draai: kijkNaar(tx + 0.7, tz + 0.05, tx, tz), shirt: ORANJE, huid: HUID[2], haar: HAAR[0], zit: true }), { hoofd: true }));
+    // planlast: een stapel papier die één formulier wordt
+    const [px, pz] = boog(Math.PI - 1.18, 1.5);
+    const kast = plek('planlast', 'beleid', groepje(beleid, px, PLAAT, pz));
+    kast.rotation.y = Math.PI - 1.18 + Math.PI;
+    blok(kast, 0.5, 0.46, 0.34, K.wit, 0, 0, 0, { r: 0.02 });
+    for (let i = 0; i < 6; i++) blok(kast, 0.3, 0.028, 0.22, i === 5 ? K.mint : 0xfdfdf8, -0.06 + (r() - 0.5) * 0.04, 0.46 + i * 0.03, 0, { r: 0.005 }).rotation.y = (r() - 0.5) * 0.3;
+    blok(kast, 0.2, 0.012, 0.27, K.geel, 0.16, 0.46, 0.02, { r: 0.004 });
+  }
+
+  // ── de neus: de lading ──
+  const neus = groepje(raket, 0, TOP, 0);
+  cilinder(neus, R, R, 0.1, K.wit, 0, 0, 0, { seg: 40, schaduw: false });
+  cilinder(neus, R + 0.012, R + 0.012, 0.16, K.groen, 0, 0, 0, { seg: 40, schaduw: false });
+  cilinder(neus, R * 0.66, R, 1.25, K.wit, 0, 0.16, 0, { seg: 40, schaduw: false });
+  cilinder(neus, 0.08, R * 0.66, 1.36, K.wit, 0, 1.41, 0, { seg: 40, schaduw: false });
+  cilinder(neus, 0.035, 0.08, 0.2, K.groen, 0, 2.77, 0, { seg: 12, schaduw: false });
+  cilinder(neus, 0.012, 0.012, 0.42, K.inkt, 0, 2.95, 0, { seg: 6, schaduw: false });
+  const neusLicht = levend(bol(neus, 0.045, 0, 0, 3.4, 0, { materiaal: new T.MeshBasicMaterial({ color: 0xff5a4f }), seg: 10, schaduw: false }));
+  {
+    const helling = Math.atan((R - R * 0.66) / 1.25);
+    const venster = plek('kompas', 'neus', groepje(neus, 0, 0.78, 1.66));
+    venster.rotation.x = -helling;
+    const ring = new T.Mesh(new T.TorusGeometry(0.44, 0.07, 10, 36), mat(K.groen));
+    zet(venster, ring, false);
+    const c = document.createElement('canvas'); c.width = c.height = 512;
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const schijf = new T.Mesh(new T.CircleGeometry(0.42, 40), new T.MeshBasicMaterial({ map: tex }));
+    schijf.position.z = 0.01;
+    venster.add(schijf);
+    statischeTekening({ mesh: schijf, c, ctx: c.getContext('2d'), tex }, tekenKompas);
+  }
+  {
+    const raak = new T.Mesh(new T.CylinderGeometry(0.4, R, NEUS, 16), new T.MeshBasicMaterial({ visible: false }));
+    raak.position.y = NEUS / 2;
+    raak.userData.kamer = 'neus';
+    neus.add(levend(raak));
+    kamers.neus = { groep: neus, raak };
+  }
+
+  // ── de toren: vorming en ondersteuning ──
+  const toren = groepje(wereld, TOREN.x, 0, TOREN.z);
+  const TH = TOP + 0.2, HB = 0.55;
+  const niveaus = [0, ...NIVEAUS.map((_, i) => BASIS + i * VH), TOP];
+  for (const [x, z] of [[-HB, -HB], [HB, -HB], [-HB, HB], [HB, HB]]) blok(toren, 0.09, TH, 0.09, K.groen, x, 0, z, { r: 0.02 });
+  for (const y of niveaus.slice(1)) {
+    for (const z of [-HB, HB]) blok(toren, 2 * HB + 0.09, 0.07, 0.07, K.groen, 0, y - 0.035, z, { r: 0.015 });
+    for (const x of [-HB, HB]) blok(toren, 0.07, 0.07, 2 * HB + 0.09, K.groen, x, y - 0.035, 0, { r: 0.015 });
+    blok(toren, 2 * HB, 0.04, 0.44, K.grijs, 0, y - 0.04, HB - 0.24, { r: 0.01, schaduw: false });
+  }
+  // De onderste trappen zijn de plek: zo staat haar speld ook in het beeld van het platform.
+  const vorming = plek('vorming', 'platform', groepje(toren));
+  for (let i = 0; i < niveaus.length - 1; i++) {
+    const ya = niveaus[i], yb = niveaus[i + 1], dy = yb - ya, lengte = Math.hypot(2 * HB - 0.2, dy);
+    const kant = i % 2 ? -1 : 1;
+    // een trap per verdieping, beurtelings naar links en naar rechts
+    const trappen = i < 2 ? vorming : toren;
+    const trap = blok(trappen, lengte, 0.05, 0.34, K.mint, 0, 0, HB - 0.24, { r: 0.012 });
+    trap.position.y = (ya + yb) / 2;
+    trap.rotation.z = kant * Math.atan2(dy, 2 * HB - 0.2);
+    const leuning = blok(trappen, lengte, 0.025, 0.025, K.groenDonker, 0, 0, HB - 0.06, { r: 0.008, schaduw: false });
+    leuning.position.y = (ya + yb) / 2 + 0.3;
+    leuning.rotation.z = trap.rotation.z;
+    // kruisverbanden aan de zijkant
+    for (const t of [-1, 1]) {
+      const kruis = blok(toren, 0.035, 0.035, Math.hypot(2 * HB, dy), K.groenDonker, -HB - 0.005, 0, 0, { r: 0.008, schaduw: false });
+      kruis.position.y = (ya + yb) / 2;
+      kruis.rotation.x = t * Math.atan2(dy, 2 * HB);
+    }
+  }
+  // de armen naar de raket, met de leidingen die de diensten aanvoeren. Ze
+  // draaien samen weg rond de rand van de toren vlak voor de lancering.
+  const tot = Math.hypot(TOREN.x, TOREN.z - RZ) - R;
+  const armen = levend(groepje(toren, HB, 0, 0));
+  NIVEAUS.forEach((_, i) => {
+    const y = BASIS + i * VH + 0.95, lengte = tot - HB;
+    blok(armen, lengte + 0.05, 0.08, 0.16, K.groen, lengte / 2, y, 0, { r: 0.02 });
+    blok(armen, lengte, 0.07, 0.07, K.mint, lengte / 2, y - 0.1, 0.06, { r: 0.03, schaduw: false });
+    blok(armen, 0.1, 0.24, 0.26, K.grijs, lengte - 0.02, y - 0.12, 0, { r: 0.02 });
+  });
+  const torenLicht = levend(bol(toren, 0.05, 0, 0, TH + 0.08, 0, { materiaal: new T.MeshBasicMaterial({ color: 0xff5a4f }), seg: 10, schaduw: false }));
+  gloed(toren, 0, TH + 0.08, 0, 0.8);
+  // de lift: wie wil, gaat een verdieping hoger
+  const lift = levend(groepje(toren, -HB - 0.3, 0.02, 0));
+  blok(lift, 0.48, 0.05, 0.48, K.geel, 0, 0, 0, { r: 0.015 });
+  blok(lift, 0.5, 0.04, 0.5, K.geel, 0, 1.02, 0, { r: 0.015 });
+  for (const [x, z] of [[-0.22, -0.22], [0.22, -0.22], [-0.22, 0.22], [0.22, 0.22]]) blok(lift, 0.03, 1.0, 0.03, K.inkt, x, 0.04, z, { r: 0, schaduw: false });
+  stilFiguur(figuur(lift, { x: 0, y: 0.05, z: 0.02, draai: 0.6, shirt: K.blauw, huid: HUID[1], haar: HAAR[2], schaal: 0.85 }));
+
+  // ── de helpdesk aan de voet van de toren ──
+  const helpdesk = plek('helpdesk', 'platform', groepje(wereld, HELPDESK.x, 0, HELPDESK.z));
+  helpdesk.rotation.y = 0.35;
+  blok(helpdesk, 1.25, 0.06, 0.9, K.steen, 0, 0, 0, { r: 0.02 });
+  blok(helpdesk, 1.25, 0.96, 0.08, K.wit, 0, 0.06, -0.41, { r: 0.015 });
+  for (const x of [-0.585, 0.585]) blok(helpdesk, 0.08, 0.96, 0.9, K.wit, x, 0.06, 0, { r: 0.015 });
+  blok(helpdesk, 1.08, 0.42, 0.16, K.groen, 0, 0.06, 0.3, { r: 0.02 });
+  blok(helpdesk, 1.12, 0.04, 0.24, K.hout, 0, 0.48, 0.3, { r: 0.01 });
+  blok(helpdesk, 1.4, 0.08, 1.05, K.groen, 0, 1.02, 0, { r: 0.02 });
+  blok(helpdesk, 1.2, 0.3, 0.04, K.groenDonker, 0, 1.1, 0.5, { r: 0.012 });
+  statischeTekening(paneel(helpdesk, 1.16, 0.27, 512, 0, 1.25, 0.525), tekenHelpdesk);
+  stilFiguur(figuur(helpdesk, { x: 0, y: 0.06, z: -0.05, draai: 0, shirt: K.groen, huid: HUID[4], haar: HAAR[1] }), { hoofd: true });
+  laptop(helpdesk, -0.3, 0.52, 0.28, Math.PI + 0.2);
+
+  // ── de vluchtleiding van Team ICT ──
+  let leidingScherm = null;
+  const leiding = plek('vluchtleiding', 'platform', groepje(wereld, LEIDING.x, 0, LEIDING.z));
+  leiding.rotation.y = LEIDING.draai;
+  {
+    const { b, d, h } = LEIDING;
+    blok(leiding, b, 0.1, d, K.wit, 0, 0, 0, { r: 0.02, schaduw: false });
+    blok(leiding, b - 0.2, 0.01, d - 0.2, 0xe6e9ec, 0, 0.1, -0.02, { r: 0, schaduw: false });
+    blok(leiding, b, h, 0.1, K.muur, 0, 0.1, -d / 2 + 0.05, { r: 0.01, schaduw: false });
+    blok(leiding, b - 0.2, h - 0.05, 0.01, K.mintLicht, 0, 0.1, -d / 2 + 0.105, { r: 0, schaduw: false });
+    for (const x of [-b / 2 + 0.05, b / 2 - 0.05]) blok(leiding, 0.1, h, d, K.muur, x, 0.1, 0, { r: 0.01, schaduw: false });
+    blok(leiding, b + 0.12, 0.1, d + 0.12, K.groen, 0, h + 0.1, 0, { r: 0.02 });
+    blok(leiding, 1.5, 0.3, 0.04, K.wit, 0, h + 0.2, d / 2 + 0.06, { r: 0.012 });
+    statischeTekening(paneel(leiding, 1.44, 0.26, 640, 0, h + 0.35, d / 2 + 0.085), tekenLeidingBord);
+    blok(leiding, 1.86, 0.74, 0.04, K.inkt, 0, 0.42, -d / 2 + 0.12, { r: 0.015 });
+    leidingScherm = statischeTekening(paneel(leiding, 1.78, 0.66, 768, 0, 0.79, -d / 2 + 0.145, { scherm: true }), p => tekenLeidingScherm(p, regie));
+    // een gebogen tafel met vier schermen en Team ICT erachter
+    for (let k = 0; k < 4; k++) {
+      const x = -0.84 + k * 0.56, z = 0.05 + Math.abs(x) * 0.18;
+      const tafel = groepje(leiding, x, 0.1, z);
+      tafel.rotation.y = -x * 0.25;
+      blok(tafel, 0.54, 0.04, 0.32, K.hout, 0, 0.4, 0, { r: 0.012 });
+      blok(tafel, 0.5, 0.4, 0.04, K.wit, 0, 0, -0.12, { r: 0.01 });
+      blok(tafel, 0.3, 0.2, 0.02, K.inkt, 0, 0.46, -0.08, { r: 0.008 });
+      blok(tafel, 0.27, 0.17, 0.005, [K.blauw, K.mint, K.geel, K.perzik][k], 0, 0.475, -0.068, { r: 0, schaduw: false });
+      stoel(tafel, 0, 0, 0.36, Math.PI, K.inkt);
+      koppen.push(stilFiguur(figuur(tafel, { x: 0, y: 0, z: 0.36, draai: Math.PI, shirt: TEAM[k], huid: HUID[[0, 1, 4, 2][k]], haar: HAAR[[3, 1, 0, 2][k]], zit: true }), { hoofd: true }));
+    }
+  }
+  // De schotel staat op het dak, maar hoort niet bij de plek: anders zweeft de speld te hoog.
+  const leidingDak = groepje(wereld, LEIDING.x, 0, LEIDING.z);
+  leidingDak.rotation.y = LEIDING.draai;
+  const schotel = levend(groepje(leidingDak, 0.75, LEIDING.h + 0.2, -0.3));
+  cilinder(schotel, 0.04, 0.06, 0.3, K.grijs, 0, 0, 0, { seg: 8 });
+  const kom = groepje(schotel, 0, 0.36, 0);
+  kom.rotation.x = -0.6;
+  cilinder(kom, 0.3, 0.06, 0.1, K.wit, 0, 0, 0, { seg: 20 });
+  cilinder(kom, 0.012, 0.012, 0.28, K.inkt, 0, 0.08, 0, { seg: 6, schaduw: false });
+
+  // ── buiten: de grondploeg, een wandelaar, bomen, wolken en vogels ──
+  const buiten = groepje(wereld);
+  const grondploeg = plek('grondploeg', 'platform', groepje(buiten));
+  const ploeg = [
+    figuur(grondploeg, { x: 2.0, y: 0, z: 1.55, draai: kijkNaar(2.0, 1.55, 0, RZ), shirt: ORANJE, huid: HUID[3], haar: HAAR[0] }),
+    figuur(grondploeg, { x: 2.5, y: 0, z: 1.2, draai: kijkNaar(2.5, 1.2, 0, RZ), shirt: ORANJE, huid: HUID[0], haar: HAAR[4] }),
+  ];
+  stilFiguur(ploeg[0], { hoofd: true });
+  blok(ploeg[0], 0.2, 0.14, 0.02, K.inkt, 0, 0.5, 0.17, { r: 0.01 }).rotation.x = -0.5;
+  ploeg[0].userData.armen[0].rotation.x = -0.9;
+  ploeg[0].userData.armen[1].rotation.x = -0.9;
+  for (const b of ploeg[1].userData.benen) b.userData.levend = false;
+  // een collega op weg naar de helpdesk; klik erop en ze zwaait
+  const wandelaar = speel(figuur(buiten, { x: 0, y: 0, z: 2.6, draai: 0, shirt: K.blauw, huid: HUID[1], haar: HAAR[2] }), s => { s.t = tijd(); });
+  blok(wandelaar, 0.3, 0.02, 0.22, K.grijs, 0.14, 0.42, 0.06, { r: 0.008 }).rotation.z = -1.2;
+  const bomen = [
+    boom(buiten, -5.85, -4.4, 1.15, [K.blad2, K.blad1, K.blad3]),
+    boom(buiten, 5.95, -4.45, 1.0, [K.blad3, K.blad2, K.blad1]),
+    boom(buiten, -5.95, 2.6, 0.85, [K.blad2, K.blad1]),
+    boom(buiten, 6.0, 2.95, 0.8, [K.blad1, K.blad2]),
+    boom(buiten, 2.4, -4.8, 0.75, [K.blad2, K.blad3]),
+  ].map(b => speel(b, s => { s.t = tijd(); }));
+  for (const [x, z] of [[-1.35, 3.15], [1.45, 3.15]]) {
+    const l = groepje(buiten, x, 0, z);
+    cilinder(l, 0.028, 0.035, 1.15, K.groenDonker, 0, 0, 0, { seg: 10 });
+    blok(l, 0.16, 0.07, 0.16, K.groenDonker, 0, 1.25, 0, { r: 0.02 });
+    bol(l, 0.055, 0, 0, 1.2, 0, { materiaal: g.lampMat, schaduw: false, seg: 10 });
+    gloed(l, 0, 1.19, 0, 0.9);
+  }
+  for (const [x, z, s] of [[-4.6, 2.9, 1], [5.1, -0.1, 0.9], [-5.4, -1.2, 1.1]]) kruin(buiten, 0.26 * s, K.blad2, x, 0.18 * s, z);
+  // grassprietjes in één tekenbeurt
+  {
+    const spriet = new T.ConeGeometry(0.035, 0.13, 5);
+    spriet.translate(0, 0.065, 0);
+    const n = 70;
+    const gras = levend(new T.InstancedMesh(spriet, new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true }), n));
+    const m = new T.Matrix4(), kleur = new T.Color();
+    let i = 0;
+    while (i < n) {
+      const x = (r() - 0.5) * 12.4, z = -5.0 + r() * 8.2;
+      const opPlatform = Math.hypot(x, z - RZ) < 3.2;
+      const opToren = Math.abs(x - TOREN.x) < 0.9 && Math.abs(z - TOREN.z) < 0.9;
+      const opHelpdesk = Math.hypot(x - HELPDESK.x, z - HELPDESK.z) < 1.0;
+      const opLeiding = Math.hypot(x - LEIDING.x, z - LEIDING.z) < 1.7;
+      const opPad = x > -2.8 && x < 0.6 && z > 1.0 && z < 3.5 && Math.abs((z - 3.2) / 1.95 * 2.75 + 0.2 - x) < 0.45;
+      if (opPlatform || opToren || opHelpdesk || opLeiding || opPad) continue;
+      const s = 0.7 + r() * 0.8;
+      m.makeScale(s, s, s).setPosition(x, 0, z);
+      gras.setMatrixAt(i, m);
+      gras.setColorAt(i, kleur.setHex([K.blad1, K.blad2, 0xa6d3b0][i % 3]));
+      i++;
+    }
+    gras.receiveShadow = true;
+    buiten.add(gras);
+  }
+  // wolken en vogels
+  const wolkMat = new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
+  function maakWolk(y, z, s, start) {
+    const w = levend(groepje(wereld, 0, y, z));
+    for (const [x, yy, zz, rr] of [[0, 0, 0, 0.42], [-0.45, -0.1, 0.05, 0.3], [0.45, -0.08, 0, 0.33], [0.15, 0.2, 0.1, 0.28]]) {
+      const b = new T.Mesh(new T.IcosahedronGeometry(rr * s, 1), wolkMat);
+      b.position.set(x * s, yy * s, zz * s);
+      w.add(b);
+    }
+    w.userData.start = start;
+    return w;
+  }
+  const wolken = [[8.2, -5.0, 1.0, 0], [6.4, -5.6, 0.75, 0.4], [10.6, -4.8, 0.7, 0.72]].map(a => maakWolk(...a));
+  const vogels = [0, 1, 2].map(i => {
+    const v = levend(groepje(wereld));
+    blok(v, 0.05, 0.04, 0.12, K.inkt, 0, 0, 0, { r: 0.015, schaduw: false });
+    v.userData.vleugels = [-1, 1].map(kant => {
+      const vl = groepje(v, kant * 0.02, 0.01, 0);
+      blok(vl, 0.16, 0.012, 0.07, K.inkt, kant * 0.08, 0, 0, { r: 0.005, schaduw: false });
+      return vl;
+    });
+    v.userData.fase = i * 2.1;
+    return v;
+  });
+  // damp aan de voet van de raket
+  const damp = Array.from({ length: 6 }, (_, i) => {
+    const b = levend(bol(wereld, 0.22, 0, 0, 0, 0, { materiaal: new T.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity: 0, depthWrite: false }), seg: 10, schaduw: false }));
+    b.userData.fase = i / 6;
+    b.userData.hoek = i * 2.4;
+    return b;
+  });
+
+  // ── de go/no-go-ronde en de lancering ──
+  // De pagina start de ronde met lancering(); de tijdlijn loopt hier, op de tijd
+  // van het tafereel, zodat ze mee pauzeert als het canvas uit beeld is. Bij elke
+  // stap roept de scène melding(soort, gegevens) op; de pagina stuurt daarop de
+  // camera en het paneel. Zo blijft de motor in gedeeld/ onaangeroerd.
+  const regie = {
+    fase: 'rust', t: 0, stations: [], index: -1, stap: 'vraag', volgende: 0,
+    storing: null, melding: null, toestand: {}, tel: null, gemeld: new Set(),
+    hoogte: 0, snelheid: 0, armen: 0, vuur: 0, rook: 0,
+  };
+  const meld = (soort, gegevens = {}) => regie.melding?.(soort, gegevens);
+  const tekenScherm = () => { if (!leidingScherm) return; tekenLeidingScherm(leidingScherm, regie); leidingScherm.tex.needsUpdate = true; };
+
+  // Bordjes met GO of NO-GO bij elk station. Twee gedeelde texturen.
+  function bordjeTex(tekst, kleur) {
+    const c = document.createElement('canvas'); c.width = 256; c.height = 112;
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+    statischeTekening({ c, ctx: c.getContext('2d'), tex }, ({ ctx }) => {
+      ctx.clearRect(0, 0, 256, 112);
+      rond(ctx, 8, 8, 240, 96, 48); ctx.fillStyle = kleur; ctx.fill();
+      ctx.fillStyle = '#ffffff'; ctx.font = F(700, 54); ctx.textAlign = 'center'; ctx.fillText(tekst, 128, 75); ctx.textAlign = 'left';
+    });
+    return new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
+  }
+  const goMat = bordjeTex('GO', '#126425'), nogoMat = bordjeTex('NO-GO', '#b3261e');
+  const bordGeo = new T.PlaneGeometry(0.5, 0.22);
+  const bordjes = {};
+  function bordje(id, ouder, x, y, z, draai, schaal = 1) {
+    const m = levend(new T.Mesh(bordGeo, goMat));
+    m.position.set(x, y, z);
+    m.rotation.y = draai;
+    m.visible = false;
+    m.renderOrder = 2;
+    ouder.add(m);
+    bordjes[id] = { m, schaal, aan: false, sinds: -10, k: 0 };
+  }
+  // De raket staat op DRAAI; het overzicht kijkt op 0,31. Bordjes in de raket
+  // kijken naar de camera van de kamer, bordjes buiten naar die van het overzicht.
+  DIENSTEN.forEach((d, k) => {
+    const [x, z] = boog(Math.PI + [-1.26, -0.84, -0.42, 0.42, 0.84, 1.26][k], 1.15);
+    bordje(d.id, motor, x, PLAAT + 1.2, z, 0, 0.9);
+  });
+  [kleuter, lager, secundair, beleid].forEach((v, i) => bordje(NIVEAUS[i + 1], v, 0, VH - 0.5, 1.0, 0, 1.5));
+  bordje('lading', neus, 0, 1.5, 1.42, 0.31 - DRAAI, 1.4);
+  bordje('grondploeg', buiten, 2.25, 1.3, 1.4, 0.31);
+  bordje('helpdesk', buiten, HELPDESK.x + 0.1, 1.75, HELPDESK.z + 0.45, 0.31);
+  bordje('vorming', toren, 0.1, 2.6, HB + 0.2, 0.31);
+
+  function zetBordje(id, toestand) {
+    const b = bordjes[id];
+    if (!b) return;
+    b.m.material = toestand === 'nogo' ? nogoMat : goMat;
+    b.aan = true;
+    b.sinds = tijd();
+    if (g.stil) { b.m.visible = true; b.m.scale.setScalar(b.schaal); }
+  }
+  function zetLampje(id, toestand) {
+    const l = lampjeVan[id];
+    if (!l) return;
+    l.userData.toestand = toestand;
+    if (g.stil) { l.visible = true; l.material.color.setHex({ wacht: 0xffb347, go: 0x5bd48a, nogo: 0xff5a4f, rust: 0x5bd48a }[toestand]); }
+  }
+
+  // Vuur, rook en hoge wolken: alleen tijdens de lancering zichtbaar.
+  const vuurGloed = (() => {
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const ctx = c.getContext('2d');
+    const gr = ctx.createRadialGradient(64, 64, 4, 64, 64, 64);
+    gr.addColorStop(0, 'rgba(255,240,200,1)'); gr.addColorStop(0.35, 'rgba(255,170,80,0.7)'); gr.addColorStop(1, 'rgba(255,120,40,0)');
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, 128, 128);
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+    // blending 2 is optellend licht (AdditiveBlending): de gloed kleurt wat erachter ligt op.
+    const m = levend(new T.Mesh(new T.PlaneGeometry(1, 1), new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, blending: 2, opacity: 0 })));
+    m.position.set(0, -1.55, 0.5);
+    m.scale.set(3.4, 2.6, 1);
+    m.visible = false;
+    // Onzichtbaar of niet: de straal van de muis ziet het vlak anders, en het hangt in een speels groepje.
+    m.raycast = () => {};
+    motorblok.add(m);
+    return m;
+  })();
+  const rook = Array.from({ length: 10 }, (_, i) => {
+    const b = levend(bol(wereld, 0.4, 0, 0, 0, 0, { materiaal: new T.MeshLambertMaterial({ color: 0xf4f1ec, transparent: true, opacity: 0, depthWrite: false }), seg: 10, schaduw: false }));
+    b.visible = false;
+    b.userData.hoek = i / 10 * Math.PI * 2 + (i % 2) * 0.3;
+    b.userData.fase = (i * 0.37) % 1;
+    return b;
+  });
+  const hogeWolken = [[17, -2.6, 1.2, -3.2], [23, 0.4, 0.9, 3.4], [30, -1.6, 1.3, 2.6], [37, 0.2, 1.0, -3.6], [44, -2.2, 1.2, 1.2]].map(([y, z, sch, x]) => {
+    const w = maakWolk(y, z, sch, 0);
+    w.position.x = x;
+    w.visible = false;
+    return w;
+  });
+  // De camera volgt de raket via een plek zonder voorwerp: zie plekAnker.
+  plek('vlucht', 'vlucht', groepje(wereld));
+  const vluchtAnker = new T.Vector3();
+  const MIDDEN_RAKET = (TOP + NEUS) / 2;
+
+  // De hoogte en de snelheid van de raket, t seconden na de lancering: eerst
+  // versnellen, dan uitbollen tot de top, en zacht terug naar het platform.
+  const VLUCHT_DUUR = 15;
+  function baan(t) {
+    if (t < 6) return [0.9 * t * t, 1.8 * t];
+    if (t < 8) { const u = t - 6; return [32.4 + 10.8 * u - 2.7 * u * u, 10.8 - 5.4 * u]; }
+    if (t < VLUCHT_DUUR) { const s = (t - 8) / 7; return [43.2 * (1 - s * s * (3 - 2 * s)), -43.2 * 6 * s * (1 - s) / 7]; }
+    return [0, 0];
+  }
+  const glad = x => { x = klem(x, 0, 1); return x * x * (3 - 2 * x); };
+  function eenmaal(sleutel, soort) { if (regie.gemeld.has(sleutel)) return; regie.gemeld.add(sleutel); meld(soort); }
+
+  function zetTerug() {
+    Object.assign(regie, { fase: 'rust', t: 0, index: -1, stap: 'vraag', volgende: 0, toestand: {}, tel: null, hoogte: 0, snelheid: 0, armen: 0, vuur: 0, rook: 0 });
+    regie.gemeld.clear();
+    for (const b of Object.values(bordjes)) { b.aan = false; b.k = 0; b.m.visible = false; }
+    for (const l of lampjes) { l.userData.toestand = 'rust'; l.material.color.setHex(0x5bd48a); }
+    pulsMat.color.setHex(0xb6f2c9);
+    raket.position.set(0, 0, RZ);
+    for (const { l, y } of raketLampen) l.position.y = y;
+    armen.rotation.y = 0;
+    vuurGloed.visible = false;
+    for (const b of rook) b.visible = false;
+    for (const w of hogeWolken) w.visible = false;
+    tekenScherm();
+  }
+  // Eén stap van de ronde: eerst de vraag (de camera gaat kijken), daarna het
+  // antwoord van het station.
+  function rondeStap() {
+    const r = regie;
+    if (r.stap === 'vraag') {
+      r.index++;
+      const st = r.stations[r.index];
+      if (!st) { r.fase = 'go'; r.t = 0; tekenScherm(); meld('allesGo'); return; }
+      const vorige = r.stations[r.index - 1];
+      r.toestand[st.id] = 'bezig';
+      zetLampje(st.id, 'wacht');
+      r.stap = 'antwoord';
+      r.volgende = r.t + (!vorige || vorige.kamer !== st.kamer ? 0.8 : 0.32);
+      tekenScherm();
+      meld('vraag', { id: st.id });
+    } else {
+      const st = r.stations[r.index];
+      const toestand = st.id === r.storing ? 'nogo' : 'go';
+      r.toestand[st.id] = toestand;
+      zetLampje(st.id, toestand);
+      zetBordje(st.id, toestand);
+      r.stap = 'vraag';
+      r.volgende = r.t + 0.12;
+      if (toestand === 'nogo') {
+        r.fase = 'hold';
+        pulsMat.color.setHex(0x8a949c);
+        tekenScherm();
+        meld('station', { id: st.id, toestand });
+        meld('hold', { id: st.id });
+        return;
+      }
+      tekenScherm();
+      meld('station', { id: st.id, toestand });
+    }
+  }
+  function werkRegieBij(dt, nu) {
+    const r = regie;
+    if (r.fase === 'rust' || r.fase === 'hold') return;
+    r.t += dt;
+    if (r.fase === 'ronde') {
+      while (r.fase === 'ronde' && r.t >= r.volgende) rondeStap();
+    } else if (r.fase === 'go') {
+      if (r.t >= 1.4) { r.fase = 'aftellen'; r.t = 0; r.tel = 5; tekenScherm(); meld('tel', { n: 5 }); }
+    } else if (r.fase === 'aftellen') {
+      const n = 5 - Math.floor(r.t);
+      if (n !== r.tel && n >= 1) { r.tel = n; tekenScherm(); meld('tel', { n }); }
+      r.armen = glad((r.t - 1.8) / 1.4);
+      r.vuur = klem((r.t - 3) / 2, 0, 1) * 0.7;
+      r.rook = glad((r.t - 2.8) / 1.2);
+      if (r.t >= 5) {
+        r.fase = 'vlucht'; r.t = 0; r.tel = null;
+        for (const b of Object.values(bordjes)) b.aan = false;
+        tekenScherm();
+        meld('lift');
+      }
+    } else if (r.fase === 'vlucht') {
+      const t = r.t;
+      [r.hoogte, r.snelheid] = baan(t);
+      r.vuur = t < 6 ? 1 : t < 8 ? 1 - 0.8 * (t - 6) / 2 : t < 12.5 ? 0 : t < VLUCHT_DUUR ? 0.75 : Math.max(0, 0.75 - (t - VLUCHT_DUUR) * 1.5);
+      r.rook = t < 2.5 ? 1 : t < 6 ? 1 - (t - 2.5) / 3.5 : t < 13.5 ? 0 : t < 15.5 ? (t - 13.5) / 2 * 0.7 : Math.max(0, 0.7 - (t - 15.5) * 0.45);
+      r.armen = t < 15.8 ? 1 : 1 - glad((t - 15.8) / 1.4);
+      if (t >= 8) eenmaal('top', 'top');
+      if (t >= 9.5) eenmaal('terug', 'terug');
+      if (t >= VLUCHT_DUUR + 0.3) eenmaal('geland', 'geland');
+      if (t >= 17.4) {
+        zetTerug();
+        meld('klaar');
+        return;
+      }
+    }
+    // wat de tijdlijn met de raket en het platform doet
+    raket.position.y = r.hoogte;
+    raket.position.x = r.vuur > 0.3 && r.hoogte < 4 ? Math.sin(nu * 57) * 0.014 * r.vuur : 0;
+    for (const { l, y } of raketLampen) l.position.y = y + r.hoogte;
+    armen.rotation.y = r.armen * 1.15;
+    vuurGloed.visible = r.vuur > 0.02;
+    vuurGloed.material.opacity = Math.min(1, r.vuur * 1.1);
+    vuurGloed.scale.set(3.4 + r.vuur * 1.5, 2.6 + r.vuur * 2.5, 1);
+    for (const w of hogeWolken) w.visible = r.fase === 'vlucht';
+  }
+
+  // Een hoofd dat rondkijkt, blijft los van het lijf, maar wordt zelf wel één vorm.
+  const hoofden = [];
+  wereld.traverse(o => { if (o.userData.hoofd?.userData.levend) hoofden.push(o.userData.hoofd); });
+
+  // ── kaders, labels en wat er per beeld beweegt ──
+  const y0 = i => BASIS + i * VH;
+  const vloerKader = i => ({ min: [-R - 0.1, y0(i), RZ - R], max: [R + 0.1, y0(i) + VH + 0.05, RZ + R + 0.1], marge: 1.04, hoek: 0.14, opzij: BINNEN_OPZIJ });
+  return {
+    kamers,
+    kaders: {
+      overzicht: { min: [-6.6, -0.8, -5.4], max: [6.6, TOP + NEUS + 0.6, 3.7], marge: 1.02, hoek: 0.3 },
+      neus: { min: [-R, TOP - 0.1, RZ - R], max: [R, TOP + NEUS + 0.75, RZ + R], marge: 1.08, hoek: 0.22 },
+      beleid: vloerKader(4),
+      secundair: vloerKader(3),
+      lager: vloerKader(2),
+      kleuter: vloerKader(1),
+      motor: { min: [-R - 0.2, -0.05, RZ - R], max: [R + 0.2, y0(0) + VH + 0.05, RZ + R + 0.2], marge: 1.04, hoek: 0.16, opzij: BINNEN_OPZIJ },
+      platform: { min: [-4.5, -0.2, -2.6], max: [6.5, 2.6, 3.4], marge: 1.03, hoek: 0.42 },
+    },
+    zaalVolgorde: ['overzicht', 'neus', 'beleid', 'secundair', 'lager', 'kleuter', 'motor', 'platform'],
+    ankers: {
+      neus: new T.Vector3(1.35, TOP + 1.25, RZ + 0.6),
+      ...Object.fromEntries(NIVEAUS.map((n, i) => [n, new T.Vector3(R + 0.2, y0(i) + VH * 0.55, RZ + 0.3)])),
+      platform: new T.Vector3(HELPDESK.x - 0.75, 0.05, HELPDESK.z + 1.35),
+    },
+    binnen: kamer => NIVEAUS.includes(kamer),
+    // Bij een open kaartje iets meer ruimte errond: de kamers zijn rond en klein.
+    // Tijdens de vlucht kadert de camera de hele raket, en kijkt ze wat lager.
+    // De motor leest beide waarden telkens opnieuw, dus een getter volstaat. Het
+    // kader van een plek is breder dan hoog: op een breed scherm (de beamer) moet
+    // de zoom dus kleiner, anders vallen de neus en het vuur uit beeld.
+    get plekZoom() {
+      if (regie.fase !== 'vlucht') return 1.2;
+      const verhouding = canvas.clientWidth / Math.max(1, canvas.clientHeight);
+      return Math.min(9, 5.6 * verhouding);
+    },
+    get plekHoek() { return regie.fase === 'vlucht' ? 0.16 : undefined; },
+    // De plek 'vlucht' volgt het midden van de raket, met een voorsprong: de
+    // camera ijlt na (zie de demping in de motor), en zo blijft de raket in beeld.
+    plekAnker: id => (id === 'vlucht' ? vluchtAnker.set(0, MIDDEN_RAKET + regie.hoogte + regie.snelheid / 2.8, RZ) : undefined),
+    pinGroep: f => (f === 'overzicht' ? 'platform' : f),
+    samenvoegen: [sokkel, platform, pad, ...NIVEAUS.map(n => kamers[n].groep), motorblok, neus, toren, armen, lift, schotel, ...bomen, buiten, ...wolken, ...hogeWolken, ...hoofden],
+    intro: [
+      ...NIVEAUS.map((n, i) => ({ obj: kamers[n].groep, start: 0.2 + i * 0.2, soort: 'val' })),
+      { obj: neus, start: 1.2, soort: 'val' },
+      { obj: toren, start: 1.35, soort: 'pop' },
+      { obj: helpdesk, start: 1.5, soort: 'pop' },
+      { obj: leiding, start: 1.55, soort: 'pop' },
+      { obj: leidingDak, start: 1.55, soort: 'pop' },
+      { obj: grondploeg, start: 1.7, soort: 'pop' },
+      { obj: wandelaar, start: 1.75, soort: 'pop' },
+      ...bomen.map((b, i) => ({ obj: b, start: 1.6 + i * 0.07, soort: 'pop' })),
+      ...wolken.map((w, i) => ({ obj: w, start: 1.3 + i * 0.15, soort: 'pop' })),
+    ],
+    werkBij(dt, nu, { speels, nacht }) {
+      werkRegieBij(dt, nu);
+      // energie die door de ruggengraat naar boven stroomt; bij een hold staat ze stil
+      if (regie.fase !== 'hold') {
+        const p = (nu * 0.55) % 1;
+        for (const puls of pulsen) puls.position.y = PLAAT + p * (VH - PLAAT);
+      }
+      // de motoren: een waakvlammetje, vol vuur als je erop klikt, en lang vuur bij de lancering
+      const sinds = nu - speels[motorblok.userData.speel].t, vuur = sinds < 1.6 ? Math.sin(Math.min(1, sinds / 1.6) * Math.PI) : 0;
+      const breed = Math.max(vuur, regie.vuur), lang = Math.max(vuur * 1.1, regie.vuur * 2.9);
+      vlamMat.color.setHex(breed > 0.05 ? 0xffb347 : 0xa8dcff);
+      vlammen.forEach((v, i) => {
+        const flakker = 1 + Math.sin(nu * 23 + i * 1.7) * 0.08 + Math.sin(nu * 37 + i) * 0.05;
+        v.scale.set(0.45 + breed * 0.55, (0.22 + lang) * flakker, 0.45 + breed * 0.55);
+      });
+      motorblok.position.x = vuur * Math.sin(nu * 60) * 0.012;
+      // rook die bij de start en de landing over het platform rolt
+      rook.forEach(b => {
+        b.visible = regie.rook > 0.01;
+        if (!b.visible) return;
+        const q = (nu * 0.32 + b.userData.fase) % 1, afstand = 1.6 + q * 3.2;
+        b.position.set(Math.sin(b.userData.hoek) * afstand, 0.35 + q * 0.7, RZ + Math.cos(b.userData.hoek) * afstand * 0.75);
+        b.scale.setScalar((0.8 + q * 2.0) * (0.5 + regie.rook * 0.5));
+        b.material.opacity = Math.sin(q * Math.PI) * 0.75 * regie.rook;
+      });
+      // de bordjes poppen open als een station antwoordt
+      for (const b of Object.values(bordjes)) {
+        b.k = b.aan ? uitTerug(klem((nu - b.sinds) / 0.35, 0, 1)) : Math.max(0, b.k - dt * 5);
+        b.m.visible = b.k > 0.01;
+        b.m.scale.setScalar(Math.max(b.k, 0.001) * b.schaal);
+      }
+      damp.forEach(b => {
+        const q = (nu * 0.18 + b.userData.fase) % 1, hoek = b.userData.hoek + q * 0.6;
+        b.position.set(Math.sin(hoek) * (1.9 + q * 1.4), 0.2 + q * 0.9, RZ + Math.cos(hoek) * (1.9 + q * 1.4) * 0.8);
+        b.scale.setScalar(0.6 + q * 1.4 + vuur);
+        b.material.opacity = Math.sin(q * Math.PI) * (0.38 + vuur * 0.4);
+      });
+      for (const l of lampjes) {
+        // rust: knippert groen; wacht: amber; go: vast groen; no-go: knippert rood
+        const t = l.userData.toestand;
+        l.material.color.setHex(t === 'wacht' ? 0xffb347 : t === 'nogo' ? 0xff5a4f : 0x5bd48a);
+        l.visible = t === 'rust' ? Math.sin(nu * 2.1 + l.userData.fase) > -0.6 : t === 'nogo' ? Math.sin(nu * 9) > 0 : true;
+      }
+      neusLicht.visible = torenLicht.visible = nu % 1.6 < 0.25 || nacht > 0.5 && nu % 1.6 < 0.9;
+      // de lift: rustig op en neer
+      const liftP = (Math.sin(nu * 0.22) + 1) / 2;
+      lift.position.y = 0.02 + (liftP * liftP * (3 - 2 * liftP)) * (TOP - 1.1);
+      schotel.rotation.y = nu * 0.35;
+      koppen.forEach((f, i) => { f.userData.hoofd.rotation.y = Math.sin(nu * 0.5 + i * 1.9) * 0.35; });
+      ploeg[1].userData.armen[1].rotation.set(-0.3, 0, Math.sin(nu * 0.7) > 0.4 ? 2.5 : 0.12);
+      {
+        // de wandelaar loopt heen en weer tussen het pad en de helpdesk, en
+        // springt en zwaait als je erop klikt
+        const periode = 18, q = (nu % periode) / periode, heen = q < 0.5, t = heen ? q * 2 : (q - 0.5) * 2;
+        const van = [1.4, 3.0], naar = [-2.25, 1.45];
+        const a = heen ? van : naar, b = heen ? naar : van;
+        wandelaar.position.x = a[0] + (b[0] - a[0]) * t;
+        wandelaar.position.z = a[1] + (b[1] - a[1]) * t;
+        wandelaar.rotation.y = Math.atan2(b[0] - a[0], b[1] - a[1]);
+        const sindsW = nu - speels[wandelaar.userData.speel].t, springt = sindsW < 1.6;
+        wandelaar.position.y = springt ? Math.abs(Math.sin(sindsW * Math.PI * 2.5)) * 0.22 * (1 - sindsW / 1.6) : Math.abs(Math.sin(nu * 7)) * 0.025;
+        const [l, rr] = wandelaar.userData.benen;
+        l.rotation.x = springt ? 0 : Math.sin(nu * 7) * 0.35; rr.rotation.x = -l.rotation.x;
+        wandelaar.userData.armen[1].rotation.z = springt ? 2.6 + Math.sin(sindsW * 14) * 0.35 : 0.12;
+      }
+      bomen.forEach((b, i) => {
+        const s = nu - speels[b.userData.speel].t;
+        b.rotation.z = (s < 2 ? Math.sin(s * 16) * 0.1 * Math.exp(-s * 2.5) : 0) + Math.sin(nu * 1.2 + i * 1.7) * 0.01;
+      });
+      for (const w of wolken) w.position.x = -10 + ((nu / 80 + w.userData.start) % 1) * 20;
+      vogels.forEach((v, i) => {
+        const hoek = nu * 0.4 + v.userData.fase, straal = 3.4 + i * 0.4;
+        v.position.set(Math.cos(hoek) * straal, TOP + 1.6 + Math.sin(nu * 1.3 + i) * 0.15, RZ + Math.sin(hoek) * straal * 0.6);
+        v.rotation.y = -hoek;
+        const flap = Math.sin(nu * 11 + i) * 0.55;
+        v.userData.vleugels[0].rotation.z = flap; v.userData.vleugels[1].rotation.z = -flap;
+      });
+    },
+    stil() {
+      for (const p of pulsen) p.position.y = VH * 0.5;
+      for (const v of vlammen) v.scale.set(0.45, 0.22, 0.45);
+    },
+    api: {
+      // Start de go/no-go-ronde. stations: [{ id, kamer }] in de volgorde van de
+      // ronde; storing: de id van een station dat no-go zegt, of null. melding
+      // wordt opgeroepen bij elke stap (zie regie). Wie minder beweging vraagt,
+      // krijgt de ronde meteen afgelopen, zonder vlucht.
+      lancering({ stations, storing = null, melding }) {
+        zetTerug();
+        // Wie meteen na het laden start, wacht tot de verdiepingen geland zijn.
+        Object.assign(regie, { stations, storing, melding, fase: 'ronde', volgende: Math.max(0.8, 2.4 - tijd()) });
+        if (!g.stil) return;
+        while (regie.fase === 'ronde') rondeStap();
+        if (regie.fase === 'go') { regie.fase = 'rust'; meld('stilKlaar'); }
+      },
+      // Breek af en zet alles terug, ook een raket die al in de lucht hangt.
+      stopLancering() { regie.melding = null; zetTerug(); },
+      vluchtHoogte: () => regie.hoogte,
+      regieFase: () => regie.fase,
+    },
+  };
+}
