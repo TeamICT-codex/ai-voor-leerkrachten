@@ -234,8 +234,10 @@ function hemelLus() {
 }
 new ResizeObserver(() => { hemelHandtekening = ''; if (stil && dio) tekenHemel(lichtNu()); }).observe(podium);
 
+// De knop zegt wat hij doet: 's avonds "Dag", overdag "Avond". Daarom geen
+// aria-pressed: een ingedrukte knop "Dag" zou zeggen dat het dag is.
 function zetAvondKnop(avond) {
-  avondKnop.setAttribute('aria-pressed', String(avond));
+  avondKnop.classList.toggle('avond', avond);
   avondKnop.querySelector('.avond-tekst').textContent = avond ? 'Dag' : 'Avond';
 }
 function pasSfeerToe({ direct = false } = {}) {
@@ -249,7 +251,7 @@ function pasSfeerToe({ direct = false } = {}) {
   if (stil) { dio.herteken(); tekenHemel(lichtNu()); }
 }
 avondKnop.addEventListener('click', () => {
-  avondKeuze = avondKnop.getAttribute('aria-pressed') !== 'true';
+  avondKeuze = !avondKnop.classList.contains('avond');
   pasSfeerToe();
 });
 // Elke vijf minuten bijwerken: de zon schuift traag genoeg.
