@@ -29,8 +29,10 @@ De vluchtleiding vraagt veertien stations om de beurt: go of no-go? De camera
 volgt het pad van laag naar hoog: het platform (grondploeg, helpdesk, vorming),
 de zes onderdelen van de motor, de vier verdiepingen en de lading. Elk station
 krijgt een bordje GO, in de motor op de voorkant van zijn eigen kast. De ronde
-duurt een kleine twintig seconden: lang genoeg om elke zin te lezen, want het
-paneel houdt ook de vorige zin nog even vast. Zegt iedereen go, dan schuift het
+duurt een kleine twintig seconden. Het paneel houdt de vorige zin nog even vast,
+maar wie elke zin wil lezen, doet dat in het verslag ("Lees wat elk station zei"):
+dat verschijnt na de ronde, met de volledige naam van elk station. De ronde zelf
+is een schouwspel, het verslag is om te lezen. Zegt iedereen go, dan schuift het
 paneel klein naar boven, telt de vluchtleiding af, draaien de armen van de toren
 weg, en vertrekt de raket. De camera volgt haar boven de wolken, waar de hemel
 donker wordt. Daarna keert ze terug en landt ze weer: morgen vertrekt ze opnieuw.
@@ -39,15 +41,19 @@ Wie vooraf een storing kiest ("Wat als er iets stuk is?"), ziet de ronde stoppen
 bij dat onderdeel van de motor: NO-GO op de kast, de camera zoomt erop in, de
 energie in de ruggengraat valt stil, en het paneel zegt wat er dan niet meer werkt
 en dat je het meldt via de helpdesk. Bij SEC-05 zegt het ook wat je zelf doet bij
-een verdachte mail (het veld `actie` in `STATIONS`).
+een verdachte mail (het veld `actie` in `STATIONS`), en dat een mogelijk datalek
+ook bij de DPO terechtkomt (het veld `naar`). In de lijst van het paneel staan de
+diensten met een gewone naam (Netwerk, Aanmelding, ...); de code (NET-01) staat
+op de kast, in de no-go-zin en in het verslag.
 
 Met minder beweging (`?stil`, of de instelling van het toestel) loopt de ronde
 meteen af, zonder vlucht: het paneel toont dan alle stations en de titel "alles
-go". Een schermlezer krijgt niet elke zin van de ronde, alleen de grote momenten
-(het begin, no-go, alles go, het aftellen, het vertrek, de top en de landing):
-die staan in een apart, onzichtbaar statusvak.
+go", met het verslag eronder. Een schermlezer krijgt niet elke zin van de ronde,
+alleen de grote momenten (het begin, no-go, alles go en het aftellen, het
+vertrek, de top en de landing), in een apart, onzichtbaar statusvak dat na tien
+seconden weer leeg is. De zinnen zelf leest hij in het verslag.
 
-Hoe het gebouwd is, zonder de motor in `gedeeld/` te veranderen:
+Hoe het gebouwd is:
 
 - De tijdlijn loopt in de scène (`regie` in `raket.js`), op de tijd van het
   tafereel. Ze pauzeert dus mee als het canvas uit beeld is of het tabblad op de
@@ -58,20 +64,30 @@ Hoe het gebouwd is, zonder de motor in `gedeeld/` te veranderen:
   paneel. Zolang de ronde loopt, verzet scrollen de camera niet, opent er geen
   kaartje, en zijn de labels en spelden weg. In de zaalmodus staat de
   verdiepingencyclus even stil en drijft de kijkhoek nauwelijks (anders draaien
-  de buitenste kasten achter de wand); om de vier minuten vertrekt de raket vanzelf.
+  de buitenste kasten achter de wand). De raket vertrekt er vanzelf, na een
+  minuut en daarna om de vier minuten, maar niet met minder beweging.
 - Het paneel ligt over het podium. `zetVrijeRuimte()` meet waar, en geeft de
   motor twee keuzes: de ruimte ernaast, en die erboven (laptop) of eronder
   (zaal). `dio.vrijeRuimte()` kadert per verdieping in de keuze waarin ze het
   grootst staat. Dat is een uitbreiding van `gedeeld/diorama-kern.js` die
-  standaard uit staat: zonder keuze rekent de camera precies zoals voordien. Het
-  kleine paneel na "alle stations go" staat bovenaan naast de smalle neus, en op
-  de gsm schuift het paneel onder het podium: dan blijft alles vrij.
+  standaard uit staat: zonder keuze rekent de camera precies zoals voordien.
+  Neemt het paneel bijna de hele breedte (de gsm, ook liggend), dan is er alleen
+  boven of onder ruimte. Tijdens de vlucht is er één keuze, de ruimte naast het
+  paneel, en `plekZoom` rekent daar zelf mee (via `bijVrijeRuimte`). Binnen
+  dezelfde stand van het paneel groeit de ruimte alleen, zodat de camera niet
+  meeademt met elke zin die een regel langer is. Op de gsm staat het paneel
+  rechtop onder het podium: dan blijft alles vrij.
 - Tijdens de vlucht volgt de camera een plek zonder voorwerp, `vlucht`: haar
   `plekAnker` geeft het midden van de raket en haar vlam, met een voorsprong
   tegen het naijlen van de camera. `plekZoom` en `plekHoek` zijn getters die
   tijdens de vlucht de hele raket kaderen. De hemel wordt donker via `dio.sfeer`,
-  op basis van `dio.vluchtHoogte()`. De avondknop volgt daarbij de keuze
-  (`aria-pressed`), niet de donkere hemel.
+  op basis van `dio.vluchtHoogte()`. De avondknop volgt daarbij de keuze, niet
+  de donkere hemel. Zijn naam zegt wat hij doet ("Avond" of "Dag"), dus zonder
+  `aria-pressed`.
+- Het kader van de vlucht loopt van het lichtje op de neus tot de punt van de
+  vlam (`RAKET_TOP` en `vlamLengte`).
+- Bij no-go zoomt de camera dichter in op de kast (`plekZoom` 0,8), en tekent
+  het NO-GO-bordje bovenop alles: het mag niet half achter een buurkast vallen.
 - Het vuur reikt hoogstens tot op het platform; wat er niet onder past, spat
   opzij. Pas als de raket loskomt, wordt de vlam lang. Vuur en gloed lopen
   telkens zacht aan en uit, ook op de top en bij de landingsbrand.
@@ -134,7 +150,7 @@ python test/server.py
 
 Open daarna <http://localhost:8000/team-ict/>, ook met `?stil`, `?schets`, `?zwak`,
 `?zaal` en `?debug` (dan geeft `dio._test.meet()` de tekenbeurten). Gemeten in een
-browser zonder grafische kaart: 277 tekenbeurten, evenveel als de school op de
+browser zonder grafische kaart: 276 tekenbeurten, evenveel als de school op de
 voorpagina (285). De download is samen zo'n 180 kB gezipt, waarvan 140 kB de
 bundel van three.js die de voorpagina ook gebruikt.
 
@@ -143,7 +159,11 @@ toegang en gsm, beeld, tekst), elke bevinding nagespeeld door een tweede. Wat
 ze vonden en wat eraan veranderde, staat hierboven verwerkt: bordjes bij de
 verkeerde kast, een paneel over de motor en het vuur, vlammen onder de sokkel,
 zinnen die te kort in beeld stonden, en een paar beloftes die het overzicht van
-Team ICT niet maakt.
+Team ICT niet maakt. Een herkeuring speelde die bevindingen opnieuw na en vond
+nog wat bij een liggende gsm, smallere laptops en schermlezers: het paneel dat
+de camera naar de rand duwde, de neus onder het kleine paneel, zinnen die je
+niet kon terugvinden (nu het verslag), en een avondknop die "Dag, ingedrukt"
+zei. Ook die zijn verwerkt.
 
 ## Nog te doen
 

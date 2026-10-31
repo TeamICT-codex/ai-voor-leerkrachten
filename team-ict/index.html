@@ -98,7 +98,7 @@
           Lanceer
         </button>
 
-        <button type="button" class="avond-knop" aria-pressed="false">
+        <button type="button" class="avond-knop">
           <span class="avond-icoon" aria-hidden="true"></span><span class="avond-tekst">Avond</span>
         </button>
 
@@ -130,8 +130,12 @@
           <button type="button" class="uitleg-sluit vlucht-sluit" aria-label="Stop de ronde en sluit">×</button>
           <p class="uitleg-waar">In de vluchtleiding</p>
           <h3 id="vlucht-titel" tabindex="-1">Go/no-go-ronde</h3>
-          <ol class="stations"></ol>
           <div class="vlucht-tekst"></div>
+          <ol class="stations"></ol>
+          <details class="vlucht-verslag" hidden>
+            <summary>Lees wat elk station zei</summary>
+            <ol></ol>
+          </details>
           <p class="vlucht-melding verborgen-tekst" role="status"></p>
           <div class="vlucht-knoppen">
             <button type="button" class="knop vlucht-opnieuw" hidden>Nog eens</button>
@@ -310,7 +314,7 @@
             <li style="--stip: #fcc89b"><strong>Gino</strong><span>Accounts, administratie en DPO: gebruikersrechten, Microsoft 365, bestellingen en telefonie</span></li>
             <li style="--stip: #fbf59b"><strong>Stef</strong><span>Platformen en ondersteuning: de dagelijkse schoolplatformen en de brug naar de klaspraktijk</span></li>
             <li style="--stip: #126425"><strong>Thomas</strong><span>Pedagogische ICT en innovatie: ICT-beleid, AI, vorming en eigen toepassingen</span></li>
-            <li style="--stip: #f08a3c"><strong>De grondploeg</strong><span>De lokale ICT-mensen op elke school: zij kennen hun school en zien een probleem vaak als eerste</span></li>
+            <li style="--stip: #f08a3c"><strong>De grondploeg</strong><span>De lokale ICT-mensen op de scholen: zij kennen hun school en zien een probleem vaak als eerste</span></li>
           </ul>
         </section>
 

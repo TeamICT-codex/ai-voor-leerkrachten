@@ -77,7 +77,8 @@ async function laadTafereel() {
       onHover: kamer => { for (const [k, el] of Object.entries(labels)) el.classList.toggle('actief', k === kamer); },
       onPlek: id => openPlek(id),
       onPlekHover: id => { for (const [k, el] of Object.entries(pinnen)) el.classList.toggle('actief', k === id); },
-      onFout: () => { stopRonde({ focusTerug: false }); podium.classList.remove('klaar'); },
+      // De grafische kaart haakt af: terug naar de schets, zonder lancering.
+      onFout: () => { stopRonde({ focusTerug: false }); podium.classList.remove('klaar'); zonder3d(true); },
     });
     // Een plek in plekken.js zonder voorwerp in het tafereel, of omgekeerd,
     // valt anders stil weg.
@@ -230,6 +231,7 @@ const vlucht = {
   lijst: vluchtbord.querySelector('.stations'),
   tekst: vluchtbord.querySelector('.vlucht-tekst'),
   melding: vluchtbord.querySelector('.vlucht-melding'),
+  verslag: vluchtbord.querySelector('.vlucht-verslag'),
   opnieuw: vluchtbord.querySelector('.vlucht-opnieuw'),
   helpdesk: vluchtbord.querySelector('.vlucht-helpdesk'),
 };
@@ -242,10 +244,9 @@ const stationVan = id => STATIONS.find(st => st.id === id);
 const stationItems = {};
 for (const st of STATIONS) {
   const li = document.createElement('li');
-  // Bij de diensten van de motor staat de volledige naam onder de code.
-  const naam = document.createElement(st.naam ? 'abbr' : 'span');
+  const naam = document.createElement('span');
+  naam.className = 'naam';
   naam.textContent = st.kort;
-  if (st.naam) naam.title = st.naam;
   const stand = document.createElement('span');
   stand.className = 'stand';
   li.append(naam, stand);
@@ -269,7 +270,29 @@ function zeg(tekst, { opnieuw = false } = {}) {
   vlucht.tekst.append(regel);
   while (vlucht.tekst.children.length > 2) vlucht.tekst.firstElementChild.remove();
 }
-function aankondig(tekst) { vlucht.melding.textContent = tekst; }
+// Het statusvak: eerst leeg, en een tik later de nieuwe zin. Zo hoort een
+// schermlezer ook een zin die gelijk is aan de vorige, en komt de melding pas
+// als het paneel er staat. Na tien seconden is het weer leeg: wie het paneel
+// zelf doorleest, hoort de zin dan geen twee keer.
+let meldWekker = 0, wisWekker = 0;
+function aankondig(tekst) {
+  clearTimeout(meldWekker); clearTimeout(wisWekker);
+  vlucht.melding.textContent = '';
+  if (!tekst) return;
+  meldWekker = setTimeout(() => {
+    vlucht.melding.textContent = tekst;
+    wisWekker = setTimeout(() => { vlucht.melding.textContent = ''; }, 10e3);
+  }, 150);
+}
+// Het verslag: elke zin van de ronde blijft hier staan, met de volledige naam
+// van het station. Om op je eigen tempo te lezen, ook met minder beweging of
+// met een schermlezer.
+function inVerslag(tekst) {
+  const regel = document.createElement('li');
+  regel.textContent = tekst;
+  vlucht.verslag.querySelector('ol').append(regel);
+}
+const volledigeNaam = st => (st.code ? `${st.naam} (${st.code})` : st.kort);
 function toonCijfer(n) {
   aftel.textContent = n;
   aftel.classList.remove('tel');
@@ -284,23 +307,31 @@ const regieBezig = () => !!reeks && !reeks.klaar;
 
 // Ligt het paneel over het podium, dan kadert de camera in wat vrij blijft: naast
 // het paneel, of erboven (laptop) of eronder (zaal). De motor kiest per kader wat
-// het tafereel het grootst laat. Het kleine paneel na "alle stations go" staat
-// bovenaan naast de smalle neus, en op de gsm schuift het paneel onder het
-// podium: dan blijft alles vrij.
-let vrijeRuimte = '';
+// het tafereel het grootst laat. Twee uitzonderingen. Neemt het paneel bijna de
+// hele breedte (de gsm, ook liggend), dan blijft alleen boven of onder over.
+// Tijdens de vlucht is er één keuze, de ruimte naast het paneel: de raket is smal
+// en hoog, en de zoom van de vlucht rekent daar zelf mee (zie plekZoom).
+let vrijeRuimte = '', vrijStand = '', vrijKeuzes = [];
 function zetVrijeRuimte() {
   if (!dio) return;
-  let keuzes = [];
-  if (reeks && !vluchtbord.hidden && !vluchtbord.classList.contains('compact')) {
+  let keuzes = [], stand = '';
+  if (reeks && !vluchtbord.hidden) {
     const p = podium.getBoundingClientRect(), b = vluchtbord.getBoundingClientRect();
     if (b.bottom > p.top && b.top < p.bottom && b.right > p.left && b.left < p.right) {
       // Wat extra lucht tussen het paneel en wat de camera toont.
       const naast = (b.right - p.left) / p.width + 0.03;
-      keuzes = [{ links: naast }, b.top - p.top < p.bottom - b.bottom
+      const verticaal = b.top - p.top < p.bottom - b.bottom
         ? { boven: (b.bottom - p.top) / p.height + 0.03 }
-        : { onder: (p.bottom - b.top) / p.height + 0.03 }];
+        : { onder: (p.bottom - b.top) / p.height + 0.03 };
+      keuzes = naast > 0.7 ? [verticaal] : reeks.vliegt ? [{ links: naast }] : [{ links: naast }, verticaal];
+      stand = [vluchtbord.className, reeks.vliegt, Math.round(p.width), Math.round(p.height), keuzes.map(k => Object.keys(k)[0])].join('|');
+      // Binnen dezelfde stand groeit de ruimte alleen: anders ademt de camera mee
+      // met elke zin die een regel langer of korter is.
+      if (stand === vrijStand) keuzes = keuzes.map((k, i) => { const [zijde, deel] = Object.entries(k)[0]; return { [zijde]: Math.max(deel, vrijKeuzes[i]?.[zijde] ?? 0) }; });
     }
   }
+  vrijStand = stand;
+  vrijKeuzes = keuzes;
   const sleutel = JSON.stringify(keuzes);
   if (sleutel === vrijeRuimte) return;
   vrijeRuimte = sleutel;
@@ -309,7 +340,8 @@ function zetVrijeRuimte() {
 new ResizeObserver(() => zetVrijeRuimte()).observe(vluchtbord);
 
 function startRonde(storing = null, { vanzelf = false } = {}) {
-  if (!dio) return;
+  // Geen raket (meer): na een fout van de grafische kaart is er geen ronde.
+  if (!dio || !podium.classList.contains('klaar')) return;
   const terugNaar = reeks ? reeks.terugNaar : vanzelf ? null : document.activeElement;
   if (reeks) stopRonde({ focusTerug: false, sluit: false });
   sluitPlek(false);
@@ -320,13 +352,16 @@ function startRonde(storing = null, { vanzelf = false } = {}) {
   if (document.body.classList.contains('zaal')) { dio.zaal(false); dio.drift(0.05, 0.12); }
   reeks = { storing, vanzelf, kamer: null, vliegt: false, klaar: false, terugNaar, basisLicht: lichtVanNu() };
   podium.classList.add('lancering', 'bord-open');
-  vluchtbord.classList.remove('compact', 'hold');
+  vluchtbord.classList.remove('compact', 'hold', 'boven');
   for (const st of STATIONS) zetItem(st.id, 'wacht');
   vlucht.opnieuw.hidden = vlucht.helpdesk.hidden = true;
+  vlucht.verslag.hidden = true;
+  vlucht.verslag.open = false;
+  vlucht.verslag.querySelector('ol').replaceChildren();
   vlucht.titel.textContent = 'Go/no-go-ronde';
   zeg('De vluchtleiding vraagt elk station: go of no-go?', { opnieuw: true });
-  aankondig('De go/no-go-ronde begint. De vluchtleiding vraagt elk station: go of no-go?');
   vluchtbord.hidden = false;
+  aankondig('De go/no-go-ronde begint. De vluchtleiding vraagt elk station: go of no-go?');
   zetVrijeRuimte();
   if (!vanzelf) vlucht.titel.focus({ preventScroll: true });
   dio.lancering({ stations: STATIONS.map(st => ({ id: st.id, kamer: st.kamer })), storing, melding: opMelding });
@@ -344,14 +379,16 @@ function opMelding(soort, d) {
       break;
     case 'station':
       zetItem(st.id, d.toestand);
-      if (d.toestand === 'go') zeg(`${st.kort}: go. ${st.go}`);
+      if (d.toestand === 'go') { zeg(`${st.kort}: go. ${st.go}`); inVerslag(`${volledigeNaam(st)}: go. ${st.go}`); }
+      else inVerslag(`${volledigeNaam(st)}: no-go.`);
       break;
     case 'hold': {
       vlucht.titel.textContent = 'No-go: de raket blijft staan';
-      const tekst = `No-go bij ${st.naam} (${st.kort}). ${st.uitval} ${st.actie ?? 'In het echt meld je dit via de helpdesk.'} Je ticket gaat naar wie dit domein trekt.`;
+      const tekst = `No-go bij ${st.naam} (${st.code}). ${st.uitval} ${st.actie ?? 'In het echt meld je dit via de helpdesk.'} Je ticket gaat naar ${st.naar ?? 'wie dit domein trekt'}.`;
       zeg(tekst, { opnieuw: true });
-      aankondig(tekst);
+      aankondig(`No-go bij ${st.naam}. De raket blijft staan.`);
       vluchtbord.classList.add('hold');
+      vlucht.verslag.hidden = false;
       vlucht.opnieuw.textContent = 'Opgelost: start opnieuw';
       vlucht.opnieuw.hidden = vlucht.helpdesk.hidden = false;
       // De camera zoomt in op de kast die no-go zegt, in de ruimte naast het paneel.
@@ -362,23 +399,26 @@ function opMelding(soort, d) {
     case 'allesGo':
       // Iedereen is go: het raster mag weg, zodat de lancering in beeld blijft.
       // Zonder vlucht (minder beweging) blijft het staan: dan is het het resultaat.
-      if (!stil) vluchtbord.classList.add('compact');
+      // Op de laptop schuift het naar boven, naast de smalle neus (klasse boven).
+      if (!stil) vluchtbord.classList.add('compact', 'boven');
       zetVrijeRuimte();
       zeg('Alle stations go. We zijn go voor lancering.');
-      aankondig('Alle stations go. We zijn go voor lancering.');
+      // Eén melding voor twee momenten: het aftellen volgt al na anderhalve seconde.
+      aankondig('Alle stations go. Aftellen voor de lancering.');
       dio.markeer(null);
       reeks.kamer = 'overzicht';
       dio.focus('overzicht');
       break;
     case 'tel':
       toonCijfer(d.n);
-      if (d.n === 5) { zeg('Aftellen voor de lancering.'); aankondig('Aftellen voor de lancering.'); }
+      if (d.n === 5) zeg('Aftellen voor de lancering.');
       break;
     case 'lift':
       toonCijfer('');
       zeg('De raket vertrekt. De les kan beginnen.');
       aankondig('De raket vertrekt. De les kan beginnen.');
       reeks.vliegt = true;
+      zetVrijeRuimte();
       dio.toonPlek('vlucht', { opzij: true });
       break;
     case 'top':
@@ -390,6 +430,7 @@ function opMelding(soort, d) {
       break;
     case 'geland':
       reeks.vliegt = false;
+      zetVrijeRuimte();
       dio.toonPlek(null);
       dio.focus('overzicht');
       pasSfeerToe();
@@ -402,7 +443,7 @@ function opMelding(soort, d) {
     case 'stilKlaar': {
       const tekst = 'Alle stations go: de raket mag vertrekken. Je toestel vraagt minder beweging, dus de vlucht zelf tonen we niet.';
       zeg(tekst, { opnieuw: true });
-      aankondig(tekst);
+      aankondig('Alle stations go. De raket mag vertrekken.');
       dio.markeer(null);
       dio.focus('overzicht');
       rondeAf({ geland: false });
@@ -417,6 +458,10 @@ function rondeAf({ geland }) {
   vlucht.titel.textContent = geland ? 'Go/no-go-ronde: geland' : 'Go/no-go-ronde: alles go';
   vlucht.opnieuw.textContent = 'Nog eens';
   vlucht.opnieuw.hidden = false;
+  vlucht.verslag.hidden = false;
+  // De vlucht is voorbij: het paneel gaat terug naar zijn gewone plaats.
+  vluchtbord.classList.remove('boven');
+  zetVrijeRuimte();
   podium.classList.remove('lancering');
   huidige = null; bepaalFocus();
   dio.drift(null);
@@ -432,6 +477,7 @@ function stopRonde({ focusTerug = true, sluit = true } = {}) {
   if (!reeks) return;
   const terug = reeks.terugNaar, wasBezig = regieBezig();
   dio?.stopLancering();
+  aankondig('');
   dio?.toonPlek(null);
   dio?.markeer(null);
   toonCijfer('');
@@ -490,8 +536,10 @@ function hemelLus() {
 }
 new ResizeObserver(() => { hemelHandtekening = ''; if (stil && dio) tekenHemel(lichtNu()); zetVrijeRuimte(); }).observe(podium);
 
+// De knop zegt wat hij doet: 's avonds "Dag", overdag "Avond". Daarom geen
+// aria-pressed: een ingedrukte knop "Dag" zou zeggen dat het dag is.
 function zetAvondKnop(avond) {
-  avondKnop.setAttribute('aria-pressed', String(avond));
+  avondKnop.classList.toggle('avond', avond);
   avondKnop.querySelector('.avond-tekst').textContent = avond ? 'Dag' : 'Avond';
 }
 function lichtVanNu() {
@@ -508,7 +556,7 @@ function pasSfeerToe({ direct = false } = {}) {
   if (stil) { dio.herteken(); tekenHemel(lichtNu()); }
 }
 avondKnop.addEventListener('click', () => {
-  avondKeuze = avondKnop.getAttribute('aria-pressed') !== 'true';
+  avondKeuze = !avondKnop.classList.contains('avond');
   pasSfeerToe();
 });
 // Elke vijf minuten bijwerken: de zon schuift traag genoeg.

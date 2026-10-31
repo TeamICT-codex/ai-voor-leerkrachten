@@ -598,9 +598,13 @@ export async function maakPodium(canvas, opties, bouw) {
     }
     let h = Infinity, v = ALLES_VRIJ;
     for (const keuze of vrij) {
-      const hk = Math.max(2 * eu / (1 - keuze.boven - keuze.onder), 2 * er / (aspect * (1 - keuze.links - keuze.rechts))) * kader.marge;
+      const vb = 1 - keuze.links - keuze.rechts, vh = 1 - keuze.boven - keuze.onder;
+      // Een paneel dat bijna alles bedekt, laat geen bruikbare ruimte: die keuze telt niet.
+      if (vb < 0.2 || vh < 0.2) continue;
+      const hk = Math.max(2 * eu / vh, 2 * er / (aspect * vb)) * kader.marge;
       if (hk < h) { h = hk; v = keuze; }
     }
+    if (h === Infinity) h = Math.max(2 * eu, 2 * er / aspect) * kader.marge;
     // Ligt het kaartje onderaan over het beeld, dan schuift het voorwerp wat omhoog.
     if (kader.omhoog) midden.addScaledVector(camOp, -h * kader.omhoog);
     // Het voorwerp staat in het midden van de vrije ruimte, niet van het beeld.
@@ -961,9 +965,11 @@ export async function maakPodium(canvas, opties, bouw) {
     // { links, rechts, boven, onder }, het bedekte deel van de breedte of de
     // hoogte. Ligt het paneel in een hoek, geef dan de ruimte ernaast én die
     // eronder of erboven: de camera kiest per kader. Zonder keuze is alles vrij.
-    // Een plek met een eigen zoom (plekZoom) rekent zelf niet mee met de ruimte.
+    // Het tafereel hoort de keuzes via bijVrijeRuimte, voor een plekZoom die
+    // zelf met de verhouding van het beeld rekent.
     vrijeRuimte(...keuzes) {
       vrij = keuzes.length ? keuzes.map(k => ({ ...ALLES_VRIJ, ...k })) : [ALLES_VRIJ];
+      s.bijVrijeRuimte?.(vrij);
       zetDoel(stil);
       if (stil && gestart) teken1();
     },

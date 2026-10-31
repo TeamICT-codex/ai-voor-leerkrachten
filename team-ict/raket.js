@@ -747,7 +747,7 @@ function bouwRaket(g, canvas) {
   const tekenScherm = () => { if (!leidingScherm) return; tekenLeidingScherm(leidingScherm, regie); leidingScherm.tex.needsUpdate = true; };
 
   // Bordjes met GO of NO-GO bij elk station. Twee gedeelde texturen.
-  function bordjeTex(tekst, kleur) {
+  function bordjeTex(tekst, kleur, { bovenop = false } = {}) {
     const c = document.createElement('canvas'); c.width = 256; c.height = 112;
     const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
     statischeTekening({ c, ctx: c.getContext('2d'), tex }, ({ ctx }) => {
@@ -755,9 +755,11 @@ function bouwRaket(g, canvas) {
       rond(ctx, 8, 8, 240, 96, 48); ctx.fillStyle = kleur; ctx.fill();
       ctx.fillStyle = '#ffffff'; ctx.font = F(700, 60); ctx.textAlign = 'center'; ctx.fillText(tekst, 128, 77); ctx.textAlign = 'left';
     });
-    return new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false });
+    return new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, depthTest: !bovenop });
   }
-  const goMat = bordjeTex('GO', '#126425'), nogoMat = bordjeTex('NO-GO', '#b3261e');
+  // NO-GO tekent bovenop alles: het verschijnt alleen bij de kast waar de camera
+  // op inzoomt, en mag niet half achter een wand of een buurkast vallen.
+  const goMat = bordjeTex('GO', '#126425'), nogoMat = bordjeTex('NO-GO', '#b3261e', { bovenop: true });
   const bordGeo = new T.PlaneGeometry(0.5, 0.22);
   const bordjes = {};
   function bordje(id, ouder, x, y, z, draai, schaal = 1) {
@@ -783,14 +785,16 @@ function bouwRaket(g, canvas) {
   });
   [kleuter, lager, secundair, beleid].forEach((v, i) => bordje(NIVEAUS[i + 1], v, 0, VH - 0.5, 1.0, 0, 1.5));
   bordje('lading', neus, 0, 1.5, 1.42, 0.31 - DRAAI, 1.4);
-  bordje('grondploeg', buiten, 2.25, 1.3, 1.4, 0.31);
-  bordje('helpdesk', buiten, HELPDESK.x + 0.1, 1.75, HELPDESK.z + 0.45, 0.31);
-  bordje('vorming', toren, 0.1, 2.6, HB + 0.2, 0.31);
+  // Het platform staat in zijn geheel in beeld: daar zijn de bordjes groter.
+  bordje('grondploeg', buiten, 2.25, 1.4, 1.4, 0.31, 1.7);
+  bordje('helpdesk', buiten, HELPDESK.x + 0.1, 1.85, HELPDESK.z + 0.45, 0.31, 1.7);
+  bordje('vorming', toren, 0.1, 2.7, HB + 0.2, 0.31, 1.7);
 
   function zetBordje(id, toestand) {
     const b = bordjes[id];
     if (!b) return;
     b.m.material = toestand === 'nogo' ? nogoMat : goMat;
+    b.m.renderOrder = toestand === 'nogo' ? 3 : 2;
     b.aan = true;
     b.sinds = tijd();
     if (g.stil) { b.m.visible = true; b.m.scale.setScalar(b.schaal * bordjeMaat()); }
@@ -841,7 +845,9 @@ function bouwRaket(g, canvas) {
   // De camera volgt de raket via een plek zonder voorwerp: zie plekAnker.
   plek('vlucht', 'vlucht', groepje(wereld));
   const vluchtAnker = new T.Vector3();
-  const MIDDEN_RAKET = (TOP + NEUS) / 2;
+  // De top van de raket is het lichtje boven op de neus (zie neusLicht).
+  const RAKET_TOP = TOP + 3.5;
+  let vrij = [];
 
   // De hoogte en de snelheid van de raket, t seconden na de lancering: eerst
   // versnellen, dan uitbollen tot de top, en zacht terug naar het platform.
@@ -986,16 +992,23 @@ function bouwRaket(g, canvas) {
     // De motor leest beide waarden telkens opnieuw, dus een getter volstaat. Het
     // kader van een plek is breder dan hoog: op een breed scherm (de beamer) moet
     // de zoom dus kleiner, anders vallen de neus en het vuur uit beeld.
+    // Bij no-go zoomt de camera dichter in op de kast. Ligt er tijdens de vlucht
+    // een paneel naast de raket (één keuze in vrijeRuimte), dan rekent de zoom
+    // met wat vrij blijft.
     get plekZoom() {
+      if (regie.fase === 'hold') return 0.8;
       if (regie.fase !== 'vlucht') return 1.2;
-      const verhouding = canvas.clientWidth / Math.max(1, canvas.clientHeight);
-      return Math.min(9, 5.9 * verhouding);
+      const v = vrij.length === 1 ? vrij[0] : { links: 0, rechts: 0, boven: 0, onder: 0 };
+      const verhouding = canvas.clientWidth * (1 - v.links - v.rechts) / Math.max(1, canvas.clientHeight * (1 - v.boven - v.onder));
+      return Math.min(9.8, 6.3 * verhouding);
     },
+    bijVrijeRuimte(keuzes) { vrij = keuzes; },
     get plekHoek() { return regie.fase === 'vlucht' ? 0.16 : undefined; },
-    // De plek 'vlucht' volgt het midden van de raket en haar vlam, met een
-    // voorsprong: de camera ijlt na (zie de demping in de motor), en zo blijft de
-    // raket in beeld.
-    plekAnker: id => (id === 'vlucht' ? vluchtAnker.set(0, MIDDEN_RAKET - vlamLengte / 2 + regie.hoogte + regie.snelheid / 2.8, RZ) : undefined),
+    // De plek 'vlucht' volgt het midden tussen het lichtje op de neus en de punt
+    // van de vlam, met een voorsprong: de camera ijlt na (zie de demping in de
+    // motor), en zo blijft de raket in beeld. De motor legt het kader van een
+    // plek 0,3 onder haar anker; dat tellen we erbij.
+    plekAnker: id => (id === 'vlucht' ? vluchtAnker.set(0, (RAKET_TOP + Math.min(0.05, VLAM_TOP - vlamLengte)) / 2 + 0.3 + regie.hoogte + regie.snelheid / 2.8, RZ) : undefined),
     pinGroep: f => (f === 'overzicht' ? 'platform' : f),
     samenvoegen: [sokkel, platform, pad, ...NIVEAUS.map(n => kamers[n].groep), motorblok, neus, toren, armen, lift, schotel, ...bomen, buiten, ...wolken, ...hogeWolken, ...hoofden],
     intro: [
