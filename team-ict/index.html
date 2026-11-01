@@ -161,6 +161,7 @@
             <a href="#beleid" style="--stip: #4e9a63">Ik leid een school</a>
             <a href="#helpdesk" style="--stip: #f08a3c">Er werkt iets niet</a>
           </nav>
+          <p class="laatste-nieuws"></p>
           <p class="scrolhint"><span aria-hidden="true">↓</span> Scroll verder en kijk wat er op elke verdieping gebeurt</p>
         </section>
 
@@ -299,6 +300,23 @@
           <div class="knoppen">
             <a class="knop" href="https://helpdesk.hetleercollectief.be">Naar de helpdesk</a>
           </div>
+          <div class="helpdesk-cijfers"></div>
+        </section>
+
+        <section class="hoofdstuk" id="wegwijzer" data-kamer="platform" aria-labelledby="titel-wegwijzer" style="--stip: #f08a3c">
+          <p class="etiket">Wegwijzer</p>
+          <h2 id="titel-wegwijzer">Waarmee kunnen we je helpen?</h2>
+          <p>
+            Elke melding gaat via de helpdesk, dus je hoeft niet te weten wie wat beheert. Wil je
+            toch weten wie je vraag opvolgt? Typ een paar woorden.
+          </p>
+          <div class="zoekveld">
+            <label for="zoek">Zoek een vraag</label>
+            <input id="zoek" type="search" autocomplete="off" placeholder="Bijvoorbeeld: wifi, wachtwoord, tafels, privacy">
+          </div>
+          <p class="zoek-telling" aria-live="polite"></p>
+          <ul class="antwoorden"></ul>
+          <button type="button" class="knop zacht toon-alle-vragen" hidden>Toon alle vragen</button>
         </section>
 
         <section class="hoofdstuk" id="wie" data-kamer="platform" aria-labelledby="titel-wie" style="--stip: #126425">
@@ -316,6 +334,40 @@
             <li style="--stip: #126425"><strong>Thomas</strong><span>Pedagogische ICT en innovatie: ICT-beleid, AI, vorming en eigen toepassingen</span></li>
             <li style="--stip: #f08a3c"><strong>De grondploeg</strong><span>De lokale ICT-mensen op de scholen: zij kennen hun school en zien een probleem vaak als eerste</span></li>
           </ul>
+        </section>
+
+        <section class="hoofdstuk" id="hangijzers" data-kamer="overzicht" aria-labelledby="titel-hangijzers" style="--stip: #f08a3c">
+          <p class="etiket">Wat speelt er</p>
+          <h2 id="titel-hangijzers">De heetste hangijzers van dit schooljaar</h2>
+          <p>
+            Wat er speelt, waarom het belangrijk is, wat wij eraan doen en wat het voor jou
+            betekent. Hoe meer streepjes, hoe meer het dit schooljaar vraagt.
+          </p>
+          <div class="hangijzers"></div>
+        </section>
+
+        <section class="hoofdstuk" id="bord" data-kamer="overzicht" aria-labelledby="titel-bord" style="--stip: #5fa9c9">
+          <p class="etiket">Projectbord</p>
+          <h2 id="titel-bord">Alles wat loopt, op één bord</h2>
+          <p>
+            Naast de dagelijkse werking en de helpdesk loopt er heel wat. De projecten op de lijst
+            hebben nog geen volgorde: die keuze maakt het beleid samen met het team. Klik op een
+            project om te zien waar het in de raket zit.
+          </p>
+          <div class="bord-filter" role="group" aria-label="Toon projecten"></div>
+          <div class="bord"></div>
+          <p class="bord-noot"></p>
+        </section>
+
+        <section class="hoofdstuk" id="nieuws" data-kamer="overzicht" aria-labelledby="titel-nieuws" style="--stip: #126425">
+          <p class="etiket">Logboek</p>
+          <h2 id="titel-nieuws">Wat is er nieuw?</h2>
+          <p>
+            Geen nieuwsbrief meer in je mailbox. Wat verandert, staat hier, met het nieuwste
+            bovenaan. <span class="bijgewerkt"></span>
+          </p>
+          <ol class="logboek"></ol>
+          <button type="button" class="knop zacht logboek-meer" hidden>Toon ouder nieuws</button>
         </section>
 
         <section class="hoofdstuk" id="lancering" data-kamer="overzicht" aria-labelledby="titel-lancering" style="--stip: #f08a3c">

@@ -16,7 +16,45 @@ boven naar beneden, en de camera volgt:
 | Lager | `lager` | Het Rekencollectief, de nieuwe doelen in het 1ste tot 3de leerjaar |
 | Kleuter | `kleuter` | Het Taalappke, de nieuwe minimumdoelen |
 | De motor | `motor` | De zes diensten (NET, ID, TST, PLT, SEC, SRV) en de ruggengraat |
-| Het platform | `platform` | De helpdesk, de toren (vorming), de vluchtleiding en de grondploeg |
+| Het platform | `platform` | De helpdesk (met de cijfers), de wegwijzer, de toren (vorming), de vluchtleiding en de grondploeg |
+| Wat speelt er, het bord, het logboek | `overzicht` | De hangijzers, het projectbord en wat er nieuw is |
+
+## De informatielaag
+
+Na de reis door de raket volgt wat de nieuwsbrief en de losse mails moet
+vervangen. Bovenaan de pagina staat het nieuwste bericht in één regel, met een
+link naar het logboek.
+
+- **De helpdesk in cijfers**, in het hoofdstuk over de helpdesk. Het zijn
+  **voorbeeldcijfers**, en dat staat er groot bij. Komen de echte cijfers uit het
+  ticketsysteem, zet ze dan in `HELPDESK_CIJFERS` en zet `voorbeeld` op `false`.
+- **De wegwijzer**: zoeken in 23 vragen, met wie ze opvolgt. Een zoekwoord in
+  `zoek` telt zwaarder dan een woord uit de vraag. Zolang je niets typt, staan
+  de vragen uit `TOPVRAGEN` er.
+- **De hangijzers**: wat dit schooljaar het meest vraagt, met streepjes voor de
+  "temperatuur".
+- **Het projectbord**: wat in gebruik is, wat loopt en wat op de lijst staat, te
+  filteren op "in de klas" en "technisch".
+- **Het logboek** ("Wat is er nieuw?"): de drie nieuwste berichten, de rest op
+  vraag.
+
+Bij bijna alles staat een knop "Toon in de raket": die opent het kaartje van die
+plek in de raket (de camera zoomt erop in), of scrolt naar het hoofdstuk als er
+geen 3D is. Sluit je het kaartje, dan gaat de focus terug naar de knop.
+
+**Een bericht toevoegen** doe je in `informatie.js`: een object vooraan in
+`NIEUWS`, met een datum, een titel, een tekst, een of meer tags en eventueel
+`toon` (een id uit `PLEKKEN`, of `#wie`). Zet ook `BIJGEWERKT` op de datum van
+vandaag. Hetzelfde geldt voor het bord, de hangijzers en de wegwijzer: het zijn
+lijsten, geen code. Een `toon` die niet bestaat, valt stil weg: kijk het na met
+het script onderaan dit bestand.
+
+**Bewust niet op de pagina.** De interne aandachtspunten voor het beleid niet,
+en ook geen details die een aanvaller zouden helpen. Vier trajecten uit het
+overzicht (de back-up van SharePoint, de standaardisatie van de back-ups, het
+herstelplan bij grote uitval en de camerabewaking) staan op het bord alleen in
+één zin samen (`BORD_NOOT`), en het hangijzer over GRIP zegt "betere back-ups"
+in plaats van wat er nog ontbreekt.
 
 Wie in het oranje loopt, is de grondploeg: de lokale ICT-mensen op de scholen.
 Team ICT zit in de vluchtleiding, elk in de kleur van zijn teamkaart. Namen staan
@@ -107,6 +145,10 @@ Hoe het gebouwd is:
 - `raket.js`: het tafereel. Alles wordt in code gemaakt; er zijn geen 3D-bestanden.
 - `plekken.js`: de teksten van de aanklikbare plekken. De volgorde is die van
   "Volgende" in het kaartje.
+- `informatie.js`: de informatielaag als gegevens: nieuws, hangijzers, de
+  wegwijzer, de cijfers van de helpdesk en het projectbord. Dit is de bron.
+- `informatielaag.js`: zet die gegevens op de pagina, met de zoekfunctie, de
+  filter van het bord en de knoppen "Toon in de raket".
 
 In `gedeeld/` kwam alleen `vrijeRuimte()` bij (zie hierboven); de voorpagina en
 de drie werelden van Leerlichtjes roepen het niet aan, en hun 158 kaders gaven
@@ -167,7 +209,21 @@ zei. Ook die zijn verwerkt.
 
 ## Nog te doen
 
-- De informatielaag uit de eerste versie: het projectbord, de hete hangijzers,
-  de wegwijzer en de cijfers van de helpdesk (als voorbeeld gemarkeerd).
-- Een plaats op de voorpagina, zoals de werkafspraken vragen voor een nieuw deel.
+- De echte cijfers van de helpdesk, in plaats van de voorbeeldcijfers.
+- Een plaats op de voorpagina, zoals de werkafspraken vragen voor een nieuw deel:
+  een beslissing van Thomas, want Team ICT is geen deel van "AI op school".
 - Testen op een echte iPhone, een school-Chromebook en een beamer.
+
+Nakijken of elke `toon` in `informatie.js` nog naar een bestaande plek wijst:
+
+```bash
+node --input-type=module -e "
+import * as I from './team-ict/informatie.js'; import { PLEKKEN } from './team-ict/plekken.js';
+const ids = new Set(PLEKKEN.map(p => p.id));
+const alle = [...I.NIEUWS.map(n => n.toon), ...I.HANGIJZERS.flatMap(h => h.toon), ...I.VRAGEN.map(v => v.toon),
+  ...I.BORD.map(b => b.toon), ...I.HELPDESK_CIJFERS.inzichten.map(i => i.toon)].filter(Boolean);
+const fout = alle.filter(t => !t.startsWith('#') && !ids.has(t));
+const top = I.TOPVRAGEN.filter(t => !I.VRAGEN.some(v => v.v === t));
+console.log(fout.length || top.length ? 'FOUT ' + [...fout, ...top].join(', ') : 'alles OK');
+"
+```

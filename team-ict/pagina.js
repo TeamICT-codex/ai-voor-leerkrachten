@@ -7,6 +7,7 @@
 // Deze pagina haalt niets op bij een andere server, ook niet in de zaalmodus.
 // Werkwijze en valkuilen: zie voorpagina/startpagina.js, waar dit van komt.
 import { PLEKKEN, KAMERS, STATIONS } from './plekken.js';
+import { bouwInformatielaag } from './informatielaag.js';
 import { zonnehoogte, lichtVanZon, klokInDendermonde, tekenLucht } from '../voorpagina/sfeer.js';
 
 const podium = document.querySelector('.podium');
@@ -164,12 +165,13 @@ const plekVan = id => PLEKKEN.find(p => p.id === id);
 const plekkenIn = kamer => PLEKKEN.filter(p => p.kamer === kamer);
 let open = null, terugNaar = null;
 
-function openPlek(id) {
+// terug: waar de focus heen gaat als het kaartje sluit (standaard de speld).
+function openPlek(id, { terug } = {}) {
   const p = plekVan(id);
   if (!p || regieBezig()) return;
   // Een kaartje en het paneel van de ronde staan op dezelfde plaats.
   if (reeks) stopRonde({ focusTerug: false });
-  if (!open) terugNaar = pinnen[id];
+  if (!open) terugNaar = terug || pinnen[id];
   open = id;
   hintWeg();
   kaartDelen.waar.textContent = KAMERS[p.kamer];
@@ -616,7 +618,23 @@ addEventListener('keydown', e => {
   else openPlek(plekkenIn(VOLGORDE_KAMERS[0])[0].id);
 });
 
+// "Toon in de raket" in de informatielaag: een plek opent haar kaartje, een
+// #anker scrolt naar dat hoofdstuk. Zonder raket (geen 3D, of tijdens de ronde)
+// gaat het naar het hoofdstuk van die plek.
+function toonInRaket(toon, knop) {
+  if (toon.startsWith('#')) {
+    document.querySelector(toon)?.scrollIntoView({ behavior: stil ? 'auto' : 'smooth', block: 'start' });
+    return;
+  }
+  const p = plekVan(toon);
+  if (!p) return;
+  if (dio && podium.classList.contains('klaar') && !regieBezig()) openPlek(toon, { terug: knop });
+  else naarHoofdstuk(p.kamer);
+}
+const naamVan = toon => (toon.startsWith('#') ? 'het team' : plekVan(toon)?.titel ?? toon);
+
 // ── starten ──
+bouwInformatielaag({ toonInRaket, naamVan });
 bepaalFocus();
 requestAnimationFrame(() => podium.classList.add('dag'));
 if (vraag.has('schets') || !kanWebGL2()) {

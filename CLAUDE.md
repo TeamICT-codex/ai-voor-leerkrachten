@@ -73,6 +73,9 @@ lager/              Leerlichtjes, het aanbod voor het lager: één 3D-wereld per
 lager/stem/         de voorleesstemmen van Leerlichtjes: elke tekst vooraf ingelezen
                     door een juf en een meester (Gemini), met het script om opnieuw
                     in te lezen en na te kijken (zie lager/stem/LEESMIJ.md)
+team-ict/           de pagina van Team ICT: een raket in doorsnede op dezelfde 3D-motor,
+                    met een go/no-go-ronde en een lancering, en de informatielaag die
+                    de ICT-nieuwsbrief vervangt (zie team-ict/LEESMIJ.md)
 teaser/             de promofilm van een halve minuut: opname.py neemt de filmmodus
                     van de voorpagina beeld per beeld op, muziek.py rekent het
                     deuntje uit (zie teaser/LEESMIJ.md)
