@@ -262,8 +262,11 @@ a { color: var(--groen); }
   scroll-margin-top: calc(var(--kop) + var(--podium-hoog));
 }
 @media (max-width: 899px) {
-  /* Het podium blijft bovenaan staan: wat focus krijgt, moet eronder in beeld komen. */
+  /* Het podium blijft bovenaan staan: wat focus krijgt, moet eronder in beeld komen.
+     Die ruimte geldt voor elke sprong, dus een hoofdstuk krijgt geen eigen marge
+     meer: de twee tellen anders op, en dan valt de kop onder het scherm. */
   html { scroll-padding-top: calc(var(--kop) + var(--podium-hoog) + .75rem); }
+  .hoofdstuk { scroll-margin-top: 0; }
 }
 @media (max-width: 899px) and (max-height: 500px) {
   /* Een liggende gsm: een lager podium, anders blijft er amper plaats voor de tekst. */
