@@ -116,7 +116,9 @@ function naarHoofdstuk(kamer) {
 
 // Welk hoofdstuk lees je nu? Op de gsm is dat wat net onder het podium staat,
 // op een groot scherm wat in het midden staat.
-function bepaalFocus() {
+// kaartBlijft: na een resize (op de gsm ook als de adresbalk in- of uitklapt) is
+// de lezer niet van hoofdstuk veranderd, dus blijft een open kaartje staan.
+function bepaalFocus({ kaartBlijft = false } = {}) {
   const pb = podium.getBoundingClientRect();
   const lijn = mobiel() ? pb.bottom + (innerHeight - pb.bottom) * 0.3 : innerHeight * 0.5;
   let kamer = 'overzicht';
@@ -130,7 +132,7 @@ function bepaalFocus() {
   // Tijdens de ronde en de vlucht stuurt de regie de camera, niet het scrollen.
   if (!regieBezig()) {
     // Wie verder scrolt naar een andere verdieping, laat het kaartje achter.
-    if (open && kamerVanFocus(kamer) !== plekVan(open).kamer) sluitPlek(false);
+    if (!kaartBlijft && open && kamerVanFocus(kamer) !== plekVan(open).kamer) sluitPlek(false);
     dio?.focus(kamer);
   }
   for (const [k, el] of Object.entries(labels)) el.classList.toggle('gekozen', k === kamer);
@@ -144,7 +146,7 @@ addEventListener('scroll', () => {
   gepland = true;
   requestAnimationFrame(() => { gepland = false; bepaalFocus(); });
 }, { passive: true });
-addEventListener('resize', () => { huidige = null; bepaalFocus(); });
+addEventListener('resize', () => { huidige = null; bepaalFocus({ kaartBlijft: true }); });
 
 for (const el of Object.values(labels)) el.addEventListener('click', () => naarHoofdstuk(el.dataset.kamer));
 
@@ -171,7 +173,9 @@ function openPlek(id, { terug } = {}) {
   if (!p || regieBezig()) return;
   // Een kaartje en het paneel van de ronde staan op dezelfde plaats.
   if (reeks) stopRonde({ focusTerug: false });
-  if (!open) terugNaar = terug || pinnen[id];
+  // De focus gaat bij het sluiten terug naar de laatste knop die het kaartje opende.
+  if (terug) terugNaar = terug;
+  else if (!open) terugNaar = pinnen[id];
   open = id;
   hintWeg();
   kaartDelen.waar.textContent = KAMERS[p.kamer];
@@ -196,12 +200,16 @@ function openPlek(id, { terug } = {}) {
 }
 function sluitPlek(focusTerug = true) {
   if (!open) return;
+  const focusInKaart = kaart.contains(document.activeElement);
   open = null;
   kaart.hidden = true;
   podium.classList.remove('kaart-open');
   for (const el of Object.values(pinnen)) el.classList.remove('open');
   dio?.toonPlek(null);
-  if (focusTerug && terugNaar && !terugNaar.hidden) terugNaar.focus({ preventScroll: true });
+  // Ook als het kaartje sluit omdat je verder scrolt: stond de focus erin, dan
+  // gaat ze terug naar waar je was, anders valt ze op de pagina zelf.
+  const zichtbaar = terugNaar?.isConnected && terugNaar.offsetParent !== null;
+  if ((focusTerug || focusInKaart) && zichtbaar) terugNaar.focus({ preventScroll: true });
 }
 function stap(richting) {
   if (!open) return;
@@ -220,6 +228,17 @@ function stap(richting) {
   }
 }
 kaart.querySelector('.uitleg-sluit').addEventListener('click', () => sluitPlek());
+// Opende een knop verder op de pagina het kaartje, dan brengt Tab voorbij het
+// laatste element (of Shift+Tab voor het eerste) je daar terug: het kaartje staat
+// in het podium, bovenaan in de pagina, en anders sprong je naar het begin.
+kaart.addEventListener('keydown', e => {
+  if (e.key !== 'Tab' || !terugNaar || Object.values(pinnen).includes(terugNaar)) return;
+  const bereikbaar = [...kaart.querySelectorAll('button, a[href]')].filter(el => !el.disabled && el.offsetParent !== null);
+  const rand = e.shiftKey ? bereikbaar[0] : bereikbaar[bereikbaar.length - 1];
+  if (document.activeElement !== rand) return;
+  e.preventDefault();
+  sluitPlek();
+});
 kaartDelen.vorige.addEventListener('click', () => stap(-1));
 kaartDelen.volgende.addEventListener('click', () => stap(1));
 
@@ -618,18 +637,13 @@ addEventListener('keydown', e => {
   else openPlek(plekkenIn(VOLGORDE_KAMERS[0])[0].id);
 });
 
-// "Toon in de raket" in de informatielaag: een plek opent haar kaartje, een
-// #anker scrolt naar dat hoofdstuk. Zonder raket (geen 3D, of tijdens de ronde)
-// gaat het naar het hoofdstuk van die plek.
+// "Toon in de raket" in de informatielaag opent het kaartje van die plek. Loopt de
+// go/no-go-ronde nog, dan stopt die: wie op de knop drukt, wil dat zien. Zonder
+// 3D staat het kaartje over de schets, met dezelfde tekst.
 function toonInRaket(toon, knop) {
-  if (toon.startsWith('#')) {
-    document.querySelector(toon)?.scrollIntoView({ behavior: stil ? 'auto' : 'smooth', block: 'start' });
-    return;
-  }
-  const p = plekVan(toon);
-  if (!p) return;
-  if (dio && podium.classList.contains('klaar') && !regieBezig()) openPlek(toon, { terug: knop });
-  else naarHoofdstuk(p.kamer);
+  if (!plekVan(toon)) return;
+  if (regieBezig()) stopRonde({ focusTerug: false });
+  openPlek(toon, { terug: knop });
 }
 const naamVan = toon => (toon.startsWith('#') ? 'het team' : plekVan(toon)?.titel ?? toon);
 

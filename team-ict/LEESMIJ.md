@@ -26,8 +26,12 @@ vervangen. Bovenaan de pagina staat het nieuwste bericht in één regel, met een
 link naar het logboek.
 
 - **De helpdesk in cijfers**, in het hoofdstuk over de helpdesk. Het zijn
-  **voorbeeldcijfers**, en dat staat er groot bij. Komen de echte cijfers uit het
-  ticketsysteem, zet ze dan in `HELPDESK_CIJFERS` en zet `voorbeeld` op `false`.
+  **voorbeeldcijfers**: dat staat bovenaan in een gele strook, bij elke tussenkop
+  en in de beschrijving van de grafiek voor een schermlezer. De inzichten ("bijna
+  een derde gaat over accounts, daarom ...") verschijnen pas met echte cijfers:
+  een besluit uit een verzonnen cijfer zou een lezer als feit overnemen. Komen de
+  echte cijfers uit het ticketsysteem, zet ze dan in `HELPDESK_CIJFERS` en zet
+  `voorbeeld` op `false`.
 - **De wegwijzer**: zoeken in 23 vragen, met wie ze opvolgt. Een zoekwoord in
   `zoek` telt zwaarder dan een woord uit de vraag. Zolang je niets typt, staan
   de vragen uit `TOPVRAGEN` er.
@@ -39,8 +43,13 @@ link naar het logboek.
   vraag.
 
 Bij bijna alles staat een knop "Toon in de raket": die opent het kaartje van die
-plek in de raket (de camera zoomt erop in), of scrolt naar het hoofdstuk als er
-geen 3D is. Sluit je het kaartje, dan gaat de focus terug naar de knop.
+plek in de raket, en de camera zoomt erop in. Zonder 3D staat het kaartje over de
+schets, met dezelfde tekst. Loopt de go/no-go-ronde, dan stopt die eerst: wie op
+de knop drukt, wil dat zien. Sluit je het kaartje (ook met Tab voorbij het laatste
+element), dan gaat de focus terug naar de laatste knop die het opende. Een
+verwijzing naar een hoofdstuk (`#wie`) is een gewone link. Een kaartje uit de
+informatielaag blijft staan tot je naar een ander hoofdstuk scrolt, ook als de
+adresbalk van een gsm in- of uitklapt.
 
 **Een bericht toevoegen** doe je in `informatie.js`: een object vooraan in
 `NIEUWS`, met een datum, een titel, een tekst, een of meer tags en eventueel
@@ -206,6 +215,15 @@ nog wat bij een liggende gsm, smallere laptops en schermlezers: het paneel dat
 de camera naar de rand duwde, de neus onder het kleine paneel, zinnen die je
 niet kon terugvinden (nu het verslag), en een avondknop die "Dag, ingedrukt"
 zei. Ook die zijn verwerkt.
+
+De informatielaag ging in november 2026 door een eigen ronde (tekst, toegang en
+gsm, werking). Het attribuut `hidden` werkte niet op knoppen en berichten (nu
+staat er een algemene regel bovenaan `raket.css`), het zoekveld duwde een smalle
+gsm opzij, de focus verdween onder het podium op de gsm, en de voorbeeldcijfers
+stonden te klein aangeduid. Drie bevindingen over de tekst hielden geen stand bij
+een tweede lezer, en bleven dus zoals ze waren: de trajecten op de lijst rond
+accounts en netwerkaanmelding, een paar vaktermen in de wegwijzer (Intune,
+basisconfiguratie), en de naam van de filter "In de klas".
 
 ## Nog te doen
 
