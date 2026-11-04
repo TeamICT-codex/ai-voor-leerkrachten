@@ -306,6 +306,13 @@ die `casussen.js` en de FAQ genereerde uit een nagekeken JSON — het resultaat
 staat veilig in de inhoudsbestanden, maar het proces was niet meer te herhalen.
 Schrijf je opnieuw zulke hulpscripts, commit ze dan meteen.
 
+## Voor later
+
+`docs/voor-later.md` bewaart wat Thomas wil gebruiken in een later project, nog
+niet uitgevoerd: onder meer de installatie-instructie voor het Diorama-playbook
+(sloemo01/diorama). Begin er pas aan als hij erom vraagt, en volg de instructie
+daar dan letterlijk.
+
 ## Stand van zaken
 
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
