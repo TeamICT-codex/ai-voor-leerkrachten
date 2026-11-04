@@ -849,15 +849,65 @@ function bouwRaket(g, canvas) {
   const RAKET_TOP = TOP + 3.5;
   let vrij = [];
 
-  // De hoogte en de snelheid van de raket, t seconden na de lancering: eerst
-  // versnellen, dan uitbollen tot de top, en zacht terug naar het platform.
-  const VLUCHT_DUUR = 15;
+  // De hoogte en de snelheid van de raket, t seconden na de lancering: negen
+  // seconden stuwen, dan uitbollen tot de top op 121,5, en zacht terug naar het
+  // platform. Lees de hoogte als kilometers: boven 100 begint de ruimte.
+  const STUW = 9, TOP_T = 15, VLUCHT_DUUR = 24, RUIMTE = 100;
   function baan(t) {
-    if (t < 6) return [0.9 * t * t, 1.8 * t];
-    if (t < 8) { const u = t - 6; return [32.4 + 10.8 * u - 2.7 * u * u, 10.8 - 5.4 * u]; }
-    if (t < VLUCHT_DUUR) { const s = (t - 8) / 7; return [43.2 * (1 - s * s * (3 - 2 * s)), -43.2 * 6 * s * (1 - s) / 7]; }
+    if (t < STUW) return [0.9 * t * t, 1.8 * t];
+    if (t < TOP_T) { const u = t - STUW; return [72.9 + 16.2 * u - 1.35 * u * u, 16.2 - 2.7 * u]; }
+    if (t < VLUCHT_DUUR) { const d = VLUCHT_DUUR - TOP_T, s = (t - TOP_T) / d; return [121.5 * (1 - s * s * (3 - 2 * s)), -121.5 * 6 * s * (1 - s) / d]; }
     return [0, 0];
   }
+
+  // Het spoor: een witte pluim van het platform tot onder de vlam. Ze blijft
+  // hangen, waaiert uit, en verdwijnt na de top.
+  function verloopTex(stops) {
+    const c = document.createElement('canvas'); c.width = 4; c.height = 64;
+    const ctx = c.getContext('2d');
+    // onderaan het voorwerp (v = 0) is de onderkant van het doek
+    const gr = ctx.createLinearGradient(0, 64, 0, 0);
+    for (const [p, a] of stops) gr.addColorStop(p, `rgba(255,255,255,${a})`);
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, 4, 64);
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+    return tex;
+  }
+  const spoor = (() => {
+    // Een zachte pluim: dicht in het midden en vervagend naar de randen, en
+    // bovenaan, net onder de raket, het dichtst.
+    const c = document.createElement('canvas'); c.width = c.height = 64;
+    const ctx = c.getContext('2d'), beeld = ctx.createImageData(64, 64);
+    for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
+      const zij = Math.max(0, 1 - Math.abs(x - 31.5) / 32) ** 1.7, hoog = 0.12 + 0.55 * (1 - y / 63);
+      const i = (y * 64 + x) * 4;
+      beeld.data[i] = beeld.data[i + 1] = beeld.data[i + 2] = 255;
+      beeld.data[i + 3] = Math.round(255 * zij * hoog);
+    }
+    ctx.putImageData(beeld, 0, 0);
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+    const geo = new T.PlaneGeometry(1, 1);
+    geo.translate(0, 0.5, 0);
+    // side 2 is beide kanten (DoubleSide). Het vlak kijkt naar de camera van de
+    // vlucht, die van opzij 0,31 kijkt (de standaard van de motor).
+    const m = levend(new T.Mesh(geo, new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: 2, opacity: 0 })));
+    m.rotation.y = 0.31;
+    m.position.set(0, 0.12, RZ);
+    m.visible = false;
+    m.raycast = () => {};
+    wereld.add(m);
+    return m;
+  })();
+  let spoorTop = 0;
+  // De dampkegel: rond de snelheid van het geluid vormt zich even een witte
+  // kegel rond de schouder van de raket.
+  const dampkegel = (() => {
+    const m = levend(new T.Mesh(new T.ConeGeometry(3.3, 3.4, 40, 1, true), new T.MeshBasicMaterial({ map: verloopTex([[0, 0.75], [0.35, 0.35], [1, 0]]), transparent: true, depthWrite: false, side: 2, opacity: 0 })));
+    m.position.set(0, TOP + 0.3, 0);
+    m.visible = false;
+    m.raycast = () => {};
+    raket.add(m);
+    return m;
+  })();
   const glad = x => { x = klem(x, 0, 1); return x * x * (3 - 2 * x); };
   function eenmaal(sleutel, soort) { if (regie.gemeld.has(sleutel)) return; regie.gemeld.add(sleutel); meld(soort); }
 
@@ -871,6 +921,8 @@ function bouwRaket(g, canvas) {
     for (const { l, y } of raketLampen) l.position.y = y;
     armen.rotation.y = 0;
     vuurGloed.visible = false;
+    spoor.visible = dampkegel.visible = false;
+    spoorTop = 0;
     for (const b of rook) b.visible = false;
     for (const w of hogeWolken) w.visible = false;
     tekenScherm();
@@ -934,15 +986,19 @@ function bouwRaket(g, canvas) {
     } else if (r.fase === 'vlucht') {
       const t = r.t;
       [r.hoogte, r.snelheid] = baan(t);
-      // Het vuur loopt telkens zacht aan en uit, ook op de top en bij de landingsbrand.
-      r.vuur = t < 6 ? 1 : t < 8 ? 1 - 0.8 * (t - 6) / 2 : t < 8.6 ? 0.2 * (1 - glad((t - 8) / 0.6))
-        : t < 12 ? 0 : t < VLUCHT_DUUR ? 0.75 * glad((t - 12) / 0.6) : Math.max(0, 0.75 - (t - VLUCHT_DUUR) * 1.5);
-      r.rook = t < 2.5 ? 1 : t < 6 ? 1 - (t - 2.5) / 3.5 : t < 13.5 ? 0 : t < 15.5 ? (t - 13.5) / 2 * 0.7 : Math.max(0, 0.7 - (t - 15.5) * 0.45);
-      r.armen = t < 15.8 ? 1 : 1 - glad((t - 15.8) / 1.4);
-      if (t >= 8) eenmaal('top', 'top');
-      if (t >= 9.5) eenmaal('terug', 'terug');
+      // Het vuur loopt telkens zacht aan en uit: na het stuwen, en bij de
+      // landingsbrand in de laatste drie seconden.
+      const rem = VLUCHT_DUUR - 3;
+      r.vuur = t < STUW ? 1 : t < STUW + 1 ? 1 - 0.8 * (t - STUW) : t < STUW + 1.6 ? 0.2 * (1 - glad((t - STUW - 1) / 0.6))
+        : t < rem ? 0 : t < VLUCHT_DUUR ? 0.75 * glad((t - rem) / 0.6) : Math.max(0, 0.75 - (t - VLUCHT_DUUR) * 1.5);
+      r.rook = t < 2.5 ? 1 : t < 6 ? 1 - (t - 2.5) / 3.5 : t < VLUCHT_DUUR - 1.5 ? 0
+        : t < VLUCHT_DUUR + 0.5 ? (t - VLUCHT_DUUR + 1.5) / 2 * 0.7 : Math.max(0, 0.7 - (t - VLUCHT_DUUR - 0.5) * 0.45);
+      r.armen = t < VLUCHT_DUUR + 0.8 ? 1 : 1 - glad((t - VLUCHT_DUUR - 0.8) / 1.4);
+      if (t < TOP_T && r.hoogte > 45) eenmaal('wolken', 'wolken');
+      if (t < TOP_T && r.hoogte >= RUIMTE) eenmaal('ruimte', 'ruimte');
+      if (t >= TOP_T + 1) eenmaal('terug', 'terug');
       if (t >= VLUCHT_DUUR + 0.3) eenmaal('geland', 'geland');
-      if (t >= 17.4) {
+      if (t >= VLUCHT_DUUR + 2.4) {
         zetTerug();
         meld('klaar');
         return;
@@ -959,6 +1015,21 @@ function bouwRaket(g, canvas) {
     vuurGloed.position.y = gloedY;
     vuurGloed.scale.set(3.4 + r.vuur * 1.5, Math.min(2.6 + r.vuur * 2.5, 2 * (gloedY + BASIS + r.hoogte - GLOED_BODEM)), 1);
     for (const w of hogeWolken) w.visible = r.fase === 'vlucht';
+    // het spoor groeit mee tot onder de vlam, en verdwijnt na de top
+    const vliegt = r.fase === 'vlucht';
+    if (vliegt && r.t < TOP_T) spoorTop = Math.max(spoorTop, r.hoogte + VLAM_TOP - vlamLengte * 0.5 - 0.12);
+    spoor.visible = vliegt && spoorTop > 0.3;
+    if (spoor.visible) {
+      spoor.scale.set(2.6 + r.t * 0.18, spoorTop, 1);
+      spoor.material.opacity = r.t < TOP_T ? glad(spoorTop / 6) : 1 - glad((r.t - TOP_T) / 3);
+    }
+    // de dampkegel, rond de snelheid van het geluid
+    const k = vliegt ? klem((r.t - 4.6) / 2.8, 0, 1) : 0;
+    dampkegel.visible = k > 0 && k < 1;
+    if (dampkegel.visible) {
+      dampkegel.material.opacity = Math.sin(k * Math.PI) * (0.5 + Math.sin(nu * 31) * 0.06);
+      dampkegel.scale.setScalar(1 + k * 0.25);
+    }
   }
 
   // Een hoofd dat rondkijkt, blijft los van het lijf, maar wordt zelf wel één vorm.
@@ -1000,7 +1071,9 @@ function bouwRaket(g, canvas) {
       if (regie.fase !== 'vlucht') return 1.2;
       const v = vrij.length === 1 ? vrij[0] : { links: 0, rechts: 0, boven: 0, onder: 0 };
       const verhouding = canvas.clientWidth * (1 - v.links - v.rechts) / Math.max(1, canvas.clientHeight * (1 - v.boven - v.onder));
-      return Math.min(9.8, 6.3 * verhouding);
+      // Hoog in de ruimte trekt de camera terug: de raket klein tegen de sterren.
+      const wijd = 1 + 0.6 * glad((regie.hoogte - 70) / 45);
+      return Math.min(9.8, 6.3 * verhouding) * wijd;
     },
     bijVrijeRuimte(keuzes) { vrij = keuzes; },
     get plekHoek() { return regie.fase === 'vlucht' ? 0.16 : undefined; },
@@ -1127,6 +1200,9 @@ function bouwRaket(g, canvas) {
       // Breek af en zet alles terug, ook een raket die al in de lucht hangt.
       stopLancering() { regie.melding = null; zetTerug(); },
       vluchtHoogte: () => regie.hoogte,
+      // Voor de telemetrie in het paneel: seconden sinds de lancering, en de snelheid.
+      vluchtTijd: () => (regie.fase === 'vlucht' ? regie.t : 0),
+      vluchtSnelheid: () => regie.snelheid,
       regieFase: () => regie.fase,
     },
   };

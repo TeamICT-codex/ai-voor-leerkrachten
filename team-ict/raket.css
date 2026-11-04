@@ -510,6 +510,13 @@ body.zaal .lanceer-knop { display: none; }
 .vluchtbord.compact .stations, .vluchtbord.hold .stations { display: none; }
 .vlucht-tekst { margin: 0 0 .8rem; min-height: 3.1em; font-size: .92rem; line-height: 1.5; color: var(--inkt); }
 .vlucht-tekst p { margin: 0; }
+/* De telemetrie tijdens de vlucht: tijd, hoogte en snelheid, cijfers die niet verspringen. */
+.telemetrie {
+  display: inline-block; margin: 0 0 .6rem; padding: .3rem .75rem; border-radius: 999px;
+  font-size: .78rem; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap;
+  color: var(--wit); background: var(--groen-donker);
+}
+body.zaal .telemetrie { font-size: clamp(.9rem, 1.2vw, 1.35rem); }
 /* Het verslag: elke zin van de ronde, om op je eigen tempo te lezen. */
 .vlucht-verslag { margin: 0 0 .8rem; font-size: .84rem; color: var(--inkt); }
 .vlucht-verslag summary { cursor: pointer; font-weight: 600; color: var(--groen); }

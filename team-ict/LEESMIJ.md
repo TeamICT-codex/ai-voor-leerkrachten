@@ -81,8 +81,15 @@ maar wie elke zin wil lezen, doet dat in het verslag ("Lees wat elk station zei"
 dat verschijnt na de ronde, met de volledige naam van elk station. De ronde zelf
 is een schouwspel, het verslag is om te lezen. Zegt iedereen go, dan schuift het
 paneel klein naar boven, telt de vluchtleiding af, draaien de armen van de toren
-weg, en vertrekt de raket. De camera volgt haar boven de wolken, waar de hemel
-donker wordt. Daarna keert ze terug en landt ze weer: morgen vertrekt ze opnieuw.
+weg, en vertrekt de raket. De camera volgt haar tot in de ruimte: negen seconden
+stuwen, een witte dampkegel rond de snelheid van het geluid, een pluim die achter
+haar blijft hangen, boven de wolken een donkere hemel met sterren, en voorbij 100
+km ("hier begint de ruimte") de rand van de aarde met haar blauwe dampkring. Op
+de top, op 121 km, trekt de camera wat terug. Het paneel toont intussen de
+telemetrie: hoe lang de raket vliegt, hoe hoog en hoe snel (lees de hoogte in het
+tafereel als kilometers). Daarna keert ze terug, met een landingsbrand in de
+laatste drie seconden: morgen vertrekt ze opnieuw. De vlucht duurt zo'n 26
+seconden.
 
 Wie vooraf een storing kiest ("Wat als er iets stuk is?"), ziet de ronde stoppen
 bij dat onderdeel van de motor: NO-GO op de kast, de camera zoomt erop in, de
@@ -105,7 +112,7 @@ Hoe het gebouwd is:
 - De tijdlijn loopt in de scène (`regie` in `raket.js`), op de tijd van het
   tafereel. Ze pauzeert dus mee als het canvas uit beeld is of het tabblad op de
   achtergrond staat. Bij elke stap roept ze `melding(soort, gegevens)` op:
-  `vraag`, `station`, `hold`, `allesGo`, `tel`, `lift`, `top`, `terug`, `geland`,
+  `vraag`, `station`, `hold`, `allesGo`, `tel`, `lift`, `wolken`, `ruimte`, `terug`, `geland`,
   `klaar`, en met `?stil` meteen `stilKlaar` (de ronde zonder vlucht).
 - `pagina.js` stuurt daarop de camera (`dio.focus`, `dio.markeer`) en het
   paneel. Zolang de ronde loopt, verzet scrollen de camera niet, opent er geen
@@ -132,7 +139,12 @@ Hoe het gebouwd is:
   de donkere hemel. Zijn naam zegt wat hij doet ("Avond" of "Dag"), dus zonder
   `aria-pressed`.
 - Het kader van de vlucht loopt van het lichtje op de neus tot de punt van de
-  vlam (`RAKET_TOP` en `vlamLengte`).
+  vlam (`RAKET_TOP` en `vlamLengte`). Hoog in de ruimte trekt `plekZoom` de
+  camera terug (tot 1,6 keer). De baan staat in `baan()`, met `STUW`, `TOP_T`
+  en `VLUCHT_DUUR`; de dampkegel en de pluim (`dampkegel`, `spoor`) volgen die.
+- De rand van de aarde is geen 3D: `tekenAarde()` in `pagina.js` tekent ze op de
+  hemel achter het tafereel, net als de sterren, zodra de raket hoger dan 75 km
+  vliegt.
 - Bij no-go zoomt de camera dichter in op de kast (`plekZoom` 0,8), en tekent
   het NO-GO-bordje bovenop alles: het mag niet half achter een buurkast vallen.
 - Het vuur reikt hoogstens tot op het platform; wat er niet onder past, spat

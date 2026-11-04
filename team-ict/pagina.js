@@ -253,6 +253,7 @@ const vlucht = {
   tekst: vluchtbord.querySelector('.vlucht-tekst'),
   melding: vluchtbord.querySelector('.vlucht-melding'),
   verslag: vluchtbord.querySelector('.vlucht-verslag'),
+  telemetrie: vluchtbord.querySelector('.telemetrie'),
   opnieuw: vluchtbord.querySelector('.vlucht-opnieuw'),
   helpdesk: vluchtbord.querySelector('.vlucht-helpdesk'),
 };
@@ -439,18 +440,24 @@ function opMelding(soort, d) {
       zeg('De raket vertrekt. De les kan beginnen.');
       aankondig('De raket vertrekt. De les kan beginnen.');
       reeks.vliegt = true;
+      vlucht.telemetrie.hidden = false;
       zetVrijeRuimte();
       dio.toonPlek('vlucht', { opzij: true });
       break;
-    case 'top':
+    case 'wolken':
       zeg('Boven de wolken. Nu draait alles om de les.');
       aankondig('Boven de wolken. Nu draait alles om de les.');
+      break;
+    case 'ruimte':
+      zeg('100 kilometer hoog: hier begint de ruimte.');
+      aankondig('100 kilometer hoog: hier begint de ruimte.');
       break;
     case 'terug':
       zeg('De raket keert terug naar het platform. Morgen vertrekt ze opnieuw, met dezelfde motor.');
       break;
     case 'geland':
       reeks.vliegt = false;
+      vlucht.telemetrie.hidden = true;
       zetVrijeRuimte();
       dio.toonPlek(null);
       dio.focus('overzicht');
@@ -499,6 +506,7 @@ function stopRonde({ focusTerug = true, sluit = true } = {}) {
   const terug = reeks.terugNaar, wasBezig = regieBezig();
   dio?.stopLancering();
   aankondig('');
+  vlucht.telemetrie.hidden = true;
   dio?.toonPlek(null);
   dio?.markeer(null);
   toonCijfer('');
@@ -535,7 +543,40 @@ function tekenHemel(licht) {
   const b = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
   if (luchtDoek.width !== b || luchtDoek.height !== h) { luchtDoek.width = b; luchtDoek.height = h; }
   tekenLucht(luchtCtx, b, h, licht);
+  if (aardeNu > 0) tekenAarde(luchtCtx, b, h, aardeNu);
   podium.classList.toggle('nacht', licht.nacht > 0.5);
+}
+// Hoog in de ruimte verschijnt onderaan de rand van de aarde, met de blauwe gloed
+// van de dampkring erboven. mate: van 0 (niet te zien) tot 1.
+let aardeNu = 0;
+function tekenAarde(ctx, b, h, mate) {
+  const R = b * 1.6, cx = b / 2, cy = h + R - h * 0.2 * mate;
+  ctx.save();
+  ctx.globalAlpha = mate;
+  const gloed = ctx.createRadialGradient(cx, cy, R * 0.985, cx, cy, R * 1.06);
+  gloed.addColorStop(0, 'rgba(130, 195, 255, 0.95)');
+  gloed.addColorStop(1, 'rgba(130, 195, 255, 0)');
+  ctx.fillStyle = gloed;
+  ctx.beginPath(); ctx.arc(cx, cy, R * 1.06, 0, Math.PI * 2); ctx.fill();
+  const grond = ctx.createLinearGradient(0, cy - R, 0, h);
+  grond.addColorStop(0, '#3a7cc0'); grond.addColorStop(0.45, '#1f5590'); grond.addColorStop(1, '#123a63');
+  ctx.fillStyle = grond;
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+  // een paar wolkenbanden, schuin langs de rand
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+  ctx.lineCap = 'round';
+  for (const [r, van, tot, dikte] of [[0.992, 1.38, 1.5, 0.012], [0.982, 1.56, 1.7, 0.009], [0.975, 1.62, 1.66, 0.014]]) {
+    ctx.lineWidth = h * dikte;
+    ctx.beginPath(); ctx.arc(cx, cy, R * r, Math.PI * van, Math.PI * tot); ctx.stroke();
+  }
+  ctx.restore();
+}
+// De telemetrie in het paneel, zoals bij een echte lancering: hoe lang de raket
+// al vliegt, hoe hoog (lees de hoogte als kilometers) en hoe snel.
+function telemetrie() {
+  const t = dio.vluchtTijd(), v = Math.abs(dio.vluchtSnelheid());
+  const tijd = `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+  return `${tijd} · ${Math.round(dio.vluchtHoogte())} km hoog · ${(Math.round(v * 42) * 10).toLocaleString('nl-BE')} km/u`;
 }
 const lichtNu = () => ({ ...dio.licht(), mist: 0 });
 // De motor laat het licht zacht overlopen; de hemel volgt beeld per beeld, en
@@ -544,13 +585,18 @@ let hemelHandtekening = '';
 function hemelLus() {
   if (reeks?.vliegt) {
     // Hoe hoger de raket, hoe donkerder de hemel: boven de wolken begint de ruimte.
-    const ruimte = Math.min(1, Math.max(0, (dio.vluchtHoogte() - 6) / 26));
+    const hoogte = dio.vluchtHoogte();
+    const ruimte = Math.min(1, Math.max(0, (hoogte - 6) / 26));
     const basis = reeks.basisLicht;
     dio.sfeer({ nacht: Math.max(basis.nacht, ruimte), schemer: basis.schemer * (1 - ruimte) });
-  }
+    const a = Math.min(1, Math.max(0, (hoogte - 75) / 35));
+    aardeNu = a * a * (3 - 2 * a);
+    const tekst = telemetrie();
+    if (vlucht.telemetrie.textContent !== tekst) vlucht.telemetrie.textContent = tekst;
+  } else aardeNu = 0;
   if (dio && !document.hidden) {
     const licht = lichtNu();
-    const h = [licht.nacht, licht.schemer, licht.bewolking, licht.flits].map(x => x.toFixed(3)).join('|');
+    const h = [licht.nacht, licht.schemer, licht.bewolking, licht.flits, aardeNu].map(x => x.toFixed(3)).join('|');
     if (h !== hemelHandtekening) { hemelHandtekening = h; tekenHemel(licht); }
   }
   requestAnimationFrame(hemelLus);
