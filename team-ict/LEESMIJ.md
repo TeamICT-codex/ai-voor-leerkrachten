@@ -228,9 +228,12 @@ basisconfiguratie), en de naam van de filter "In de klas".
 ## Nog te doen
 
 - De echte cijfers van de helpdesk, in plaats van de voorbeeldcijfers.
-- Een plaats op de voorpagina, zoals de werkafspraken vragen voor een nieuw deel:
-  een beslissing van Thomas, want Team ICT is geen deel van "AI op school".
 - Testen op een echte iPhone, een school-Chromebook en een beamer.
+
+Beslist door Thomas op 4 november 2026: Team ICT staat apart van "AI op school".
+De pagina krijgt geen plaats op de voorpagina en staat op haar eigen adres
+(`…/ai-voor-leerkrachten/team-ict/`). Het adres van de helpdesk,
+<https://helpdesk.hetleercollectief.be>, klopt.
 
 Nakijken of elke `toon` in `informatie.js` nog naar een bestaande plek wijst:
 

@@ -118,7 +118,9 @@ zich. De keten voor leerlingen is Leerlichtjes (lager), AI-wijs Start (1ste
 graad) en AI-wijs op school (2de en 3de graad), en elk deel verwijst naar het
 volgende. Het overzicht van de leeromgeving verwijst met snelkoppelingen naar
 alle drie. Komt er een deel bij, geef het dan
-dezelfde knop en een plaats op de voorpagina.
+dezelfde knop en een plaats op de voorpagina. Eén bewuste uitzondering: de pagina
+van Team ICT (`team-ict/`) staat apart van "AI op school" en krijgt geen plaats
+op de voorpagina (beslist door Thomas op 4 november 2026).
 
 ### Huisstijl
 
