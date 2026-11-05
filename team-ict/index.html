@@ -367,8 +367,31 @@
             Geen nieuwsbrief meer in je mailbox. Wat verandert, staat hier, met het nieuwste
             bovenaan. <span class="bijgewerkt"></span>
           </p>
-          <ol class="logboek"></ol>
-          <button type="button" class="knop zacht logboek-meer" hidden>Toon ouder nieuws</button>
+          <div class="nieuwsoverzicht">
+            <fieldset class="profiel">
+              <legend>Wat is voor mij?</legend>
+              <div class="profiel-velden">
+                <label class="veld"><span>Mijn rol</span><select id="mijn-rol"></select></label>
+                <label class="veld"><span>Mijn school</span><select id="mijn-school"></select></label>
+              </div>
+              <label class="vinkje" hidden><input type="checkbox" id="alleen-voor-mij" checked> Toon alleen wat voor mij is</label>
+              <p class="profiel-uitleg">Je keuze blijft bewaard op dit toestel en gaat nergens naartoe.</p>
+            </fieldset>
+            <section class="agenda" aria-labelledby="titel-agenda" hidden>
+              <h3 id="titel-agenda">Op de agenda</h3>
+              <ul class="agenda-lijst"></ul>
+              <button type="button" class="knop klein zacht agenda-meer" hidden>Toon de hele agenda</button>
+            </section>
+            <div class="zoekveld">
+              <label for="zoek-nieuws">Zoek in alle berichten, ook de oude</label>
+              <input id="zoek-nieuws" type="search" autocomplete="off" placeholder="Bijvoorbeeld: wifi, Smartschool, Lokeren">
+            </div>
+            <div class="filters thema-filter" role="group" aria-label="Kies een onderwerp"></div>
+            <p class="nieuws-telling" aria-live="polite"></p>
+            <button type="button" class="knop klein zacht toon-andere" hidden>Toon die berichten ook</button>
+            <div class="logboek-lijst"></div>
+            <p class="verborgen-tekst nieuws-melding" role="status"></p>
+          </div>
         </section>
 
         <section class="hoofdstuk" id="lancering" data-kamer="overzicht" aria-labelledby="titel-lancering" style="--stip: #f08a3c">

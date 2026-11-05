@@ -75,7 +75,9 @@ lager/stem/         de voorleesstemmen van Leerlichtjes: elke tekst vooraf ingel
                     in te lezen en na te kijken (zie lager/stem/LEESMIJ.md)
 team-ict/           de pagina van Team ICT: een raket in doorsnede op dezelfde 3D-motor,
                     met een go/no-go-ronde en een lancering, en de informatielaag die
-                    de ICT-nieuwsbrief vervangt (zie team-ict/LEESMIJ.md)
+                    de ICT-nieuwsbrief vervangt: het logboek in nieuws.js, met labels
+                    voor rol, niveau, school en onderwerp in labels.js; de controle
+                    erop draait mee als T162 (zie team-ict/LEESMIJ.md)
 teaser/             de promofilm van een halve minuut: opname.py neemt de filmmodus
                     van de voorpagina beeld per beeld op, muziek.py rekent het
                     deuntje uit (zie teaser/LEESMIJ.md)
@@ -188,7 +190,7 @@ nieuw blok-type vraagt wel een `case` in `toonInhoudsblok()` plus styling.
 
 ## Testsuite
 
-`test/` bevat 161 testgevallen (49 zonder browser, 112 in de pagina) plus de
+`test/` bevat 162 testgevallen (50 zonder browser, 112 in de pagina) plus de
 scripts die ze draaien, en de twee hulpscripts die inhoud uit JSON naar de
 inhoudsbestanden schrijven. Zie `test/LEESMIJ.md` — daar staat ook waarom het
 harnas met een MessageChannel plant en waarom een lange reeks tests elkaar kan

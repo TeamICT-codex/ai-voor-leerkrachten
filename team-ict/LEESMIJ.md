@@ -23,7 +23,9 @@ boven naar beneden, en de camera volgt:
 
 Na de reis door de raket volgt wat de nieuwsbrief en de losse mails moet
 vervangen. Bovenaan de pagina staat het nieuwste bericht in één regel, met een
-link naar het logboek.
+link naar dat bericht. Staat er binnen twee weken iets op de agenda dat voor
+iedereen is (of, als je een rol of school koos, voor jou), dan staat dat er als
+tweede regel onder.
 
 - **De helpdesk in cijfers**, in het hoofdstuk over de helpdesk. Het zijn
   **voorbeeldcijfers**: dat staat bovenaan in een gele strook, bij elke tussenkop
@@ -39,8 +41,8 @@ link naar het logboek.
   "temperatuur".
 - **Het projectbord**: wat in gebruik is, wat loopt en wat op de lijst staat, te
   filteren op "in de klas" en "technisch".
-- **Het logboek** ("Wat is er nieuw?"): de drie nieuwste berichten, de rest op
-  vraag.
+- **Het logboek** ("Wat is er nieuw?"): alle berichten, met labels voor wie,
+  welke school en waarover. Zie "Het logboek" hieronder.
 
 Bij bijna alles staat een knop "Toon in de raket": die opent het kaartje van die
 plek in de raket, en de camera zoomt erop in. Zonder 3D staat het kaartje over de
@@ -51,12 +53,89 @@ verwijzing naar een hoofdstuk (`#wie`) is een gewone link. Een kaartje uit de
 informatielaag blijft staan tot je naar een ander hoofdstuk scrolt, ook als de
 adresbalk van een gsm in- of uitklapt.
 
-**Een bericht toevoegen** doe je in `informatie.js`: een object vooraan in
-`NIEUWS`, met een datum, een titel, een tekst, een of meer tags en eventueel
-`toon` (een id uit `PLEKKEN`, of `#wie`). Zet ook `BIJGEWERKT` op de datum van
-vandaag. Hetzelfde geldt voor het bord, de hangijzers en de wegwijzer: het zijn
-lijsten, geen code. Een `toon` die niet bestaat, valt stil weg: kijk het na met
-het script onderaan dit bestand.
+## Het logboek
+
+De berichten staan in `nieuws.js`, de labels in `labels.js`, de code in
+`logboek.js`. Er komen er doorheen het jaar veel bij, voor heel verschillende
+mensen. Zo blijft het overzichtelijk:
+
+- **Wat is voor mij?** Bovenaan kies je je rol (zeven: directie, leerkracht,
+  ICT-coördinator, secretariaat, zorg en leerlingenbegeleiding, opvoeder,
+  centrale diensten) en je school (alle 33 scholen, in groepen per soort
+  onderwijs). Dan zie je wat voor jou geldt, plus alles wat voor iedereen is. Wat
+  je keuze verbergt, staat er altijd bij geteld, met een knop om het toch te
+  tonen. De keuze blijft in `localStorage` op dit toestel (`teamict-profiel`) en
+  gaat nergens naartoe.
+- **Op de agenda**: elke uiterste datum (`tegen`) en elke dag van een
+  onderbreking of een aanbod (`op`, `tot`) die nog moet komen, de dichtste eerst.
+  Wat binnen de week valt, krijgt een perzikkleurig label. Na de datum verdwijnt
+  het uit de agenda, maar het bericht blijft.
+- **Nieuw sinds je vorige bezoek**: de pagina onthoudt welke berichten er bij je
+  vorige bezoek al stonden (hun ids, `teamict-gezien`) en wanneer dat was
+  (`teamict-vorig-bezoek`). Een bericht dat er toen nog niet stond, krijgt het
+  label "Nieuw", ook als het later op de dag van dat bezoek verscheen. Herladen
+  in hetzelfde tabblad veegt de labels niet weg. Bij een eerste bezoek is niets
+  nieuw, anders zou alles het zijn.
+
+Zo vind je een oud bericht terug:
+
+- **Per schooljaar** (september tot en met augustus) en per maand. Het nieuwste
+  schooljaar staat open met zes berichten en een knop voor de rest; de oudere
+  schooljaren zijn ingeklapt.
+- **Zoeken** gaat over alle schooljaren heen. Het zoekveld kent ook de labels:
+  "Lokeren" vindt een bericht voor de scholen in Lokeren, "wachtwoord" alles over
+  accounts (de zoekwoorden per onderwerp staan in `THEMAS`).
+- **Onderwerpen**: de knoppen onder het zoekveld, en het label bij elk bericht.
+  Er staan alleen onderwerpen waarover al iets geschreven is.
+- **Een vaste link per bericht**: `…/team-ict/#bericht-<id>`. Die mag in een mail
+  of in Smartschool, en blijft altijd werken: het juiste schooljaar gaat open, en
+  valt het bericht buiten je rol of school, dan staat het er toch. "Kopieer de
+  link" zet hem op het klembord; de datum van het bericht is dezelfde link.
+- **Dossiers**: een bericht met `dossier` staat ook onderaan dat hangijzer
+  ("Berichten over dit dossier"), en het label "Dossier: …" bij het bericht
+  springt naar het hangijzer (`#hangijzer-<id>`).
+- **Achterhaald in plaats van gewist**: zet in het nieuwe bericht `vervangt:
+  ['oude-id']`. Het oude blijft staan, met het label "Achterhaald" en een link
+  naar het nieuwe. Wie een oude link volgt, landt zo nooit op verouderde info
+  zonder het te weten.
+
+**Een bericht toevoegen**: een object bovenaan `NIEUWS` in `nieuws.js`. Bovenaan
+dat bestand staan alle velden, met een voorbeeld. Het gewone geval is een
+bericht voor iedereen, in alle scholen: laat `voor`, `niveaus` en `scholen` dan
+weg. Geef ze alleen op als een bericht echt maar een deel aanbelangt. Een actie
+(`soort: 'actie'`) vraagt een uiterste datum (`tegen`) en een `taak`, kort en als
+opdracht ("Zet je bestanden in je gedeelde drive"): die zin staat in de agenda.
+`BIJGEWERKT` in `informatie.js` hoeft niet mee: "Bijgewerkt op" neemt de
+nieuwste datum van de twee. Draai daarna de controle:
+
+```bash
+node team-ict/controle.mjs
+```
+
+Die kijkt elk label, elke datum, elk dossier, elke `toon` en elke `vervangt` na,
+en ook een school met een niveau dat ze niet heeft (dan ziet niemand van die
+school het bericht). Een tikfout in het jaar vangt ze ook: een bericht uit de
+toekomst (dat zou een eigen schooljaar worden, en het lopende klapt dicht) en een
+uiterste datum vóór de datum van het bericht (die valt meteen uit de agenda).
+Heeft een aanbod een dag (`op`) én een inschrijfdatum (`tegen`), dan hoort de
+`taak` bij de inschrijfdatum: na die datum staat de dag zelf nog in de agenda,
+met de titel. Ze draait ook mee in de nodetests, als T162.
+
+Schrijfregels voor een bericht: één verandering per bericht; een titel die zegt
+wat er verandert, niet "Nieuws over …"; in de eerste zin voor wie het is en wat
+die moet doen. De id verander je nooit meer na publicatie: dan breekt elke link
+in een mailbox.
+
+Een hangijzer met berichten dat van de pagina gaat, zet je op `afgerond: true`
+in `informatie.js`: dan blijft het dossier bestaan voor die berichten.
+
+De scholen in `labels.js` komen van hetleercollectief.be (de lijst van 5
+november 2026). Een nieuwe school voeg je daar toe, met de niveaus die ze heeft;
+een school verdwijnt pas als geen enkel bericht haar nog noemt. Bij een gewone
+basisschool staan kleuter en lager; is een school alleen lager, pas dat dan aan.
+
+Hetzelfde geldt voor het bord, de hangijzers en de wegwijzer: het zijn lijsten,
+geen code.
 
 **Bewust niet op de pagina.** De interne aandachtspunten voor het beleid niet,
 en ook geen details die een aanvaller zouden helpen. Vier trajecten uit het
@@ -166,10 +245,16 @@ Hoe het gebouwd is:
 - `raket.js`: het tafereel. Alles wordt in code gemaakt; er zijn geen 3D-bestanden.
 - `plekken.js`: de teksten van de aanklikbare plekken. De volgorde is die van
   "Volgende" in het kaartje.
-- `informatie.js`: de informatielaag als gegevens: nieuws, hangijzers, de
-  wegwijzer, de cijfers van de helpdesk en het projectbord. Dit is de bron.
-- `informatielaag.js`: zet die gegevens op de pagina, met de zoekfunctie, de
-  filter van het bord en de knoppen "Toon in de raket".
+- `informatie.js`: de informatielaag als gegevens: hangijzers, de wegwijzer, de
+  cijfers van de helpdesk en het projectbord. Dit is de bron.
+- `nieuws.js`: de berichten van het logboek. `labels.js`: de rollen, niveaus,
+  scholen, onderwerpen en soorten.
+- `informatielaag.js`: zet de gegevens op de pagina, met de zoekfunctie, de
+  filter van het bord, de knoppen "Toon in de raket" en de vaste links
+  (`#bericht-…`, `#hangijzer-…`).
+- `logboek.js`: het logboek: de keuze van rol en school, de agenda, het zoeken
+  en de schooljaren. `tekst.js`: escapen, datums en zoeken, voor beide.
+- `controle.mjs`: kijkt de gegevens na (zie "Het logboek").
 
 In `gedeeld/` kwam alleen `vrijeRuimte()` bij (zie hierboven); de voorpagina en
 de drie werelden van Leerlichtjes roepen het niet aan, en hun 158 kaders gaven
@@ -247,16 +332,5 @@ De pagina krijgt geen plaats op de voorpagina en staat op haar eigen adres
 (`…/ai-voor-leerkrachten/team-ict/`). Het adres van de helpdesk,
 <https://helpdesk.hetleercollectief.be>, klopt.
 
-Nakijken of elke `toon` in `informatie.js` nog naar een bestaande plek wijst:
-
-```bash
-node --input-type=module -e "
-import * as I from './team-ict/informatie.js'; import { PLEKKEN } from './team-ict/plekken.js';
-const ids = new Set(PLEKKEN.map(p => p.id));
-const alle = [...I.NIEUWS.map(n => n.toon), ...I.HANGIJZERS.flatMap(h => h.toon), ...I.VRAGEN.map(v => v.toon),
-  ...I.BORD.map(b => b.toon), ...I.HELPDESK_CIJFERS.inzichten.map(i => i.toon)].filter(Boolean);
-const fout = alle.filter(t => !t.startsWith('#') && !ids.has(t));
-const top = I.TOPVRAGEN.filter(t => !I.VRAGEN.some(v => v.v === t));
-console.log(fout.length || top.length ? 'FOUT ' + [...fout, ...top].join(', ') : 'alles OK');
-"
-```
+Nakijken of elke `toon`, elk label en elk dossier nog bestaat: `node
+team-ict/controle.mjs` (zie "Het logboek").

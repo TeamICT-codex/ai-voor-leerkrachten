@@ -2154,5 +2154,24 @@
   "raakt": "lessenPerModule en de optie lessenPerModule van blokkenVanType. Een sessie van een uur die een kwartier uit een module neemt, mag geen hand-out met de volledige module meegeven: dan belooft het blad iets wat in de zaal niet gebeurd is.",
   "gebied": "sessie",
   "id": "T161"
+ },
+ {
+  "naam": "Team ICT: elk bericht in het logboek gebruikt bestaande labels, dossiers en plekken",
+  "soort": "node",
+  "begeleider": "onbelangrijk",
+  "viewport": "onbelangrijk",
+  "route": "",
+  "voorbereiding": "",
+  "herladen": false,
+  "script": "node team-ict/controle.mjs",
+  "verwacht": "De laatste regel eindigt op \"alles OK\"; elke fout staat op een eigen regel die met FOUT begint.",
+  "raakt": [
+   "team-ict/nieuws.js",
+   "team-ict/labels.js",
+   "team-ict/informatie.js",
+   "team-ict/controle.mjs"
+  ],
+  "gebied": "data",
+  "id": "T162"
  }
 ]

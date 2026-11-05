@@ -1,18 +1,13 @@
 // Zet de informatielaag op de pagina: het laatste nieuws bovenaan, de helpdesk in
-// cijfers, de wegwijzer, de hangijzers, het projectbord en het logboek. De
-// gegevens staan in informatie.js. Wat in de raket te zien is, krijgt een knop
-// "Toon in de raket": toonInRaket(toon) opent dat kaartje of scrolt naar het
-// hoofdstuk (zie pagina.js).
-import { BIJGEWERKT, NIEUWS, HANGIJZERS, VRAGEN, TOPVRAGEN, HELPDESK_CIJFERS, BORD, BORD_NOOT } from './informatie.js';
+// cijfers, de wegwijzer, de hangijzers, het projectbord en het logboek (dat
+// laatste in logboek.js). De gegevens staan in informatie.js en nieuws.js. Wat in
+// de raket te zien is, krijgt een knop "Toon in de raket": toonInRaket(toon)
+// opent dat kaartje of scrolt naar het hoofdstuk (zie pagina.js).
+import { HANGIJZERS, VRAGEN, TOPVRAGEN, HELPDESK_CIJFERS, BORD, BORD_NOOT } from './informatie.js';
 import { HELPDESK } from './plekken.js';
+import { esc, datumTekst, plat, STOPWOORDEN } from './tekst.js';
+import { bouwLogboek, berichtenOver } from './logboek.js';
 
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const MAANDEN = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
-// 2026-09-11 wordt "11 september 2026", 2025-05 wordt "mei 2025".
-function datumTekst(iso) {
-  const [j, m, d] = iso.split('-').map(Number);
-  return `${d ? d + ' ' : ''}${MAANDEN[m - 1]} ${j}`;
-}
 let naamVan = toon => toon;
 // Een plek krijgt een knop die haar kaartje in de raket opent, een hoofdstuk (#…)
 // een gewone link. Op de knop staat de naam van de plek erbij: zichtbaar
@@ -32,20 +27,44 @@ export function bouwInformatielaag({ toonInRaket, naamVan: naam }) {
     const knop = e.target.closest('[data-toon]');
     if (knop) toonInRaket(knop.dataset.toon, knop);
   });
-  bouwLaatsteNieuws();
   bouwCijfers();
   bouwWegwijzer();
   bouwHangijzers();
   bouwBord();
-  bouwLogboek();
+  const logboek = bouwLogboek({ toonKnop });
+  volgAnkers(logboek);
 }
 
-// ── bovenaan: het laatste nieuws in één regel ──
-function bouwLaatsteNieuws() {
-  const el = document.querySelector('.laatste-nieuws');
-  if (!el) return;
-  const n = NIEUWS[0];
-  el.innerHTML = `<a href="#nieuws"><span class="nieuw-label">Nieuw</span> ${esc(n.titel)} <span class="datum">· ${esc(datumTekst(n.datum))}</span></a>`;
+// ── vaste links: #bericht-<id> en #hangijzer-<id> ──
+// Zo'n link opent wat dicht of verborgen staat, ook bij het laden van de pagina.
+// Een klik op zo'n link binnen de pagina zet het adres in de adresbalk, zodat je
+// het kan kopiëren, en de terugknop brengt je terug.
+function volgAnkers(logboek) {
+  const stil = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function volg() {
+    // Niet decoderen: de ids bestaan uit a-z, 0-9 en streepjes, en een verminkte
+    // %-code in een link zou anders een fout gooien die de hele pagina stillegt.
+    const h = location.hash.slice(1);
+    if (h.startsWith('bericht-')) return logboek?.toonBericht(h.slice(8));
+    if (h.startsWith('hangijzer-')) {
+      const d = document.getElementById(h);
+      if (!d) return false;
+      d.open = true;
+      d.scrollIntoView({ behavior: stil() ? 'auto' : 'smooth', block: 'start' });
+      d.querySelector('summary').focus({ preventScroll: true });
+      return true;
+    }
+    return false;
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#bericht-"], a[href^="#hangijzer-"]');
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    if (location.hash !== a.getAttribute('href')) history.pushState(null, '', a.getAttribute('href'));
+    volg();
+  });
+  addEventListener('hashchange', volg);
+  if (location.hash) volg();
 }
 
 // ── de helpdesk in cijfers (voorbeeldcijfers) ──
@@ -88,8 +107,6 @@ function grafiek(c) {
 }
 
 // ── de wegwijzer: zoeken in de vragen ──
-const STOPWOORDEN = new Set('de het een is ik mijn niet werkt op van en of in met voor naar wat hoe er ze je we wij dat die dit kan moet wil heb heeft geen meer bij aan om te zijn'.split(' '));
-const plat = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 function bouwWegwijzer() {
   const zoek = document.querySelector('#zoek');
   if (!zoek) return;
@@ -145,9 +162,10 @@ function bouwWegwijzer() {
 function bouwHangijzers() {
   const el = document.querySelector('.hangijzers');
   if (!el) return;
-  el.innerHTML = HANGIJZERS.map(h => {
+  el.innerHTML = HANGIJZERS.filter(h => !h.afgerond).map(h => {
     const woord = h.temp >= 5 ? 'Heet' : h.temp >= 4 ? 'Warm' : 'Lauw';
-    return `<details class="hangijzer">
+    const berichten = berichtenOver(h.id);
+    return `<details class="hangijzer" id="hangijzer-${esc(h.id)}">
       <summary>
         <h3 class="titel">${esc(h.titel)}</h3>
         <span class="temp"><span class="streepjes" aria-hidden="true">${[1, 2, 3, 4, 5].map(i => `<i${i <= h.temp ? ' class="aan"' : ''}></i>`).join('')}</span>${woord}<span class="verborgen-tekst">, ${h.temp} op 5</span></span>
@@ -158,6 +176,8 @@ function bouwHangijzers() {
         <h4>Waarom is het belangrijk?</h4><p>${esc(h.waarom)}</p>
         <h4>Wat doet Team ICT?</h4><p>${esc(h.wij)}</p>
         <div class="voor-jou"><h4>Wat betekent het voor jou?</h4><p>${esc(h.jij)}</p></div>
+        ${berichten.length ? `<div class="dossier-berichten"><h4>Berichten over dit dossier</h4>
+          <ul>${berichten.map(n => `<li><a href="#bericht-${esc(n.id)}">${esc(n.titel)}</a> <span class="datum">${esc(datumTekst(n.datum))}</span></li>`).join('')}</ul></div>` : ''}
         <div class="knoppen">${(h.toon || []).map(t => toonKnop(t, { naamZichtbaar: true })).join('')}</div>
       </div>
     </details>`;
@@ -202,30 +222,4 @@ function bouwBord() {
   toon();
   const noot = document.querySelector('.bord-noot');
   if (noot) noot.textContent = BORD_NOOT;
-}
-
-// ── het logboek: de drie nieuwste, de rest op vraag ──
-function bouwLogboek() {
-  const el = document.querySelector('.logboek'), meer = document.querySelector('.logboek-meer');
-  if (!el) return;
-  const post = (n, i) => `<li class="post"${i >= 3 ? ' hidden' : ''}>
-      <time datetime="${esc(n.datum)}">${esc(datumTekst(n.datum))}</time>
-      <div>
-        <h3>${esc(n.titel)}</h3>
-        <p>${esc(n.tekst)}</p>
-        <div class="tags">${n.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}${n.toon ? toonKnop(n.toon, { tekst: n.toon.startsWith('#') ? 'Lees meer' : 'Toon in de raket' }) : ''}</div>
-      </div>
-    </li>`;
-  el.innerHTML = NIEUWS.map(post).join('');
-  meer.hidden = NIEUWS.length <= 3;
-  // Na "Toon ouder nieuws" verdwijnt de knop: de focus gaat naar het eerste oudere bericht.
-  meer.addEventListener('click', () => {
-    for (const li of el.querySelectorAll('li[hidden]')) li.hidden = false;
-    meer.hidden = true;
-    const kop = el.querySelectorAll('li')[3]?.querySelector('h3');
-    kop?.setAttribute('tabindex', '-1');
-    kop?.focus();
-  });
-  const bijgewerkt = document.querySelector('.bijgewerkt');
-  if (bijgewerkt) bijgewerkt.textContent = `Bijgewerkt op ${datumTekst(BIJGEWERKT)}.`;
 }
