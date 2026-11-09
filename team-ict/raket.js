@@ -243,9 +243,11 @@ const kijkNaar = (x, z, nx, nz) => Math.atan2(nx - x, nz - z);
 // staan niet verder dan 1,12 van de achterwand: anders verdwijnen ze achter de
 // rand van de opening zodra de kijkhoek wat draait.
 const KAST_HOEKEN = [-1.12, -0.78, -0.4, 0.4, 0.78, 1.12];
+// Waar de patrijspoorten op de buitenkant zitten: net naast de rand van de opening.
+const PATRIJS = [1.3, -1.27];
 
 function bouwRaket(g, canvas) {
-  const { wereld, kamerLamp, gloed, plek, speel, statischeTekening } = g;
+  const { wereld, kamerLamp, gloed, plek, speel, statischeTekening, glasBuiten } = g;
   const tijd = g.tijd;
   const r = toeval(11);
   // De lampen in de kamers vliegen mee met de raket (op een zwak toestel zijn er geen).
@@ -311,6 +313,43 @@ function bouwRaket(g, canvas) {
     w.rotation.y = hoek + Math.PI;
     return w;
   }
+  // Een groepje op de buitenkant van de romp, met zijn +z naar buiten.
+  function opRomp(ouder, hoek, y, straal = R) {
+    const [x, z] = boog(hoek, straal);
+    const w = groepje(ouder, x, y, z);
+    w.rotation.y = hoek;
+    return w;
+  }
+  // Een patrijspoort: groene ring met klinknagels, glas dat 's avonds en in de
+  // ruimte warm oplicht (glasBuiten), en een glimlichtje.
+  const poortRing = new T.TorusGeometry(0.2, 0.04, 6, 24), poortGlas = new T.CircleGeometry(0.19, 28), poortGlans = new T.CircleGeometry(0.05, 12);
+  function patrijspoort(ouder, hoek, y) {
+    const p = opRomp(ouder, hoek, y);
+    zet(p, new T.Mesh(poortGlas, glasBuiten), false).position.z = 0.014;
+    zet(p, new T.Mesh(poortRing, mat(K.groen)), false).position.z = 0.022;
+    zet(p, new T.Mesh(poortGlans, mat(0xffffff)), false).position.set(-0.075, 0.075, 0.018);
+    for (let k = 0; k < 8; k++) {
+      const a = (k + 0.5) / 8 * Math.PI * 2;
+      nagel(p, Math.cos(a) * 0.2, Math.sin(a) * 0.2, 0.062, K.mint, 0.014);
+    }
+    return p;
+  }
+  // Een rooster in de wand van de motor: lamellen voor de koeling.
+  function rooster(ouder, hoek, y) {
+    const p = opRomp(ouder, hoek, y);
+    blok(p, 0.4, 0.34, 0.02, 0x4f5b6b, 0, -0.17, 0.008, { r: 0, schaduw: false });
+    for (let k = 0; k < 5; k++) blok(p, 0.34, 0.026, 0.04, 0xb8bec7, 0, -0.142 + k * 0.064, 0.016, { r: 0, schaduw: false });
+    return p;
+  }
+  const NAAD = 0xe6ddcc;
+  // Een klinknagel: een icosaëder van 20 driehoeken (een bol van seg 6 telt er 60).
+  const nagelGeo = new T.IcosahedronGeometry(1, 0);
+  function nagel(ouder, x, y, z, kleur = NAAD, r = 0.016) {
+    const m = zet(ouder, new T.Mesh(nagelGeo, mat(kleur)), false);
+    m.position.set(x, y, z);
+    m.scale.setScalar(r);
+    return m;
+  }
   const pulsMat = new T.MeshBasicMaterial({ color: 0xb6f2c9 });
   const pulsen = [], lampjes = [], lampjeVan = {};
   function verdieping(naam, i, { wand, vloer, band }) {
@@ -322,6 +361,18 @@ function bouwRaket(g, canvas) {
     zet(v, lip, false);
     schil(v, R, VH - PLAAT, PLAAT, mat(K.wit));
     schil(v, R + 0.008, 0.14, VH - 0.28, mat(band));
+    // Buitenkant: rechts (in beeld in het overzicht en tijdens de vlucht) en links
+    // een patrijspoort, in de motor een rooster.
+    for (const hoek of PATRIJS) (i === 0 ? rooster : patrijspoort)(v, hoek, PLAAT + 0.86);
+    for (const kant of [-1, 1]) {
+      // verticale naden tussen de panelen
+      for (const hoek of [1.68, 2.3]) blok(opRomp(v, kant * hoek, 0), 0.022, VH - PLAAT - 0.36, 0.012, NAAD, 0, PLAAT + 0.03, 0.002, { r: 0, schaduw: false });
+      // klinknagels boven de vloer en onder de band
+      for (let k = 0; k < 12; k++) for (const y of [PLAAT + 0.05, VH - 0.34]) {
+        const [x, z] = boog(kant * (OPEN + 0.07 + k * 0.08), R + 0.004);
+        nagel(v, x, y, z);
+      }
+    }
     // Elke kamer krijgt een eigen materiaal voor de binnenwand: dat licht op
     // als je er met de muis over gaat, en gloeit 's avonds een beetje. side 1
     // is de binnenkant van de cilinder.
@@ -335,6 +386,11 @@ function bouwRaket(g, canvas) {
       rib.position.x = Math.sin(a) * (R - MUUR / 2);
       rib.position.z = Math.cos(a) * (R - MUUR / 2);
       rib.rotation.y = a;
+      // klinknagels op de snijrand, op de kant die naar de opening kijkt
+      // (in een eigen groepje: een vorm met kinderen wordt niet samengevoegd)
+      const nagels = groepje(v, rib.position.x, 0, rib.position.z);
+      nagels.rotation.y = a;
+      for (let k = 0; k < 7; k++) nagel(nagels, -kant * 0.027, PLAAT + 0.16 + k * 0.26, 0, K.mint, 0.014);
     }
     // de ruggengraat: hier stroomt de energie van de motor naar boven
     const rug = aanWand(v, Math.PI, RW - 0.16);
@@ -394,6 +450,30 @@ function bouwRaket(g, canvas) {
   const motorblok = levend(groepje(motor, 0, 0, 0));
   cilinder(motor, R, R * 0.8, 0.46, K.wit, 0, -0.46, 0, { seg: 40, schaduw: false });
   cilinder(motor, R * 0.8 + 0.01, R * 0.8 + 0.01, 0.06, K.groen, 0, -0.46, 0, { seg: 40, schaduw: false });
+  {
+    // TEAM ICT op de rok, als een gebogen sticker die de vorm van de rok volgt.
+    const c = document.createElement('canvas'); c.width = 1024; c.height = 128;
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+    const ryAt = y => R * 0.8 + (y + 0.46) / 0.46 * (R - R * 0.8) + 0.006;
+    const BOOG = 1.5, MIDDEN = 0.08;
+    const vorm = new T.CylinderGeometry(ryAt(-0.08), ryAt(-0.38), 0.3, 32, 1, true, MIDDEN - BOOG / 2, BOOG);
+    const sticker = new T.Mesh(vorm, new T.MeshLambertMaterial({ map: tex, transparent: true, depthWrite: false }));
+    sticker.position.y = -0.23;
+    sticker.renderOrder = 1;
+    motor.add(sticker);
+    statischeTekening({ c, ctx: c.getContext('2d'), tex }, ({ ctx }) => {
+      ctx.clearRect(0, 0, 1024, 128);
+      ctx.fillStyle = '#126425'; ctx.font = F(700, 96); ctx.textAlign = 'center';
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '14px';
+      ctx.fillText('TEAM ICT', 512, 98);
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+      ctx.textAlign = 'left';
+      for (const kant of [-1, 1]) for (let k = 0; k < 3; k++) {
+        ctx.fillStyle = ['#126425', '#4e9a63', '#c2e3cc'][k];
+        ctx.beginPath(); ctx.arc(512 + kant * (300 + k * 44), 64, 13 - k * 2, 0, Math.PI * 2); ctx.fill();
+      }
+    });
+  }
   const vlamMat = new T.MeshBasicMaterial({ color: 0xa8dcff, transparent: true, opacity: 0.8, depthWrite: false });
   const WAAKVLAM = new T.Color(0xa8dcff), VUUR = new T.Color(0xffb347);
   // Waar de vlammen aan de motoren hangen, in de wereld, als de raket op het platform staat.
@@ -402,8 +482,19 @@ function bouwRaket(g, canvas) {
   const vlammen = [];
   for (let k = 0; k < 6; k++) {
     const [x, z] = boog(k / 6 * Math.PI * 2 + Math.PI / 6, 0.95);
-    cilinder(motorblok, 0.14, 0.32, 0.58, 0x9aa3a8, x, -1.04, z, { seg: 18 });
-    cilinder(motorblok, 0.33, 0.33, 0.05, parseInt(DIENSTEN[k].kleur.slice(1), 16), x, -1.06, z, { seg: 18, schaduw: false });
+    // De straalpijp: een kop tegen de bodem, een smalle keel, en een klok die
+    // naar onder uitwaaiert, met twee koelringen.
+    cilinder(motorblok, 0.2, 0.2, 0.12, 0x6b7480, x, -0.58, z, { seg: 18 });
+    cilinder(motorblok, 0.1, 0.15, 0.1, 0x4f5b6b, x, -0.68, z, { seg: 18 });
+    cilinder(motorblok, 0.15, 0.22, 0.14, 0xb8bec7, x, -0.82, z, { seg: 24 });
+    cilinder(motorblok, 0.22, 0.28, 0.14, 0xaab2b9, x, -0.96, z, { seg: 24 });
+    cilinder(motorblok, 0.28, 0.32, 0.07, 0x9aa3a8, x, -1.03, z, { seg: 24 });
+    for (const [y, rr] of [[-0.82, 0.152], [-0.96, 0.222]]) {
+      const koel = new T.Mesh(new T.TorusGeometry(rr, 0.016, 6, 24), mat(0x6b7480));
+      koel.rotation.x = Math.PI / 2; koel.position.set(x, y, z);
+      zet(motorblok, koel, false);
+    }
+    cilinder(motorblok, 0.33, 0.33, 0.05, parseInt(DIENSTEN[k].kleur.slice(1), 16), x, -1.06, z, { seg: 24, schaduw: false });
     // De vlam hangt met haar brede kant aan de motor en wijst naar beneden.
     const vorm = new T.ConeGeometry(0.24, 0.9, 14, 1, true);
     vorm.rotateX(Math.PI);
@@ -432,6 +523,16 @@ function bouwRaket(g, canvas) {
     geo.computeVertexNormals();
     zet(vin, new T.Mesh(geo, mat(K.groen, true)));
     blok(vin, 0.17, 0.06, 0.9, K.groenDonker, 0, vinBodem, 0.95, { r: 0.02 });
+    // een mintgroene voorrand, klinknagels langs de wortel en een voetschijf
+    const rand = Math.hypot(1.35 - 0.62, 0.6 - vinBodem), helling = Math.atan2(1.35 - 0.62, 0.6 - vinBodem);
+    const lijst = blok(vin, 0.12, rand, 0.07, K.mint, 0, 0, 0, { r: 0.03, schaduw: false });
+    lijst.position.set(0, (0.6 + vinBodem) / 2, (0.62 + 1.35) / 2 + 0.01);
+    lijst.rotation.x = -helling;
+    for (const kant of [-1, 1]) for (let k = 0; k < 6; k++) {
+      const t = (k + 0.5) / 6;
+      nagel(vin, kant * 0.05, 0.6 + (vinBodem - 0.6) * t, 0.62 + (1.35 - 0.62) * t - 0.2, K.mint, 0.018);
+    }
+    cilinder(vin, 0.17, 0.21, 0.05, 0x9aa3a8, 0, vinBodem, 1.25, { seg: 20 });
   }
 
   // ── de kleuters ──
@@ -527,6 +628,51 @@ function bouwRaket(g, canvas) {
   cilinder(neus, 0.012, 0.012, 0.42, K.inkt, 0, 2.95, 0, { seg: 6, schaduw: false });
   const neusLicht = levend(bol(neus, 0.045, 0, 0, 3.4, 0, { materiaal: new T.MeshBasicMaterial({ color: 0xff5a4f }), seg: 10, schaduw: false }));
   {
+    // Panelen, naden en klinknagels op de neus, en een luik voor de lading.
+    // Beide delen zijn kegels: opNeus legt een groepje plat op de helling.
+    const H1 = Math.atan((R - R * 0.66) / 1.25), L1 = Math.hypot(R - R * 0.66, 1.25);
+    const H2 = Math.atan((R * 0.66 - 0.08) / 1.36), L2 = Math.hypot(R * 0.66 - 0.08, 1.36);
+    const straalOp = y => (y < 1.41 ? R - (y - 0.16) * (R - R * 0.66) / 1.25 : R * 0.66 - (y - 1.41) * (R * 0.66 - 0.08) / 1.36);
+    function opNeus(hoek, y, helling, uit = 0) {
+      const [x, z] = boog(hoek, straalOp(y) + uit);
+      const w = groepje(neus, x, y, z);
+      w.rotation.y = hoek;
+      const s = groepje(w);
+      s.rotation.x = -helling;
+      return s;
+    }
+    for (let k = 0; k < 8; k++) {
+      // onderaan tussen de naden blijft het kompas vrij; bovenaan lopen ze door tot bij de punt
+      blok(opNeus(Math.PI / 8 + k * Math.PI / 4, 0.785, H1, 0.004), 0.024, L1 - 0.16, 0.012, NAAD, 0, -(L1 - 0.16) / 2, 0, { r: 0, schaduw: false });
+      blok(opNeus(k * Math.PI / 4, 1.94, H2, 0.004), 0.022, L2 * 0.62, 0.012, NAAD, 0, -L2 * 0.31, 0, { r: 0, schaduw: false });
+    }
+    // de naad tussen de twee kegels, met een rij klinknagels erboven en eronder
+    const ring = new T.Mesh(new T.TorusGeometry(R * 0.66 + 0.006, 0.026, 6, 64), mat(NAAD));
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = 1.41;
+    zet(neus, ring, false);
+    for (const [y, n] of [[0.26, 56], [1.33, 40], [1.49, 36]]) for (let k = 0; k < n; k++) {
+      const [x, z] = boog((k + 0.5) / n * Math.PI * 2, straalOp(y) + 0.006);
+      nagel(neus, x, y, z, NAAD, 0.018);
+    }
+    // de stuurraketjes: een blokje met twee mondjes, voor en achter (zie stootjes)
+    for (const kant of [-1, 1]) {
+      const rcs = opNeus(kant * Math.PI / 2, 0.5, H1, 0.004);
+      blok(rcs, 0.16, 0.2, 0.08, K.grijs, 0, -0.1, 0.03, { r: 0.025, schaduw: false });
+      for (const z of [-1, 1]) {
+        const mond = cilinder(rcs, 0.022, 0.04, 0.07, 0x6b7480, 0, 0, 0, { seg: 10, schaduw: false });
+        mond.rotation.z = z * Math.PI / 2;
+        mond.position.set(z * 0.11, 0, 0.06);
+      }
+    }
+    // het luik van de laadruimte, rechts van het kompas
+    const luik = opNeus(0.9, 0.7, H1, 0.006);
+    blok(luik, 0.5, 0.6, 0.014, NAAD, 0, -0.3, 0, { r: 0.06, schaduw: false });
+    blok(luik, 0.44, 0.54, 0.02, K.wit, 0, -0.27, 0.002, { r: 0.05, schaduw: false });
+    blok(luik, 0.05, 0.2, 0.04, K.groen, 0.14, -0.1, 0.012, { r: 0.02, schaduw: false });
+    for (const [x, y] of [[-0.18, -0.23], [0.18, -0.23], [-0.18, 0.23], [0.18, 0.23]]) nagel(luik, x, y, 0.014);
+  }
+  {
     const helling = Math.atan((R - R * 0.66) / 1.25);
     const venster = plek('kompas', 'neus', groepje(neus, 0, 0.78, 1.66));
     venster.rotation.x = -helling;
@@ -557,6 +703,21 @@ function bouwRaket(g, canvas) {
     for (const x of [-HB, HB]) blok(toren, 0.07, 0.07, 2 * HB + 0.09, K.groen, x, y - 0.035, 0, { r: 0.015 });
     blok(toren, 2 * HB, 0.04, 0.44, K.grijs, 0, y - 0.04, HB - 0.24, { r: 0.01, schaduw: false });
   }
+  // Een betonnen voet, kruisverbanden op de kant naar de raket, en drie
+  // leidingen in de kleuren van de huisstijl langs de achterste staander.
+  blok(toren, 2 * HB + 0.5, 0.1, 2 * HB + 0.5, 0xd9d4c8, 0, 0, 0, { r: 0.03, schaduw: false });
+  for (let i = 0; i < niveaus.length - 1; i++) {
+    const ya = niveaus[i], yb = niveaus[i + 1], dy = yb - ya;
+    for (const t of [-1, 1]) {
+      const kruis = blok(toren, 0.035, 0.035, Math.hypot(2 * HB, dy), K.groenDonker, 0, 0, 0, { r: 0, schaduw: false });
+      kruis.position.set(HB + 0.005, (ya + yb) / 2 - 0.0175, 0);
+      kruis.rotation.x = t * Math.atan2(dy, 2 * HB);
+    }
+  }
+  const LEIDINGEN = [[K.mint], [K.geel], [K.zee]];
+  const topArm = BASIS + (NIVEAUS.length - 1) * VH + 0.95;
+  LEIDINGEN.forEach(([kleur], j) => cilinder(toren, 0.032, 0.032, topArm - 0.1, kleur, HB + 0.075, 0.1, -HB + 0.1 + j * 0.085, { seg: 10, schaduw: false }));
+  for (let y = 0.6; y < topArm; y += 0.95) blok(toren, 0.08, 0.05, 0.3, 0x6b7480, HB + 0.075, y, -HB + 0.185, { r: 0, schaduw: false });
   // De onderste trappen zijn de plek: zo staat haar speld ook in het beeld van het platform.
   const vorming = plek('vorming', 'platform', groepje(toren));
   for (let i = 0; i < niveaus.length - 1; i++) {
@@ -581,14 +742,43 @@ function bouwRaket(g, canvas) {
   // draaien samen weg rond de rand van de toren vlak voor de lancering.
   const tot = Math.hypot(TOREN.x, TOREN.z - RZ) - R;
   const armen = levend(groepje(toren, HB, 0, 0));
+  const slang = (ouder, punten, dik, kleur) => {
+    // een slang uit korte buisjes langs een reeks punten
+    for (let j = 0; j < punten.length - 1; j++) {
+      const a = punten[j], b = punten[j + 1], d = new T.Vector3().subVectors(b, a);
+      const m = new T.Mesh(new T.CylinderGeometry(dik, dik, d.length() + dik * 0.6, 8), mat(kleur));
+      m.position.addVectors(a, b).multiplyScalar(0.5);
+      m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), d.normalize());
+      zet(ouder, m, false);
+    }
+  };
   NIVEAUS.forEach((_, i) => {
     const y = BASIS + i * VH + 0.95, lengte = tot - HB;
-    blok(armen, lengte + 0.05, 0.08, 0.16, K.groen, lengte / 2, y, 0, { r: 0.02 });
-    blok(armen, lengte, 0.07, 0.07, K.mint, lengte / 2, y - 0.1, 0.06, { r: 0.03, schaduw: false });
+    // een vakwerkarm: twee liggers met schuine stijlen ertussen
+    blok(armen, lengte + 0.05, 0.07, 0.16, K.groen, lengte / 2, y, 0, { r: 0.02 });
+    blok(armen, lengte - 0.1, 0.05, 0.12, K.groen, lengte / 2 - 0.05, y - 0.26, 0, { r: 0.015, schaduw: false });
+    for (let k = 0; k < 4; k++) {
+      const st = blok(armen, 0.035, 0.3, 0.035, K.groenDonker, 0, 0, 0, { r: 0, schaduw: false });
+      st.position.set(0.12 + k * 0.22, y - 0.105, 0.05);
+      st.rotation.z = k % 2 ? 0.6 : -0.6;
+    }
+    blok(armen, lengte, 0.07, 0.07, K.mint, lengte / 2, y - 0.1, 0.1, { r: 0.03, schaduw: false });
     blok(armen, 0.1, 0.24, 0.26, K.grijs, lengte - 0.02, y - 0.12, 0, { r: 0.02 });
+    // de navelstreng: een slang die doorhangt van de arm naar de romp, met een stekker
+    const P = (x, yy, z) => new T.Vector3(x, yy, z);
+    const punten = [];
+    for (let k = 0; k <= 7; k++) {
+      const t = k / 7, x = (lengte - 0.55) + t * 0.6, zak = Math.sin(t * Math.PI) * 0.32;
+      punten.push(P(x, y - 0.13 - t * 0.25 - zak, 0.1 + t * 0.02));
+    }
+    slang(armen, punten, 0.032, K.geel);
+    blok(armen, 0.06, 0.12, 0.12, K.groen, lengte + 0.02, y - 0.44, 0.06, { r: 0.02, schaduw: false });
   });
-  const torenLicht = levend(bol(toren, 0.05, 0, 0, TH + 0.08, 0, { materiaal: new T.MeshBasicMaterial({ color: 0xff5a4f }), seg: 10, schaduw: false }));
-  gloed(toren, 0, TH + 0.08, 0, 0.8);
+  // bovenop: een rooster en een mast met het rode licht in de top
+  blok(toren, 2 * HB + 0.14, 0.05, 2 * HB + 0.14, K.groenDonker, 0, TH, 0, { r: 0.015, schaduw: false });
+  cilinder(toren, 0.016, 0.03, 0.8, K.groenDonker, HB - 0.05, TH + 0.05, -HB + 0.05, { seg: 8, schaduw: false });
+  const torenLicht = levend(bol(toren, 0.05, 0, HB - 0.05, TH + 0.9, -HB + 0.05, { materiaal: new T.MeshBasicMaterial({ color: 0xff5a4f }), seg: 10, schaduw: false }));
+  gloed(toren, HB - 0.05, TH + 0.9, -HB + 0.05, 0.8);
   // de lift: wie wil, gaat een verdieping hoger
   const lift = levend(groepje(toren, -HB - 0.3, 0.02, 0));
   blok(lift, 0.48, 0.05, 0.48, K.geel, 0, 0, 0, { r: 0.015 });
