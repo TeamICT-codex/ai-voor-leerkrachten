@@ -163,8 +163,15 @@ paneel klein naar boven, telt de vluchtleiding af, draaien de armen van de toren
 weg, en vertrekt de raket. De camera volgt haar tot in de ruimte: negen seconden
 stuwen, een witte dampkegel rond de snelheid van het geluid, een pluim die achter
 haar blijft hangen, boven de wolken een donkere hemel met sterren, en voorbij 100
-km ("hier begint de ruimte") de rand van de aarde met haar blauwe dampkring. Op
-de top, op 121 km, trekt de camera wat terug. Het paneel toont intussen de
+km ("hier begint de ruimte") de rand van de aarde met haar blauwe dampkring. Zodra
+de motor uitgaat, is iedereen aan boord gewichtloos: de figuurtjes zweven op van
+hun stoel en tollen traag rond, tot de landingsbrand ze terugzet. Stuurraketjes
+in de neus blazen een wolkje en draaien de raket wat bij, zodat je anders in de
+verdiepingen kijkt, en later weer terug. Rechts komt de zon op boven de rand van
+de aarde, achter de raket drijft een satelliet voorbij, en op het hoogste punt
+zendt de raket een signaal uit (golven boven de antenne): op de aarde gaan één
+voor één de lichtjes van de scholen aan. Op de top, op 121 km, trekt de camera
+wat terug. Het paneel toont intussen de
 telemetrie: hoe lang de raket vliegt, hoe hoog en hoe snel (lees de hoogte in het
 tafereel als kilometers). Daarna keert ze terug, met een landingsbrand in de
 laatste drie seconden: morgen vertrekt ze opnieuw. De vlucht duurt zo'n 26
@@ -191,7 +198,7 @@ Hoe het gebouwd is:
 - De tijdlijn loopt in de scène (`regie` in `raket.js`), op de tijd van het
   tafereel. Ze pauzeert dus mee als het canvas uit beeld is of het tabblad op de
   achtergrond staat. Bij elke stap roept ze `melding(soort, gegevens)` op:
-  `vraag`, `station`, `hold`, `allesGo`, `tel`, `lift`, `wolken`, `ruimte`, `terug`, `geland`,
+  `vraag`, `station`, `hold`, `allesGo`, `tel`, `lift`, `wolken`, `zweven`, `ruimte`, `signaal`, `terug`, `geland`,
   `klaar`, en met `?stil` meteen `stilKlaar` (de ronde zonder vlucht).
 - `pagina.js` stuurt daarop de camera (`dio.focus`, `dio.markeer`) en het
   paneel. Zolang de ronde loopt, verzet scrollen de camera niet, opent er geen
@@ -221,9 +228,18 @@ Hoe het gebouwd is:
   vlam (`RAKET_TOP` en `vlamLengte`). Hoog in de ruimte trekt `plekZoom` de
   camera terug (tot 1,6 keer). De baan staat in `baan()`, met `STUW`, `TOP_T`
   en `VLUCHT_DUUR`; de dampkegel en de pluim (`dampkegel`, `spoor`) volgen die.
+- De ruimte staat in `werkRuimteBij()`: het zweven (`zetPassagiers`, van
+  `ZWEEF_IN` tot `LANDINGSBRAND`), het bijdraaien (`ROL`, met de stuurraketjes in
+  `STOOTJES`), de golven van het signaal (`GOLF_VAN` tot `GOLF_TOT`) en de
+  satelliet. Aan boord is elk figuurtje binnen de raket (`passagiers`, verzameld
+  na het bouwen); ze houden hun plaats op aarde bij en krijgen die terug in
+  `ruimteWeg()`. Een figuurtje dat je toevoegt in een verdieping, zweeft dus
+  vanzelf mee; zet er geen boven de 1,1 van de vloer, anders raakt het het
+  plafond.
 - De rand van de aarde is geen 3D: `tekenAarde()` in `pagina.js` tekent ze op de
   hemel achter het tafereel, net als de sterren, zodra de raket hoger dan 75 km
-  vliegt.
+  vliegt. Daar staan ook de zon die opkomt en de 33 lichtjes van de scholen
+  (`SCHOOLLICHTJES`); hoe ver die zijn, leest de pagina met `dio.vluchtRuimte()`.
 - Bij no-go zoomt de camera dichter in op de kast (`plekZoom` 0,8), en tekent
   het NO-GO-bordje bovenop alles: het mag niet half achter een buurkast vallen.
 - Het vuur reikt hoogstens tot op het platform; wat er niet onder past, spat

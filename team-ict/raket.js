@@ -225,6 +225,9 @@ export function maakRaket(canvas, opties = {}) {
   return maakPodium(canvas, opties, g => bouwRaket(g, canvas));
 }
 
+// Wie aan een tafel of een bank zit, zit in de ruimte vastgegespt: anders zweven
+// de benen door het tafelblad (zie zetPassagiers).
+const aanTafel = f => { f.userData.aanTafel = true; return f; };
 // Een figuurtje dat niet beweegt, wordt één vorm: dat scheelt zes tekenbeurten.
 // Met hoofd: true blijft het hoofd los, zodat het kan rondkijken.
 function stilFiguur(f, { hoofd = false } = {}) {
@@ -465,7 +468,7 @@ function bouwRaket(g, canvas) {
       for (const lx of [-0.22, 0.22]) blok(bank, 0.03, 0.32, 0.28, K.wit, lx, 0, 0.36, { r: 0.008 });
       laptop(bank, 0, 0.35, 0.36, Math.PI, K.inkt);
       blok(bank, 0.24, 0.2, 0.24, K.groen, 0, 0, 0.0, { r: 0.03 });
-      koppen.push(stilFiguur(figuur(bank, { x: 0, y: 0.2 - 0.25 * 0.74, z: 0, draai: 0, shirt: k, huid: HUID[h], haar: HAAR[(h + 2) % 5], zit: true, schaal: 0.74 }), { hoofd: true }));
+      koppen.push(aanTafel(stilFiguur(figuur(bank, { x: 0, y: 0.2 - 0.25 * 0.74, z: 0, draai: 0, shirt: k, huid: HUID[h], haar: HAAR[(h + 2) % 5], zit: true, schaal: 0.74 }), { hoofd: true })));
     }
     koppen.push(medewerker(lager, -1.45, 0.1, -0.2, -0.2, { shirt: K.blauw, huid: 1, haar: 4 }));
     koppen.push(medewerker(lager, 0.95, -0.45, 0.35, -0.0, { huid: 3, haar: 0 }));
@@ -482,7 +485,7 @@ function bouwRaket(g, canvas) {
     for (const [x, k, h] of [[-0.45, K.geel, 2], [0.35, K.perzik, 5]]) {
       laptop(secundair, x, PLAAT + 0.46, -0.6, 0, K.inkt);
       stoel(secundair, x, PLAAT, -0.1, Math.PI, K.groen);
-      koppen.push(stilFiguur(figuur(secundair, { x, y: PLAAT, z: -0.1, draai: Math.PI, shirt: k, huid: HUID[h], haar: HAAR[h % 5], zit: true }), { hoofd: true }));
+      koppen.push(aanTafel(stilFiguur(figuur(secundair, { x, y: PLAAT, z: -0.1, draai: Math.PI, shirt: k, huid: HUID[h], haar: HAAR[h % 5], zit: true }), { hoofd: true })));
     }
     koppen.push(medewerker(secundair, -1.45, 0.2, 0, -0.6, { shirt: K.mint, huid: 4, haar: 2 }));
     koppen.push(medewerker(secundair, 1.1, -0.35, 0.35, -0.6, { huid: 1, haar: 3 }));
@@ -501,10 +504,10 @@ function bouwRaket(g, canvas) {
     blok(ai, 0.2, 0.1, 0.02, K.geel, 0.16, 0.3, -0.12, { r: 0.04 });
     for (const [x, z, k, h, haar] of [[tx - 0.7, tz + 0.1, K.zee, 0, 1], [tx, tz - 0.72, K.perzik, 3, 3]]) {
       stoel(beleid, x, PLAAT, z, kijkNaar(x, z, tx, tz), K.groen);
-      koppen.push(stilFiguur(figuur(beleid, { x, y: PLAAT, z, draai: kijkNaar(x, z, tx, tz), shirt: k, huid: HUID[h], haar: HAAR[haar], zit: true }), { hoofd: true }));
+      koppen.push(aanTafel(stilFiguur(figuur(beleid, { x, y: PLAAT, z, draai: kijkNaar(x, z, tx, tz), shirt: k, huid: HUID[h], haar: HAAR[haar], zit: true }), { hoofd: true })));
     }
     stoel(beleid, tx + 0.7, PLAAT, tz + 0.05, kijkNaar(tx + 0.7, tz + 0.05, tx, tz), K.groen);
-    koppen.push(stilFiguur(figuur(beleid, { x: tx + 0.7, y: PLAAT, z: tz + 0.05, draai: kijkNaar(tx + 0.7, tz + 0.05, tx, tz), shirt: ORANJE, huid: HUID[2], haar: HAAR[0], zit: true }), { hoofd: true }));
+    koppen.push(aanTafel(stilFiguur(figuur(beleid, { x: tx + 0.7, y: PLAAT, z: tz + 0.05, draai: kijkNaar(tx + 0.7, tz + 0.05, tx, tz), shirt: ORANJE, huid: HUID[2], haar: HAAR[0], zit: true }), { hoofd: true })));
     // planlast: een stapel papier die één formulier wordt
     const [px, pz] = boog(Math.PI - 1.18, 1.5);
     const kast = plek('planlast', 'beleid', groepje(beleid, px, PLAAT, pz));
@@ -742,6 +745,9 @@ function bouwRaket(g, canvas) {
     fase: 'rust', t: 0, stations: [], index: -1, stap: 'vraag', volgende: 0,
     storing: null, melding: null, toestand: {}, tel: null, gemeld: new Set(),
     hoogte: 0, snelheid: 0, armen: 0, vuur: 0, rook: 0,
+    // in de ruimte: hoe gewichtloos (0-1), hoe ver de raket bijgedraaid is, hoe
+    // ver de zon op is (0-1) en hoe ver het signaal naar de scholen is (0-1)
+    zweef: 0, rol: 0, zon: 0, signaal: 0,
   };
   const meld = (soort, gegevens = {}) => regie.melding?.(soort, gegevens);
   const tekenScherm = () => { if (!leidingScherm) return; tekenLeidingScherm(leidingScherm, regie); leidingScherm.tex.needsUpdate = true; };
@@ -911,8 +917,114 @@ function bouwRaket(g, canvas) {
   const glad = x => { x = klem(x, 0, 1); return x * x * (3 - 2 * x); };
   function eenmaal(sleutel, soort) { if (regie.gemeld.has(sleutel)) return; regie.gemeld.add(sleutel); meld(soort); }
 
+  // ── de ruimte: van motor uit tot de landingsbrand ──
+  // Zolang de motor uit staat, is iedereen aan boord gewichtloos: de figuurtjes
+  // zweven op van hun stoel en tollen traag rond, en zakken terug als de
+  // landingsbrand begint. Stuurraketjes in de neus draaien de raket wat bij (en
+  // weer terug), zodat je anders in de verdiepingen kijkt. Op het hoogste punt
+  // zendt ze een signaal uit; de lichtjes die op de aarde aangaan, en de zon die
+  // boven de rand van de aarde opkomt, tekent de pagina op de hemel. Achter de
+  // raket drijft een satelliet voorbij.
+  const ZWEEF_IN = STUW + 0.6, LANDINGSBRAND = VLUCHT_DUUR - 3;
+  const ROL = 0.42;
+  // wanneer de stuurraketjes vuren, en naar welke kant (een koppel: links en rechts samen)
+  const STOOTJES = [[10.2, 1], [13.2, -1], [16.9, -1], [19.9, 1]];
+  const STOOT_DUUR = 0.8;
+  // het signaal: elke 0,45 s een golf, van 13,8 tot 16,6 s
+  const GOLF_VAN = 13.8, GOLF_TOT = 16.6, GOLF_OM = 0.45, GOLF_DUUR = 1.5;
+  const stootjes = [-1, 1].map(kant => {
+    const b = levend(bol(neus, 0.16, 0, kant * 1.72, 0.5, 0, { materiaal: new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, depthWrite: false }), seg: 10, schaduw: false }));
+    b.userData.kant = kant;
+    b.visible = false;
+    b.raycast = () => {};
+    return b;
+  });
+  // een boog van 2,1 radialen, met het midden recht boven de antenne (de bundel
+  // van three.js heeft geen RingGeometry; een torus met een boog doet hetzelfde)
+  const golfGeo = new T.TorusGeometry(1, 0.035, 6, 40, 2.1);
+  golfGeo.rotateZ(Math.PI / 2 - 1.05);
+  const zender = levend(groepje(wereld));
+  zender.rotation.y = 0.31;  // naar de camera van de vlucht, zoals het spoor
+  const golven = Array.from({ length: Math.ceil(GOLF_DUUR / GOLF_OM) + 1 }, () => {
+    const m = levend(new T.Mesh(golfGeo, new T.MeshBasicMaterial({ color: 0xb6f2c9, transparent: true, opacity: 0, depthWrite: false, side: 2, blending: 2 })));
+    m.visible = false;
+    m.raycast = () => {};
+    zender.add(m);
+    return m;
+  });
+  const satelliet = (() => {
+    const s = levend(groepje(wereld));
+    blok(s, 0.42, 0.34, 0.34, 0xe3b54a, 0, -0.17, 0, { r: 0.03, schaduw: false });
+    for (const kant of [-1, 1]) {
+      blok(s, 0.18, 0.03, 0.03, 0xb8bec7, kant * 0.29, -0.015, 0, { r: 0.01, schaduw: false });
+      blok(s, 0.9, 0.025, 0.42, 0x2b4f8c, kant * 0.83, -0.012, 0, { r: 0.01, schaduw: false });
+      blok(s, 0.9, 0.028, 0.02, 0x9fb8dc, kant * 0.83, -0.014, 0, { r: 0.005, schaduw: false });
+    }
+    cilinder(s, 0.15, 0.03, 0.09, 0xf2f2f2, 0, 0.17, 0, { seg: 16, schaduw: false });
+    const lichtje = bol(s, 0.04, 0, 0, 0.3, 0, { materiaal: new T.MeshBasicMaterial({ color: 0xff5a4f }), seg: 8, schaduw: false });
+    s.scale.setScalar(1.7);
+    s.visible = false;
+    s.traverse(o => { o.raycast = () => {}; });
+    return { s, lichtje };
+  })();
+  // De figuurtjes aan boord, met hun plaats op aarde (zie onderaan bouwRaket).
+  const passagiers = [];
+  function zetPassagiers(z, t) {
+    for (const p of passagiers) {
+      const { o } = p;
+      if (z <= 0) { o.position.y = p.y; o.rotation.set(p.rx, p.ry, p.rz); continue; }
+      const k = p.kantel;
+      o.position.y = p.y + z * p.schaal * (p.hoog + 0.06 * k * Math.sin(t * 1.1 + p.fase));
+      o.rotation.set(p.rx + z * 0.3 * k * Math.sin(t * 0.6 + p.fase), p.ry + z * 0.55 * k * Math.sin(t * 0.33 + p.fase * 0.7), p.rz + z * 0.34 * k * Math.sin(t * 0.5 + p.fase * 1.3));
+    }
+  }
+  function ruimteWeg() {
+    zetPassagiers(0, 0);
+    raket.rotation.y = DRAAI;
+    for (const b of stootjes) b.visible = false;
+    for (const m of golven) m.visible = false;
+    satelliet.s.visible = false;
+  }
+  // Wat de ruimte per beeld doet, t seconden na de lancering.
+  function werkRuimteBij(r) {
+    const t = r.t;
+    zetPassagiers(r.zweef, t);
+    raket.rotation.y = DRAAI + r.rol;
+    for (const b of stootjes) {
+      const stoot = STOOTJES.find(([van]) => t >= van && t < van + STOOT_DUUR);
+      b.visible = !!stoot;
+      if (!stoot) continue;
+      const p = (t - stoot[0]) / STOOT_DUUR;
+      // een koppel: de linkse en de rechtse blazen in tegengestelde richting, en
+      // de terugstoot duwt de raket de kant op van de draai (of remt ze af)
+      b.position.z = -stoot[1] * b.userData.kant * (0.15 + p * 0.85);
+      b.position.x = b.userData.kant * (1.72 + p * 0.25);
+      b.scale.setScalar(0.6 + p * 2.4);
+      b.material.opacity = 0.85 * (1 - p) ** 1.6;
+    }
+    zender.position.set(0, r.hoogte + RAKET_TOP - 0.05, RZ);
+    // Golf k vertrekt op GOLF_VAN + k * GOLF_OM; vorm i draagt de golven k = i, i + n, i + 2n, ...
+    const n = golven.length, laatste = Math.floor((GOLF_TOT - GOLF_VAN) / GOLF_OM);
+    golven.forEach((m, i) => {
+      let k = i + n * Math.floor((t - GOLF_VAN - i * GOLF_OM) / (n * GOLF_OM));
+      if (k > laatste) k -= n * Math.ceil((k - laatste) / n);
+      const p = k >= 0 ? (t - GOLF_VAN - k * GOLF_OM) / GOLF_DUUR : -1;
+      m.visible = p >= 0 && p < 1;
+      if (!m.visible) return;
+      m.scale.setScalar(0.35 + p * 3.4);
+      m.material.opacity = 0.9 * Math.min(1, p * 6) * (1 - p) ** 1.3;
+    });
+    const s = satelliet.s;
+    s.visible = t > 12.5 && t < 19.5;
+    if (s.visible) {
+      s.position.set(8.5 - (t - 12.5) * 2.3, r.hoogte + 10.3 + 0.35 * Math.sin(t * 0.7), RZ - 4.2);
+      s.rotation.set(0.35, 0.6 + t * 0.32, 0.22);
+      satelliet.lichtje.visible = t % 1.1 < 0.18;
+    }
+  }
+
   function zetTerug() {
-    Object.assign(regie, { fase: 'rust', t: 0, index: -1, stap: 'vraag', volgende: 0, toestand: {}, tel: null, hoogte: 0, snelheid: 0, armen: 0, vuur: 0, rook: 0 });
+    Object.assign(regie, { fase: 'rust', t: 0, index: -1, stap: 'vraag', volgende: 0, toestand: {}, tel: null, hoogte: 0, snelheid: 0, armen: 0, vuur: 0, rook: 0, zweef: 0, rol: 0, zon: 0, signaal: 0 });
     regie.gemeld.clear();
     for (const b of Object.values(bordjes)) { b.aan = false; b.k = 0; b.m.visible = false; }
     for (const l of lampjes) { l.userData.toestand = 'rust'; l.material.color.setHex(0x5bd48a); }
@@ -925,6 +1037,7 @@ function bouwRaket(g, canvas) {
     spoorTop = 0;
     for (const b of rook) b.visible = false;
     for (const w of hogeWolken) w.visible = false;
+    ruimteWeg();
     tekenScherm();
   }
   // Eén stap van de ronde: eerst de vraag (de camera gaat kijken), daarna het
@@ -994,6 +1107,14 @@ function bouwRaket(g, canvas) {
       r.rook = t < 2.5 ? 1 : t < 6 ? 1 - (t - 2.5) / 3.5 : t < VLUCHT_DUUR - 1.5 ? 0
         : t < VLUCHT_DUUR + 0.5 ? (t - VLUCHT_DUUR + 1.5) / 2 * 0.7 : Math.max(0, 0.7 - (t - VLUCHT_DUUR - 0.5) * 0.45);
       r.armen = t < VLUCHT_DUUR + 0.8 ? 1 : 1 - glad((t - VLUCHT_DUUR - 0.8) / 1.4);
+      // de ruimte: gewichtloos tot de landingsbrand, bijdraaien en terug, de zon
+      // die opkomt, en het signaal rond het hoogste punt
+      r.zweef = glad((t - ZWEEF_IN) / 1.4) * (1 - glad((t - LANDINGSBRAND) / 0.7));
+      r.rol = -ROL * glad((t - 10.3) / 2.9) + ROL * glad((t - 17) / 2.9);
+      r.zon = glad((t - 11.8) / 3.6);
+      r.signaal = klem((t - GOLF_VAN - 0.6) / 2.4, 0, 1);  // zie ook golf in vluchtRuimte
+      if (t >= ZWEEF_IN + 0.3) eenmaal('zweven', 'zweven');
+      if (t >= GOLF_VAN) eenmaal('signaal', 'signaal');
       if (t < TOP_T && r.hoogte > 45) eenmaal('wolken', 'wolken');
       if (t < TOP_T && r.hoogte >= RUIMTE) eenmaal('ruimte', 'ruimte');
       if (t >= TOP_T + 1) eenmaal('terug', 'terug');
@@ -1023,6 +1144,7 @@ function bouwRaket(g, canvas) {
       spoor.scale.set(2.6 + r.t * 0.18, spoorTop, 1);
       spoor.material.opacity = r.t < TOP_T ? glad(spoorTop / 6) : 1 - glad((r.t - TOP_T) / 3);
     }
+    if (vliegt) werkRuimteBij(r);
     // de dampkegel, rond de snelheid van het geluid
     const k = vliegt ? klem((r.t - 4.6) / 2.8, 0, 1) : 0;
     dampkegel.visible = k > 0 && k < 1;
@@ -1035,6 +1157,18 @@ function bouwRaket(g, canvas) {
   // Een hoofd dat rondkijkt, blijft los van het lijf, maar wordt zelf wel één vorm.
   const hoofden = [];
   wereld.traverse(o => { if (o.userData.hoofd?.userData.levend) hoofden.push(o.userData.hoofd); });
+  // Wie aan boord is, zweeft in de ruimte (zie zetPassagiers). Elk figuurtje
+  // krijgt een eigen hoogte en een eigen ritme, anders zweven ze in de pas.
+  raket.traverse(o => {
+    if (!o.userData.hoofd) return;
+    const i = passagiers.length;
+    // Vastgegespt aan een tafel: een centimeter los van de stoel en verder stil.
+    // Het tafelblad ligt hoogstens 0,05 boven de dijen; wie kantelt of draait,
+    // stoot er met de knieën tegen.
+    const vast = o.userData.aanTafel;
+    passagiers.push({ o, y: o.position.y, rx: o.rotation.x, ry: o.rotation.y, rz: o.rotation.z, schaal: o.scale.x,
+      hoog: vast ? 0.015 : 0.2 + (i * 7 % 5) * 0.045, kantel: vast ? 0 : 1, fase: i * 1.7 });
+  });
 
   // ── kaders, labels en wat er per beeld beweegt ──
   const y0 = i => BASIS + i * VH;
@@ -1071,9 +1205,12 @@ function bouwRaket(g, canvas) {
       if (regie.fase !== 'vlucht') return 1.2;
       const v = vrij.length === 1 ? vrij[0] : { links: 0, rechts: 0, boven: 0, onder: 0 };
       const verhouding = canvas.clientWidth * (1 - v.links - v.rechts) / Math.max(1, canvas.clientHeight * (1 - v.boven - v.onder));
-      // Hoog in de ruimte trekt de camera terug: de raket klein tegen de sterren.
-      const wijd = 1 + 0.6 * glad((regie.hoogte - 70) / 45);
-      return Math.min(9.8, 6.3 * verhouding) * wijd;
+      // In de ruimte zoomt de camera eerst in op wie aan boord zweeft, en trekt
+      // ze daarna ver terug: de raket klein tegen de aarde, de zon en het signaal.
+      const t = regie.t;
+      const dichtbij = glad((t - ZWEEF_IN) / 1.6) * (1 - glad((t - 13) / 1.6));
+      const wijd = glad((t - 13) / 1.6) * (1 - glad((t - 17.2) / 2.4));
+      return Math.min(9.8, 6.3 * verhouding) * (1 - 0.45 * dichtbij) * (1 + 0.6 * wijd);
     },
     bijVrijeRuimte(keuzes) { vrij = keuzes; },
     get plekHoek() { return regie.fase === 'vlucht' ? 0.16 : undefined; },
@@ -1203,6 +1340,10 @@ function bouwRaket(g, canvas) {
       // Voor de telemetrie in het paneel: seconden sinds de lancering, en de snelheid.
       vluchtTijd: () => (regie.fase === 'vlucht' ? regie.t : 0),
       vluchtSnelheid: () => regie.snelheid,
+      // Voor de hemel: hoe ver de zon boven de aarde staat en hoe ver het signaal
+      // naar de scholen is (allebei van 0 tot 1). Buiten de vlucht: null.
+      // golf: hetzelfde als signaal, maar niet afgekapt op 1 (voor de kringetjes rond de lichtjes).
+      vluchtRuimte: () => (regie.fase === 'vlucht' ? { zon: regie.zon, signaal: regie.signaal, golf: (regie.t - GOLF_VAN - 0.6) / 2.4, t: regie.t } : null),
       regieFase: () => regie.fase,
     },
   };

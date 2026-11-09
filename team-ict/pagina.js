@@ -448,9 +448,15 @@ function opMelding(soort, d) {
       zeg('Boven de wolken. Nu draait alles om de les.');
       aankondig('Boven de wolken. Nu draait alles om de les.');
       break;
+    case 'zweven':
+      zeg('Motor uit. Aan boord is iedereen even gewichtloos.');
+      break;
     case 'ruimte':
       zeg('100 kilometer hoog: hier begint de ruimte.');
       aankondig('100 kilometer hoog: hier begint de ruimte.');
+      break;
+    case 'signaal':
+      zeg('Op het hoogste punt zendt de raket een signaal naar al onze scholen.');
       break;
     case 'terug':
       zeg('De raket keert terug naar het platform. Morgen vertrekt ze opnieuw, met dezelfde motor.');
@@ -543,16 +549,44 @@ function tekenHemel(licht) {
   const b = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
   if (luchtDoek.width !== b || luchtDoek.height !== h) { luchtDoek.width = b; luchtDoek.height = h; }
   tekenLucht(luchtCtx, b, h, licht);
-  if (aardeNu > 0) tekenAarde(luchtCtx, b, h, aardeNu);
+  if (aardeNu > 0) tekenAarde(luchtCtx, b, h, aardeNu, ruimteNu);
   podium.classList.toggle('nacht', licht.nacht > 0.5);
 }
 // Hoog in de ruimte verschijnt onderaan de rand van de aarde, met de blauwe gloed
 // van de dampkring erboven. mate: van 0 (niet te zien) tot 1.
-let aardeNu = 0;
-function tekenAarde(ctx, b, h, mate) {
+let aardeNu = 0, ruimteNu = null;
+// De lichtjes van de scholen op de aarde: vaste plaatsen onder de raket, die
+// aangaan van het midden naar buiten. φ: de hoek op de aarde, d: hoe ver onder
+// de rand (als deel van de straal).
+const SCHOOLLICHTJES = (() => {
+  let z = 7;
+  const toeval = () => (z = (z * 16807) % 2147483647) / 2147483647;
+  return Array.from({ length: 33 }, () => ({ phi: (toeval() - 0.5) * 0.36, d: 0.006 + toeval() ** 1.6 * 0.05, fase: toeval() * 6.3 }))
+    .sort((a, b) => Math.abs(a.phi) - Math.abs(b.phi));
+})();
+// ruimte: { zon, signaal, t } van de vlucht (zie vluchtRuimte in raket.js), of null.
+function tekenAarde(ctx, b, h, mate, ruimte) {
   const R = b * 1.6, cx = b / 2, cy = h + R - h * 0.2 * mate;
+  const zon = ruimte?.zon ?? 0, signaal = ruimte?.signaal ?? 0, golf = ruimte?.golf ?? signaal, t = ruimte?.t ?? 0;
+  // De zon komt rechts van de raket op, achter de rand van de aarde vandaan.
+  const theta = Math.asin(0.33 * b / R), nx = Math.sin(theta), ny = -Math.cos(theta);
+  const rand = [cx + R * nx, cy + R * ny];
+  const op = -0.03 + zon * 0.085, straal = b * 0.02;   // hoe ver het midden van de zon boven de rand staat
+  const zonPunt = [rand[0] + nx * b * op, rand[1] + ny * b * op];
+  const boven = Math.min(1, Math.max(0, (op * b + straal) / (2 * straal)));  // hoeveel van de zon boven de rand staat
   ctx.save();
   ctx.globalAlpha = mate;
+  if (zon > 0) {
+    const g = ctx.createRadialGradient(...zonPunt, 0, ...zonPunt, b * 0.42);
+    g.addColorStop(0, `rgba(255, 240, 200, ${0.9 * zon})`);
+    g.addColorStop(0.12, `rgba(255, 210, 145, ${0.45 * zon})`);
+    g.addColorStop(0.4, `rgba(255, 180, 110, ${0.12 * zon})`);
+    g.addColorStop(1, 'rgba(255, 170, 100, 0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, b, h);
+    ctx.fillStyle = '#fffcf0';
+    ctx.beginPath(); ctx.arc(...zonPunt, straal, 0, Math.PI * 2); ctx.fill();
+  }
   const gloed = ctx.createRadialGradient(cx, cy, R * 0.985, cx, cy, R * 1.06);
   gloed.addColorStop(0, 'rgba(130, 195, 255, 0.95)');
   gloed.addColorStop(1, 'rgba(130, 195, 255, 0)');
@@ -568,6 +602,58 @@ function tekenAarde(ctx, b, h, mate) {
   for (const [r, van, tot, dikte] of [[0.992, 1.38, 1.5, 0.012], [0.982, 1.56, 1.7, 0.009], [0.975, 1.62, 1.66, 0.014]]) {
     ctx.lineWidth = h * dikte;
     ctx.beginPath(); ctx.arc(cx, cy, R * r, Math.PI * van, Math.PI * tot); ctx.stroke();
+  }
+  if (zon > 0) {
+    ctx.globalCompositeOperation = 'lighter';
+    // de kant van de aarde naar de zon toe licht op, en de dampkring erboven gloeit warm
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.clip();
+    const licht = ctx.createRadialGradient(...rand, 0, ...rand, b * 0.45);
+    licht.addColorStop(0, `rgba(120, 170, 230, ${0.45 * zon})`);
+    licht.addColorStop(1, 'rgba(120, 170, 230, 0)');
+    ctx.fillStyle = licht; ctx.fillRect(0, 0, b, h);
+    ctx.restore();
+    const hoek = Math.atan2(ny, nx);
+    const rim = ctx.createRadialGradient(...rand, 0, ...rand, b * 0.3);
+    rim.addColorStop(0, `rgba(255, 220, 160, ${0.9 * zon})`);
+    rim.addColorStop(1, 'rgba(255, 220, 160, 0)');
+    ctx.strokeStyle = rim;
+    ctx.lineWidth = h * 0.012;
+    ctx.beginPath(); ctx.arc(cx, cy, R * 1.003, hoek - 0.2, hoek + 0.2); ctx.stroke();
+    // een streep licht door de zon, zoals op een foto vanuit de ruimte
+    if (boven > 0) {
+      const streep = ctx.createLinearGradient(zonPunt[0] - b * 0.5, 0, zonPunt[0] + b * 0.5, 0);
+      streep.addColorStop(0, 'rgba(255, 240, 210, 0)');
+      streep.addColorStop(0.5, `rgba(255, 245, 225, ${0.7 * boven})`);
+      streep.addColorStop(1, 'rgba(255, 240, 210, 0)');
+      ctx.fillStyle = streep;
+      ctx.fillRect(zonPunt[0] - b * 0.5, zonPunt[1] - h * 0.003, b, h * 0.006);
+    }
+  }
+  // de scholen: een lichtje per school, aan zodra het signaal er is
+  if (signaal > 0) {
+    ctx.globalCompositeOperation = 'lighter';
+    const aan = signaal * SCHOOLLICHTJES.length;
+    SCHOOLLICHTJES.forEach(({ phi, d, fase }, i) => {
+      if (i >= aan) return;
+      const x = cx + R * (1 - d) * Math.sin(phi), y = cy - R * (1 - d) * Math.cos(phi);
+      const sterk = 0.75 + 0.25 * Math.sin(t * 4 + fase);
+      const s = h * 0.016;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, s);
+      g.addColorStop(0, `rgba(255, 238, 190, ${sterk})`);
+      g.addColorStop(0.2, `rgba(255, 196, 92, ${0.6 * sterk})`);
+      g.addColorStop(1, 'rgba(255, 170, 60, 0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x, y, s, 0, Math.PI * 2); ctx.fill();
+      // net aangegaan: een kringetje dat uitdijt (golf loopt door voorbij 1, zodat
+      // ook het kringetje rond het laatste lichtje uitdijt en verdwijnt)
+      const p = golf * SCHOOLLICHTJES.length - i;
+      if (p < 1.5) {
+        ctx.strokeStyle = `rgba(182, 242, 201, ${0.8 * (1 - p / 1.5)})`;
+        ctx.lineWidth = h * 0.0025;
+        ctx.beginPath(); ctx.ellipse(x, y, s * (0.6 + p * 1.6), s * (0.25 + p * 0.6), 0, 0, Math.PI * 2); ctx.stroke();
+      }
+    });
   }
   ctx.restore();
 }
@@ -591,12 +677,15 @@ function hemelLus() {
     dio.sfeer({ nacht: Math.max(basis.nacht, ruimte), schemer: basis.schemer * (1 - ruimte) });
     const a = Math.min(1, Math.max(0, (hoogte - 75) / 35));
     aardeNu = a * a * (3 - 2 * a);
+    ruimteNu = dio.vluchtRuimte();
     const tekst = telemetrie();
     if (vlucht.telemetrie.textContent !== tekst) vlucht.telemetrie.textContent = tekst;
-  } else aardeNu = 0;
+  } else { aardeNu = 0; ruimteNu = null; }
   if (dio && !document.hidden) {
     const licht = lichtNu();
-    const h = [licht.nacht, licht.schemer, licht.bewolking, licht.flits, aardeNu].map(x => x.toFixed(3)).join('|');
+    // De lichtjes van de scholen twinkelen: zolang ze aan zijn, telt de tijd mee.
+    const ruimte = aardeNu > 0 && ruimteNu ? [ruimteNu.zon, ruimteNu.signaal, ruimteNu.signaal > 0 ? ruimteNu.t : 0] : [];
+    const h = [licht.nacht, licht.schemer, licht.bewolking, licht.flits, aardeNu, ...ruimte].map(x => x.toFixed(3)).join('|');
     if (h !== hemelHandtekening) { hemelHandtekening = h; tekenHemel(licht); }
   }
   requestAnimationFrame(hemelLus);
