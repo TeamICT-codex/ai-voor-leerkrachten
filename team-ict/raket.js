@@ -32,6 +32,8 @@ const TOREN = { x: -3.55, z: RZ };
 const LEIDING = { x: 4.6, z: 0.6, b: 2.5, d: 1.6, h: 1.2, draai: -0.25 };
 const HELPDESK = { x: -3.2, z: 0.75 };
 const OPLICHT = 0xfff1d6;
+// 's Avonds: hoe sterk de lamp in een kamer brandt, en de kleur van dat licht.
+const LAMP = 5.5, LAMPKLEUR = 0xffd29a;
 // De grondploeg draagt oranje; Team ICT de kleur van elk teamlid.
 const ORANJE = K.oranje;
 const TEAM = [K.zee, K.perzik, K.geel, K.groen];
@@ -235,6 +237,14 @@ function stilFiguur(f, { hoofd = false } = {}) {
   if (!hoofd) f.userData.hoofd.userData.levend = false;
   return f;
 }
+const zacht = x => { x = klem(x, 0, 1); return x * x * (3 - 2 * x); };
+// Een kleur per hoekpunt, voor een vorm met een eigen materiaal (vertexColors).
+function kleurVorm(vorm, kleur) {
+  const k = new T.Color(kleur), n = vorm.attributes.position.count, a = new Float32Array(n * 3);
+  for (let j = 0; j < n; j++) k.toArray(a, j * 3);
+  vorm.setAttribute('color', new T.BufferAttribute(a, 3));
+  return vorm;
+}
 // Waar je op een cirkel staat: hoek 0 is vooraan, in de opening.
 const boog = (hoek, r) => [r * Math.sin(hoek), r * Math.cos(hoek)];
 // Naar een punt kijken: figuurtjes kijken langs hun +z.
@@ -253,10 +263,18 @@ function bouwRaket(g, canvas) {
   // De lampen in de kamers vliegen mee met de raket (op een zwak toestel zijn er geen).
   const raketLampen = [];
   for (let i = 1; i < NIVEAUS.length; i++) {
-    const l = kamerLamp(0, BASIS + i * VH + 1.25, RZ + 0.2, 4);
-    if (l) raketLampen.push({ l, y: l.position.y });
+    // net onder de hanglamp (zie pendel), en met een korter bereik: zo lekt er
+    // minder licht door de vloer naar de kamer erboven
+    const l = kamerLamp(0, BASIS + i * VH + VH - 0.5, RZ + 0.45, LAMP);
+    if (l) { l.distance = 4.2; l.decay = 1; raketLampen.push({ l, y: l.position.y, i }); }
   }
   kamerLamp(LEIDING.x, 0.95, LEIDING.z + 0.3, 3);
+  // Eén lamp voor twee dingen: 's avonds een zachte gloed van de waakvlam op het
+  // platform, en bij de lancering het vuur dat het platform oranje kleurt (ook
+  // overdag). De sterkte zet avond() (zie daar). Op een zwak toestel: geen lamp.
+  const motorLamp = kamerLamp(0, 0.32, RZ, 0);
+  if (motorLamp) { motorLamp.distance = 7; motorLamp.decay = 1; }
+  let vuurNu = 0;
 
   // ── sokkel met naambordje ──
   const sokkel = groepje(wereld);
@@ -351,7 +369,27 @@ function bouwRaket(g, canvas) {
     return m;
   }
   const pulsMat = new T.MeshBasicMaterial({ color: 0xb6f2c9 });
+  // Kleine schermen die zelf licht geven: één materiaal, de kleur zit in de vorm.
+  const schermMat = new T.MeshBasicMaterial({ vertexColors: true });
+  function schermVlak(ouder, b, h, kleur, x, y, z) {
+    const m = new T.Mesh(kleurVorm(new T.PlaneGeometry(b, h), kleur), schermMat);
+    m.position.set(x, y, z);
+    ouder.add(m);
+    return m;
+  }
   const pulsen = [], lampjes = [], lampjeVan = {};
+  // Een hanglamp met een kap in de kleur van de verdieping, wat naar voren: zo
+  // blijft ze onder de rand van het plafond in beeld. Het lampje is van glas
+  // (glasBuiten): overdag lichtblauw, 's avonds gloeit het, en het wordt één
+  // vorm met de patrijspoorten van die verdieping.
+  const lampGloed = [];
+  function pendel(v, band, i) {
+    const p = groepje(v, 0, 0, 0.45);
+    cilinder(p, 0.006, 0.006, 0.32, K.inkt, 0, VH - 0.32, 0, { seg: 6, schaduw: false });
+    cilinder(p, 0.045, 0.17, 0.12, band, 0, VH - 0.44, 0, { seg: 20 });
+    bol(p, 0.055, 0, 0, VH - 0.45, 0, { materiaal: glasBuiten, seg: 12, schaduw: false });
+    lampGloed.push({ m: gloed(p, 0, VH - 0.5, 0, 0.8), i });
+  }
   function verdieping(naam, i, { wand, vloer, band }) {
     const v = groepje(raket, 0, BASIS + i * VH, 0);
     cilinder(v, R, R, PLAAT, K.wit, 0, 0, 0, { seg: 40, schaduw: false });
@@ -376,9 +414,25 @@ function bouwRaket(g, canvas) {
     // Elke kamer krijgt een eigen materiaal voor de binnenwand: dat licht op
     // als je er met de muis over gaat, en gloeit 's avonds een beetje. side 1
     // is de binnenkant van de cilinder.
-    const wandMat = new T.MeshLambertMaterial({ color: wand, emissive: OPLICHT, emissiveIntensity: 0, side: 1 });
+    // vertexColors: de wand krijgt een kleur per hoekpunt (zie hieronder). Dat werkt
+    // alleen omdat wandMat 'apart' is: anders overschrijft voegSamen die kleuren.
+    const wandMat = new T.MeshLambertMaterial({ color: wand, emissive: OPLICHT, emissiveIntensity: 0, side: 1, vertexColors: true });
     wandMat.userData.apart = true;
-    schil(v, RW, VH - PLAAT, PLAAT, wandMat);
+    {
+      // Een zachte schaduw onder het plafond en tegen de vloer, zoals in een echte
+      // kamer: een kleur per hoekpunt, dus geen extra tekenbeurt.
+      const hw = (VH - PLAAT) / 2;
+      const vorm = new T.CylinderGeometry(RW, RW, 2 * hw, 40, 6, true, OPEN, Math.PI * 2 - 2 * OPEN);
+      const pos = vorm.attributes.position, k = new Float32Array(pos.count * 3);
+      for (let j = 0; j < pos.count; j++) {
+        const t = (pos.getY(j) + hw) / (2 * hw);  // 0 aan de vloer, 1 aan het plafond
+        k.fill(1 - 0.24 * zacht((t - 0.6) / 0.4) - 0.1 * (1 - zacht(t / 0.14)), j * 3, j * 3 + 3);
+      }
+      vorm.setAttribute('color', new T.BufferAttribute(k, 3));
+      const m = new T.Mesh(vorm, wandMat);
+      m.position.y = PLAAT + hw;
+      zet(v, m, false);
+    }
     // de randen van de doorsnede
     for (const kant of [-1, 1]) {
       const a = kant * OPEN;
@@ -404,12 +458,44 @@ function bouwRaket(g, canvas) {
     raak.position.y = VH / 2;
     raak.userData.kamer = naam;
     v.add(levend(raak));
-    kamers[naam] = { groep: v, wandMat, raak };
+    // 's Avonds kleurt de wand naar haar eigen kleur in warm lamplicht, in plaats
+    // van naar wit (zie avond). Op een zwak toestel brandt geen lamp: daar geeft
+    // de wand zelf meer licht (de motor zet de sterkte op 0,32 in plaats van 0,1).
+    const warm = new T.Color(naam === 'motor' ? 0x3fbf8f : wand).multiply(new T.Color(naam === 'motor' ? 0xffffff : LAMPKLEUR))
+      .multiplyScalar(naam === 'motor' ? (g.zwak ? 0.9 : 2.2) : (g.zwak ? 1.7 : 2.6));
+    if (naam !== 'motor') pendel(v, band, i);
+    kamers[naam] = { groep: v, wandMat, raak, warm, i };
     return v;
+  }
+  // 's Avonds gloeit een scherm wat uit op de wand erachter: een vlak met een
+  // zachte, koele rand, optellend licht.
+  const HALO = 0.17;  // hoe ver de gloed buiten de lijst reikt
+  function haloMat(b, h) {
+    const s = 128 / (b + 0.08 + 2 * HALO), c = document.createElement('canvas');
+    c.width = 128; c.height = Math.round((h + 0.08 + 2 * HALO) * s);
+    const ctx = c.getContext('2d'), r = HALO * s;
+    // alleen de schaduw valt op het doek: een zachte rand, ook in Safari (ctx.filter werkt daar niet)
+    ctx.shadowColor = 'rgba(196,232,255,1)'; ctx.shadowBlur = r * 0.9; ctx.shadowOffsetX = 1000;
+    ctx.fillStyle = '#000'; ctx.fillRect(r * 0.75 - 1000, r * 0.75, c.width - 1.5 * r, c.height - 1.5 * r);
+    // het scherm zelf blijft vrij
+    ctx.shadowColor = 'transparent'; ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillRect(r, r, c.width - 2 * r, c.height - 2 * r);
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+    return new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, blending: 2, opacity: 0 });
+  }
+  const halos = [];
+  function schermHalo(ouder, b, h, y, z) {
+    const m = levend(new T.Mesh(new T.PlaneGeometry(b + 0.08 + 2 * HALO, h + 0.08 + 2 * HALO), haloMat(b, h)));
+    m.position.set(0, y, z);
+    m.visible = false; m.raycast = () => {};
+    ouder.add(m);
+    halos.push(m);
   }
   // Een bord of scherm tegen de wand, met een lijst errond. De bovenrand ligt vast (BORD_TOP).
   function wandBord(ouder, hoek, b, h, px, teken, { lijst = K.wit, scherm = false } = {}) {
     const y = BORD_TOP - h;
+    // De gloed hangt in de verdieping zelf, niet in de plek: anders groeit het kader van de plek mee.
+    if (scherm) schermHalo(aanWand(ouder, hoek), b, h, y + h / 2, 0.05);
     const w = aanWand(ouder, hoek);
     blok(w, b + 0.08, h + 0.08, 0.04, lijst, 0, y - 0.04, 0, { r: 0.015 });
     statischeTekening(paneel(w, b, h, px, 0, y + h / 2, 0.045, { scherm }), teken);
@@ -602,6 +688,12 @@ function bouwRaket(g, canvas) {
     cilinder(beleid, 0.5, 0.5, 0.035, K.hout, tx, PLAAT + 0.42, tz, { seg: 32 });
     const ai = plek('ai', 'beleid', groepje(beleid, tx + 0.05, PLAAT + 0.455, tz + 0.12));
     laptop(ai, 0, 0, 0, 0, K.zee);
+    {
+      // het scherm van de laptop geeft zelf licht
+      const deksel = groepje(ai, 0, 0.145, -0.15);
+      deksel.rotation.x = -0.22;
+      schermVlak(deksel, 0.36, 0.23, 0xcdeaf3, 0, 0, 0.0085);
+    }
     blok(ai, 0.2, 0.1, 0.02, K.geel, 0.16, 0.3, -0.12, { r: 0.04 });
     for (const [x, z, k, h, haar] of [[tx - 0.7, tz + 0.1, K.zee, 0, 1], [tx, tz - 0.72, K.perzik, 3, 3]]) {
       stoel(beleid, x, PLAAT, z, kijkNaar(x, z, tx, tz), K.groen);
@@ -815,6 +907,7 @@ function bouwRaket(g, canvas) {
     blok(leiding, 1.5, 0.3, 0.04, K.wit, 0, h + 0.2, d / 2 + 0.06, { r: 0.012 });
     statischeTekening(paneel(leiding, 1.44, 0.26, 640, 0, h + 0.35, d / 2 + 0.085), tekenLeidingBord);
     blok(leiding, 1.86, 0.74, 0.04, K.inkt, 0, 0.42, -d / 2 + 0.12, { r: 0.015 });
+    schermHalo(leiding, 1.78, 0.66, 0.79, -d / 2 + 0.15);
     leidingScherm = statischeTekening(paneel(leiding, 1.78, 0.66, 768, 0, 0.79, -d / 2 + 0.145, { scherm: true }), p => tekenLeidingScherm(p, regie));
     // een gebogen tafel met vier schermen en Team ICT erachter
     for (let k = 0; k < 4; k++) {
@@ -824,7 +917,7 @@ function bouwRaket(g, canvas) {
       blok(tafel, 0.54, 0.04, 0.32, K.hout, 0, 0.4, 0, { r: 0.012 });
       blok(tafel, 0.5, 0.4, 0.04, K.wit, 0, 0, -0.12, { r: 0.01 });
       blok(tafel, 0.3, 0.2, 0.02, K.inkt, 0, 0.46, -0.08, { r: 0.008 });
-      blok(tafel, 0.27, 0.17, 0.005, [K.blauw, K.mint, K.geel, K.perzik][k], 0, 0.475, -0.068, { r: 0, schaduw: false });
+      schermVlak(tafel, 0.27, 0.17, [K.blauw, K.mint, K.geel, K.perzik][k], 0, 0.56, -0.0685);
       stoel(tafel, 0, 0, 0.36, Math.PI, K.inkt);
       koppen.push(stilFiguur(figuur(tafel, { x: 0, y: 0, z: 0.36, draai: Math.PI, shirt: TEAM[k], huid: HUID[[0, 1, 4, 2][k]], haar: HAAR[[3, 1, 0, 2][k]], zit: true }), { hoofd: true }));
     }
@@ -894,6 +987,41 @@ function bouwRaket(g, canvas) {
     gras.receiveShadow = true;
     buiten.add(gras);
   }
+  // Lichtplassen op de grond, 's avonds: onder de lantaarns, voor de helpdesk en
+  // voor de open vluchtleiding. Eén vorm met één zachte textuur: één tekenbeurt.
+  const lichtTex = (() => {
+    const c = document.createElement('canvas'); c.width = c.height = 128;
+    const ctx = c.getContext('2d');
+    const gr = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+    gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.4, 'rgba(255,255,255,0.5)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gr; ctx.fillRect(0, 0, 128, 128);
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace;
+    return tex;
+  })();
+  const plassen = (() => {
+    const vormen = [[-1.35, 3.0, 1.4, 1.1], [1.45, 3.0, 1.4, 1.1], [-2.96, 1.45, 1.7, 1.1], [4.3, 1.8, 2.6, 1.3]].map(([x, z, b, d]) => {
+      const v = new T.PlaneGeometry(b, d); v.rotateX(-Math.PI / 2); v.translate(x, 0.045, z); return v;
+    });
+    const m = levend(new T.Mesh(T.mergeGeometries(vormen), new T.MeshBasicMaterial({ map: lichtTex, color: 0xffd496, transparent: true, depthWrite: false, blending: 2, opacity: 0 })));
+    m.visible = false; m.raycast = () => {};
+    wereld.add(m);
+    return m;
+  })();
+  // Een plas lamplicht op elke vloer, warm in de kamers en mint in de motor: één
+  // vorm voor de hele raket (een kleur per hoekpunt), dus één tekenbeurt. Ze hangt
+  // aan de raket en vliegt mee.
+  const vloerLicht = (() => {
+    const vormen = NIVEAUS.map((naam, i) => {
+      const v = new T.CircleGeometry(1.45, 32);
+      v.rotateX(-Math.PI / 2);
+      v.translate(0, BASIS + i * VH + PLAAT + 0.03, 0.3);  // 0,03: ook boven het matje van de kleuters
+      return kleurVorm(v, i === 0 ? 0x6fe0b0 : 0xffbf73);
+    });
+    const m = levend(new T.Mesh(T.mergeGeometries(vormen), new T.MeshBasicMaterial({ map: lichtTex, vertexColors: true, transparent: true, depthWrite: false, blending: 2, opacity: 0 })));
+    m.visible = false; m.raycast = () => {};
+    raket.add(m);
+    return m;
+  })();
   // wolken en vogels
   const wolkMat = new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
   function maakWolk(y, z, s, start) {
@@ -1026,7 +1154,7 @@ function bouwRaket(g, canvas) {
   // platter: onder de sokkel (die stopt op -0,78) komt geen licht uit.
   const GLOED_LAAGST = 0.55, GLOED_BODEM = -0.7;
   const rook = Array.from({ length: 10 }, (_, i) => {
-    const b = levend(bol(wereld, 0.4, 0, 0, 0, 0, { materiaal: new T.MeshLambertMaterial({ color: 0xf4f1ec, transparent: true, opacity: 0, depthWrite: false }), seg: 10, schaduw: false }));
+    const b = levend(bol(wereld, 0.4, 0, 0, 0, 0, { materiaal: new T.MeshLambertMaterial({ color: 0xf4f1ec, emissive: 0xff8a3d, emissiveIntensity: 0, transparent: true, opacity: 0, depthWrite: false }), seg: 10, schaduw: false }));
     b.visible = false;
     b.userData.hoek = i / 10 * Math.PI * 2 + (i % 2) * 0.3;
     b.userData.fase = (i * 0.37) % 1;
@@ -1360,6 +1488,11 @@ function bouwRaket(g, canvas) {
       hoog: vast ? 0.015 : 0.2 + (i * 7 % 5) * 0.045, kantel: vast ? 0 : 1, fase: i * 1.7 });
   });
 
+  const OPLICHT_KLEUR = new T.Color(OPLICHT);
+  // De zon van de motor: in de ruimte schuift ze naar rechts, waar de pagina de
+  // zon boven de aarde tekent (zie avond).
+  const zonLicht = g.scene.children.find(o => o.isDirectionalLight && o.castShadow);
+  const ZON_RUIMTE = new T.Vector3(30, 4, -6), ZON_KLEUR = new T.Color(0xffd9a8);
   // ── kaders, labels en wat er per beeld beweegt ──
   const y0 = i => BASIS + i * VH;
   const vloerKader = i => ({ min: [-R - 0.1, y0(i), RZ - R], max: [R + 0.1, y0(i) + VH + 0.05, RZ + R + 0.1], marge: 1.04, hoek: 0.14, opzij: BINNEN_OPZIJ });
@@ -1423,6 +1556,36 @@ function bouwRaket(g, canvas) {
       ...bomen.map((b, i) => ({ obj: b, start: 1.6 + i * 0.07, soort: 'pop' })),
       ...wolken.map((w, i) => ({ obj: w, start: 1.3 + i * 0.15, soort: 'pop' })),
     ],
+    // De motor roept avond(n) elk beeld op, als laatste stap van het licht: ná de
+    // lampen, het glas, de gloed en de zon (diorama-kern, werkLichtBij). Daarom
+    // stapelt de += op de zon niet op. n: 0 overdag, 1 's avonds.
+    avond(n) {
+      // de lampen gaan een voor een aan, van onder naar boven
+      const aan = i => glad((n - 0.2 - i * 0.14) / 0.25);
+      for (const k of Object.values(kamers)) if (k.wandMat) k.wandMat.emissive.copy(OPLICHT_KLEUR).lerp(k.warm, k.i ? aan(k.i) : n);
+      for (const { l, i } of raketLampen) l.intensity = LAMP * aan(i);
+      for (const { m, i } of lampGloed) m.material.opacity = 0.9 * aan(i);
+      plassen.visible = n > 0.01;
+      plassen.material.opacity = n * 0.7;
+      // pas als de verdiepingen geland zijn (de intro)
+      vloerLicht.visible = n > 0.01 && tijd() > 2.2;
+      vloerLicht.material.opacity = n * (g.zwak ? 0.62 : 0.3);
+      for (const m of halos) { m.visible = n > 0.01; m.material.opacity = n * 0.7; }
+      if (motorLamp) {
+        // de kleur van de vlam (zie werkBij); hoog in de lucht bereikt ze het platform niet meer
+        motorLamp.color.copy(vlamMat.color);
+        motorLamp.position.y = 0.32 + Math.min(regie.hoogte, 6);
+        motorLamp.intensity = (n * 1.8 + vuurNu * 16) * (1 - zacht(regie.hoogte / 6));
+      }
+      // In de ruimte komt de zon op, rechts van de raket (de pagina tekent haar op de
+      // hemel): de rechterkant van de romp vangt dat licht.
+      const ruimteZon = regie.fase === 'vlucht' ? regie.zon * glad((regie.hoogte - 60) / 30) : 0;
+      if (zonLicht && ruimteZon > 0) {
+        zonLicht.position.lerp(ZON_RUIMTE, ruimteZon);
+        zonLicht.color.lerp(ZON_KLEUR, ruimteZon);
+        zonLicht.intensity += 2.4 * ruimteZon;
+      }
+    },
     werkBij(dt, nu, { speels, nacht }) {
       werkRegieBij(dt, nu);
       // energie die door de ruggengraat naar boven stroomt; bij een hold staat ze stil
@@ -1433,6 +1596,7 @@ function bouwRaket(g, canvas) {
       // de motoren: een waakvlammetje, vol vuur als je erop klikt, en lang vuur bij de lancering
       const sinds = nu - speels[motorblok.userData.speel].t, vuur = sinds < 1.6 ? Math.sin(Math.min(1, sinds / 1.6) * Math.PI) : 0;
       const breed = Math.max(vuur, regie.vuur), lang = Math.max(vuur * 1.1, regie.vuur * 2.9);
+      vuurNu = breed;
       vlamMat.color.lerpColors(WAAKVLAM, VUUR, klem(breed * 5, 0, 1));
       // Het vuur reikt hoogstens tot op het platform: wat er niet onder past,
       // spat opzij. Pas als de raket loskomt, wordt de vlam lang.
@@ -1452,6 +1616,8 @@ function bouwRaket(g, canvas) {
         b.position.set(Math.sin(b.userData.hoek) * afstand, 0.35 + q * 0.7, RZ + Math.cos(b.userData.hoek) * afstand * 0.75);
         b.scale.setScalar((0.8 + q * 2.0) * (0.5 + regie.rook * 0.5));
         b.material.opacity = Math.sin(q * Math.PI) * 0.75 * regie.rook;
+        // jonge rook, vlak bij het vuur, gloeit oranje
+        b.material.emissiveIntensity = regie.vuur * 0.75 * (1 - q) ** 2;
       });
       // de bordjes poppen open als een station antwoordt
       const groot = bordjeMaat();

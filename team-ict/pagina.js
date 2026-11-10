@@ -549,8 +549,40 @@ function tekenHemel(licht) {
   const b = Math.max(1, Math.round(r.width * dpr)), h = Math.max(1, Math.round(r.height * dpr));
   if (luchtDoek.width !== b || luchtDoek.height !== h) { luchtDoek.width = b; luchtDoek.height = h; }
   tekenLucht(luchtCtx, b, h, licht);
+  tekenNachtsfeer(luchtCtx, b, h, licht);
   if (aardeNu > 0) tekenAarde(luchtCtx, b, h, aardeNu, ruimteNu);
   podium.classList.toggle('nacht', licht.nacht > 0.5);
+}
+// Bovenop de hemel van sfeer.js (die ook de voorpagina tekent): 's avonds een
+// warme gloed van de stad aan de horizon, en een sluier fijne sterren die in de
+// ruimte voller en helderder wordt. ruimteMate: 0 op de grond, 1 boven de wolken.
+let ruimteMate = 0;
+const FIJNE_STERREN = (() => {
+  let z = 11;
+  const t = () => (z = (z * 16807) % 2147483647) / 2147483647;
+  return Array.from({ length: 90 }, () => [t(), t() ** 1.3, 0.35 + t() * 0.6, 0.35 + t() * 0.65]);
+})();
+function tekenNachtsfeer(ctx, b, h, { nacht = 0, bewolking = 0 }) {
+  const stad = nacht * (1 - ruimteMate);
+  if (stad > 0.01) {
+    const gr = ctx.createLinearGradient(0, h * 0.5, 0, h);
+    gr.addColorStop(0, 'rgba(255, 176, 120, 0)');
+    gr.addColorStop(1, `rgba(255, 176, 120, ${0.26 * stad})`);
+    ctx.fillStyle = gr;
+    ctx.fillRect(0, h * 0.5, b, h * 0.5);
+  }
+  const helder = nacht * (1 - bewolking * 0.9);
+  if (helder < 0.01) return;
+  const s = h / 450;
+  ctx.fillStyle = '#ffffff';
+  for (const [x, y, r, a] of FIJNE_STERREN) {
+    // op de grond alleen hoog aan de hemel en ijl; in de ruimte overal
+    const zicht = ruimteMate + (1 - ruimteMate) * (y < 0.55 ? 0.45 : 0);
+    if (zicht < 0.02) continue;
+    ctx.globalAlpha = helder * a * zicht;
+    ctx.beginPath(); ctx.arc(x * b, y * h, r * s, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
 }
 // Hoog in de ruimte verschijnt onderaan de rand van de aarde, met de blauwe gloed
 // van de dampkring erboven. mate: van 0 (niet te zien) tot 1.
@@ -673,6 +705,7 @@ function hemelLus() {
     // Hoe hoger de raket, hoe donkerder de hemel: boven de wolken begint de ruimte.
     const hoogte = dio.vluchtHoogte();
     const ruimte = Math.min(1, Math.max(0, (hoogte - 6) / 26));
+    ruimteMate = ruimte;
     const basis = reeks.basisLicht;
     dio.sfeer({ nacht: Math.max(basis.nacht, ruimte), schemer: basis.schemer * (1 - ruimte) });
     const a = Math.min(1, Math.max(0, (hoogte - 75) / 35));
@@ -680,7 +713,7 @@ function hemelLus() {
     ruimteNu = dio.vluchtRuimte();
     const tekst = telemetrie();
     if (vlucht.telemetrie.textContent !== tekst) vlucht.telemetrie.textContent = tekst;
-  } else { aardeNu = 0; ruimteNu = null; }
+  } else { aardeNu = 0; ruimteNu = null; ruimteMate = 0; }
   if (dio && !document.hidden) {
     const licht = lichtNu();
     // De lichtjes van de scholen twinkelen: zolang ze aan zijn, telt de tijd mee.
