@@ -114,8 +114,9 @@ a { color: var(--groen); }
   background: var(--wit);
   box-shadow: 0 2px 12px rgba(13, 74, 27, .16);
   opacity: 0;
-  transition: opacity .35s ease, box-shadow .2s ease, background-color .2s ease;
+  transition: opacity .35s ease, box-shadow .2s ease, background-color .2s ease, translate .2s ease;
 }
+.label:hover { translate: 3px 0; }
 .label::before { content: ''; width: .75rem; height: .75rem; border-radius: 50%; background: var(--stip); }
 .label::after { content: '→'; color: var(--groen); margin-left: .1rem; }
 .podium.klaar .label { opacity: 1; }

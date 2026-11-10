@@ -331,6 +331,14 @@ function bouwRaket(g, canvas) {
     w.rotation.y = hoek + Math.PI;
     return w;
   }
+  // n punten langs een boog van de wand, van hoek a tot b: fn(x, z, hoek).
+  function langsBoog(a, b, n, straal, fn) {
+    for (let k = 0; k < n; k++) {
+      const hoek = a + (b - a) * (k + 0.5) / n;
+      const [x, z] = boog(hoek, straal);
+      fn(x, z, hoek);
+    }
+  }
   // Een groepje op de buitenkant van de romp, met zijn +z naar buiten.
   function opRomp(ouder, hoek, y, straal = R) {
     const [x, z] = boog(hoek, straal);
@@ -433,6 +441,11 @@ function bouwRaket(g, canvas) {
       m.position.y = PLAAT + hw;
       zet(v, m, false);
     }
+    // een plint in de kleur van de band, langs de hele wand (blokjes langs de boog:
+    // die zijn van binnenuit te zien, een cilinder niet na het samenvoegen)
+    langsBoog(OPEN + 0.06, Math.PI * 2 - OPEN - 0.06, 30, RW - 0.02, (x, z, hoek) => {
+      blok(v, 0.3, 0.07, 0.035, band, x, PLAAT, z, { r: 0.008, schaduw: false }).rotation.y = hoek;
+    });
     // de randen van de doorsnede
     for (const kant of [-1, 1]) {
       const a = kant * OPEN;
@@ -526,6 +539,12 @@ function bouwRaket(g, canvas) {
       lampje.userData.toestand = 'rust';
       lampjes.push(lampje);
       lampjeVan[d.id] = lampje;
+      // een rijtje vaste ledjes naast het knipperende lampje
+      [0x5bd48a, 0xffb347, 0x5bd48a, 0x7cc3dc].forEach((kleur, j) => blok(kast, 0.016, 0.016, 0.008, kleur, -0.14 + j * 0.05, PLAAT + 0.47, 0.172, { r: 0, schaduw: false }));
+    });
+    // een kabelgoot langs de wand, boven de kasten
+    langsBoog(Math.PI - 1.38, Math.PI + 1.38, 14, RW - 0.1, (x, z, hoek) => {
+      blok(motor, 0.38, 0.08, 0.14, 0x3a434f, x, PLAAT + 1.5, z, { r: 0.01, schaduw: false }).rotation.y = hoek;
     });
     const technicus = medewerker(motor, 0.25, 0.1, 0.75, -1.4, { shirt: K.groen, huid: 0, haar: 3 });
     blok(technicus, 0.2, 0.14, 0.02, K.inkt, 0, 0.5, 0.17, { r: 0.01 }).rotation.x = -0.5;
@@ -639,6 +658,15 @@ function bouwRaket(g, canvas) {
     koppen.push(medewerker(kleuter, mx + 0.95, mz - 0.45, mx, mz, { huid: 5, haar: 0 }));
     [[0.95, 0.35, K.geel], [1.08, 0.2, K.roos], [1.02, 0.28, K.zee]].forEach(([x, z, k], i) => blok(kleuter, 0.12, 0.12, 0.12, k, x, PLAAT + (i === 2 ? 0.12 : 0), z, { r: 0.02 }).rotation.y = i * 0.5);
     plant(kleuter, -1.2, PLAAT, 0.35, 0.9);
+    // een kapstok met jasjes, en een boekentas op de grond
+    const kapstok = aanWand(kleuter, Math.PI + 1.05, RW - 0.06);
+    blok(kapstok, 0.72, 0.05, 0.04, K.hout, 0, PLAAT + 0.74, 0, { r: 0.01 });
+    [K.roos, K.zee, K.geel, K.blad1].forEach((k, j) => {
+      const x = -0.24 + j * 0.16;
+      blok(kapstok, 0.02, 0.05, 0.03, K.inkt, x, PLAAT + 0.69, 0.02, { r: 0.005, schaduw: false });
+      blok(kapstok, 0.15, 0.27, 0.05, k, x, PLAAT + 0.44, 0.045, { r: 0.03 });
+    });
+    blok(kapstok, 0.17, 0.2, 0.1, K.oranje, 0.32, PLAAT, 0.12, { r: 0.035 });
   }
 
   // ── het lager ──
@@ -660,6 +688,17 @@ function bouwRaket(g, canvas) {
     koppen.push(medewerker(lager, -1.45, 0.1, -0.2, -0.2, { shirt: K.blauw, huid: 1, haar: 4 }));
     koppen.push(medewerker(lager, 0.95, -0.45, 0.35, -0.0, { huid: 3, haar: 0 }));
     plant(lager, 1.3, PLAAT, 0.25, 0.9);
+    // een tapijt onder de banken, en een boekenrek met de klasbib
+    blok(lager, 1.9, 0.01, 1.3, 0xffcf3a, -0.1, PLAAT, 0.05, { r: 0.04, schaduw: false });
+    blok(lager, 1.74, 0.006, 1.14, 0xfff3c4, -0.1, PLAAT + 0.01, 0.05, { r: 0.03, schaduw: false });
+    const rek = aanWand(lager, Math.PI - 1.05, RW - 0.2);
+    blok(rek, 0.64, 0.95, 0.3, K.wit, 0, PLAAT, 0, { r: 0.02 });
+    const BOEKEN = [K.roos, K.zee, K.geel, K.blad2, K.oranje, K.paneel, K.perzik];
+    for (const y of [PLAAT + 0.3, PLAAT + 0.62]) {
+      blok(rek, 0.6, 0.03, 0.28, K.hout, 0, y, 0.01, { r: 0.005, schaduw: false });
+      BOEKEN.forEach((k, j) => blok(rek, 0.055, 0.2 + (j % 3) * 0.03, 0.2, k, -0.24 + j * 0.08, y + 0.03, 0.03, { r: 0.004, schaduw: false }));
+    }
+    plant(rek, 0.18, PLAAT + 0.95, 0, 0.5);
   }
 
   // ── het secundair ──
@@ -676,6 +715,14 @@ function bouwRaket(g, canvas) {
     }
     koppen.push(medewerker(secundair, -1.45, 0.2, 0, -0.6, { shirt: K.mint, huid: 4, haar: 2 }));
     koppen.push(medewerker(secundair, 1.1, -0.35, 0.35, -0.6, { huid: 1, haar: 3 }));
+    // drie lockers tegen de wand
+    const lockers = aanWand(secundair, Math.PI + 1.05, RW - 0.17);
+    for (let k = -1; k <= 1; k++) {
+      blok(lockers, 0.27, 1.0, 0.3, K.zee, k * 0.285, PLAAT, 0, { r: 0.015 });
+      blok(lockers, 0.22, 0.9, 0.02, 0x8fc6dd, k * 0.285, PLAAT + 0.05, 0.15, { r: 0.008, schaduw: false });
+      blok(lockers, 0.025, 0.07, 0.025, K.inkt, k * 0.285 + 0.075, PLAAT + 0.48, 0.165, { r: 0.006, schaduw: false });
+      for (const y of [PLAAT + 0.8, PLAAT + 0.85]) blok(lockers, 0.14, 0.012, 0.01, 0x4f8fb0, k * 0.285, y, 0.162, { r: 0, schaduw: false });
+    }
   }
 
   // ── beleid en directie ──
@@ -708,6 +755,16 @@ function bouwRaket(g, canvas) {
     blok(kast, 0.5, 0.46, 0.34, K.wit, 0, 0, 0, { r: 0.02 });
     for (let i = 0; i < 6; i++) blok(kast, 0.3, 0.028, 0.22, i === 5 ? K.mint : 0xfdfdf8, -0.06 + (r() - 0.5) * 0.04, 0.46 + i * 0.03, 0, { r: 0.005 }).rotation.y = (r() - 0.5) * 0.3;
     blok(kast, 0.2, 0.012, 0.27, K.geel, 0.16, 0.46, 0.02, { r: 0.004 });
+    // een rond tapijt onder de vergadertafel, en een kast met mappen
+    cilinder(beleid, 1.0, 1.0, 0.01, 0xd3e6d9, tx, PLAAT, tz, { seg: 40, schaduw: false });
+    const mappen = aanWand(beleid, Math.PI + 1.1, RW - 0.2);
+    blok(mappen, 0.58, 0.9, 0.3, K.wit, 0, PLAAT, 0, { r: 0.02 });
+    const MAPPEN = [K.groen, K.mint, K.geel, K.blauw, K.perzik, K.zee];
+    for (const y of [PLAAT + 0.28, PLAAT + 0.58]) {
+      blok(mappen, 0.54, 0.03, 0.28, K.hout, 0, y, 0.01, { r: 0.005, schaduw: false });
+      MAPPEN.forEach((k, j) => blok(mappen, 0.06, 0.25, 0.2, k, -0.2 + j * 0.08, y + 0.03, 0.03, { r: 0.005, schaduw: false }));
+    }
+    blok(mappen, 0.26, 0.14, 0.2, K.mint, -0.1, PLAAT + 0.9, 0, { r: 0.02 });
   }
 
   // ── de neus: de lading ──
@@ -962,6 +1019,62 @@ function bouwRaket(g, canvas) {
     gloed(l, 0, 1.19, 0, 0.9);
   }
   for (const [x, z, s] of [[-4.6, 2.9, 1], [5.1, -0.1, 0.9], [-5.4, -1.2, 1.1]]) kruin(buiten, 0.26 * s, K.blad2, x, 0.18 * s, z);
+  // Een veiligheidshek rond het platform. Vooraan blijft het open (de paden en de
+  // grondploeg), en bij de drie vinnen staat geen paaltje.
+  {
+    const vinHoeken = [Math.PI / 2 + 0.35, Math.PI * 1.5 - 0.35, Math.PI];
+    const vrij = a => a < 1.5 || a > Math.PI * 2 - 0.5 || vinHoeken.some(v => Math.abs(a - v) < 0.24);
+    const N = 26;
+    for (let i = 0; i < N; i++) {
+      const a = i / N * Math.PI * 2, b = (i + 1) / N * Math.PI * 2;
+      if (vrij(a)) continue;
+      const [x, z] = boog(a, 2.95);
+      blok(platform, 0.05, 0.36, 0.05, K.groenDonker, x, 0.12, RZ + z, { r: 0.01, schaduw: false });
+      if (vrij(b % (Math.PI * 2))) continue;
+      const m = (a + b) / 2, [mx, mz] = boog(m, 2.95);
+      blok(platform, 0.74, 0.035, 0.035, K.geel, mx, 0.42, RZ + mz, { r: 0.01, schaduw: false }).rotation.y = m;
+      blok(platform, 0.74, 0.025, 0.025, K.groenDonker, mx, 0.26, RZ + mz, { r: 0.008, schaduw: false }).rotation.y = m;
+    }
+  }
+  // bloemen: een pol groen met drie bloemetjes erop
+  const bloemGeo = new T.IcosahedronGeometry(0.038, 0);
+  for (const [x, z, s] of [[-1.72, 3.32, 1], [1.78, 3.3, 0.9], [-2.75, 2.05, 0.8], [3.25, 2.1, 1], [-5.6, -3.55, 0.9], [4.9, 1.0, 0.7], [-4.2, 3.25, 0.8]]) {
+    kruin(buiten, 0.14 * s, K.blad1, x, 0.1 * s, z);
+    [[K.roos, -0.07, 0.02], [K.geel, 0.05, -0.05], [K.wit, 0.02, 0.07]].forEach(([k, dx, dz]) => {
+      const b = new T.Mesh(bloemGeo, mat(k));
+      b.position.set(x + dx * s, 0.22 * s, z + dz * s);
+      b.scale.setScalar(s);
+      zet(buiten, b, false);
+    });
+  }
+  // het busje van Team ICT, geparkeerd bij de vluchtleiding
+  {
+    const bus = groepje(buiten, 4.0, 0, 3.0);
+    bus.rotation.y = 0.28;
+    blok(bus, 1.2, 0.46, 0.62, K.wit, 0, 0.16, 0, { r: 0.06 });
+    blok(bus, 1.22, 0.1, 0.64, K.groen, 0, 0.3, 0, { r: 0.03 });
+    blok(bus, 0.92, 0.3, 0.6, K.wit, -0.12, 0.62, 0, { r: 0.06 });
+    blok(bus, 0.26, 0.24, 0.5, K.blauw, 0.5, 0.42, 0, { r: 0.04, schaduw: false });
+    for (const kz of [-1, 1]) blok(bus, 0.5, 0.18, 0.02, K.blauw, -0.1, 0.68, kz * 0.3, { r: 0.03, schaduw: false });
+    for (const kz of [-1, 1]) blok(bus, 0.06, 0.06, 0.03, K.geel, 0.6, 0.3, kz * 0.22, { r: 0.015, schaduw: false });
+    for (const kx of [-0.38, 0.36]) for (const kz of [-1, 1]) {
+      const wiel = cilinder(bus, 0.1, 0.1, 0.08, K.inkt, kx, 0.06, kz * 0.3, { seg: 14 });
+      wiel.rotation.x = Math.PI / 2;
+    }
+    blok(bus, 0.32, 0.08, 0.5, K.mint, -0.12, 0.92, 0, { r: 0.02, schaduw: false });
+  }
+  // een windzak op een mast, die wappert
+  const windzak = (() => {
+    const paal = groepje(buiten, 5.6, 0, -2.4);
+    cilinder(paal, 0.022, 0.03, 1.75, K.grijs, 0, 0, 0, { seg: 8 });
+    blok(paal, 0.3, 0.03, 0.3, K.steen, 0, 0, 0, { r: 0.01, schaduw: false });
+    const zak = levend(groepje(paal, 0, 1.68, 0));
+    const kegel = new T.Mesh(new T.ConeGeometry(0.085, 0.6, 10, 1, true), mat(K.oranje));
+    kegel.rotation.z = -Math.PI / 2;
+    kegel.position.x = 0.3;
+    zet(zak, kegel, false);
+    return zak;
+  })();
   // grassprietjes in één tekenbeurt
   {
     const spriet = new T.ConeGeometry(0.035, 0.13, 5);
@@ -1045,6 +1158,16 @@ function bouwRaket(g, canvas) {
     });
     v.userData.fase = i * 2.1;
     return v;
+  });
+  // vonken bij de ontsteking: kleine gloeiende bolletjes die over het platform spatten
+  const vonkMat = new T.MeshBasicMaterial({ color: 0xffe08a });
+  const vonken = Array.from({ length: 14 }, (_, i) => {
+    const b = levend(bol(wereld, 0.055, 0, 0, 0, 0, { materiaal: vonkMat, seg: 6, schaduw: false }));
+    b.visible = false;
+    b.raycast = () => {};
+    b.userData.fase = (i * 0.618) % 1;
+    b.userData.hoek = i * 2.1;
+    return b;
   });
   // damp aan de voet van de raket
   const damp = Array.from({ length: 6 }, (_, i) => {
@@ -1356,6 +1479,7 @@ function bouwRaket(g, canvas) {
     for (const b of rook) b.visible = false;
     for (const w of hogeWolken) w.visible = false;
     ruimteWeg();
+    wereld.position.set(0, 0, 0);
     tekenScherm();
   }
   // Eén stap van de ronde: eerst de vraag (de camera gaat kijken), daarna het
@@ -1443,6 +1567,10 @@ function bouwRaket(g, canvas) {
         return;
       }
     }
+    // de trilling: het hele tafereel beeft als de motoren aanslaan, en het ebt
+    // weg zodra de raket loskomt (de camera staat stil, dus de wereld schudt)
+    const schud = r.fase === 'vlucht' ? Math.max(0, 1 - r.t / 2.4) * 0.035 : r.fase === 'aftellen' ? klem((r.t - 3.2) / 1.8, 0, 1) * 0.014 : 0;
+    wereld.position.set(schud * Math.sin(nu * 53), schud * 0.6 * Math.sin(nu * 71), 0);
     // wat de tijdlijn met de raket en het platform doet
     raket.position.y = r.hoogte;
     raket.position.x = r.vuur > 0.3 && r.hoogte < 4 ? Math.sin(nu * 57) * 0.014 * r.vuur : 0;
@@ -1632,6 +1760,20 @@ function bouwRaket(g, canvas) {
         b.scale.setScalar(0.6 + q * 1.4 + vuur);
         b.material.opacity = Math.sin(q * Math.PI) * (0.38 + vuur * 0.4);
       });
+      // de vonken, van net voor de ontsteking tot de raket loskomt
+      const ontsteking = regie.fase === 'aftellen' ? regie.t - 3.1 : regie.fase === 'vlucht' ? regie.t + 1.9 : -1;
+      vonken.forEach(v => {
+        const q = (nu * 1.1 + v.userData.fase) % 1;
+        v.visible = ontsteking > 0 && ontsteking < 3.6 && q < 0.82;
+        if (!v.visible) return;
+        const hoek = v.userData.hoek + Math.floor(nu * 1.1 + v.userData.fase) * 1.3, afstand = 1.3 + q * 2.4;
+        v.position.set(Math.sin(hoek) * afstand, 0.3 + q * 1.6 - q * q * 1.95, RZ + Math.cos(hoek) * afstand * 0.8);
+        v.scale.set(1.6 - q * 0.8, 1 - q * 0.5, 1.6 - q * 0.8);
+      });
+      // de windzak: een lichte bries, met af en toe een vlaag
+      const bries = 0.55 + 0.45 * Math.sin(nu * 0.37) * Math.sin(nu * 0.11 + 1);
+      windzak.rotation.y = 0.4 + Math.sin(nu * 0.9) * 0.18 * bries;
+      windzak.rotation.z = -0.55 + bries * 0.5 + Math.sin(nu * 2.3) * 0.05 * bries;
       for (const l of lampjes) {
         // rust: knippert groen; wacht: amber; go: vast groen; no-go: knippert rood
         const t = l.userData.toestand;

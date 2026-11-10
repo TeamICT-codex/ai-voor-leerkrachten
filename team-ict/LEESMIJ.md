@@ -347,8 +347,29 @@ Het licht ('s avonds, en bij de lancering):
   fijne sterren (`tekenNachtsfeer`, `FIJNE_STERREN`); raak `sfeer.js` niet
   aan, die tekent ook de voorpagina.
 
-Gemeten op een zwak toestel: ongeveer 285 tekenbeurten in het overzicht
-overdag (was 279) en 300 's avonds (was 283).
+Het interieur en het platform (alles samengevoegd, dus zonder tekenbeurt
+extra, tenzij anders vermeld):
+
+- Per verdieping een **plint** in de bandkleur (`langsBoog()`: blokjes langs de
+  boog, want een cilinder is van binnenuit niet meer te zien na het
+  samenvoegen), en één eigen meubel tegen de wand op hoek π ± 1,05: een kapstok
+  met jasjes bij de kleuters, een boekenrek in het lager, lockers in het
+  secundair, een mappenkast bij het beleid. In het lager en het beleid ligt een
+  tapijt. In de motor een kabelgoot boven de kasten en vaste ledjes op elke kast.
+- Rond het platform een **veiligheidshek** (open vooraan, en geen paaltje bij
+  de vinnen), **bloemen** op zeven plekken, het **busje** van Team ICT bij de
+  vluchtleiding, en een **windzak** op een mast (één levend voorwerp, dus één
+  tekenbeurt).
+- Bij de ontsteking spatten **vonken** over het platform (tien bolletjes, alleen
+  zichtbaar van 3 s in het aftellen tot 1,7 s na het loskomen) en **beeft het
+  hele tafereel** (`wereld.position` in `werkRegieBij`; `zetTerug` zet het op
+  0). De camera staat stil, dus de wereld schudt.
+- De hint onder het podium verdwijnt na negen seconden vanzelf: op de gsm stond
+  hij over de labels. De labels schuiven 3 px op onder de muis.
+
+Gemeten op een zwak toestel na romp en licht: ongeveer 286 tekenbeurten in het
+overzicht overdag (was 279) en 299 's avonds (was 283); zie de meting in het
+commitbericht van elk deel voor het vervolg.
 
 ## Valkuilen
 

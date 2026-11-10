@@ -97,6 +97,8 @@ async function laadTafereel() {
     hint.textContent = aanraak
       ? 'Tik op een bolletje voor uitleg, of veeg opzij om de raket te draaien.'
       : 'Klik op een bolletje voor uitleg, of sleep om de raket te draaien.';
+    // Na een tijdje mag de hint weg: op de gsm staat hij anders over de labels.
+    setTimeout(hintWeg, 9000);
     huidige = null;
     bepaalFocus();
     if (vraag.has('zaal')) zetZaal(true);
