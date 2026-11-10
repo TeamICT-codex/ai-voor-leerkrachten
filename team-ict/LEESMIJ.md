@@ -291,6 +291,65 @@ geen details die de beveiliging zouden verzwakken.
    kan, een link. Zonder link verdwijnt de knop uit het kaartje.
 3. Klopt een id niet, dan meldt de console het bij het laden.
 
+## Het uiterlijk: romp, toren en licht
+
+In november 2026 kreeg de raket meer detail en gevoel. Alles zit in `raket.js`
+en `pagina.js`; de motor in `gedeeld/` is niet veranderd.
+
+De buitenkant:
+
+- **Patrijspoorten** rechts en links naast de opening (`PATRIJS`, hoeken 1,3 en
+  -1,27), met een groene ring en klinknagels; in de motor een koelrooster. Het
+  glas is `glasBuiten` van de motor: overdag lichtblauw, 's avonds en in de
+  ruimte gloeit het vanzelf. Zet er geen dichter dan 1,18 rad bij het midden,
+  anders schuift de ring over de groene snijrand.
+- **Naden en klinknagels** op de romp, de snijranden en de neus (`nagel()`:
+  een icosaëder van 20 driehoeken, niet een bol van 60). Op de neus een
+  laadluik en de twee stuurraketjes waar de stootjes uit komen (zie
+  `STOOTJES`: verplaats je die, verplaats de raketjes mee).
+- **De lanceertoren** op een betonnen voet, met kruisverbanden, vakwerkarmen,
+  drie leidingen en per arm een gele navelstreng met stekker. De slang en de
+  stekker zitten in de groep `armen` (ze zwaaien mee weg), de leidingen niet.
+  Het rode licht staat op een mast.
+- **TEAM ICT** als gebogen sticker op de rok (één textuur, +1 tekenbeurt). Hou
+  de straal 6 mm boven de rok, anders flikkert het.
+- **Straalpijpen** met kop, keel, uitwaaierende klok en koelringen. De mond
+  blijft op y -1,06: `VLAM_TOP` en de vlam rekenen daarmee.
+- **Vinnen** met een mintgroene voorrand en een voetschijf (in de groep van de
+  motor: ze vliegen mee).
+
+Het licht ('s avonds, en bij de lancering):
+
+- De motor roept `avond(n)` elk beeld op als laatste stap van het licht
+  (`werkLichtBij` in `diorama-kern.js`), ná de lampen, het glas, de gloed en
+  de zon. Alles wat hieronder staat, zit in die ene methode.
+- Elke kamer kleurt 's avonds naar haar eigen kleur in warm lamplicht
+  (`warm` per kamer, `LAMPKLEUR`), in plaats van naar grijsbeige. Dat werkt ook
+  op een zwak toestel, waar geen lamp brandt. De lampen gaan van onder naar
+  boven aan (`aan(i)`).
+- Per verdieping een **hanglamp** (`pendel()`, op z 0,45: verder naar achter
+  verdwijnt de kap achter de plafondrand in een close-up), met een gloed, en
+  een **plas licht op de vloer** (`vloerLicht`: één vorm voor vijf vloeren).
+- De wand heeft een **kleur per hoekpunt** (donkerder onder het plafond en
+  tegen de vloer). Dat blijft alleen bestaan omdat `wandMat` `apart` is: anders
+  overschrijft `voegSamen` die kleuren.
+- **Schermen gloeien** (`schermHalo()`): een vlak met een zachte rand, in de
+  verdieping zelf en niet in de plek, anders groeit het kader van de plek mee.
+  Kleine schermen (`schermVlak()`) geven zelf licht.
+- **Lichtplassen** op het platform (`plassen`, één vorm) en één **lamp onder de
+  motor** (`motorLamp`, alleen op een sterk toestel): 's avonds de gloed van de
+  waakvlam, bij de lancering het vuur op het platform. Ze volgt de raket tot 6
+  hoog en dooft dan.
+- In de ruimte schuift de **zon** van de motor naar rechts, waar de pagina haar
+  boven de aarde tekent (`ZON_RUIMTE`). Dat is `+=` op een licht dat de motor
+  elk beeld opnieuw zet; verandert die volgorde ooit, dan stapelt het op.
+- `pagina.js` tekent bovenop de hemel van `sfeer.js` de gloed van de stad en
+  fijne sterren (`tekenNachtsfeer`, `FIJNE_STERREN`); raak `sfeer.js` niet
+  aan, die tekent ook de voorpagina.
+
+Gemeten op een zwak toestel: ongeveer 285 tekenbeurten in het overzicht
+overdag (was 279) en 300 's avonds (was 283).
+
 ## Valkuilen
 
 - De kamers zijn rond en diep. Een bord dat hoger reikt dan `BORD_TOP`,
