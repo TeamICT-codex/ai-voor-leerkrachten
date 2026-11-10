@@ -444,7 +444,7 @@ function bouwRaket(g, canvas) {
     // een plint in de kleur van de band, langs de hele wand (blokjes langs de boog:
     // die zijn van binnenuit te zien, een cilinder niet na het samenvoegen)
     langsBoog(OPEN + 0.06, Math.PI * 2 - OPEN - 0.06, 30, RW - 0.02, (x, z, hoek) => {
-      blok(v, 0.3, 0.07, 0.035, band, x, PLAAT, z, { r: 0.008, schaduw: false }).rotation.y = hoek;
+      blok(v, 0.3, 0.07, 0.035, band, x, PLAAT, z, { r: 0, schaduw: false }).rotation.y = hoek;
     });
     // de randen van de doorsnede
     for (const kant of [-1, 1]) {
@@ -544,7 +544,7 @@ function bouwRaket(g, canvas) {
     });
     // een kabelgoot langs de wand, boven de kasten
     langsBoog(Math.PI - 1.38, Math.PI + 1.38, 14, RW - 0.1, (x, z, hoek) => {
-      blok(motor, 0.38, 0.08, 0.14, 0x3a434f, x, PLAAT + 1.5, z, { r: 0.01, schaduw: false }).rotation.y = hoek;
+      blok(motor, 0.38, 0.08, 0.14, 0x3a434f, x, PLAAT + 1.5, z, { r: 0, schaduw: false }).rotation.y = hoek;
     });
     const technicus = medewerker(motor, 0.25, 0.1, 0.75, -1.4, { shirt: K.groen, huid: 0, haar: 3 });
     blok(technicus, 0.2, 0.14, 0.02, K.inkt, 0, 0.5, 0.17, { r: 0.01 }).rotation.x = -0.5;
@@ -663,7 +663,7 @@ function bouwRaket(g, canvas) {
     blok(kapstok, 0.72, 0.05, 0.04, K.hout, 0, PLAAT + 0.74, 0, { r: 0.01 });
     [K.roos, K.zee, K.geel, K.blad1].forEach((k, j) => {
       const x = -0.24 + j * 0.16;
-      blok(kapstok, 0.02, 0.05, 0.03, K.inkt, x, PLAAT + 0.69, 0.02, { r: 0.005, schaduw: false });
+      blok(kapstok, 0.02, 0.05, 0.03, K.inkt, x, PLAAT + 0.69, 0.02, { r: 0, schaduw: false });
       blok(kapstok, 0.15, 0.27, 0.05, k, x, PLAAT + 0.44, 0.045, { r: 0.03 });
     });
     blok(kapstok, 0.17, 0.2, 0.1, K.oranje, 0.32, PLAAT, 0.12, { r: 0.035 });
@@ -695,8 +695,8 @@ function bouwRaket(g, canvas) {
     blok(rek, 0.64, 0.95, 0.3, K.wit, 0, PLAAT, 0, { r: 0.02 });
     const BOEKEN = [K.roos, K.zee, K.geel, K.blad2, K.oranje, K.paneel, K.perzik];
     for (const y of [PLAAT + 0.3, PLAAT + 0.62]) {
-      blok(rek, 0.6, 0.03, 0.28, K.hout, 0, y, 0.01, { r: 0.005, schaduw: false });
-      BOEKEN.forEach((k, j) => blok(rek, 0.055, 0.2 + (j % 3) * 0.03, 0.2, k, -0.24 + j * 0.08, y + 0.03, 0.03, { r: 0.004, schaduw: false }));
+      blok(rek, 0.6, 0.03, 0.28, K.hout, 0, y, 0.01, { r: 0, schaduw: false });
+      BOEKEN.forEach((k, j) => blok(rek, 0.055, 0.2 + (j % 3) * 0.03, 0.2, k, -0.24 + j * 0.08, y + 0.03, 0.03, { r: 0, schaduw: false }));
     }
     plant(rek, 0.18, PLAAT + 0.95, 0, 0.5);
   }
@@ -719,8 +719,8 @@ function bouwRaket(g, canvas) {
     const lockers = aanWand(secundair, Math.PI + 1.05, RW - 0.17);
     for (let k = -1; k <= 1; k++) {
       blok(lockers, 0.27, 1.0, 0.3, K.zee, k * 0.285, PLAAT, 0, { r: 0.015 });
-      blok(lockers, 0.22, 0.9, 0.02, 0x8fc6dd, k * 0.285, PLAAT + 0.05, 0.15, { r: 0.008, schaduw: false });
-      blok(lockers, 0.025, 0.07, 0.025, K.inkt, k * 0.285 + 0.075, PLAAT + 0.48, 0.165, { r: 0.006, schaduw: false });
+      blok(lockers, 0.22, 0.9, 0.02, 0x8fc6dd, k * 0.285, PLAAT + 0.05, 0.15, { r: 0, schaduw: false });
+      blok(lockers, 0.025, 0.07, 0.025, K.inkt, k * 0.285 + 0.075, PLAAT + 0.48, 0.165, { r: 0, schaduw: false });
       for (const y of [PLAAT + 0.8, PLAAT + 0.85]) blok(lockers, 0.14, 0.012, 0.01, 0x4f8fb0, k * 0.285, y, 0.162, { r: 0, schaduw: false });
     }
   }
@@ -761,8 +761,8 @@ function bouwRaket(g, canvas) {
     blok(mappen, 0.58, 0.9, 0.3, K.wit, 0, PLAAT, 0, { r: 0.02 });
     const MAPPEN = [K.groen, K.mint, K.geel, K.blauw, K.perzik, K.zee];
     for (const y of [PLAAT + 0.28, PLAAT + 0.58]) {
-      blok(mappen, 0.54, 0.03, 0.28, K.hout, 0, y, 0.01, { r: 0.005, schaduw: false });
-      MAPPEN.forEach((k, j) => blok(mappen, 0.06, 0.25, 0.2, k, -0.2 + j * 0.08, y + 0.03, 0.03, { r: 0.005, schaduw: false }));
+      blok(mappen, 0.54, 0.03, 0.28, K.hout, 0, y, 0.01, { r: 0, schaduw: false });
+      MAPPEN.forEach((k, j) => blok(mappen, 0.06, 0.25, 0.2, k, -0.2 + j * 0.08, y + 0.03, 0.03, { r: 0, schaduw: false }));
     }
     blok(mappen, 0.26, 0.14, 0.2, K.mint, -0.1, PLAAT + 0.9, 0, { r: 0.02 });
   }
@@ -1029,11 +1029,11 @@ function bouwRaket(g, canvas) {
       const a = i / N * Math.PI * 2, b = (i + 1) / N * Math.PI * 2;
       if (vrij(a)) continue;
       const [x, z] = boog(a, 2.95);
-      blok(platform, 0.05, 0.36, 0.05, K.groenDonker, x, 0.12, RZ + z, { r: 0.01, schaduw: false });
+      blok(platform, 0.05, 0.36, 0.05, K.groenDonker, x, 0.12, RZ + z, { r: 0, schaduw: false });
       if (vrij(b % (Math.PI * 2))) continue;
       const m = (a + b) / 2, [mx, mz] = boog(m, 2.95);
-      blok(platform, 0.74, 0.035, 0.035, K.geel, mx, 0.42, RZ + mz, { r: 0.01, schaduw: false }).rotation.y = m;
-      blok(platform, 0.74, 0.025, 0.025, K.groenDonker, mx, 0.26, RZ + mz, { r: 0.008, schaduw: false }).rotation.y = m;
+      blok(platform, 0.74, 0.035, 0.035, K.geel, mx, 0.42, RZ + mz, { r: 0, schaduw: false }).rotation.y = m;
+      blok(platform, 0.74, 0.025, 0.025, K.groenDonker, mx, 0.26, RZ + mz, { r: 0, schaduw: false }).rotation.y = m;
     }
   }
   // bloemen: een pol groen met drie bloemetjes erop
@@ -1055,8 +1055,8 @@ function bouwRaket(g, canvas) {
     blok(bus, 1.22, 0.1, 0.64, K.groen, 0, 0.3, 0, { r: 0.03 });
     blok(bus, 0.92, 0.3, 0.6, K.wit, -0.12, 0.62, 0, { r: 0.06 });
     blok(bus, 0.26, 0.24, 0.5, K.blauw, 0.5, 0.42, 0, { r: 0.04, schaduw: false });
-    for (const kz of [-1, 1]) blok(bus, 0.5, 0.18, 0.02, K.blauw, -0.1, 0.68, kz * 0.3, { r: 0.03, schaduw: false });
-    for (const kz of [-1, 1]) blok(bus, 0.06, 0.06, 0.03, K.geel, 0.6, 0.3, kz * 0.22, { r: 0.015, schaduw: false });
+    for (const kz of [-1, 1]) blok(bus, 0.5, 0.18, 0.02, K.blauw, -0.1, 0.68, kz * 0.3, { r: 0, schaduw: false });
+    for (const kz of [-1, 1]) blok(bus, 0.06, 0.06, 0.03, K.geel, 0.6, 0.3, kz * 0.22, { r: 0, schaduw: false });
     for (const kx of [-0.38, 0.36]) for (const kz of [-1, 1]) {
       const wiel = cilinder(bus, 0.1, 0.1, 0.08, K.inkt, kx, 0.06, kz * 0.3, { seg: 14 });
       wiel.rotation.x = Math.PI / 2;
