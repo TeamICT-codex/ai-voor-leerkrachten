@@ -214,7 +214,7 @@ function bouwToren(g) {
   const buiten = groepje(wereld, 0, HEUVEL, 0);
   const bomen = [[-2.85, TZ + 1.25, 0.95], [2.75, TZ - 1.5, 1.1], [-2.3, TZ - 2.1, 0.8]]
     .map(([x, z, s], i) => boom(buiten, x, z, s, i % 2 ? [K.blad2, K.blad1, K.blad3] : [K.blad1, K.blad2, K.blad3]));
-  const wegwijzer = groepje(buiten, 2.75, 0, TZ + 1.85);
+  const wegwijzer = groepje(buiten, 3.0, 0, TZ + 1.5);
   wegwijzer.rotation.y = -0.35;
   blok(wegwijzer, 0.07, 0.9, 0.07, K.houtDonker, 0, 0, 0);
   blok(wegwijzer, 1.22, 0.34, 0.05, K.hout, 0, 0.62, 0, { r: 0.03 });
@@ -700,6 +700,8 @@ function bouwToren(g) {
   const vloerKader = i => ({ min: [-R - 0.1, y0(i), TZ - R], max: [R + 0.1, y0(i) + VH + 0.05, TZ + R + 0.1], marge: 1.04, hoek: 0.14, opzij: DRAAI });
   const OPLICHT_KLEUR = new T.Color(OPLICHT), DAG_LICHT = new T.Color(0xfff4cf), NACHT_LICHT = new T.Color(0x2b3a68);
   let dakSterAvond = 0;
+  // Welk kader de camera nu toont: in de zaalmodus kiest de motor dat zelf.
+  let laatsteFocus = 'overzicht';
   return {
     kamers,
     kaders: {
@@ -714,6 +716,9 @@ function bouwToren(g) {
     },
     ankers: Object.fromEntries(KAMERS.map((k, i) => [k, new T.Vector3(R + 0.25, y0(i) + VH * 0.55, TZ + 0.3)])),
     binnen: kamer => KAMERS.includes(kamer),
+    // De zaalmodus wisselt om de tien seconden van kader, van de poort naar boven.
+    // Het kader 'dak' hoort alleen bij het slot van het verhaal.
+    zaalVolgorde: ['overzicht', ...KAMERS],
     plekZoom: 1.0,
     samenvoegen: [heuvel, buiten, ...KAMERS.map(k => kamers[k].groep), dak, ...wolken],
     intro: [
@@ -769,7 +774,7 @@ function bouwToren(g) {
         b.rotation.set(q * 5, q * 3, 0);
       }
     },
-    bijFocus(focus) { if (!regie.loopt) startMoment(focus); },
+    bijFocus(focus) { laatsteFocus = focus; if (!regie.loopt) startMoment(focus); },
     bijPlek(id) { if (id && !regie.loopt) startMoment(plekKamer[id], { vertraging: 0.3 }); },
     // na het laden van het lettertype: de borden met hun huidige stand opnieuw tekenen
     tekenAlles() {
@@ -792,6 +797,8 @@ function bouwToren(g) {
       },
       stopVerhaal() { regie.loopt = false; regie.melding = null; regie.boeket = null; },
       verhaalLoopt: () => regie.loopt,
+      // Voor het onderschrift in de zaalmodus: het kader waar de camera naartoe gaat.
+      focusNu: () => laatsteFocus,
     },
   };
 }

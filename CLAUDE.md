@@ -80,7 +80,8 @@ team-ict/           de pagina van Team ICT: een raket in doorsnede op dezelfde 3
                     erop draait mee als T162 (zie team-ict/LEESMIJ.md)
 rekencollectief/    de pagina van Het Rekencollectief voor leerkrachten en directies: een
                     tovenaarstoren in doorsnede op dezelfde 3D-motor, met per kamer een
-                    moment en "Speel het verhaal af"; het adres van de app staat alleen in
+                    moment, "Speel het verhaal af" en een zaalmodus (?zaal) voor de beamer;
+                    het adres van de app staat alleen in
                     ADRES in plekken.js, de controle is node rekencollectief/controle.mjs
                     (niet in de nodetests; zie rekencollectief/LEESMIJ.md en ONTWERP.md)
 teaser/             de promofilm van een halve minuut: opname.py neemt de filmmodus

@@ -42,6 +42,11 @@ for (const l of labels) if (!kaders.has(l)) fout('FOUT label', l, 'heeft geen ka
 for (const k of Object.keys(KAMERS)) if (!labels.includes(k)) fout('FOUT kamer', k, 'heeft geen label naast de toren');
 for (const k of new Set(PLEKKEN.map(p => p.kamer))) if (!pagina.includes(`class="punten" data-kamer="${k}"`)) fout('FOUT kamer', k, 'heeft geen lijst met de bolletjes in zijn hoofdstuk');
 
+// ── de zaalmodus: elke kamer zit in de wissel, en elk kader van de wissel bestaat ──
+const wissel = toren.match(/zaalVolgorde: \['overzicht', \.\.\.KAMERS\]/) ? ['overzicht', ...Object.keys(KAMERS)] : null;
+if (!wissel) fout('FOUT zaalVolgorde in toren.js is niet meer [\'overzicht\', ...KAMERS]: pas controle.mjs mee aan');
+for (const k of wissel || []) if (!kaders.has(k)) fout('FOUT de zaalmodus toont', k, 'maar daar is geen kader voor');
+
 // ── het verhaal: een regel per stap ──
 const stappen = [...toren.matchAll(/\{ t: [\d.]+, stap: '([a-z]+)' \}/g)].map(m => m[1]);
 if (!stappen.length) fout('FOUT geen tijdlijn VERHAAL gevonden in toren.js');

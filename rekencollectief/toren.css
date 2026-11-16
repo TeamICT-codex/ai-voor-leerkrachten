@@ -375,8 +375,57 @@ a.knop::after { content: '→'; }
   .label { font-size: .88rem; padding: .6rem 1rem .6rem .7rem; }
 }
 
+/* ── zaalmodus: de toren vult het scherm, voor een beamer of een digibord ──
+   Linksonder het zaalbord met het adres, onderaan ernaast het onderschrift met de
+   naam van de kamer, linksboven een kaartje of het verhaalbord, rechtsboven de
+   avondknop. pagina.js geeft de camera de vrije ruimte daartussen (zetVrijeRuimte). */
+.zaalbord, .onderschrift { display: none; }
+.zaal-knop {
+  font: 600 .85rem var(--letter); color: var(--groen-donker); background: var(--wit);
+  border: 2px solid var(--mint); border-radius: 999px; padding: .5rem 1rem; cursor: pointer;
+}
+.zaal-knop:hover { background: var(--mint-zacht); }
+body.zaal { overflow: hidden; }
+body.zaal .kop, body.zaal .hoofdstukken, body.zaal .voet, body.zaal .overslaan { display: none; }
+body.zaal .podium { position: fixed; inset: 0; height: 100vh; min-height: 0; margin: 0; border-radius: 0; z-index: 40; }
+body.zaal .labels, body.zaal .hint, body.zaal .verhaal-knop, body.zaal .waas { display: none; }
+body.zaal .pin { width: 42px; height: 42px; }
+body.zaal .pin-titel { left: 50px; font-size: 1rem; }
+body.zaal .pin.rechts .pin-titel { left: auto; right: 50px; }
+body.zaal .avond-knop { top: 3vw; right: 3vw; font-size: clamp(.8rem, 1vw, 1.1rem); }
+body.zaal .uitleg, body.zaal .verhaalbord {
+  position: absolute; left: 3vw; right: auto; top: 3vw; bottom: auto;
+  width: min(40vw, 660px);
+  /* nooit tot op het zaalbord linksonder */
+  max-height: calc(100% - 19vw); overflow: auto;
+  padding: 1.6rem 1.8rem 1.3rem; background: rgba(255, 255, 255, .97);
+}
+body.zaal .uitleg h3, body.zaal .verhaalbord h3 { font-size: clamp(1.4rem, 2.1vw, 2.4rem); margin-right: 3.2rem; }
+body.zaal .uitleg-waar { font-size: clamp(.8rem, .95vw, 1.05rem); }
+body.zaal .uitleg-tekst, body.zaal .verhaal-regel, body.zaal .samenvatting { font-size: clamp(1.1rem, 1.45vw, 1.6rem); }
+body.zaal .uitleg-nav button, body.zaal .uitleg-teller, body.zaal .verhaal-stappen li { font-size: clamp(.85rem, 1vw, 1.15rem); }
+body.zaal .uitleg-sluit { width: 2.8rem; height: 2.8rem; font-size: 1.7rem; }
+body.zaal .verhaal-knoppen .knop { font-size: clamp(.9rem, 1.05vw, 1.2rem); }
+body.zaal .zaalbord {
+  display: block; position: absolute; left: 3vw; bottom: 3vw; z-index: 3;
+  width: max-content; max-width: 39vw;
+  padding: 1.2vw 2vw; border-radius: var(--straal);
+  background: rgba(255, 255, 255, .94); box-shadow: var(--schaduw);
+}
+.zaal-titel { margin: 0; font-size: clamp(1.3rem, 2.8vw, 3.4rem); font-weight: 700; line-height: 1.1; color: var(--inkt); }
+.zaal-adres { margin: .3vw 0 0; font-size: clamp(1rem, 1.8vw, 2.2rem); font-weight: 600; color: var(--groen); overflow-wrap: anywhere; }
+body.zaal .onderschrift.aan {
+  display: block; position: absolute; left: 44vw; right: 3vw; bottom: 3vw; z-index: 3; margin: 0;
+  padding: 1vw 1.6vw; border-radius: var(--straal);
+  background: rgba(255, 255, 255, .94); box-shadow: var(--schaduw);
+  animation: kaart-in .4s ease;
+}
+.onderschrift-naam { display: block; font-size: clamp(1.1rem, 1.9vw, 2.3rem); line-height: 1.2; color: var(--groen); }
+.onderschrift-regel { display: block; margin-top: .2vw; font-size: clamp(1rem, 1.45vw, 1.7rem); line-height: 1.4; color: var(--inkt); }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  body.zaal .onderschrift.aan { animation: none; }
   .scrolhint span, .hoofdstuk.in-beeld .etiket::before, .pin-stip::after, .uitleg, .verhaalbord { animation: none; }
   .lucht, .tafereel, .schets { transition: none; }
 }

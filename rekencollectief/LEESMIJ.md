@@ -31,6 +31,57 @@ Verder: slepen draait de toren, de avondknop zet de lampen aan (wandlampjes,
 gloeiende ramen, een kristal op de dakpunt dat gloeit), en het licht volgt het
 uur in Dendermonde zoals op de voorpagina (`voorpagina/sfeer.js`).
 
+## De zaalmodus
+
+Voor een beamer of een digibord: de knop "Zaalmodus voor de beamer" onderaan de
+pagina (die vraagt ook het volledige scherm; lukt dat niet, dan werkt de
+zaalmodus evengoed), of `?zaal` in het adres.
+
+- De toren vult het scherm, de tekst van de pagina is weg. De camera wisselt om de
+  tien seconden van kader, van het overzicht via de hal naar de sterrenwacht
+  (`zaalVolgorde` in `toren.js`), en elke kamer speelt haar moment als de camera
+  er aankomt.
+- **Onderaan rechts het onderschrift**: de naam van de kamer met haar regel uit
+  `VERHAAL_REGELS`; bij het overzicht "Klim mee de toren in" met de regel van de
+  poort. Het wisselt mee met de camera, en staat er niet zolang een kaartje of het
+  verhaal het woord heeft.
+- **Linksonder het zaalbord**: "Het Rekencollectief" met eronder `ADRES` zonder
+  `https://`.
+- **Presenteren**: met de pijltjes naar rechts en links loop je door alle 14
+  kaartjes, over de kamers heen (ook zonder dat de focus in het kaartje staat).
+  Een kaartje en het verhaalbord staan linksboven, met grotere letters. Zolang een
+  kaartje openstaat, wisselt de camera niet. "Klaar" na het laatste kaartje sluit het.
+- **Het verhaal speelt vanzelf** na een minuut, en daarna om de vier minuten, maar
+  niet zolang er een kaartje openstaat of er al een verhaal loopt. Wat de zaal
+  vanzelf startte, sluit acht seconden na het einde ook vanzelf; wie het zelf
+  startte, sluit het zelf.
+- **Stoppen**: Escape sluit eerst het kaartje, dan het verhaal, en pas daarna de
+  zaalmodus. Wie het volledige scherm verlaat, verlaat ook de zaalmodus.
+- **Met minder beweging** (`?zaal&stil`): geen wissel en geen verhaal; de toren
+  staat stil in het overzicht en de kaartjes werken met de pijltjes.
+- Geen weer, geen klok, niets van een andere server.
+
+Hoe het gebouwd is (`zetZaal` en wat erbij hoort, onderaan `pagina.js`; de regels
+onder "zaalmodus" in `toren.css`):
+
+- De wissel is die van de motor (`dio.zaal`). De motor laat de kijkhoek in de zaal
+  breed heen en weer zwaaien (0,32 rad); dan schoof de wegwijzer buiten voor het
+  rek met naamkaartjes. In de toren drijft ze daarom maar zachtjes
+  (`dio.drift(ZAAL_DRIFT)`, 0,08). Tijdens het verhaal staat de wissel uit en stuurt
+  de tijdlijn de camera, zoals bij de go/no-go-ronde van de raket.
+- Welke kamer de motor toont, vertelt `dio.focusNu()` (bijgehouden in `bijFocus`
+  van `toren.js`). `zaalTik()` hangt aan `onBeeld` van de motor: na elk getekend
+  beeld werkt hij het onderschrift bij en telt hij op de tijd van het tafereel
+  (`dio.tijd()`) wanneer het verhaal vanzelf start. Zo pauzeert die minuut mee als
+  het tabblad op de achtergrond staat, en spoelt ze mee met `dio._test.spoel`.
+- De camera kadert in wat vrij blijft (`zetVrijeRuimte`): zonder paneel boven de
+  band met het zaalbord en het onderschrift; met een kaartje of het verhaalbord
+  rechts ervan, of tussen het paneel en het zaalbord. De motor kiest wat het
+  tafereel het grootst laat.
+- Het zaalbord staat links tot hoogstens 39 % van de breedte, het onderschrift
+  begint op 44 %: zo raken ze elkaar op geen enkele breedte. Een kaartje of het
+  verhaalbord reikt nooit tot op het zaalbord (`max-height: calc(100% - 19vw)`).
+
 ## Bekijken
 
 Vanuit de root: `python test/server.py`, daarna
@@ -42,18 +93,19 @@ de preview `rekentoren` op poort 8020.)
 | `?stil` | doet alsof je toestel om minder beweging vraagt: elke kamer staat meteen in haar eindstand, er speelt niets, en "Speel het verhaal af" toont de zes regels als gewone lijst |
 | `?schets` | doet alsof je toestel geen 3D kan: je ziet de vlakke schets (een SVG van dezelfde toren), en de verhaalknop toont de samenvatting |
 | `?zwak` | gedraagt zich zoals op een traag toestel: minder pixels, kleinere schaduwen, geen lampen ('s avonds kleuren de muren zelf) |
-| `?debug` | zet `window.dio` klaar, met `dio._test.spoel(sec)` en `dio._test.meet()` |
+| `?zaal` | de zaalmodus voor de beamer (kan ook via de knop onderaan) |
+| `?debug` | zet `window.dio` klaar, met `dio._test.spoel(sec)` en `dio._test.meet()`, en `window.zaalTik`: wie zonder beeldlus doorspoelt (een verborgen tabblad), roept die na het spoelen zelf op |
 
 ## Bestanden
 
-- `index.html`: de tekst, het podium, de schets en het verhaalbord. De tekst staat
+- `index.html`: de tekst, het podium, de schets, het verhaalbord, en voor de zaal het zaalbord en het onderschrift. De tekst staat
   er ook zonder 3D. De knoppen naar de app krijgen hun adres van `pagina.js`
   (`data-app`).
-- `toren.css`: een ingekorte kopie van `voorpagina/startpagina.css` (zonder
-  zaalmodus, film of weer), met onderaan wat eigen is aan de toren.
+- `toren.css`: een ingekorte kopie van `voorpagina/startpagina.css` (zonder film
+  of weer), met onderaan wat eigen is aan de toren en de zaalmodus.
 - `pagina.js`: de paginalijm, afgeleid van `team-ict/pagina.js`: scrollen, de
-  spelden, het kaartje, de vrije ruimte naast een paneel, de avondknop en het
-  verhaal. Zet ook de bolletjes van elke kamer als lijst in het hoofdstuk.
+  spelden, het kaartje, de vrije ruimte naast een paneel, de avondknop, het
+  verhaal en de zaalmodus. Zet ook de bolletjes van elke kamer als lijst in het hoofdstuk.
 - `toren.js`: het tafereel, de momenten (`momenten`) en de tijdlijn van het
   verhaal (`VERHAAL`, `regie`). Alles wordt in code gemaakt.
 - `plekken.js`: `ADRES` (het adres van de app, op één plek), de namen van de
@@ -133,7 +185,7 @@ laden.
 - **De deur draait weg van de camera** (scharnier aan de achterkant), anders
   bedekt ze de deuropening net als het kind binnenkomt. Het daglicht is een vlak
   achter de deur, de muur heeft geen gat.
-- **Klein gehouden**: geen informatielaag, logboek, zaalmodus, weer, seizoenen of
+- **Klein gehouden**: geen informatielaag, logboek, weer, seizoenen of
   opslag in de browser.
 
 ## Gemeten
@@ -163,7 +215,18 @@ open kaartje staat telkens vrij (op de laptop boven het kaartje, op de gsm in he
 podium boven het kaartje). Ook `?stil`, `?schets`, `?zwak`, de avondstand en een
 ronde met alleen het toetsenbord (Tab, Enter, pijltjes, Escape).
 
+De zaalmodus is op 16 november 2026 nagekeken op 1366 × 768, 1920 × 1080 en
+1024 × 768: elke kamer in de wissel met haar onderschrift, het zaalbord, een open
+kaartje, het verhaal dat vanzelf start na de minuut en zijn einde, de pijltjes over
+de kamers heen, de volgorde van Escape, en `?zaal&stil`. Nergens stond een paneel
+over een ander. De letters op 1920 breed: kaarttekst 25,6 px, titel 38,4 px, naam
+van de kamer 36,5 px, adres 34,6 px; op 1024 breed is de kaarttekst 17,6 px.
+
 ## Nog te doen
+
+- De zaalmodus op een echte beamer en een echt digibord bekijken, van achteraan
+  in de zaal, en het volledige scherm met een echte klik (hier enkel getest
+  zonder volledig scherm).
 
 - Bekijken in een gewoon, zichtbaar browservenster: de vloeiendheid van de
   momenten en van de camera is hier alleen beeld per beeld nagekeken (met

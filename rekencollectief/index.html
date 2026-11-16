@@ -118,6 +118,14 @@
         </section>
         <button type="button" class="toon-toch" hidden>Toon de toren in 3D (± 180 kB)</button>
 
+        <!-- De zaalmodus: het adres van de app groot linksonder (pagina.js vult het in
+             vanuit ADRES), en onderaan de naam van de kamer met haar regel. -->
+        <div class="zaalbord" aria-hidden="true">
+          <p class="zaal-titel">Het Rekencollectief</p>
+          <p class="zaal-adres"></p>
+        </div>
+        <p class="onderschrift" aria-hidden="true"><strong class="onderschrift-naam"></strong><span class="onderschrift-regel"></span></p>
+
         <!-- Het verhaal: de regel bij elke kamer, waar je bent, en op het einde de weg naar de app. -->
         <section class="verhaalbord" hidden aria-labelledby="verhaal-titel">
           <button type="button" class="uitleg-sluit verhaal-sluit" aria-label="Stop het verhaal en sluit">×</button>
@@ -213,6 +221,7 @@
   <footer class="voet">
     <img src="../gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
     <p>Het Rekencollectief · een project van de werkgroep automatiseren van Het leercollectief</p>
+    <button type="button" class="zaal-knop">Zaalmodus voor de beamer</button>
   </footer>
 </body>
 </html>

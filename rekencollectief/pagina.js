@@ -2,7 +2,8 @@
 // is, koppelt de camera aan wat je aan het lezen bent, en valt terug op de vlakke
 // schets als het toestel geen 3D kan of databesparing vraagt. Daarnaast: de
 // spelden bij de aanklikbare plekken, het uitlegkaartje, de avondknop en "Speel
-// het verhaal af". Het licht volgt het uur in Dendermonde, net als op de voorpagina.
+// het verhaal af", en de zaalmodus voor een beamer of een digibord. Het licht
+// volgt het uur in Dendermonde, net als op de voorpagina.
 // Deze pagina haalt niets op bij een andere server; de enige links naar buiten
 // zijn de knoppen naar de app. Werkwijze en valkuilen: zie team-ict/pagina.js en
 // voorpagina/startpagina.js, waar dit van komt.
@@ -17,13 +18,15 @@ const labels = Object.fromEntries([...podium.querySelectorAll('.label')].map(el 
 const hint = podium.querySelector('.hint');
 
 // Om te testen: ?stil doet alsof je minder beweging vraagt, ?schets alsof je
-// toestel geen 3D kan, ?zwak alsof het een traag toestel is, ?debug zet window.dio klaar.
+// toestel geen 3D kan, ?zwak alsof het een traag toestel is, ?debug zet window.dio
+// klaar, ?zaal start de zaalmodus.
 const vraag = new URLSearchParams(location.search);
 const stil = matchMedia('(prefers-reduced-motion: reduce)').matches || vraag.has('stil');
 const spaarstand = navigator.connection?.saveData === true;
 const zwak = vraag.has('zwak') || (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
 const mobiel = () => matchMedia('(max-width: 899px)').matches;
 const aanraak = matchMedia('(pointer: coarse)').matches;
+const inZaal = () => document.body.classList.contains('zaal');
 
 let dio = null;
 let huidige = null;
@@ -90,6 +93,8 @@ async function laadTafereel() {
       onPlek: id => openPlek(id),
       onPlekHover: id => { for (const [k, el] of Object.entries(pinnen)) el.classList.toggle('actief', k === id); },
       onFout: () => { stopVerhaal({ focusTerug: false }); podium.classList.remove('klaar'); podium.classList.add('zonder-3d'); },
+      // na elk beeld: de zaalmodus volgt de camera en telt op de tijd van het tafereel
+      onBeeld: () => zaalTik(),
     });
     // Een plek in plekken.js zonder voorwerp in het tafereel, of omgekeerd, valt
     // anders stil weg. controle.mjs kijkt hetzelfde na zonder browser.
@@ -100,7 +105,8 @@ async function laadTafereel() {
     podium.classList.add('klaar');
     pasSfeerToe({ direct: true });
     if (!stil) requestAnimationFrame(hemelLus);
-    if (vraag.has('debug')) window.dio = dio;
+    // ?debug: dio en de tik van de zaalmodus, om door te spoelen zonder beeldlus.
+    if (vraag.has('debug')) Object.assign(window, { dio, zaalTik });
     if (!stil && !zwak) podium.classList.add('rijk');
     hint.textContent = aanraak
       ? 'Tik op een bolletje voor uitleg, of veeg opzij om de toren te draaien.'
@@ -108,6 +114,7 @@ async function laadTafereel() {
     setTimeout(hintWeg, 9000);
     huidige = null;
     bepaalFocus();
+    if (vraag.has('zaal')) zetZaal(true);
   } catch (fout) {
     console.warn('De toren kon niet laden; de schets blijft staan.', fout);
     podium.classList.add('zonder-3d');
@@ -126,6 +133,8 @@ function naarHoofdstuk(kamer) {
 // op een groot scherm wat in het midden staat. kaartBlijft: na een resize (op de
 // gsm ook als de adresbalk in- of uitklapt) blijft een open kaartje staan.
 function bepaalFocus({ kaartBlijft = false } = {}) {
+  // In de zaalmodus is de tekst weg en kiest de motor de kamer.
+  if (inZaal()) return;
   const pb = podium.getBoundingClientRect();
   const lijn = mobiel() ? pb.bottom + (innerHeight - pb.bottom) * 0.3 : innerHeight * 0.5;
   let kamer = 'overzicht';
@@ -160,12 +169,27 @@ for (const el of Object.values(labels)) el.addEventListener('click', () => naarH
 // tafereel het grootst laat. Op de gsm staan beide onder het podium: alles vrij.
 const kaart = podium.querySelector('.uitleg');
 const bord = podium.querySelector('.verhaalbord');
+const zaalbord = podium.querySelector('.zaalbord');
+const onderschrift = podium.querySelector('.onderschrift');
 let vrijeRuimte = '';
 function zetVrijeRuimte() {
   if (!dio) return;
   const paneel = !kaart.hidden ? kaart : !bord.hidden ? bord : null;
   let keuzes = [];
-  if (paneel && !mobiel()) {
+  if (inZaal()) {
+    // In de zaal: het zaalbord linksonder, het onderschrift onderaan ernaast, en
+    // een kaartje of het verhaalbord linksboven. Elk deel als randen van het podium.
+    const p = podium.getBoundingClientRect();
+    const randen = el => { const r = el.getBoundingClientRect(); return { rechts: (r.right - p.left) / p.width + 0.02, onder: (r.bottom - p.top) / p.height + 0.02, boven: (p.bottom - r.top) / p.height + 0.02 }; };
+    const zb = randen(zaalbord);
+    if (paneel) {
+      const b = randen(paneel);
+      keuzes = [{ links: Math.max(b.rechts, zb.rechts) }, { boven: b.onder, onder: zb.boven }];
+    } else {
+      const os = onderschrift.classList.contains('aan') ? randen(onderschrift).boven : 0;
+      keuzes = [{ onder: Math.max(zb.boven, os) }];
+    }
+  } else if (paneel && !mobiel()) {
     const p = podium.getBoundingClientRect(), b = paneel.getBoundingClientRect();
     const naast = (b.right - p.left) / p.width + 0.03, boven = (p.bottom - b.top) / p.height + 0.03;
     keuzes = naast > 0.7 ? [{ onder: boven }] : [{ links: naast }, { onder: boven }];
@@ -177,6 +201,7 @@ function zetVrijeRuimte() {
 }
 new ResizeObserver(() => zetVrijeRuimte()).observe(kaart);
 new ResizeObserver(() => zetVrijeRuimte()).observe(bord);
+new ResizeObserver(() => zetVrijeRuimte()).observe(onderschrift);
 
 // ── het uitlegkaartje ──
 const kaartDelen = {
@@ -206,8 +231,11 @@ function openPlek(id) {
   kaartDelen.teller.textContent = `${i + 1} van ${lijst.length}`;
   kaartDelen.vorige.disabled = i === 0;
   kaartDelen.volgende.textContent = i < lijst.length - 1 ? 'Volgende →' : volgendeKamer ? 'Een verdieping hoger →' : 'Klaar';
+  // In de zaal gaat Vorige ook terug naar de kamer eronder.
+  if (inZaal() && i === 0 && p.kamer !== VOLGORDE_KAMERS[0]) kaartDelen.vorige.disabled = false;
   kaart.hidden = false;
   podium.classList.add('kaart-open');
+  zetOnderschrift();
   for (const [k, el] of Object.entries(pinnen)) el.classList.toggle('open', k === id);
   zetVrijeRuimte();
   dio?.toonPlek(id, { opzij: true });
@@ -221,6 +249,7 @@ function sluitPlek(focusTerug = true) {
   podium.classList.remove('kaart-open');
   for (const el of Object.values(pinnen)) el.classList.remove('open');
   dio?.toonPlek(null);
+  zetOnderschrift();
   zetVrijeRuimte();
   const zichtbaar = terugNaar?.isConnected && terugNaar.offsetParent !== null;
   if ((focusTerug || focusInKaart) && zichtbaar) terugNaar.focus({ preventScroll: true });
@@ -229,6 +258,13 @@ function stap(richting) {
   if (!open) return;
   const p = plekVan(open), lijst = plekkenIn(p.kamer), i = lijst.indexOf(p) + richting;
   if (i >= 0 && i < lijst.length) { openPlek(lijst[i].id); return; }
+  // In de zaal loop je met de pijltjes door alle kaartjes, over de kamers heen.
+  if (inZaal()) {
+    const alle = PLEKKEN.indexOf(p) + richting;
+    if (alle >= 0 && alle < PLEKKEN.length) openPlek(PLEKKEN[alle].id);
+    else if (richting > 0) sluitPlek();  // "Klaar" na het laatste kaartje
+    return;
+  }
   if (richting < 0) return;
   // Op het einde van een verdieping: een verdieping hoger, zoals bij het scrollen.
   const volgendeKamer = VOLGORDE_KAMERS[VOLGORDE_KAMERS.indexOf(p.kamer) + 1];
@@ -263,7 +299,7 @@ for (const regel of Object.values(VERHAAL_REGELS)) {
   li.textContent = regel;
   verhaalDelen.samenvatting.append(li);
 }
-// verhaal: { terugNaar, klaar }, of null
+// verhaal: { terugNaar, klaar, vanzelf, sluitOp }, of null
 let verhaal = null;
 const verhaalBezig = () => !!verhaal && !verhaal.klaar;
 
@@ -278,11 +314,12 @@ function toonBord({ titel, regel = '', stappen = false, samenvatting = false, kn
   podium.classList.add('bord-open');
   zetVrijeRuimte();
 }
-function startVerhaal(knop) {
+// vanzelf: de zaalmodus start het verhaal, niet iemand met een knop.
+function startVerhaal(knop, { vanzelf = false } = {}) {
   const terug = verhaal?.terugNaar ?? (knop?.isConnected ? knop : null);
   sluitPlek(false);
   if (verhaal) dio?.stopVerhaal();
-  verhaal = { terugNaar: terug, klaar: false };
+  verhaal = { terugNaar: terug, klaar: false, vanzelf, sluitOp: null };
   if (!dio || stil || !podium.classList.contains('klaar')) {
     verhaal.klaar = true;
     toonBord({ titel: 'Het verhaal in het kort', samenvatting: true, knoppen: true });
@@ -290,9 +327,13 @@ function startVerhaal(knop) {
     for (const li of Object.values(stapItems)) li.className = '';
     toonBord({ titel: 'Klim mee de toren in', stappen: true });
     podium.classList.add('verhaal-loopt');
+    // In de zaal wisselt de camera anders om de tien seconden van kamer, en drijft
+    // de kijkhoek breed heen en weer: tijdens het verhaal stuurt de tijdlijn.
+    if (inZaal()) { dio.zaal(false); dio.drift(0.05, 0.12); }
     dio.verhaal({ melding: opMelding });
   }
-  verhaalDelen.titel.focus({ preventScroll: true });
+  zetOnderschrift();
+  if (!vanzelf) verhaalDelen.titel.focus({ preventScroll: true });
 }
 function opMelding(soort, d) {
   if (!verhaal) return;
@@ -307,16 +348,21 @@ function opMelding(soort, d) {
     verhaal.klaar = true;
     toonBord({ titel: 'Zin om het te proberen?', regel: 'Open de app, of lees eerst in de handleiding hoe je in drie stappen start.', knoppen: true, opnieuw: true });
     podium.classList.remove('verhaal-loopt');
+    zaalNaVerhaal();
+    // Wat de zaal vanzelf startte, sluit ook vanzelf, acht seconden na het einde.
+    if (verhaal.vanzelf) verhaal.sluitOp = dio.tijd() + 8;
     huidige = null; bepaalFocus();
   }
 }
 function stopVerhaal({ focusTerug = true } = {}) {
   if (!verhaal) return;
-  const terug = verhaal.terugNaar;
+  const terug = verhaal.terugNaar, wasBezig = verhaalBezig();
   dio?.stopVerhaal();
   verhaal = null;
   bord.hidden = true;
   podium.classList.remove('bord-open', 'verhaal-loopt');
+  if (wasBezig) zaalNaVerhaal();
+  zetOnderschrift();
   zetVrijeRuimte();
   huidige = null; bepaalFocus();
   if (focusTerug && terug?.isConnected && !terug.closest('[hidden]')) terug.focus({ preventScroll: true });
@@ -373,17 +419,86 @@ avondKnop.addEventListener('click', () => {
 // Elke vijf minuten bijwerken: de zon schuift traag genoeg.
 setInterval(pasSfeerToe, 5 * 60e3);
 
+// ── de zaalmodus voor de beamer of het digibord ──
+// De toren vult het scherm, de camera wisselt vanzelf van kamer (dio.zaal) en elke
+// kamer speelt haar moment. Onderaan staat groot de naam van de kamer met haar
+// regel, linksonder het adres van de app. Het verhaal speelt vanzelf na een minuut
+// en daarna om de vier minuten, geteld op de tijd van het tafereel: zo pauzeert
+// het mee als het tabblad op de achtergrond staat. Met minder beweging speelt er
+// niets vanzelf. Geen weer, geen klok, niets van een andere server.
+zaalbord.querySelector('.zaal-adres').textContent = ADRES.replace(/^https?:\/\//, '');
+const ONDERSCHRIFT = {
+  overzicht: ['Klim mee de toren in', VERHAAL_REGELS.poort],
+  ...Object.fromEntries(VOLGORDE_KAMERS.map(k => [k, [KAMERS[k].naam, VERHAAL_REGELS[k]]])),
+};
+let onderschriftVan = null, volgendVerhaal = null;
+const ZAAL_DRIFT = 0.08;  // hoe ver de kijkhoek in de zaal heen en weer drijft, in radialen
+// Het onderschrift volgt de camera, en staat er niet als een kaartje of het verhaal het woord heeft.
+function zetOnderschrift() {
+  const aan = inZaal() && !!dio && kaart.hidden && bord.hidden;
+  const focus = dio?.focusNu?.() ?? 'overzicht';
+  if (aan && focus !== onderschriftVan && ONDERSCHRIFT[focus]) {
+    onderschriftVan = focus;
+    onderschrift.querySelector('.onderschrift-naam').textContent = ONDERSCHRIFT[focus][0];
+    onderschrift.querySelector('.onderschrift-regel').textContent = ONDERSCHRIFT[focus][1];
+  }
+  if (onderschrift.classList.contains('aan') !== aan) { onderschrift.classList.toggle('aan', aan); zetVrijeRuimte(); }
+}
+// Na elk beeld: het onderschrift, het verhaal dat vanzelf start, en het bord dat vanzelf sluit.
+function zaalTik() {
+  if (!inZaal()) return;
+  zetOnderschrift();
+  const nu = dio.tijd();
+  if (volgendVerhaal == null) volgendVerhaal = nu + 60;
+  if (verhaal?.sluitOp != null && nu >= verhaal.sluitOp) stopVerhaal({ focusTerug: false });
+  if (!stil && !open && !verhaal && nu >= volgendVerhaal) {
+    volgendVerhaal = nu + 240;
+    startVerhaal(null, { vanzelf: true });
+  }
+}
+// Na het verhaal neemt de zaal de camera weer over.
+function zaalNaVerhaal() {
+  if (!inZaal()) return;
+  dio.drift(ZAAL_DRIFT, 0.12);
+  dio.zaal(true);
+  onderschriftVan = null;
+}
+function zetZaal(aan) {
+  if (aan === inZaal()) return;
+  // Een verhaal dat loopt, stopt: de zaalmodus neemt de camera over.
+  if (verhaal) stopVerhaal({ focusTerug: false });
+  document.body.classList.toggle('zaal', aan);
+  dio?.zaal(aan);
+  // De motor laat de kijkhoek in de zaal breed zwaaien; dan schuift de wegwijzer
+  // buiten voor de hal. In de toren drijft ze maar zachtjes.
+  dio?.drift(aan ? ZAAL_DRIFT : null, 0.12);
+  onderschriftVan = null;
+  volgendVerhaal = null;  // de eerste tik in de zaal zet de minuut in gang
+  if (!aan) { sluitPlek(false); huidige = null; bepaalFocus(); }
+  zetOnderschrift();
+  zetVrijeRuimte();
+}
+document.querySelector('.zaal-knop').addEventListener('click', async () => {
+  zetZaal(true);
+  try { await document.documentElement.requestFullscreen?.(); } catch { /* geen volledig scherm: de zaalmodus werkt ook zo */ }
+});
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && inZaal()) zetZaal(false); });
+
 addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    // Eerst het kaartje dicht, dan het verhaal.
+    // Eerst het kaartje dicht, dan het verhaal, pas daarna de zaalmodus uit.
     if (open) sluitPlek();
     else if (verhaal) stopVerhaal();
+    else if (inZaal()) { zetZaal(false); if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); }
     return;
   }
-  // Met de pijltjes door de plekken, als de focus in het kaartje staat.
-  if ((e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') || !open || !kaart.contains(document.activeElement)) return;
+  // Met de pijltjes door de plekken: als de focus in het kaartje staat, en in de
+  // zaal altijd (wie presenteert, heeft geen muis nodig).
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  if (verhaalBezig() || !(open ? inZaal() || kaart.contains(document.activeElement) : inZaal())) return;
   e.preventDefault();
-  stap(e.key === 'ArrowRight' ? 1 : -1);
+  if (open) stap(e.key === 'ArrowRight' ? 1 : -1);
+  else openPlek(PLEKKEN[e.key === 'ArrowRight' ? 0 : PLEKKEN.length - 1].id);
 });
 
 // ── starten ──

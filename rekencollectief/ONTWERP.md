@@ -85,6 +85,35 @@ Wat de motor al kan, gebruik je gewoon: slepen om de toren te draaien, de
 avondknop (lampen en gloeiende ramen), de bolletjes met Vorige en Volgende, en
 de labels naast de toren als echte knoppen.
 
+## De zaalmodus
+
+Gevraagd door Thomas op 16 november 2026: een zaalmodus "zoals die andere", voor
+een beamer of een digibord. Bouw ze zoals die van de raket (`zetZaal` in
+`team-ict/pagina.js`), met wat de motor al kan (`dio.zaal`).
+
+- **Starten**: de knop "Zaalmodus voor de beamer" onderaan de pagina, of `?zaal`
+  in het adres. De knop vraagt ook het volledige scherm; lukt dat niet, dan
+  werkt de zaalmodus evengoed.
+- **Wat je ziet**: de toren vult het hele scherm, de tekst van de pagina is weg.
+  De camera wisselt vanzelf van kamer, van de hal naar de sterrenwacht, en elke
+  kamer speelt haar moment als de camera er aankomt.
+- **Het onderschrift**: wie in de zaal zit, heeft de tekst van de pagina niet. In
+  de zaalmodus staat daarom groot onderaan de naam van de kamer met de regel uit
+  `VERHAAL_REGELS` erbij, en wisselt het mee met de camera.
+- **Het zaalbord**: "Het Rekencollectief" met eronder het adres van de app, uit
+  `ADRES` zonder `https://`, groot genoeg om achteraan de zaal over te typen.
+- **Presenteren**: met de pijltjes naar rechts en links loop je door alle 14
+  kaartjes, van de hal tot de sterrenwacht, groot genoeg voor een beamer. Zolang
+  een kaartje openstaat, wisselt de camera niet vanzelf.
+- **Het verhaal speelt vanzelf**: na een minuut, en daarna om de vier minuten,
+  zoals de raket vanzelf vertrekt. Niet zolang er een kaartje openstaat, en niet
+  met minder beweging.
+- **Stoppen**: Escape sluit eerst het kaartje, dan het verhaal, en pas daarna de
+  zaalmodus. Wie het volledige scherm verlaat, verlaat ook de zaalmodus.
+- **Met minder beweging** (`?stil`): geen wissel en geen verhaal. De toren staat
+  stil in het overzicht en de kaartjes werken met de pijltjes.
+- **Geen weer, geen klok, niets van een andere server**, ook niet in de zaalmodus.
+
 ## De teksten
 
 Schrijf voor een leerkracht die de app nooit zag. Zeg **bewerkingen**, niet
@@ -213,11 +242,11 @@ Elena, Finn, Gilles, Hanne.
   decoratief en de labels zijn echte knoppen; alles is met het toetsenbord te
   bereiken.
 - **Dezelfde parameters als de zusterpagina's**: `?stil`, `?schets`, `?zwak`,
-  `?debug`.
+  `?debug` en `?zaal`.
 - **Nederlandse namen** voor variabelen en functies, en commentaar in het
   Nederlands, in de stijl van `team-ict/raket.js`.
-- **Klein blijven.** Geen informatielaag, geen logboek, geen zaalmodus, geen
-  weer of seizoenen, geen opslag in de browser.
+- **Klein blijven.** Geen informatielaag, geen logboek, geen weer of seizoenen,
+  geen opslag in de browser.
 
 ## Niet in deze stap
 
