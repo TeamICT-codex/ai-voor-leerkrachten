@@ -235,7 +235,8 @@ Elena, Finn, Gilles, Hanne.
   (`https://rekencollectief.vercel.app`). De app verhuist later naar een eigen
   server.
 - **Zeg niets over privacy of waar gegevens staan**, behalve dat kinderen geen
-  account nodig hebben. Dat dossier loopt nog.
+  account nodig hebben. Wat de app daarover zegt, staat in de app zelf en hoort
+  niet in een voorstelling.
 - **Valt netjes terug**, zoals de zusterpagina's: de volledige tekst staat er
   zonder 3D; zonder WebGL2 blijft er een vlakke schets (een eenvoudige SVG van de
   toren); met minder beweging staat het tafereel af en stil; het canvas is
