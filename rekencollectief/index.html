@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Het Rekencollectief · Het leercollectief</title>
+  <meta name="description" content="Het Rekencollectief is de oefen- en toetsapp voor parate rekenkennis van Het leercollectief. Klim mee de toren in: wat je leerlingen doen, wat jij ziet en wat je ermee doet.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../gedeeld/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../gedeeld/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="toren.css">
+  <script type="module" src="pagina.js"></script>
+</head>
+<body>
+  <a class="overslaan" href="#inhoud">Naar de inhoud</a>
+
+  <!-- De adressen van de app vult pagina.js in vanuit ADRES in plekken.js (data-app). -->
+  <header class="kop">
+    <a class="merk" href="./">
+      <img src="../gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
+      <span>Het Rekencollectief</span>
+    </a>
+    <div class="kop-knoppen">
+      <a class="kop-link zacht" data-app="/handleiding" href="#">Handleiding</a>
+      <a class="kop-link" data-app="" href="#">Open de app</a>
+    </div>
+  </header>
+
+  <main id="inhoud">
+    <div class="indeling">
+      <div class="podium">
+        <div class="lucht ochtend" aria-hidden="true"></div>
+        <div class="lucht dag" aria-hidden="true"></div>
+        <!-- Schemer en nacht: getekend door ../voorpagina/sfeer.js. -->
+        <canvas class="lucht-doek" aria-hidden="true"></canvas>
+
+        <!-- Staat er meteen, ook zonder 3D: een vlakke schets van dezelfde toren. -->
+        <svg class="schets" viewBox="0 0 640 560" role="img" aria-label="Een stenen toren in doorsnede op een groene heuvel. Van onder naar boven: de poort met de code, de oefenkamer met de tovenaar, de periodetoetsen, het overzicht in kleur, en onder het groene puntdak de sterrenwacht.">
+          <g fill="#ffffff"><ellipse cx="120" cy="110" rx="46" ry="16"/><ellipse cx="150" cy="98" rx="30" ry="16"/><ellipse cx="520" cy="170" rx="40" ry="13"/></g>
+          <path d="M70 548 Q320 470 570 548 Z" fill="#9fd3a6"/>
+          <rect x="60" y="540" width="520" height="16" rx="8" fill="#126425"/>
+          <g fill="#4e9a63"><circle cx="150" cy="486" r="30"/><circle cx="500" cy="480" r="26"/></g>
+          <g fill="#86c494"><circle cx="166" cy="470" r="20"/><circle cx="512" cy="466" r="17"/></g>
+          <!-- het dak met het kristal en de vlag -->
+          <path d="M228 168 L320 30 L412 168 Z" fill="#126425"/>
+          <path d="M262 168 L320 82 L378 168 Z" fill="#34477a"/>
+          <g fill="#fff3b0"><circle cx="304" cy="140" r="3"/><circle cx="336" cy="124" r="3"/><circle cx="322" cy="150" r="2.5"/><circle cx="346" cy="152" r="2.5"/></g>
+          <path d="M320 30 v-26" stroke="#9c6f45" stroke-width="3"/>
+          <path d="M320 4 l8 10 -8 10 -8 -10 Z" fill="#bfe8f2"/>
+          <path d="M322 8 h38 v18 h-38 Z" fill="#c2e3cc"/>
+          <!-- de toren: vijf verdiepingen -->
+          <rect x="236" y="168" width="168" height="345" rx="6" fill="#efe5d1"/>
+          <rect x="248" y="172" width="144" height="62" rx="3" fill="#34477a"/>
+          <rect x="248" y="240" width="144" height="62" rx="3" fill="#cde7ef"/>
+          <rect x="248" y="308" width="144" height="62" rx="3" fill="#f8f1b6"/>
+          <rect x="248" y="376" width="144" height="62" rx="3" fill="#d3ecd9"/>
+          <rect x="248" y="444" width="144" height="64" rx="3" fill="#fbdcc0"/>
+          <g fill="#dbcdb0"><rect x="236" y="234" width="168" height="6"/><rect x="236" y="302" width="168" height="6"/><rect x="236" y="370" width="168" height="6"/><rect x="236" y="438" width="168" height="6"/></g>
+          <!-- sterrenwacht: tafel met pionnen en de glazen bol -->
+          <ellipse cx="320" cy="222" rx="30" ry="6" fill="#e4c397"/>
+          <g fill="#4e9a63"><circle cx="304" cy="214" r="4"/></g><g fill="#ffcf3a"><circle cx="320" cy="212" r="4"/></g><g fill="#5fa9c9"><circle cx="336" cy="214" r="4"/></g>
+          <circle cx="268" cy="200" r="9" fill="#fff6c8"/><rect x="264" y="208" width="8" height="22" fill="#dbcdb0"/>
+          <!-- overzicht: de tabel in kleur -->
+          <rect x="280" y="248" width="80" height="40" rx="3" fill="#ffffff"/>
+          <g fill="#4e9a63"><rect x="296" y="253" width="12" height="7"/><rect x="312" y="253" width="12" height="7"/><rect x="328" y="262" width="12" height="7"/><rect x="296" y="271" width="12" height="7"/><rect x="344" y="271" width="12" height="7"/><rect x="312" y="280" width="12" height="7"/></g>
+          <g fill="#f08a3c"><rect x="344" y="253" width="12" height="7"/><rect x="296" y="262" width="12" height="7"/><rect x="328" y="280" width="12" height="7"/></g>
+          <g fill="#d9534f"><rect x="312" y="271" width="12" height="7"/></g>
+          <!-- periodetoetsen: de zandloper en de periodes -->
+          <path d="M262 322 h18 l-9 14 9 14 h-18 l9 -14 Z" fill="#f2c879"/>
+          <g fill="#126425"><rect x="296" y="320" width="14" height="14" rx="3"/><rect x="314" y="320" width="14" height="14" rx="3"/><rect x="332" y="320" width="14" height="14" rx="3"/></g>
+          <g fill="#ecebe6"><rect x="350" y="320" width="14" height="14" rx="3"/><rect x="368" y="320" width="14" height="14" rx="3"/></g>
+          <!-- oefenkamer: het scherm, de tovenaar en het lichtje -->
+          <rect x="286" y="384" width="60" height="30" rx="3" fill="#ffffff" stroke="#2b3038" stroke-width="3"/>
+          <path d="M366 400 L374 382 L382 400 Z" fill="#0d4a1b"/><rect x="368" y="400" width="12" height="30" rx="4" fill="#2f7d45"/>
+          <circle cx="388" cy="392" r="5" fill="#ffcf3a"/>
+          <!-- de poort: het bord met de code -->
+          <rect x="280" y="452" width="80" height="30" rx="3" fill="#1e4f34"/>
+          <text x="320" y="473" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="15" fill="#fffaf0">482 913</text>
+          <g fill="#126425"><rect x="236" y="168" width="8" height="345"/><rect x="396" y="168" width="8" height="345"/></g>
+        </svg>
+
+        <canvas class="tafereel" aria-hidden="true"></canvas>
+        <div class="waas boven" aria-hidden="true"></div>
+        <div class="waas onder" aria-hidden="true"></div>
+
+        <div class="labels">
+          <button type="button" class="label" data-kamer="ster" style="--stip: #34477a">Klasbeeld</button>
+          <button type="button" class="label" data-kamer="kleur" style="--stip: #5fa9c9">Overzicht</button>
+          <button type="button" class="label" data-kamer="meet" style="--stip: #ffcf3a">Toetsen</button>
+          <button type="button" class="label" data-kamer="oefen" style="--stip: #4e9a63">Oefenen</button>
+          <button type="button" class="label" data-kamer="hal" style="--stip: #f2a76b">Code</button>
+        </div>
+
+        <div class="pinnen"></div>
+
+        <button type="button" class="verhaal-knop speel-verhaal">
+          <span class="speel-icoon" aria-hidden="true"></span>Speel het verhaal af
+        </button>
+
+        <button type="button" class="avond-knop">
+          <span class="avond-icoon" aria-hidden="true"></span><span class="avond-tekst">Avond</span>
+        </button>
+
+        <p class="laadtekst" aria-hidden="true">De toren wordt opgebouwd…</p>
+        <p class="hint" aria-hidden="true"></p>
+
+        <section class="uitleg" hidden aria-labelledby="uitleg-titel">
+          <button type="button" class="uitleg-sluit" aria-label="Sluit de uitleg">×</button>
+          <p class="uitleg-waar"></p>
+          <h3 id="uitleg-titel" tabindex="-1"></h3>
+          <p class="uitleg-tekst"></p>
+          <div class="uitleg-nav">
+            <button type="button" class="uitleg-vorige">← Vorige</button>
+            <span class="uitleg-teller" aria-live="polite"></span>
+            <button type="button" class="uitleg-volgende">Volgende →</button>
+          </div>
+        </section>
+        <button type="button" class="toon-toch" hidden>Toon de toren in 3D (± 180 kB)</button>
+
+        <!-- Het verhaal: de regel bij elke kamer, waar je bent, en op het einde de weg naar de app. -->
+        <section class="verhaalbord" hidden aria-labelledby="verhaal-titel">
+          <button type="button" class="uitleg-sluit verhaal-sluit" aria-label="Stop het verhaal en sluit">×</button>
+          <p class="uitleg-waar">Het verhaal</p>
+          <h3 id="verhaal-titel" tabindex="-1">Klim mee de toren in</h3>
+          <p class="verhaal-regel" aria-live="polite"></p>
+          <ol class="verhaal-stappen" aria-hidden="true"></ol>
+          <ol class="samenvatting" hidden></ol>
+          <div class="verhaal-knoppen" hidden>
+            <a class="knop" data-app="" href="#">Open het Rekencollectief</a>
+            <a class="knop zacht" data-app="/handleiding" href="#">Lees de handleiding</a>
+            <button type="button" class="knop zacht verhaal-opnieuw">Nog eens</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="hoofdstukken">
+        <section class="hoofdstuk held" data-kamer="overzicht" aria-labelledby="titel">
+          <p class="etiket">Het Rekencollectief · Het leercollectief</p>
+          <h1 id="titel">Juist én vlot rekenen. <span class="markeer">Klim mee de toren in.</span></h1>
+          <p class="inleiding">
+            Het Rekencollectief is de oefen- en toetsapp voor parate rekenkennis van Het
+            leercollectief. Klim van de poort naar de sterrenwacht en zie wat je leerlingen doen,
+            wat jij ziet en wat je ermee doet.
+          </p>
+          <div class="knoppen">
+            <button type="button" class="knop speel-verhaal">Speel het verhaal af</button>
+          </div>
+          <p class="scrolhint"><span aria-hidden="true">↓</span> Scrol verder en klim mee</p>
+        </section>
+
+        <section class="hoofdstuk" id="hal" data-kamer="hal" aria-labelledby="titel-hal" style="--stip: #f2a76b">
+          <p class="etiket">De poort</p>
+          <h2 id="titel-hal">Binnen met een code</h2>
+          <p>
+            Geen accounts en geen wachtwoorden voor kinderen. Jij zet een opdracht klaar en krijgt
+            een code van zes cijfers. Je leerlingen tikken die in, kiezen hun naam en beginnen.
+          </p>
+          <ul class="punten" data-kamer="hal"></ul>
+        </section>
+
+        <section class="hoofdstuk" id="oefen" data-kamer="oefen" aria-labelledby="titel-oefen" style="--stip: #4e9a63">
+          <p class="etiket">Verdieping 1</p>
+          <h2 id="titel-oefen">Oefenen zonder druk</h2>
+          <p>
+            Hier wordt geoefend: met jouw opdracht, of op eigen houtje bij "Ik oefen zelf". Tafels,
+            plus en min, en de Getallenreis voor wie nog leert splitsen.
+          </p>
+          <ul class="punten" data-kamer="oefen"></ul>
+        </section>
+
+        <section class="hoofdstuk" id="meet" data-kamer="meet" aria-labelledby="titel-meet" style="--stip: #ffcf3a">
+          <p class="etiket">Verdieping 2</p>
+          <h2 id="titel-meet">De periodetoetsen</h2>
+          <p>
+            Een paar keer per jaar meet je waar elke leerling staat, met de periodetoetsen van de
+            kwaliteitsfiche parate kennis. Een wizard zet ze in een paar klikken klaar voor je klas.
+          </p>
+          <ul class="punten" data-kamer="meet"></ul>
+        </section>
+
+        <section class="hoofdstuk" id="kleur" data-kamer="kleur" aria-labelledby="titel-kleur" style="--stip: #5fa9c9">
+          <p class="etiket">Verdieping 3</p>
+          <h2 id="titel-kleur">Zien waar iedereen staat</h2>
+          <p>Alle leerlingen en alle onderdelen in één tabel. De kleur zegt wat je ermee doet.</p>
+          <ul class="punten" data-kamer="kleur"></ul>
+        </section>
+
+        <section class="hoofdstuk" id="ster" data-kamer="ster" aria-labelledby="titel-ster" style="--stip: #34477a">
+          <p class="etiket">De sterrenwacht, onder het dak</p>
+          <h2 id="titel-ster">Van meten naar doen</h2>
+          <p>
+            Cijfers zijn pas iets waard als je er morgen iets mee doet. Op jouw vraag maakt de
+            tovenaar een klasbeeld: wat zit goed, wat vraagt aandacht, en wie werkt samen aan wat.
+          </p>
+          <ul class="punten" data-kamer="ster"></ul>
+        </section>
+
+        <section class="hoofdstuk slot" id="proberen" data-kamer="overzicht" aria-labelledby="titel-slot" style="--stip: #126425">
+          <h2 id="titel-slot">Zin om het te proberen?</h2>
+          <p>Open de app, of lees eerst in de handleiding hoe je in drie stappen start.</p>
+          <div class="knoppen">
+            <a class="knop" data-app="" href="#">Open het Rekencollectief</a>
+            <a class="knop zacht" data-app="/handleiding" href="#">Lees de handleiding</a>
+            <button type="button" class="knop zacht speel-verhaal">Speel het verhaal af</button>
+          </div>
+          <p class="klein">De namen en cijfers in de toren zijn verzonnen.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="voet">
+    <img src="../gedeeld/logo-leercollectief.svg" alt="Het leercollectief" width="118" height="30">
+    <p>Het Rekencollectief · een project van de werkgroep automatiseren van Het leercollectief</p>
+  </footer>
+</body>
+</html>
