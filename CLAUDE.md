@@ -307,8 +307,10 @@ Thomas op 16 november 2026). Het adres verandert dus nog. Alle links binnen de
 site zijn relatief en verhuizen vanzelf mee. Op drie plaatsen staat het adres
 vast: `ADRES` in `voorpagina/film.js` (de eindkaart van de teaser, daarna
 opnieuw opnemen), en de documentatie in dit bestand, `README.md` en
-`lager/TESTLIJST.md`. Zoek bij de verhuizing op `teamict-codex.github.io`, en
-vraag Thomas of de oude links moeten doorverwijzen.
+`lager/TESTLIJST.md`. Zoek bij de verhuizing op `teamict-codex.github.io`. De
+oude links op GitHub Pages blijven live tot de site elders draait en mogen
+daarna vervallen, zonder doorverwijzing (beslist door Thomas op 16 november
+2026).
 
 ### In een ander account verder werken
 
