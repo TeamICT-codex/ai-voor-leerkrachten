@@ -116,6 +116,19 @@ export function stop() {
 }
 export const bezig = () => open > 0;
 
+// Op een iPad mag geluid alleen starten bij een tik. Daarom spelen we bij de
+// eerste tik of toets een fractie stilte af op het ene Audio-element: daarna mag
+// dat element ook zelf verder spelen, zoals voor een zin die na een andere komt,
+// of als de lijst met opnames bij de eerste tik nog onderweg was.
+const STILTE = 'data:audio/wav;base64,UklGRsQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YaAAAACA' + 'gICA'.repeat(53);
+function ontgrendel() {
+  if (typeof Audio !== 'function' || afronden) return;  // er klinkt al iets: dan hoeft het niet meer
+  speler ??= new Audio();
+  speler.src = STILTE;
+  speler.play()?.catch(() => { /* geen geluid toegestaan: dan probeert zeg() het straks zelf */ });
+}
+for (const soort of ['pointerdown', 'keydown']) globalThis.document?.addEventListener?.(soort, ontgrendel, { once: true, capture: true });
+
 async function speel(tekst, mijn) {
   const sleutel = (await laadLijst()).get(tekst);
   if (mijn !== beurt) return;

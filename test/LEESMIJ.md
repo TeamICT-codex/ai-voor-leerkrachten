@@ -83,6 +83,11 @@ meting ziet, dus ze blijft kloppen als er een module bij komt.
 
 ## De andere scripts
 
+`linkcheck.py` gaat na dat elke `href`, `src` en `url()` op de hele site naar een
+bestaand bestand wijst: `python test/linkcheck.py .` vanuit de repo-root. Draai
+het na elke wijziging aan pagina's of mappen. Links die JavaScript pas maakt,
+ziet het niet.
+
 `zet-minuten.mjs` is **al uitgevoerd** en staat hier enkel als geschiedenis: het
 verhuisde in oktober 2026 de duurtijd van de module naar de les. Opnieuw draaien
 zet er een tweede keer velden bij; de tabel erin is wel bruikbaar als naslag.

@@ -653,6 +653,7 @@ function bouwSchool(g) {
   blok(wandelaar, 0.24, 0.28, 0.12, K.perzik, 0, 0.42, -0.16, { r: 0.05 });
   // wolken en vogels. De wolken hebben een eigen materiaal: bij regen worden ze grijs.
   const wolkMat = new T.MeshLambertMaterial({ color: 0xffffff, flatShading: true });
+  wolkMat.userData.apart = true;  // bij het samenvoegen houdt elke wolk dit materiaal
   function maakWolk(y, z, s, start) {
     const w = levend(groepje(wereld, 0, y, z));
     for (const [x, yy, zz, rr] of [[0, 0, 0, 0.42], [-0.45, -0.1, 0.05, 0.3], [0.45, -0.08, 0, 0.33], [0.15, 0.2, 0.1, 0.28]]) {
@@ -689,8 +690,10 @@ function bouwSchool(g) {
   // regen, sneeuw, mist, wind en onweer, elk van 0 tot 1. Alles schuift zacht naar
   // zijn doel. Wie minder beweging vraagt, krijgt de kleuren wel, de neerslag niet.
   const weerDoel = { regen: 0, sneeuw: 0, mist: 0, wind: 0.15, onweer: 0 };
+  const WEERSOORTEN = Object.keys(weerDoel);
   const weer = { ...weerDoel, sneeuwlaag: 0 };
   let seizoen = 1.5, doelSeizoen = 1.5, seizoenGetekend = -1;
+  let gewichten = [0, 1, 0, 0];  // hoeveel lente, zomer, herfst en winter er nu in zit
   let tempo = 1, vlagFase = 0, wolkFase = 0, volgendeFlits = 4, laagVast = null;
   const rw = toeval(31);
   const SEIZOENEN = ['lente', 'zomer', 'herfst', 'winter'];
@@ -719,16 +722,17 @@ function bouwSchool(g) {
   const kleurLagen = [];
   function kleurLaag(attr) {
     const orig = attr.array.slice();
-    const doel = { zomer: orig };
-    for (const naam of ['lente', 'herfst', 'winter']) {
+    // per seizoen de kleuren, in de volgorde van SEIZOENEN
+    const bronnen = SEIZOENEN.map(naam => {
+      if (naam === 'zomer') return orig;
       const uit = new Float32Array(orig.length);
       for (let i = 0; i < orig.length; i += 3) {
         kleurHulp.setHex(PALET[naam][tintVan(orig[i], orig[i + 1], orig[i + 2])]);
         uit[i] = kleurHulp.r; uit[i + 1] = kleurHulp.g; uit[i + 2] = kleurHulp.b;
       }
-      doel[naam] = uit;
-    }
-    kleurLagen.push({ attr, doel });
+      return uit;
+    });
+    kleurLagen.push({ attr, bronnen });
   }
   let kleurLagenKlaar = false;
   function zoekKleurLagen() {
@@ -844,38 +848,40 @@ function bouwSchool(g) {
   // Mist: in de verte vervaagt het tafereel. De mist staat altijd aan, maar
   // ver genoeg weg zolang het helder is: aan- en uitzetten laat het beeld haperen.
   g.scene.fog = new T.Fog(0xdfe4e3, 100, 200);
+  const alleWolken = [...wolken, ...extraWolken];
   const mistDag = new T.Color(0xdfe4e3), mistNacht = new T.Color(0x3b4566);
   const wolkWit = new T.Color(0xffffff), wolkGrijs = new T.Color(0x8e98a3);
 
   function tekenSeizoen(s) {
     if (!kleurLagenKlaar) zoekKleurLagen();
     seizoenGetekend = s;
-    const w = seizoenGewichten(s);
-    for (const { attr, doel } of kleurLagen) {
+    const w = gewichten = seizoenGewichten(s);
+    for (const { attr, bronnen } of kleurLagen) {
       const a = attr.array;
-      const bronnen = SEIZOENEN.map(n => doel[n]);
       for (let i = 0; i < a.length; i++) a[i] = bronnen[0][i] * w[0] + bronnen[1][i] * w[1] + bronnen[2][i] * w[2] + bronnen[3][i] * w[3];
       attr.needsUpdate = true;
     }
     zetBloesem(w[0]);
-    // De rozen bloeien van de late lente tot de vroege herfst.
-    for (const st of struiken) if (st.userData.rozen) st.userData.rozen.visible = w[3] < 0.5 && w[0] + w[1] + w[2] * 0.6 > 0.5;
+    // De rozen bloeien van de late lente tot de vroege herfst: vooral zomer dus.
+    for (const st of struiken) if (st.userData.rozen) st.userData.rozen.visible = w[1] + 0.4 * (w[0] + w[2]) > 0.5;
   }
 
   // Waar geen neerslag mag verschijnen: in de school en de kleine school, en
   // bij een verdieping in beeld ook niet tussen de camera en de open voorkant.
   let deeltjesSchaal = 1, voorkantVrij = false;
-  function verborgen(x, y, z) {
+  function inGebouw(x, y, z) {
     if (Math.abs(x) < BREED / 2 + 0.12 && z > ACHTER - 0.12 && z < VOOR + 0.12 && y < 3 * VH + 0.35) return true;
-    if (Math.abs(x - LAGER.x) < LAGER.b / 2 + 0.2 && Math.abs(z - LAGER.z) < LAGER.d / 2 + 0.2 && y < LAGER.h + 0.75) return true;
-    return voorkantVrij && Math.abs(x) < BREED / 2 + 0.7 && z > ACHTER;
+    return Math.abs(x - LAGER.x) < LAGER.b / 2 + 0.2 && Math.abs(z - LAGER.z) < LAGER.d / 2 + 0.2 && y < LAGER.h + 0.75;
   }
+  const verborgen = (x, y, z) => inGebouw(x, y, z) || (voorkantVrij && Math.abs(x) < BREED / 2 + 0.7 && z > ACHTER);
+  // De sokkel is 12 bij 8, met haar midden op z = -0,6.
+  const opSokkel = (x, z) => Math.abs(x) < 5.85 && z > -4.45 && z < 3.25;
   function werkWeerBij(dt, nu, nacht, bewolking, open = null) {
     // Ingezoomd lijken druppels anders dikke strepen: dan worden ze fijner.
     voorkantVrij = !!open || VERDIEPINGEN.includes(focus);
     deeltjesSchaal += ((focus === 'overzicht' && !open ? 1 : 0.42) - deeltjesSchaal) * (1 - Math.exp(-dt * 3));
     const z = 1 - Math.exp(-dt * 1.5);
-    for (const k of Object.keys(weerDoel)) weer[k] += (weerDoel[k] - weer[k]) * z;
+    for (const k of WEERSOORTEN) weer[k] += (weerDoel[k] - weer[k]) * z;
     // Sneeuw blijft liggen: ze groeit traag aan en smelt nog trager. Een film
     // of tijdreis kan de laag ook zelf vastzetten.
     if (laagVast != null) weer.sneeuwlaag = laagVast;
@@ -902,7 +908,7 @@ function bouwSchool(g) {
       w.visible = s > 0.01;
       w.scale.setScalar(Math.max(uitTerug(s), 0.001));
     });
-    for (const w of [...wolken, ...extraWolken]) w.position.x = -9 + ((wolkFase / 70 + w.userData.start) % 1) * 18;
+    for (const w of alleWolken) w.position.x = -9 + ((wolkFase / 70 + w.userData.start) % 1) * 18;
     if (g.stil) return;
     // onweer: af en toe een bliksem
     if (weer.onweer > 0.3 && nu > volgendeFlits) { g.bliksem(); volgendeFlits = nu + 5 + rw() * 9; }
@@ -944,7 +950,7 @@ function bouwSchool(g) {
     }
     // blaadjes in de herfst, bloesemblaadjes in de lente
     {
-      const w = seizoenGewichten(seizoen);
+      const w = gewichten;
       const lente = w[0] > w[2];
       const actief = Math.round(BLAD_N * klem(w[2] * (0.55 + weer.wind * 0.6) + w[0] * 0.3, 0, 1));
       const st = blaadjes.userData.st;
@@ -952,19 +958,30 @@ function bouwSchool(g) {
       if (blaadjes.visible) {
         for (let i = 0; i < st.length; i++) {
           const d = st[i];
-          if (d.y > 0.02) {
+          // Een blaadje valt tot het op de sokkel ligt. Waait het ernaast, dan
+          // valt het verder tot het uit beeld is: zo blijft er niets in de lucht
+          // liggen. In een gebouw verdwijnt het.
+          const valt = d.lig === 0 && (d.y > 0.02 || !opSokkel(d.x, d.z));
+          let schaal = 1;
+          if (valt) {
             d.y -= dt * 0.45 * d.v;
             d.x += dt * (windX * 0.6 + Math.sin(nu * 1.7 + d.f) * 0.35);
             hulpQ.setFromEuler(hulpE.set(nu * 2 + d.f, nu * 1.3 + d.f, Math.sin(nu * 3 + d.f) * 0.6));
+            // Onder de rand van de sokkel krimpt het weg.
+            schaal = klem(d.y + 1.6, 0, 1);
+            if (d.y < -1.6 || inGebouw(d.x, d.y, d.z)) d.lig = 99;
           } else {
             d.lig += dt;
             hulpQ.setFromEuler(hulpE.set(-Math.PI / 2, d.f, 0));
-            // Na een tijdje op de grond begint het opnieuw in een kruin, zolang
-            // het seizoen duurt; niet allemaal tegelijk, anders valt er een hoop ineens.
+            // Na een paar seconden op de grond krimpt het weg.
+            schaal = klem(6 - d.lig, 0, 1);
+            // Daarna begint het opnieuw in een kruin, zolang het seizoen duurt;
+            // niet allemaal tegelijk, anders valt er een hoop ineens.
             if (d.lig > 6 && i < actief && rw() < dt * 1.5) nieuwBlaadje(d, i, lente);
           }
-          const zicht = d.y > 0.02 || d.lig < 6;
-          blaadjes.setMatrixAt(i, zicht ? hulpM.compose(hulpP.set(d.x, Math.max(d.y, 0.012), d.z), hulpQ, hulpS.setScalar(1)) : hulpM.makeScale(0, 0, 0));
+          blaadjes.setMatrixAt(i, d.lig < 6
+            ? hulpM.compose(hulpP.set(d.x, valt ? d.y : 0.012, d.z), hulpQ, hulpS.setScalar(Math.max(schaal, 0.001)))
+            : hulpM.makeScale(0, 0, 0));
         }
         blaadjes.instanceMatrix.needsUpdate = true;
       }
@@ -1081,7 +1098,7 @@ function bouwSchool(g) {
       // uitgebouwd en vallen de spelden op de juiste hoogte.
       for (const v of Object.values(verhalen)) for (const it of v.items) { levend(it.obj); it.obj.userData.basis = it.obj.scale.clone(); toonSchaal(it.obj, 0); }
     },
-    samenvoegen: [sokkel, ...VERDIEPINGEN.map(n => kamers[n].groep), lager, dak, pad, speelplaats, fietsen, ...bomen, ...struiken, buiten],
+    samenvoegen: [sokkel, ...VERDIEPINGEN.map(n => kamers[n].groep), lager, dak, pad, speelplaats, fietsen, ...bomen, ...struiken, buiten, ...wolken, ...extraWolken],
     intro: [
       { obj: kamers.leerling.groep, start: 0.25, soort: 'val' },
       { obj: kamers.klas.groep, start: 0.5, soort: 'val' },

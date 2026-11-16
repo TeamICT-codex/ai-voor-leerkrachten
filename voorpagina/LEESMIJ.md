@@ -111,8 +111,8 @@ npx esbuild ingang.js --bundle --minify --format=esm --legal-comments=eof --outf
 
 ## Gemeten
 
-Op de laptop van de ontwikkelaar: ongeveer 3 ms per beeld, met zo'n 270
-tekenbeurten. Alles wat stilstaat, wordt bij het opbouwen samengevoegd tot één
+Op de laptop van de ontwikkelaar: ongeveer 3 ms per beeld, met zo'n 300
+tekenbeurten (gemeten op 9 november 2026, met de seizoenen en het weer erbij). Alles wat stilstaat, wordt bij het opbouwen samengevoegd tot één
 vorm per verdieping, met de kleur in de vorm zelf (`voegSamen` in gedeeld/diorama-kern.js).
 Wat beweegt of oplicht, blijft apart: markeer zoiets met `levend()`. Zonder dat
 samenvoegen waren het er bijna het dubbele.

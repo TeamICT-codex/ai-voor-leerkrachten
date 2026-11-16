@@ -50,6 +50,7 @@ Noteer per toestel het merk, de browser en wat niet goed ging.
 - [ ] De knop "Stem" bovenaan (te zien zolang er geen station open is) wisselt tussen juf en meester. Wat er klinkt, stopt meteen. Na herladen staat dezelfde stem nog.
 - [ ] 1ste graad: met "Lees mee" aan klinkt een kaartje meteen zodra je erop tikt, ook het eerste. Een klik op "Lees voor" terwijl er nog een kaartje klinkt, begint te lezen (en stopt niet alleen).
 - [ ] Chromebook zonder Nederlandse stem in de browser: de voorleesknop en "Lees mee" verschijnen toch, en lezen voor met de juf of de meester.
+- [ ] iPad: in de bouwhoek (1ste graad) volgt de tweede zin van het lichtje vanzelf op de eerste, zonder extra tik. Een iPad laat geluid alleen starten na een tik; de wereld vangt dat op bij de eerste tik op het scherm.
 - [ ] Vangnet, op je eigen laptop: hernoem `lager/stem/lijst.json` even en herlaad. Met een Nederlandse browserstem lezen de knoppen dan zo voor, en de knop "Stem" verdwijnt. Zonder Nederlandse stem verdwijnen ook de voorleesknoppen. Zet het bestand daarna terug.
 - [ ] Bibliotheek: tekenen met de vinger of de pen op het digibord gaat vlot, en het venster scrolt niet mee terwijl je tekent.
 - [ ] Fotowinkel en museum: de verschillen en foutjes zijn aan te tikken, ook met een dikke vinger.

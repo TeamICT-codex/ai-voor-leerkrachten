@@ -264,6 +264,12 @@ console.log(fout ? 'NIET OK' : 'alles OK');
 "
 ```
 
+En de links over de hele site (elke `href`, `src` en `url()`):
+
+```bash
+python test/linkcheck.py .
+```
+
 Lokaal draaien (ES-modules laden niet via `file://`):
 
 ```bash
@@ -286,6 +292,17 @@ Daarna: <http://localhost:8000/> voor de voorpagina en
   voorpagina; de leeromgeving staat op `…/ai-voor-leerkrachten/leeromgeving/`. Elke push is
   binnen de minuut online; er is geen build-stap. `.nojekyll` moet blijven
   staan, anders laat Jekyll bestanden met een underscore weg.
+
+### De verhuizing naar een eigen server
+
+GitHub Pages is de plek om na te kijken, niet de plek van de lancering: de site
+verhuist naar een eigen server en wordt pas daarna verspreid (beslist door
+Thomas op 16 november 2026). Het adres verandert dus nog. Alle links binnen de
+site zijn relatief en verhuizen vanzelf mee. Op drie plaatsen staat het adres
+vast: `ADRES` in `voorpagina/film.js` (de eindkaart van de teaser, daarna
+opnieuw opnemen), en de documentatie in dit bestand, `README.md` en
+`lager/TESTLIJST.md`. Zoek bij de verhuizing op `teamict-codex.github.io`, en
+vraag Thomas of de oude links moeten doorverwijzen.
 
 ### In een ander account verder werken
 
@@ -442,6 +459,14 @@ Hou dit bij als je verder schrijft.
 - **Nagelezen door Thomas, op 30 oktober 2026:** les 5 van AI-wijs Start
   (deepnudes en sextortion) en het stuk erover in de handleiding. In orde
   bevonden, niets aan veranderd.
+- **Nagelopen, op 9 november 2026:** de code van de sfeer op de voorpagina (uur,
+  seizoenen, weer, tijdreis), de film en het voorlezen in Leerlichtjes. De
+  zonnestand is nagerekend tegen echte zonsop- en ondergangen (binnen vijf
+  minuten). Verbeterd: blaadjes blijven niet meer naast de sokkel in de lucht
+  liggen, de hemel en de tijdreis lopen mee met het tafereel en rusten buiten
+  beeld (`onBeeld` in de motor), en het voorlezen ontgrendelt het geluid bij de
+  eerste tik, voor iPads. Nog altijd niet getest op een echte iPad of
+  Chromebook: zie `lager/TESTLIJST.md`.
 - **Open, voor Thomas:** de begeleidersgids laat bij één leerlingnaam in een
   workshopgesprek het gesprek verwijderen; spoor C zegt bij elk gesprek met
   leerlinggegevens in een tool zonder afspraken: dezelfde dag melden en niet

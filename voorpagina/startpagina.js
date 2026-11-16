@@ -71,6 +71,7 @@ async function laadTafereel() {
       onPlek: id => openPlek(id),
       onPlekHover: id => { for (const [k, el] of Object.entries(pinnen)) el.classList.toggle('actief', k === id); },
       onFout: () => podium.classList.remove('klaar'),
+      onBeeld: bijBeeld,
     });
     // Een plek in plekken.js zonder voorwerp in het tafereel, of omgekeerd,
     // valt anders stil weg.
@@ -80,7 +81,6 @@ async function laadTafereel() {
 
     podium.classList.add('klaar');
     pasSfeerToe({ direct: true });
-    if (!stil) requestAnimationFrame(hemelLus);
     if (vraag.has('debug')) window.dio = dio;
     if (!stil && !zwak) podium.classList.add('rijk');
     hint.textContent = aanraak
@@ -221,18 +221,21 @@ function tekenHemel(licht) {
   podium.classList.toggle('nacht', licht.nacht > 0.5);
 }
 function lichtNu() { return { ...dio.licht(), mist: dio.weerNu?.().mist ?? 0 }; }
-// De motor laat het licht zacht overlopen; de hemel volgt beeld per beeld, en
-// tekent alleen opnieuw als er iets veranderd is.
-let hemelHandtekening = '';
-function hemelLus() {
-  if (dio && !document.hidden) {
-    const licht = lichtNu();
-    const h = [licht.nacht, licht.schemer, licht.bewolking, licht.mist, licht.flits].map(x => x.toFixed(3)).join('|');
-    if (h !== hemelHandtekening) { hemelHandtekening = h; tekenHemel(licht); }
-  }
-  requestAnimationFrame(hemelLus);
+// De motor laat het licht zacht overlopen. Na elk beeld van het tafereel volgt
+// de hemel, maar ze tekent alleen opnieuw als er iets veranderd is. Staat het
+// tafereel stil (buiten beeld, of een tabblad op de achtergrond), dan rust ook
+// dit, en de tijdreis.
+const hemelGetekend = [-1, -1, -1, -1, -1];
+function bijBeeld(nu) {
+  if (!dio) return;
+  if (tijdreis) tijdreisStap(nu);
+  const licht = lichtNu();
+  const waarden = [licht.nacht, licht.schemer, licht.bewolking, licht.mist, licht.flits];
+  if (!waarden.some((x, i) => Math.abs(x - hemelGetekend[i]) > 0.002)) return;
+  waarden.forEach((x, i) => { hemelGetekend[i] = x; });
+  tekenHemel(licht);
 }
-new ResizeObserver(() => { hemelHandtekening = ''; if (stil && dio) tekenHemel(lichtNu()); }).observe(podium);
+new ResizeObserver(() => { hemelGetekend.fill(-1); if (stil && dio) tekenHemel(lichtNu()); }).observe(podium);
 
 // De knop zegt wat hij doet: 's avonds "Dag", overdag "Avond". Daarom geen
 // aria-pressed: een ingedrukte knop "Dag" zou zeggen dat het dag is.
@@ -252,7 +255,9 @@ function pasSfeerToe({ direct = false } = {}) {
 }
 avondKnop.addEventListener('click', () => {
   avondKeuze = !avondKnop.classList.contains('avond');
-  pasSfeerToe();
+  // Wie tijdens een tijdreis kiest, krijgt meteen zijn keuze.
+  if (tijdreis) stopTijdreis();
+  else pasSfeerToe();
 });
 // Elke vijf minuten bijwerken: de zon schuift traag genoeg.
 setInterval(() => { if (!document.body.classList.contains('zaal')) pasSfeerToe(); }, 5 * 60e3);
@@ -279,7 +284,6 @@ function startTijdreis() {
   if (stil || !dio || tijdreis) return;
   tijdreis = { start: performance.now() };
   toonWeerbord();
-  requestAnimationFrame(tijdreisStap);
 }
 function stopTijdreis() {
   if (!tijdreis) return;
@@ -287,15 +291,15 @@ function stopTijdreis() {
   toonWeerbord();
   pasSfeerToe();
 }
+// Loopt mee met elk beeld van het tafereel (zie bijBeeld).
 function tijdreisStap(nu) {
-  if (!tijdreis) return;
   const t = (nu - tijdreis.start) / 1000;
   if (t > TIJDREIS_DUUR) { stopTijdreis(); return; }
   const v = sleutelwaarden(TIJDREIS, t);
   dio.sfeer({ nacht: v.nacht, schemer: v.schemer, bewolking: v.bewolking });
   dio.weer({ regen: v.regen, sneeuw: v.sneeuw, mist: v.mist, wind: v.wind, onweer: v.onweer, sneeuwlaag: v.sneeuwlaag });
   dio.seizoen(v.seizoen % 4);
-  requestAnimationFrame(tijdreisStap);
+  zetAvondKnop(v.nacht > 0.5);
 }
 function zetZaal(aan) {
   document.body.classList.toggle('zaal', aan);

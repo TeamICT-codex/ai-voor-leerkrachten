@@ -310,6 +310,9 @@ export async function maakPodium(canvas, opties, bouw) {
     // opname: { breedte, hoogte } — een vaste beeldmaat zonder eigen lus. Wie
     // opneemt, zet zelf elk beeld met stap() en teken(), zodat geen beeld hapert.
     opname = null,
+    // onBeeld(nu): na elk getekend beeld, met het tijdstip van de browser. Voor
+    // wat mee moet lopen met het tafereel en dus ook mee moet pauzeren.
+    onBeeld = null,
   } = opties;
 
   const renderer = new T.WebGLRenderer({ canvas, antialias: !zwak, alpha: true, powerPreference: 'default', preserveDrawingBuffer: !!opname });
@@ -487,7 +490,6 @@ export async function maakPodium(canvas, opties, bouw) {
   function bliksem() {
     if (stil) return;
     flitsT = tijd;
-    opties.onBliksem?.();
   }
   const s = bouw(gereedschap);
   const kamers = s.kamers || {};
@@ -886,6 +888,7 @@ export async function maakPodium(canvas, opties, bouw) {
     vorig = nu;
     werkBij(dt);
     teken1();
+    onBeeld?.(nu);
     if (tijd > 4) {
       somDt += dt; telDt++;
       if (telDt >= 90) {
