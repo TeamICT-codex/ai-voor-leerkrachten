@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voorbeeld: de strook op een startpagina</title>
+<meta name="robots" content="noindex">
+<style>
+/* Een nagemaakte startpagina van een school, alleen om de strook in te tonen.
+   Dit is geen echte pagina van een school. */
+body { margin: 0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; color: #222; background: #fff; }
+.balk { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; font-size: 1.3rem; }
+.balk span:last-child { font-size: .95rem; }
+.balk b { background: #222; color: #fff; padding: .35rem .7rem; margin-right: 1rem; }
+main { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+h1 { font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 300; letter-spacing: .02em; margin: 1.2rem 0 .3rem; border-bottom: 8px solid #f55; display: inline-block; }
+iframe { display: block; width: 100%; height: 190px; border: 0; margin: 1.4rem 0; }
+.rij { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 0; flex-wrap: wrap; }
+.rij.grijs { background: #f3f3f3; margin: 0 -1.5rem; padding: 1.1rem 1.5rem; }
+.vak { border: 1px solid #222; border-radius: 4px; padding: .5rem 0; width: 220px; text-align: center; }
+.app { width: 58px; height: 58px; border-radius: 12px; }
+h2 { font-size: 1rem; font-weight: 600; color: #666; margin: 2.5rem 0 0; }
+p.noot { color: #666; font-size: .9rem; }
+</style>
+</head>
+<body>
+<div class="balk"><span>Welkom @ je school</span><span><b>Home</b>Professionalisering &amp; AI</span></div>
+<main>
+  <h1>.STARTPAGINA</h1>
+  <!-- Zo sluit je de strook in: één iframe, 190 pixels hoog. -->
+  <iframe src="strook.html?voor=secundair" title="AI op school"></iframe>
+  <div class="rij"><div class="vak">Apps</div>
+    <div class="app" style="background:#f4b400"></div><div class="app" style="background:#0f9d58"></div><div class="app" style="background:#4285f4"></div><div class="app" style="background:#db4437"></div><div class="app" style="background:#5b8def"></div></div>
+  <div class="rij grijs"><div class="vak">Creatie</div>
+    <div class="app" style="background:#4285f4"></div><div class="app" style="background:#0f9d58"></div><div class="app" style="background:#f4b400"></div><div class="app" style="background:#7248b9"></div><div class="app" style="background:#db4437"></div></div>
+
+  <h2>Dezelfde strook op andere momenten</h2>
+  <p class="noot">Een winteravond in een lagere school (met een tip over Leerlichtjes), een lentedag en een zomeravond. Elke dag staat er een andere tip.</p>
+  <iframe src="strook.html?voor=lager&uur=21&seizoen=3.5&tip=0" title="Voorbeeld: winteravond, lagere school"></iframe>
+  <iframe src="strook.html?uur=13&seizoen=0.5&tip=1" title="Voorbeeld: lentedag"></iframe>
+  <iframe src="strook.html?uur=21&seizoen=1.2&tip=2" title="Voorbeeld: zomeravond"></iframe>
+</main>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI op school · strook voor een startpagina</title>
+<meta name="robots" content="noindex">
+<style>
+/* Een strook om in te sluiten op de startpagina van een school (zie LEESMIJ.md).
+   Licht: één getekende school, geen 3D. Ze volgt het uur en het seizoen in
+   Dendermonde, zodat ze elke dag een beetje anders is. */
+@font-face { font-family: 'Poppins'; font-weight: 500; font-display: swap; src: url(../gedeeld/fonts/poppins-400.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 600; font-display: swap; src: url(../gedeeld/fonts/poppins-600.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-weight: 700; font-display: swap; src: url(../gedeeld/fonts/poppins-700.woff2) format('woff2'); }
+:root {
+  --groen: #126425; --inkt: #1f2328; --wit: #fffdf8;
+  /* De sfeer: strook.js zet deze waarden volgens uur en seizoen. */
+  --lucht-boven: #eaf6ee; --lucht-onder: #d8ecdf; --blad1: #86c494; --blad2: #4e9a63;
+  --gras: #c2e3cc; --raam: #cfe9f2; --tekst: var(--inkt); --zacht: #4d5459; --nacht: 0;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: transparent; font-family: Poppins, 'Segoe UI', Roboto, Arial, sans-serif; }
+.strook {
+  position: relative; display: flex; align-items: stretch; gap: clamp(.5rem, 2vw, 2rem);
+  height: 100%; min-height: 150px; overflow: hidden; border-radius: 24px;
+  background: linear-gradient(var(--lucht-boven), var(--lucht-onder));
+  color: var(--tekst);
+  box-shadow: 0 6px 24px rgba(13, 74, 27, .14);
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.strook:hover, .strook:focus-within { box-shadow: 0 10px 32px rgba(13, 74, 27, .24); transform: translateY(-2px); }
+.strook a { color: inherit; text-decoration: none; }
+.strook a:focus-visible { outline: 3px solid var(--groen); outline-offset: 3px; border-radius: 6px; }
+/* De link in de kop bedekt de hele strook; de tip en de knop liggen erboven. */
+.hoofd::after { content: ''; position: absolute; inset: 0; }
+.tip a, .knop { position: relative; z-index: 1; }
+.tip a:hover { text-decoration: underline; }
+.tip a::after { content: ' →'; color: var(--groen); font-weight: 600; }
+.tekening { flex: 0 0 auto; height: 100%; aspect-ratio: 300 / 200; }
+.tekening svg { display: block; width: 100%; height: 100%; }
+.tekst { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: .8rem clamp(.8rem, 2vw, 2rem) .8rem 0; }
+.etiket { margin: 0; font-size: clamp(.62rem, 1.1vw, .8rem); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--zacht); }
+.kop { margin: .1rem 0 0; font-size: clamp(1.15rem, 3.2vw, 2rem); font-weight: 700; line-height: 1.15; }
+.kop mark { background: linear-gradient(transparent 62%, rgba(194, 227, 204, calc(1 - var(--nacht) * .7)) 62%); color: inherit; }
+.tip { margin: .45rem 0 0; min-height: 2.6em; font-size: clamp(.8rem, 1.5vw, 1.02rem); font-weight: 500; color: var(--zacht); transition: opacity .5s ease; }
+.tip b { color: var(--tekst); font-weight: 600; }
+.tip.weg { opacity: 0; }
+.knop {
+  align-self: center; flex: 0 0 auto; margin-right: clamp(.8rem, 2.5vw, 2rem);
+  padding: .65rem 1.2rem; border-radius: 999px; background: var(--groen); color: #fff;
+  font-size: clamp(.8rem, 1.4vw, 1rem); font-weight: 600; white-space: nowrap;
+}
+.strook .knop { color: #fff; }
+.knop::after { content: ' →'; }
+
+/* de tekening */
+.kruin1 { fill: var(--blad2); } .kruin2 { fill: var(--blad1); }
+.gras { fill: var(--gras); }
+.raam { fill: var(--raam); transition: fill 2s ease; }
+.ster, .maan { opacity: var(--nacht); }
+.zon { opacity: calc(1 - var(--nacht)); }
+.lichtje { animation: zweef 9s ease-in-out infinite; }
+.gloed { animation: puls 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+@keyframes zweef { 0%, 100% { transform: translate(0, 0); } 30% { transform: translate(-34px, 42px); } 62% { transform: translate(26px, 84px); } 85% { transform: translate(8px, 30px); } }
+@keyframes puls { 50% { transform: scale(1.35); opacity: .35; } }
+.wolk { animation: drijf 60s linear infinite; }
+.wolk.b { animation-duration: 85s; animation-delay: -30s; }
+@keyframes drijf { from { transform: translateX(-70px); } to { transform: translateX(330px); } }
+/* wat er valt: blaadjes, bloesem of sneeuw, volgens het seizoen */
+.val { position: absolute; top: -12px; width: 8px; height: 6px; border-radius: 60% 40% 60% 40%; opacity: .9; animation: val linear infinite; pointer-events: none; }
+@keyframes val { to { transform: translate(var(--drift), 260px) rotate(540deg); } }
+
+@media (max-width: 520px) {
+  .knop { display: none; }
+  .tekening { aspect-ratio: 240 / 200; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lichtje, .gloed, .wolk, .val { animation: none; }
+  .val { display: none; }
+  .strook, .tip { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="strook">
+  <div class="tekening" aria-hidden="true">
+    <svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMax meet">
+      <circle class="zon" cx="258" cy="34" r="17" fill="#fbf59b"/>
+      <g class="maan"><circle cx="258" cy="34" r="13" fill="#fff8d8"/><circle cx="252" cy="30" r="11" fill="var(--lucht-boven)"/></g>
+      <g class="ster" fill="#fff"><circle cx="28" cy="22" r="1.4"/><circle cx="70" cy="40" r="1"/><circle cx="212" cy="18" r="1.2"/><circle cx="286" cy="70" r="1"/><circle cx="16" cy="76" r="1.1"/></g>
+      <g fill="#fff" opacity=".9"><g class="wolk"><ellipse cx="0" cy="30" rx="18" ry="8"/><ellipse cx="12" cy="24" rx="12" ry="8"/></g><g class="wolk b"><ellipse cx="0" cy="58" rx="14" ry="6"/><ellipse cx="9" cy="53" rx="9" ry="6"/></g></g>
+      <rect class="gras" x="6" y="170" width="288" height="26" rx="13"/>
+      <rect x="2" y="182" width="296" height="18" rx="9" fill="#126425"/>
+      <circle class="kruin1" cx="40" cy="138" r="24"/><circle class="kruin2" cx="54" cy="122" r="16"/><rect x="37" y="156" width="7" height="20" rx="3" fill="#9c6f45"/>
+      <circle class="kruin1" cx="262" cy="144" r="20"/><circle class="kruin2" cx="274" cy="130" r="13"/><rect x="259" y="158" width="6" height="18" rx="3" fill="#9c6f45"/>
+      <rect x="84" y="42" width="140" height="136" rx="5" fill="#fffaf3"/>
+      <rect x="92" y="52" width="124" height="36" rx="3" fill="#fbf59b"/>
+      <rect x="92" y="94" width="124" height="36" rx="3" fill="#bfe3ed"/>
+      <rect x="92" y="136" width="124" height="36" rx="3" fill="#fcc89b"/>
+      <rect class="raam" x="100" y="58" width="40" height="22" rx="3"/><rect class="raam" x="102" y="100" width="58" height="20" rx="3"/><rect class="raam" x="104" y="142" width="30" height="20" rx="3"/>
+      <g fill="#2b3038"><circle cx="176" cy="64" r="4.5"/><circle cx="172" cy="106" r="4.5"/><circle cx="188" cy="106" r="4.5"/><circle cx="160" cy="148" r="4.5"/></g>
+      <rect x="170" y="70" width="12" height="14" rx="5" fill="#126425"/><rect x="166" y="112" width="12" height="14" rx="5" fill="#f2a76b"/><rect x="182" y="112" width="12" height="14" rx="5" fill="#5fa9c9"/><rect x="154" y="154" width="12" height="14" rx="5" fill="#bfe3ed"/>
+      <rect x="80" y="36" width="148" height="9" rx="4" fill="#126425"/>
+      <g class="lichtje"><circle class="gloed" cx="150" cy="60" r="9" fill="#ffcf3a" opacity=".5"/><circle cx="150" cy="60" r="5" fill="#ffcf3a"/></g>
+    </svg>
+  </div>
+  <div class="tekst">
+    <p class="etiket">Het leercollectief · nieuw</p>
+    <!-- De kop en de knop gaan naar de voorpagina, waar iedereen zijn eigen
+         ingang kiest. De tip gaat rechtstreeks naar één stuk (zie strook.js). -->
+    <p class="kop"><a class="hoofd" href="../index.html" target="_blank" rel="noopener">AI op school? <mark>Samen</mark> zetten we de eerste stap.</a></p>
+    <p class="tip"><a target="_blank" rel="noopener"></a></p>
+  </div>
+  <a class="knop" href="../index.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">Ontdek het</a>
+</div>
+<script type="module" src="strook.js"></script>
+</body>
+</html>

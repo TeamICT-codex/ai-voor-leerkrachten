@@ -84,6 +84,10 @@ rekencollectief/    de pagina van Het Rekencollectief voor leerkrachten en direc
                     het adres van de app staat alleen in
                     ADRES in plekken.js, de controle is node rekencollectief/controle.mjs
                     (niet in de nodetests; zie rekencollectief/LEESMIJ.md en ONTWERP.md)
+insluiten/          de strook voor de startpagina van een school: een getekende school
+                    die meekleurt met het uur en het seizoen, met elke dag een andere
+                    tip; in te sluiten met ?voor=lager of ?voor=secundair (zie
+                    insluiten/LEESMIJ.md)
 teaser/             de promofilm van een halve minuut: opname.py neemt de filmmodus
                     van de voorpagina beeld per beeld op, muziek.py rekent het
                     deuntje uit (zie teaser/LEESMIJ.md)
@@ -307,7 +311,10 @@ Thomas op 16 november 2026). Het adres verandert dus nog. Alle links binnen de
 site zijn relatief en verhuizen vanzelf mee. Op drie plaatsen staat het adres
 vast: `ADRES` in `voorpagina/film.js` (de eindkaart van de teaser, daarna
 opnieuw opnemen), en de documentatie in dit bestand, `README.md` en
-`lager/TESTLIJST.md`. Zoek bij de verhuizing op `teamict-codex.github.io`. De
+`lager/TESTLIJST.md`. Zoek bij de verhuizing op `teamict-codex.github.io`. Ook
+het adres waarmee een school de strook insluit (`insluiten/strook.html`)
+verandert dan: dat pas je op elke startpagina één keer aan, en de eigen server
+mag het insluiten van die map niet blokkeren. De
 oude links op GitHub Pages blijven live tot de site elders draait en mogen
 daarna vervallen, zonder doorverwijzing (beslist door Thomas op 16 november
 2026).
