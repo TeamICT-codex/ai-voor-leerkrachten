@@ -780,6 +780,7 @@ export const WORKSHOPS = [
         tips: [
           'Op papier, niet op het scherm. Wie meteen begint te bouwen, bouwt het verkeerde.',
           'De vraag "wat als het fout is" is didactisch de belangrijkste. Laat niemand die overslaan.',
+          'Stel er meteen een tweede bij: geeft de functie het antwoord, of laat ze de leerling zelf denken? Het kader "Een AI met een didactisch geweten" in de module en de prompt eronder helpen om dat op papier te zetten.',
         ],
       },
       {

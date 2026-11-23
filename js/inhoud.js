@@ -543,6 +543,115 @@ export const MODULES_AI = [
           },
         ],
       },
+      // Toegevoegd na de vergelijking met het themaboek "Richting geven aan
+      // artificiële intelligentie" (Politeia, 2026), hoofdstuk 6: taken en
+      // toetsen herontwerpen. "AI uit – AI aan – AI uit" komt van de
+      // pedagogische begeleidingsdienst van het GO!.
+      {
+        id: 'taken-en-toetsen',
+        titel: 'Taken en toetsen in tijden van AI',
+        minuten: 20,
+        intro: 'Je ontdekt waarom een taak die thuis gemaakt wordt niet meer vanzelf toont wat een leerling kan, en je herontwerpt één eigen taak zodat het leren weer zichtbaar wordt.',
+        onthoud: 'Vraag niet "gebruikte hij AI?" maar "wat toont deze taak nog over wat hij zelf kan?". Toets de basis zonder AI in de klas, beoordeel bij grotere taken ook het proces, en zeg per fase of AI mag.',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              'Een betoog dat thuis geschreven wordt, toonde vroeger vrij betrouwbaar of een leerling kon argumenteren. Vandaag kan een chatbot dat betoog in een minuut schrijven, en dan meet de taak vooral wie goed kan vragen. De vraag is dus niet in de eerste plaats of er iemand valsspeelt, maar <strong>wat je nog mag besluiten uit wat je te zien krijgt</strong>. Een AI-detector lost dat niet op: hij gokt, in twee richtingen, en de casus <em>De detector zegt 98 procent</em> toont wat er dan misloopt. Wat wel werkt, is de taak zelf anders opbouwen.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Toets de basis zonder AI, in de klas.</strong> Wat een leerling hoe dan ook zelf moet kunnen, zoals breuken vereenvoudigen, de vervoeging van être of een korte tekst schrijven, toets je onder toezicht en zonder hulpmiddelen. Grotere taken en projecten mogen AI dan juist wél toelaten, met afspraken. Samen tonen die twee sporen de volledige vaardigheid: wat de leerling zelf kent, en hoe hij AI verstandig inzet.',
+              '<strong>Beoordeel ook het proces.</strong> Laat bij een grotere taak tussenproducten inleveren: een schema, een kladversie, een eerste en een tweede versie. Dan zie je hoe het werk groeide, en wordt overschrijven vanzelf zinloos.',
+              '<strong>Wissel af: AI uit, AI aan, AI uit.</strong> Zie het kader hieronder.',
+              '<strong>Vraag een korte mondelinge toelichting.</strong> Twee of drie vragen bij het inleveren: waarom koos je dit argument, wat liet je weg? Dat volstaat meestal. Een volledig mondeling examen in de plaats van elke schriftelijke taak benadeelt stille of talig zwakkere leerlingen. Gebruik het mondelinge dus als aanvulling, niet als vervanging.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'AI uit – AI aan – AI uit',
+            inhoud:
+              'De pedagogische begeleidingsdienst van het GO! reikt dit patroon aan in haar gids voor leraren, <em>AI op school en in de klas. Surfen op de AI-golf met een pedagogische surfplank</em> (2024), om een taak in fasen op te delen. <strong>AI uit:</strong> de leerling maakt zelf een eerste versie of verkenning. <strong>AI aan:</strong> hij gebruikt AI als hulp voor feedback, structuur of taal. <strong>AI uit:</strong> hij herwerkt zelf, kiest wat hij overneemt en verantwoordt die keuzes. Zo zie je wanneer het denkwerk van de leerling zelf komt en wanneer hij hulp inschakelde. Bij elke fase noteert hij kort welke hulp hij gebruikte; dat logboek sluit aan bij les 4.11 van de leerlingencursus.',
+          },
+          {
+            type: 'vergelijk',
+            zwak: 'Schrijf tegen volgende week een betoog van 400 woorden over het gsm-verbod op school.',
+            sterk: 'Les 1, in de klas en zonder AI: schrijf je standpunt, drie argumenten en één tegenargument op een blad. Thuis: laat je tekst door AI nakijken op structuur en taal, niet op inhoud, en noteer welke tips je overneemt en welke niet. Les 2, zonder AI: schrijf je eindversie en leg in twee zinnen uit wat je veranderde en waarom.',
+            uitleg:
+              'De tweede opdracht vraagt hetzelfde betoog, maar je ziet nu waar het denkwerk van de leerling zit. En de leerling leert meteen hoe je AI-feedback gebruikt in plaats van een AI-tekst in te leveren.',
+          },
+          {
+            type: 'kader',
+            variant: 'letop',
+            titel: 'Alles gesloten toetsen is ook geen oplossing',
+            inhoud:
+              'De reflex is begrijpelijk: geen thuistaken meer, alles op papier in de klas. Voor de basiskennis is dat prima. Maar samenwerken, creativiteit, onderzoeken en een project afwerken meet je niet in vijftig minuten met een balpen. Wie alleen nog toetst wat AI niet kan aanraken, toetst op den duur een smaller deel van wat het leerplan vraagt.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Feedback van AI lezen is nog geen herwerken',
+            inhoud:
+              'AI geeft snel en uitgebreid feedback, maar leerlingen herwerken daarom nog niet meer of beter. Soms lezen ze de tips en klikken ze door. Laat je leerlingen daarom bij elke feedbackronde aangeven welke tips ze overnamen, welke niet, en waarom. Dan wordt de feedback een denkstap in plaats van een product dat ze consumeren.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Eén taak herontwerpen',
+            tekst:
+              'Ik geef [VAK] in het [LEERJAAR]. Hieronder staat een taak die ik geef. Leerlingen kunnen ze vandaag grotendeels door een chatbot laten maken.\n\nTaak:\n[PLAK JE OPDRACHT]\n\nHet leerdoel van deze taak:\n[WAT MOET DE LEERLING HIERMEE AANTONEN?]\n\nHerontwerp deze taak:\n1. Zeg welk deel van het leerdoel de leerling zelf moet kunnen zonder AI, en hoe ik dat in de klas kan toetsen.\n2. Deel de rest van de taak op in fasen volgens "AI uit, AI aan, AI uit", met per fase wat de leerling doet en wat hij inlevert.\n3. Stel twee of drie korte vragen voor die ik bij het inleveren mondeling kan stellen.\n\nHou de taak even groot als nu. Gebruik geen namen van leerlingen.',
+            uitleg:
+              'Het herontwerp is een voorstel: jij kent je leerplan en je klas. Kijk vooral naar punt 1. Klopt het met wat jij als kern van het leerdoel ziet? Zo niet, stuur bij voor je de rest overneemt.',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Een collega wil AI-fraude uitsluiten en vervangt alle schriftelijke taken door een mondeling examen. Wat is het zwakke punt?',
+            opties: [
+              {
+                tekst: 'Er is geen zwak punt: mondeling kan je niet met AI voorbereiden.',
+                juist: false,
+                feedback:
+                  'Voorbereiden kan zeker, en dat is ook goed. Het probleem zit elders: wie wordt er door een mondeling examen benadeeld?',
+              },
+              {
+                tekst: 'Stille of talig zwakkere leerlingen worden benadeeld, en vaardigheden zoals schrijven en een project afwerken worden niet meer getoetst.',
+                juist: true,
+                feedback:
+                  'Juist. Een korte mondelinge toelichting als aanvulling werkt goed, maar als enige vorm meet het mondelinge vooral wie vlot spreekt. Combineer liever: de basis zonder AI in de klas, het proces meebeoordelen, en een paar vragen bij het inleveren.',
+              },
+              {
+                tekst: 'Mondelinge examens zijn niet toegelaten in het secundair.',
+                juist: false,
+                feedback:
+                  'Dat klopt niet: mondelinge examens bestaan gewoon. Wat mag, staat in het evaluatiereglement van je school.',
+              },
+            ],
+          },
+          {
+            type: 'opdracht',
+            titel: 'Herontwerp één taak',
+            inhoud: 'Neem een taak die leerlingen thuis maken en die je dit jaar opnieuw geeft. Twintig minuten.',
+            stappen: [
+              'Schrijf het leerdoel van de taak in één zin: wat moet de leerling ermee aantonen?',
+              'Duid aan welk deel hij zeker zonder AI moet kunnen, en beslis waar je dat toetst: in de klas, of als eerste fase van de taak.',
+              'Deel de rest op in fasen volgens AI uit, AI aan, AI uit. Gebruik de prompt hierboven als je vastloopt.',
+              'Kies wat de leerling inlevert naast het eindproduct: een kladversie, een logboek van zijn AI-gebruik, of twee mondelinge vragen.',
+              'Breng het mee naar de vakwerkgroep. Hoe je taken beoordeelt, raakt aan het evaluatiebeleid van de school: leerlingen hebben er baat bij als collega\'s dezelfde lijn volgen.',
+            ],
+            klaar:
+              'je herontworpen taak in fasen klaarstaat, met erbij wat zonder AI getoetst wordt en wat de leerling naast zijn eindproduct inlevert.',
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Verder lezen',
+            inhoud:
+              'Bron van deze les: Martin, A. &amp; Thys, A. (red.) (2026). <em>Richting geven aan artificiële intelligentie. Perspectieven, reflecties en handvaten voor AI &amp; onderwijs.</em> Politeia, hoofdstuk 6: <em>Evalueren in tijden van AI: wat blijft zichtbaar van het leren?</em>, door Merlyn Schoors (VIVES) en Andries Valcke en Mark Willems (pedagogische begeleidingsdienst van het GO!), met praktijkvoorbeelden uit GO!-scholen. Wat de wet zegt over AI die zelf punten geeft, lees je in de les <em>De Europese AI-verordening</em> in het spoor Het kader.',
+          },
+        ],
+      },
     ],
   },
 
@@ -809,6 +918,105 @@ export const MODULES_AI = [
             ],
             klaar:
               'die twee zinnen bovenaan de opdracht staan, in de taal van je leerlingen, klaar om uit te delen.',
+          },
+        ],
+      },
+      // Toegevoegd na de vergelijking met het themaboek "Richting geven aan
+      // artificiële intelligentie" (Politeia, 2026), hoofdstuk 2, 6 en 9:
+      // wat AI met het leren zelf doet. De leerlingencursus behandelt dit al
+      // in les 7.6; hier krijgt de leerkracht de achtergrond erbij.
+      {
+        id: 'leren-met-ai',
+        titel: 'Wat AI doet met het leren',
+        minuten: 15,
+        intro: 'Je ontdekt waarom een mooie taak met AI nog geen leerling is die iets kan, en je bepaalt per taak wat in het hoofd van je leerling moet gebeuren.',
+        onthoud: 'Leerlingen moeten eerst zonder AI leren denken, en pas daarna met AI. Leg per taak vast welk denkwerk het leerdoel is: dat doet de leerling zelf, de rest mag AI ondersteunen.',
+        verdieping: true,
+        blokken: [
+          {
+            type: 'tekst',
+            inhoud:
+              'Een leerling van het tweede jaar levert een verzorgde tekst Frans in. Hij liet een chatbot het meeste schrijven en paste hier en daar iets aan. Twee weken later, op de toets zonder hulpmiddelen, lukt een gelijkaardige tekst niet. Het product was goed, maar het leren bleef uit. Onderzoek van Bastani en collega\'s (PNAS, 2025) ziet dat patroon terug. Bijna duizend leerlingen uit het secundair in Turkije oefenden wiskunde met een gewone chatbot, met een AI-tutor die enkel hints gaf, of zonder AI. Tijdens het oefenen scoorden beide AI-groepen beter. Op de toets achteraf, zonder hulp, deed de groep met de gewone chatbot het <strong>slechter</strong> dan de groep zonder AI. Bij de hint-tutor was er geen duidelijk verschil. Wie met AI beter presteert, heeft daarom nog niet meer geleerd.',
+          },
+          {
+            type: 'tekst',
+            inhoud:
+              'Het verschil zit in wat de leerling uit handen geeft. <strong>Ontlasten</strong> is iets laten doen zodat je hoofd vrij blijft voor het eigenlijke denkwerk: tussenstappen noteren, een spellingcontrole, een eerste lijst met woorden om mee te starten. <strong>Uitbesteden</strong> is het denkwerk zelf laten doen: het standpunt, de argumenten, de oplossingsweg. Een voorbeeld bij een betoog in het vierde jaar: AI mag helpen om zinnen vlotter te formuleren, maar het standpunt, de argumenten en de tegenargumenten schrijft de leerling eerst zelf op, en hij kan ze nadien toelichten. Zo zeg je vooraf waar het leren moet gebeuren.',
+          },
+          {
+            type: 'lijst',
+            items: [
+              '<strong>Beginners hebben er het meest last van.</strong> Een leerling van het eerste jaar die avoir en être nog moet automatiseren, laat met AI niet alleen het werk maar ook het denken over. Een leerling van het zesde jaar die zijn Frans al goed beheerst, gebruikt dezelfde chatbot om scherper te schrijven. Hij herkent de fouten, de beginner niet.',
+              '<strong>De sterke leerling wordt sterker, de zwakke blijft staan.</strong> Wie weet hoe hij leert, vraagt feedback en spreekt het antwoord tegen. Wie dat nog niet kan, neemt over wat er staat. AI kan het verschil in je klas dus groter maken in plaats van kleiner.',
+              '<strong>Vlot klinken voelt als kennen.</strong> Een helder antwoord geeft een leerling snel het gevoel dat hij het snapt. Daardoor plant, controleert en herhaalt hij minder. Een korte vraag als "leg het nu eens uit zonder te kijken" maakt dat zichtbaar.',
+            ],
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Drie standen: geen AI, AI als hulp, AI als assistent',
+            inhoud:
+              'Een indeling van Katrien Dewaele (UCLL), uit de vakdidactiek vreemde talen, werkt voor elk vak. <strong>Geen AI</strong> zolang een leerling de basis nog opbouwt: eerst zelf leren denken. <strong>AI als hulp</strong> terwijl de leerling het zware denkwerk zelf doet: een chatbot die vragen stelt in plaats van antwoorden geeft, een oefenpartner die geduldig overhoort. <strong>AI als assistent</strong> die werk overneemt, alleen wanneer de leerling dat werk in principe zelf al kan en zijn eigen gebruik kan bijsturen. Welke stand past, hangt af van twee dingen: hoeveel de leerling al kent, en hoe goed hij zijn eigen leren stuurt. Je kiest dus per taak, en soms per leerling.',
+          },
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Een routekaart bij het begin van een lessenreeks',
+            inhoud:
+              'Zeg niet enkel wat niet mag, maar zet per deeltaak op een rij wat wel kan. Katrien Dewaele geeft het voorbeeld van een leerkracht Engels: ideeën zoeken voor je tekst, <em>ja, AI mag</em>; synoniemen zoeken, <em>ja, maar pas nadat je zelf iets bedacht</em>; de verleden tijden in deze fase, <em>nee, die moeten eerst in je eigen hoofd zitten</em>. Zet die kaart bovenaan de reeks en zeg erbij waarom. Leerlingen houden zich beter aan een regel waarvan ze het doel kennen.',
+          },
+          {
+            type: 'prompt',
+            titel: 'Een routekaart voor je lessenreeks',
+            tekst:
+              'Ik geef [VAK] in het [LEERJAAR]. Mijn volgende lessenreeks gaat over [ONDERWERP]. Het leerplandoel waar ze naartoe werkt:\n[PLAK HET LEERPLANDOEL OF DE EINDTERM]\n\nDe leerlingen maken in deze reeks deze taken:\n[SOM DE TAKEN OP, BIJVOORBEELD: woordenschat oefenen, een tekst schrijven, een presentatie voorbereiden]\n\nMaak een tabel met per taak de deelstappen. Zet bij elke deelstap of AI mag, mag na een eigen poging, of niet mag, met in één zin waarom, vertrekkend van het leerplandoel. Stel bij AI als hulp telkens een manier voor waarbij de leerling zelf blijft denken, bijvoorbeeld een chatbot die eerst een hint geeft in plaats van het antwoord.\n\nSchrijf er daarna een versie van in vijf korte zinnen in de je-vorm, voor mijn leerlingen.',
+            uitleg:
+              'Jij beslist, de assistent zet het overzichtelijk op een rij. Lees vooral de deelstappen met "mag niet" kritisch na: daar zit je leerdoel, en een assistent schat dat soms te ruim of te krap in. Een voorstel dat te veel toelaat voor beginners, stuur je bij met één zin: "Mijn leerlingen kennen dit nog niet, wees strenger."',
+          },
+          {
+            type: 'quiz',
+            vraag: 'Een leerling van het tweede jaar moet een korte tekst Nederlands schrijven over zijn weekend. Welk gebruik van AI ontlast hem, zonder het leerdoel uit te besteden?',
+            opties: [
+              {
+                tekst: 'Hij laat de chatbot een tekst schrijven en vervangt daarna een paar woorden door die van hem.',
+                juist: false,
+                feedback:
+                  'Dan liet hij het denkwerk doen: wat hij vertelt, in welke volgorde en met welke zinnen. Precies dat moest hij oefenen.',
+              },
+              {
+                tekst: 'Hij schrijft zijn tekst zelf en laat daarna enkel nakijken waar spelfouten staan, zonder ze te laten verbeteren.',
+                juist: true,
+                feedback:
+                  'Juist. Het schrijven blijft van hem, en zelf de fout verbeteren is meteen een leerkans. Of zelfs dat mag, hangt af van wat je meet: gaat de taak net over spelling, dan zeg je vooraf dat ook dit niet mag.',
+              },
+              {
+                tekst: 'Hij laat drie voorbeeldteksten maken en kiest de beste.',
+                juist: false,
+                feedback:
+                  'Kiezen is wel een denkstap, maar niet die van de opdracht. Voorbeelden kunnen helpen als hij zelf al een eerste versie schreef, niet in de plaats daarvan.',
+              },
+            ],
+          },
+          {
+            type: 'opdracht',
+            titel: 'Wat moet in het hoofd van je leerling gebeuren?',
+            inhoud: 'Neem de klasafspraak die je in de vorige les maakte, of één taak die je binnenkort geeft, en leg ze naast wat je in deze les las. Een kwartier.',
+            stappen: [
+              'Schrijf de taak op in één zin, met het leerdoel erbij. Niet "een tekst over het weekend", wel "een verhalende tekst met een duidelijke volgorde, tweede jaar".',
+              'Som de deelstappen op die een leerling doorloopt: ideeën zoeken, ordenen, schrijven, nalezen, verbeteren.',
+              'Duid de stap of stappen aan die het eigenlijke leerdoel zijn. Die doet de leerling zelf, zonder AI.',
+              'Zet bij de andere stappen welke stand past bij jouw klas: geen AI, AI als hulp of AI als assistent. Denk aan je beginners, niet aan je sterkste leerling.',
+              'Kijk je klasafspraak na: zegt ze dit al? Pas ze aan, en voeg één zin toe die uitlegt waarom.',
+            ],
+            klaar:
+              'je klasafspraak per deelstap zegt wat met AI mag, en in één zin uitlegt welk denkwerk de leerling zelf doet en waarom.',
+          },
+          {
+            type: 'kader',
+            variant: 'weetje',
+            titel: 'Verder lezen',
+            inhoud:
+              'Je leerlingen lezen hetzelfde in les 7.6 van <em>AI-wijs op school</em>, met het onderzoek erbij. Bronnen van deze les: Martin, A. &amp; Thys, A. (red.) (2026). <em>Richting geven aan artificiële intelligentie. Perspectieven, reflecties en handvaten voor AI &amp; onderwijs.</em> Politeia, hoofdstuk 6 (M. Schoors, A. Valcke en M. Willems, over evalueren en het verschil tussen ontlasten en uitbesteden) en hoofdstuk 9 (Katrien Dewaele, over beginners en gevorderden en de drie standen). Het onderzoek: Bastani e.a. (2025), <em>Generative AI without guardrails can harm learning: Evidence from high school mathematics</em>, Proceedings of the National Academy of Sciences, 122(26).',
           },
         ],
       },

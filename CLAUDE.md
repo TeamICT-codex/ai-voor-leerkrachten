@@ -352,8 +352,8 @@ daar dan letterlijk.
 - Zes workshops (A1-A3, B1-B3) van 3 uur, alle draaiboeken volledig.
 - Drie sporen: **C Het kader** (wet en schoolbeleid, staat vooraan en is het
   beginpunt), **A AI in de klas** en **B Vibe coden**.
-- 18 modules, 54 lessen, 332 inhoudsblokken (tekst 97, kader 89, lijst 48,
-  prompt 32, opdracht 26, casus 17, quiz 19, vergelijk 4).
+- 18 modules, 56 lessen, 353 inhoudsblokken (tekst 100, kader 97, lijst 50,
+  prompt 35, opdracht 28, casus 17, quiz 21, vergelijk 5).
 - **Elke les draagt haar eigen `minuten`**; modules hebben geen `duur` meer.
   `moduleMinuten()` in cursus.js telt ze op, en de sessiebouwer rekent ermee.
   Voeg je een les toe, zet er dan minuten op — zonder dat telt ze voor nul.
@@ -371,7 +371,7 @@ daar dan letterlijk.
   leestijd, niet workshoptijd — reken ongeveer honderd woorden per minuut.
 - Een spoor zonder draaiboek toont zijn modules rechtstreeks in plaats van in
   een uitklapper; `toonSpoor()` in app.js regelt dat.
-- Tien daarvan zijn **verdiepingslessen** (`verdieping: true` op de les): stof
+- Twaalf daarvan zijn **verdiepingslessen** (`verdieping: true` op de les): stof
   die niet in de drie uur past en die je na de sessie zelfstandig doorneemt.
   Ze staan wél op de promptkaart en in de leeromgeving, maar niet in de
   deelnemersbundel — die is de hand-out van één sessie. `blokkenVanType` neemt
@@ -490,6 +490,17 @@ Hou dit bij als je verder schrijft.
   vakpers) dat de AI-omnibus vanaf 2 december 2026 ook nieuwe verboden invoert.
   De les over de AI-verordening noemt die niet. Niet nagegaan in het
   Publicatieblad, en dus niets aan veranderd.
+- **Toegevoegd op 23 november 2026, nog niet door een lezersronde:** na een
+  vergelijking met het themaboek *Richting geven aan artificiële intelligentie*
+  (Politeia, 2026) twee verdiepingslessen in spoor A, *Wat AI doet met het leren*
+  (`veilig-en-ethisch/leren-met-ai`) en *Taken en toetsen in tijden van AI*
+  (`toetsen-feedback/taken-en-toetsen`), plus in B3 (`vibe-ai/wanneer-ai-inbouwen`)
+  het kader *Een AI met een didactisch geweten* met een tutorprompt en de grens
+  "geen punten die meetellen" in de lijst van zinvolle functies. Die grens
+  maakt B3 gelijk met spoor C, dat al zei: bouw niets dat over een leerling
+  beslist. De onderzoeksclaim (Bastani e.a., bijna duizend leerlingen) is
+  dezelfde als in les 7.6 van de leerlingencursus; "AI uit – AI aan – AI uit"
+  komt van de pedagogische begeleidingsdienst van het GO! (boek, hoofdstuk 6).
 - **Nog niet nagekeken:** wat je hierna zelf toevoegt. De app zelf (`app.js`,
   `style.css`) is nagelopen op toegankelijkheid, afdrukken en de drie
   schermcontexten; nieuw blok-type of nieuwe kadervariant vraagt die pas opnieuw.

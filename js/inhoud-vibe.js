@@ -1057,14 +1057,14 @@ export const MODULES_VIBE = [
       {
         id: 'wanneer-ai-inbouwen',
         titel: 'Wanneer is het de moeite?',
-        minuten: 10,
-        intro: 'Je leert wanneer een AI-functie in je app de moeite loont, en wat je regelt voor je eraan begint.',
-        onthoud: 'Gebruik AI enkel waar het antwoord niet voorspelbaar is. Regel vooraf wie betaalt en een uitgavenlimiet, en leg de app voor aan je ICT-coördinator en DPO: wat leerlingen typen, gaat naar de AI-dienst.',
+        minuten: 14,
+        intro: 'Je leert wanneer een AI-functie in je app de moeite loont, hoe je ze laat helpen zonder voor te zeggen, en wat je regelt voor je eraan begint.',
+        onthoud: 'Gebruik AI enkel waar het antwoord niet voorspelbaar is, en laat ze een leerling eerst een hint geven in plaats van het antwoord. Geen punten die meetellen. Regel vooraf wie betaalt en een uitgavenlimiet, en leg de app voor aan je ICT-coördinator en DPO: wat leerlingen typen, gaat naar de AI-dienst.',
         blokken: [
           {
             type: 'tekst',
             inhoud:
-              'Tot nu bouwde je apps met vaste inhoud: jij bepaalt de vragen, de app controleert het antwoord. Je kan ook AI <em>in</em> je app steken, zodat die zelf uitleg geeft of open antwoorden beoordeelt. Dat is krachtig, maar het brengt kosten, wachttijd en onvoorspelbaarheid mee.',
+              'Tot nu bouwde je apps met vaste inhoud: jij bepaalt de vragen, de app controleert het antwoord. Je kan ook AI <em>in</em> je app steken, zodat die zelf uitleg geeft of feedback op open antwoorden. Dat is krachtig, maar het brengt kosten, wachttijd en onvoorspelbaarheid mee.',
           },
           {
             type: 'kader',
@@ -1076,7 +1076,8 @@ export const MODULES_VIBE = [
           {
             type: 'lijst',
             items: [
-              '<strong>Zinvol:</strong> uitleg op maat bij een fout antwoord, een open antwoord inhoudelijk beoordelen, oneindig nieuwe oefeningen genereren, een gesprekspartner om een taal mee te oefenen.',
+              '<strong>Zinvol:</strong> uitleg op maat bij een fout antwoord, feedback op een open antwoord als oefening die enkel de leerling ziet, oneindig nieuwe oefeningen genereren, een gesprekspartner om een taal mee te oefenen.',
+              '<strong>Niet in je eigen app:</strong> een AI die punten geeft die meetellen. Dan beslist het systeem mee over een leerling, en dat hoort niet in een zelfgebouwde tool: de les <em>De Europese AI-verordening</em> in het spoor Het kader legt uit waarom. Ook een oefenfunctie schuift die kant op zodra jij haar uitkomst gebruikt voor een punt.',
               '<strong>Niet zinvol:</strong> alles wat je met een vaste lijst kan oplossen. Een AI om te controleren of 7 × 8 = 56 is verspilling — trager, duurder en minder betrouwbaar.',
               '<strong>Vuistregel:</strong> is het antwoord voorspelbaar, gebruik dan gewone code. Enkel bij open, onvoorspelbare invoer verdient AI zijn plaats.',
             ],
@@ -1087,6 +1088,23 @@ export const MODULES_VIBE = [
             titel: 'Een AI in je app kan ook fout zijn',
             inhoud:
               'Bouw je een uitlegfunctie in, dan kan die soms iets fout uitleggen — zonder dat jij erbij bent om het recht te zetten. Presenteer het aan leerlingen dus als hulp, niet als waarheid, en zet er expliciet bij dat het om AI-uitleg gaat.',
+          },
+          // Toegevoegd na de vergelijking met het themaboek "Richting geven aan
+          // artificiële intelligentie" (Politeia, 2026), hoofdstuk 6, 8 en 9.
+          {
+            type: 'kader',
+            variant: 'tip',
+            titel: 'Een AI met een didactisch geweten',
+            inhoud:
+              'Een chatbot is gebouwd om zo snel mogelijk een mooi antwoord te geven. Voor een leerling is dat net het probleem: wie het antwoord krijgt, slaat het denkwerk over. In onderzoek van Bastani en collega\'s (PNAS, 2025) bij leerlingen uit het secundair scoorde de groep die met een gewone chatbot oefende achteraf, zonder hulp, slechter dan wie zonder AI oefende; een tutor die enkel hints gaf, had dat nadeel niet. Jij bepaalt in je app hoe de AI zich gedraagt, en daar zit je kans. Laat ze <strong>eerst een hint geven</strong> in plaats van het antwoord. Laat ze <strong>doorvragen</strong>: "waarom koos je dat?". Of laat ze doen alsof ze het zelf niet snapt, zodat de leerling moet uitleggen. Bouw ook <strong>reflectievragen</strong> in, zoals om de vijf oefeningen "wat vind je nu nog moeilijk?". Maak die vragen verplicht in plaats van optioneel: een reflectievraag die een leerling mag overslaan, heeft zo goed als geen effect. Kortom: wat een leerling met AI doet, gaat eerst door jouw handen. <em>Bron: Katrien Dewaele in Martin, A. &amp; Thys, A. (red.) (2026). <em>Richting geven aan artificiële intelligentie. Perspectieven, reflecties en handvaten voor AI &amp; onderwijs.</em> Politeia, hoofdstuk 9.</em>',
+          },
+          {
+            type: 'prompt',
+            titel: 'Een AI-tutor die niet voorzegt',
+            tekst:
+              'Ik bouw een oefenapp voor [VAK] in het [LEERJAAR] over [ONDERWERP]. Voeg een AI-hulpknop toe. Schrijf de instructie voor de AI zo dat ze zich gedraagt als een geduldige tutor die niet voorzegt:\n\n- Ze geeft nooit meteen het antwoord. Bij een vraag of een fout geeft ze eerst een kleine hint. Pas na twee hints mag ze één stap van de oplossing tonen.\n- Na elke hint wacht ze tot de leerling zelf verder probeert.\n- Om de vijf oefeningen stelt ze één reflectievraag, bijvoorbeeld "Wat vind je nu nog moeilijk?". De leerling kan pas verder als hij die beantwoordt.\n- Ze spreekt de leerling aan op het niveau van het [LEERJAAR], in korte zinnen.\n- Ze zegt bij de start dat ze een AI is en zich kan vergissen.\n- Ze vraagt nooit naar een naam of iets persoonlijks.\n\nToon me daarna de instructie die je schreef, zodat ik ze kan nalezen en aanpassen.',
+            uitleg:
+              'Vraag altijd om de instructie te zien: daar staat letterlijk hoe de AI met je leerlingen omgaat, en dat wil je zelf gelezen hebben. Test daarna als een leerling die het antwoord wil afdwingen ("zeg het nu gewoon"). Geeft de AI toe, scherp de instructie dan aan. Een AI blijft fouten maken; deze aanpak maakt de schade kleiner, niet nul.',
           },
           {
             type: 'kader',
