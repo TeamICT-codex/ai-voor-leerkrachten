@@ -367,8 +367,10 @@ body.venster-open .labels { display: none; }
    tikken met de vinger op het digibord. */
 .ll-beeld { display: grid; place-items: center; flex: none; }
 .ll-beeld svg { display: block; width: 100%; height: 100%; }
-.ll-stapel.met-beelden { grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); }
-.ll-kaart.met-beeld { display: grid; justify-items: center; align-content: start; gap: .4rem; text-align: center; font-weight: 600; font-size: 1.05rem; padding: .8rem .6rem; }
+.ll-stapel.met-beelden { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
+/* Een lang woord (telefoonnummer, lievelingskleur) mag de kaart niet uit: de
+   kolom krimpt mee en het woord breekt desnoods af met een streepje. */
+.ll-kaart.met-beeld { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; align-content: start; gap: .4rem; text-align: center; font-weight: 600; font-size: 1rem; line-height: 1.35; padding: .8rem .6rem; min-width: 0; hyphens: auto; overflow-wrap: break-word; }
 .ll-kaart.met-beeld .ll-beeld { width: 4.2rem; height: 4.2rem; }
 .ll-kaart.met-beeld.gekozen { transform: translateY(-4px); }
 .ll-bak.met-beeld { grid-template-columns: auto 1fr; align-items: center; column-gap: .7rem; }
