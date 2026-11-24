@@ -111,6 +111,12 @@ body:not(.kan-voorlezen) .ll-lees { display: none; }
 /* ── de wereld: kop, podium en stadsplan ── */
 /* minmax(0, 1fr): anders duwt de rij met stations de pagina breder dan het scherm. */
 body.ll-wereld { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; height: 100vh; height: 100svh; overflow: hidden; }
+/* De drie rijen staan vast op hun plaats. Een browserextensie zet soms een
+   eigen blokje vooraan in de body; zonder vaste rijen schuift alles dan één
+   rij op en wordt de wereld nul pixels hoog. */
+body.ll-wereld > .ll-kop { grid-row: 1; }
+body.ll-wereld > .podium { grid-row: 2; }
+body.ll-wereld > .ll-dok { grid-row: 3; }
 .podium { position: relative; overflow: hidden; isolation: isolate; background: #eef7f1; min-height: 0; }
 .lucht { position: absolute; inset: 0; z-index: -1; transition: opacity 3s ease; }
 .lucht.ochtend { background: radial-gradient(120% 95% at 78% 4%, #ffe1bd 0%, #fcd2ad 28%, #f7e6d6 60%, #f4f4f4 100%); }
