@@ -274,8 +274,6 @@ function layout({ title, description, base, body, bodyClass = '', extraHead = ''
 <title>${esc(title)} · ${esc(config.naam)}</title>
 <meta name="description" content="${attr(description || config.korteBeschrijving)}">
 <link rel="icon" href="${base}assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="${base}assets/style.css">
 ${kop}${extraHead}
 </head>

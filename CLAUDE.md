@@ -297,27 +297,33 @@ Daarna: <http://localhost:8000/> voor de voorpagina en
 
 - Direct committen en pushen naar `main`; geen branches of PR's.
 - Git-author: `Thomas Aelbrecht <ict@hetleercollectief.be>`.
-- De site staat live op <https://teamict-codex.github.io/ai-voor-leerkrachten/>
-  via GitHub Pages, rechtstreeks vanaf de repo-root van `main`. Daar staat de
-  voorpagina; de leeromgeving staat op `…/ai-voor-leerkrachten/leeromgeving/`. Elke push is
-  binnen de minuut online; er is geen build-stap. `.nojekyll` moet blijven
-  staan, anders laat Jekyll bestanden met een underscore weg.
+- De site staat live op <https://ai.hetleercollectief.be/>, via Vercel,
+  rechtstreeks vanaf de repo-root van `main`. Daar staat de voorpagina; de
+  leeromgeving staat op `ai.hetleercollectief.be/leeromgeving/`. Elke push is
+  binnen de minuut online; er is geen build-stap.
 
-### De verhuizing naar een eigen server
+### Het adres en de hosting
 
-GitHub Pages is de plek om na te kijken, niet de plek van de lancering: de site
-verhuist naar een eigen server en wordt pas daarna verspreid (beslist door
-Thomas op 16 november 2026). Het adres verandert dus nog. Alle links binnen de
-site zijn relatief en verhuizen vanzelf mee. Op drie plaatsen staat het adres
-vast: `ADRES` in `voorpagina/film.js` (de eindkaart van de teaser, daarna
-opnieuw opnemen), en de documentatie in dit bestand, `README.md` en
-`lager/TESTLIJST.md`. Zoek bij de verhuizing op `teamict-codex.github.io`. Ook
-het adres waarmee een school de strook insluit (`insluiten/strook.html`)
-verandert dan: dat pas je op elke startpagina één keer aan, en de eigen server
-mag het insluiten van die map niet blokkeren. De
-oude links op GitHub Pages blijven live tot de site elders draait en mogen
-daarna vervallen, zonder doorverwijzing (beslist door Thomas op 16 november
-2026).
+Sinds 24 november 2026 staat de site op **ai.hetleercollectief.be**. Vercel
+serveert de repo zoals ze is (project `ai-voor-leerkrachten`, voorinstelling
+"Other", geen build-commando), op het persoonlijke Hobby-account van Thomas. In
+Cloudflare, waar het domein hetleercollectief.be beheerd wordt, staat daarvoor
+één CNAME-regel `ai`, met het wolkje op grijs ("DNS only"): met de proxy aan kan
+Vercel het adres en het certificaat niet controleren. Raak in Cloudflare niets
+anders aan: de andere regels horen bij de website en de mail van de
+scholengroep.
+
+Alle links binnen de site zijn relatief. Het adres staat maar op één plaats in
+het product vast: `ADRES` in `voorpagina/film.js`, voor de eindkaart van de
+teaser (na een wijziging opnieuw opnemen). Scholen sluiten de strook in met
+`https://ai.hetleercollectief.be/insluiten/strook.html?voor=…`; de hosting mag
+het insluiten van die map dus niet blokkeren.
+
+De oude versie op GitHub Pages (`teamict-codex.github.io/ai-voor-leerkrachten`)
+bouwt nog mee bij elke push. Ze mag vervallen, zonder doorverwijzing (beslist
+door Thomas op 16 november 2026); `.nojekyll` blijft staan zolang ze bestaat.
+Nog open, voor Thomas: of het Hobby-plan van Vercel volstaat voor een
+scholengroep, en of de site daar mag blijven of naar een eigen server gaat.
 
 ### In een ander account verder werken
 

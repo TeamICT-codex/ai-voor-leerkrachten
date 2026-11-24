@@ -4,11 +4,11 @@ Digitale leeromgeving én workshopmateriaal om leerkrachten lager en secundair
 onderwijs te leren werken met AI. Gemaakt voor deelnemers die nog nooit met
 ChatGPT of Claude werkten.
 
-**De site staat online: <https://teamict-codex.github.io/ai-voor-leerkrachten/>**
+**De site staat online: <https://ai.hetleercollectief.be/>**
 Daar staat de voorpagina, met een ingang voor directies, leerkrachten, leerlingen
 en het lager. De leeromgeving zelf staat op
-<https://teamict-codex.github.io/ai-voor-leerkrachten/leeromgeving/>; oude links
-naar `…/ai-voor-leerkrachten/#/…` sturen automatisch door.
+<https://ai.hetleercollectief.be/leeromgeving/>; oude links naar `…/#/…` op de
+voorpagina sturen automatisch door.
 
 De omgeving dient twee doelen tegelijk:
 
@@ -125,7 +125,7 @@ Naast dit materiaal voor leerkrachten bevat de repo een aparte cursus voor
 hoofdstukken en 72 lessen met prompts, opdrachten, hoofdstukquizzen en een
 certificaat, in de huisstijl van GO! scholengroep Het leercollectief en met
 voorbeelden uit de eigen scholen. Ze staat live op
-<https://teamict-codex.github.io/ai-voor-leerkrachten/leerlingen/> en werkt
+<https://ai.hetleercollectief.be/leerlingen/> en werkt
 zonder account.
 
 De module **De leerlingencursus in je klas** (spoor A) is de handleiding voor

@@ -282,7 +282,7 @@ de ouders. De hulplijnen met hun bron.
 
 **Map en URL.** Bron in `leerlingen-bron/start/` (`content/`,
 `cursus.config.json`, `docs/`), met dezelfde generator. Uitvoer in `aiwijs-start/`
-in de root: <https://teamict-codex.github.io/ai-voor-leerkrachten/aiwijs-start/>.
+in de root: <https://ai.hetleercollectief.be/aiwijs-start/>.
 Niet in `leerlingen/`, want die build maakt die map leeg. Niet `start/`, want dat
 verwart met de startpagina. Leg de naam vast vóór de eerste publicatie: een
 gedeelde link pas je achteraf niet meer aan.

@@ -1,3 +1,11 @@
+/* Poppins komt van de site zelf (gedeeld/fonts in de root), niet van Google
+   Fonts: zo legt het toestel van een leerling geen contact met een andere
+   server. Het pad loopt vanuit assets/ twee mappen omhoog. Gewicht 500 is er
+   niet apart: de browser neemt dan 400. */
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap; src: url(../../gedeeld/fonts/poppins-400.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap; src: url(../../gedeeld/fonts/poppins-600.woff2) format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url(../../gedeeld/fonts/poppins-700.woff2) format('woff2'); }
+
 /* AI-wijs op school · stijl in de huisstijl van Het leercollectief
    (Poppins, donkergroen #126425, lichtgroen #CCEFD5, mint #C2E3CC, geel #FBF59B, perzik #FCC89B, lichtblauw #BFE3ED, ronde hoeken 28px) */
 :root {

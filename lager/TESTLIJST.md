@@ -22,7 +22,7 @@ open op het andere toestel `http://<dat-adres>:8000/lager/`.
   daarmee.
 
 **Online.** Na een push naar `main` staat alles binnen de minuut op
-<https://teamict-codex.github.io/ai-voor-leerkrachten/lager/>. Dat adres is
+<https://ai.hetleercollectief.be/lager/>. Dat adres is
 openbaar, ook al linkt de leeromgeving er nog niet naar.
 
 ## Handige toevoegingen aan het adres

@@ -12,7 +12,7 @@ import { F, rond } from '../gedeeld/diorama-kern.js';
 
 // Het adres op de eindkaart. Verandert het adres bij de lancering, pas het dan
 // hier aan en neem opnieuw op.
-const ADRES = 'teamict-codex.github.io/ai-voor-leerkrachten';
+const ADRES = 'ai.hetleercollectief.be';
 const FORMATEN = { breed: [1920, 1080], vierkant: [1080, 1080], staand: [1080, 1920] };
 const FPS = 30, DUUR = 30;
 // Eén maat van de muziek duurt 2,25 seconden; elk shot duurt twee maten.

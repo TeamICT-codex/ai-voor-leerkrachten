@@ -9,8 +9,9 @@ stuk. Alles opent in een nieuw tabblad.
 
 ## Insluiten
 
-Voeg op de startpagina één ingesloten blok toe met het adres van
-`insluiten/strook.html`, over de volle breedte en 190 pixels hoog. In Google
+Voeg op de startpagina één ingesloten blok toe met het adres
+`https://ai.hetleercollectief.be/insluiten/strook.html`, over de volle breedte
+en 190 pixels hoog. In Google
 Sites: Invoegen, Insluiten, het adres plakken, en het blok even hoog slepen.
 Nog niet geprobeerd in een echte Google Sites-pagina.
 
@@ -19,8 +20,8 @@ ook tips over het aanbod voor de leerlingen van dat niveau (Leerlichtjes, of
 AI-wijs Start en AI-wijs op school). De rol van wie kijkt, kent de strook niet,
 en dat blijft zo: ze weet alleen wat de startpagina haar meegeeft.
 
-Verhuist de site naar de eigen server, dan verandert dit adres mee: pas het
-dan op elke startpagina één keer aan.
+Verandert het adres van de site nog, dan verandert dit adres mee: pas het dan
+op elke startpagina één keer aan.
 
 ## Bestanden
 
