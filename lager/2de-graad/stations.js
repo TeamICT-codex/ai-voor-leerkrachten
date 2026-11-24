@@ -231,9 +231,9 @@ function kamerSvg() {
   <rect x="18" y="70" width="30" height="4" rx="2" fill="#9c6f45"/><rect x="22" y="74" width="3" height="10" fill="#9c6f45"/><rect x="41" y="74" width="3" height="10" fill="#9c6f45"/>
   <g class="ll-speaker"><rect x="26" y="52" width="14" height="18" rx="6" fill="#3d4656"/><ellipse class="ll-ring" cx="33" cy="53" rx="6.4" ry="2.2"/>
   <path class="ll-golf" d="M44 54q4 4 0 8M48 51q7 7 0 14" fill="none" stroke="#39b4ff" stroke-width="1.6" stroke-linecap="round"/></g>
-  <path class="ll-draad" d="M40 58 C 90 20, 140 20, 176 46" fill="none" stroke="#9aa3a8" stroke-width="2" stroke-dasharray="4 4"/>
-  <g transform="translate(160 40)"><rect width="46" height="56" rx="6" fill="#e9f1f8" stroke="#bfd3e3"/><rect class="ll-server" x="7" y="9" width="32" height="8" rx="2"/><rect class="ll-server" x="7" y="22" width="32" height="8" rx="2"/><rect class="ll-server" x="7" y="35" width="32" height="8" rx="2"/></g>
-  <text x="183" y="106" font-size="7" text-anchor="middle" font-family="Poppins, sans-serif" fill="#4d4d4d">computer van het bedrijf</text>
+  <path class="ll-draad" d="M40 58 C 90 16, 140 14, 176 38" fill="none" stroke="#9aa3a8" stroke-width="2" stroke-dasharray="4 4"/>
+  <g transform="translate(160 32)"><rect width="46" height="56" rx="6" fill="#e9f1f8" stroke="#bfd3e3"/><rect class="ll-server" x="7" y="9" width="32" height="8" rx="2"/><rect class="ll-server" x="7" y="22" width="32" height="8" rx="2"/><rect class="ll-server" x="7" y="35" width="32" height="8" rx="2"/></g>
+  <text x="183" y="98" font-size="7" text-anchor="middle" font-family="Poppins, sans-serif" fill="#4d4d4d"><tspan x="183">computer van</tspan><tspan x="183" dy="8.5">het bedrijf</tspan></text>
 </svg>`;
 }
 
